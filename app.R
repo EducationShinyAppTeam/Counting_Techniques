@@ -51,7 +51,7 @@ ui <- list(
         tabItem(
           tabName = "overview",
           withMathJax(),
-          h1("Sample Application for BOAST Apps"), # This should be the full name.
+          h1("Counting Techniques"), # This should be the full name.
           p("This is a sample Shiny application for BOAST. Remember, this page
             will act like the front page (home page) of your app. Thus you will
             want to have this page catch attention and describe (in general terms)
@@ -71,7 +71,7 @@ ui <- list(
               inputId = "go1",
               label = "GO!",
               size = "large",
-              icon = icon("bolt"),
+              icon = icon("book"),
               style = "default"
             )
           ),
@@ -141,7 +141,18 @@ ui <- list(
             p-value, the more often we would expect our estimator to take on a
             value at least as extreme as what we've seen; the smaller, the less
             often."
-          )
+          ),
+          
+          div(
+            style = "text-align: center",
+            bsButton(
+              inputId = "goPre",
+              label = "GO!",
+              size = "large",
+              icon = icon("wpexplorer"),
+              style = "default"
+            )
+          ),
         ),
         #### Note: you must have at least one of the following pages. You might
         #### have more than one type and/or more than one of the same type. This
@@ -157,6 +168,17 @@ ui <- list(
             is dedicated to."),
           p("Common elements include graphs, sliders, buttons, etc."),
           p("The following comes from the NHST Caveats App:"),
+          
+          div(
+            style = "text-align: center",
+            bsButton(
+              inputId = "goExp",
+              label = "GO!",
+              size = "large",
+              icon = icon("gamepad"),
+              style = "default"
+            )
+          ),
         ),
         
         #### Set up a Game Page ----
@@ -182,6 +204,34 @@ ui <- list(
             (v0.61). [R package]. Available from
             https://CRAN.R-project.org/package=shinyBS"
           ),
+          
+          p(
+            class = "hangingindent",
+            "Carey, R. and Hatfield, N. (2020). boastUtils: BOAST Utilities. 
+            R package version 0.1.6.3. Available from 
+            https://github.com/EducationShinyAppTeam/boastUtils"
+          ),
+          
+          p(
+            class = "hangingindent",
+            "Chang, W., Cheng, J., Allaire, J., Xie, Y., and McPherson, J. 
+            (2020). shiny: Web Application Framework for R. R package version 
+            1.5.0. Available from https://CRAN.R-project.org/package=shiny"
+          ),
+          
+          p(
+            class = "hangingindent",
+            "Chang, W. and Borges Ribeiro, B. (2018). shinydashboard: 
+            Create Dashboards with 'Shiny'. R package version 0.7.1. Available 
+            from https://CRAN.R-project.org/package=shinydashboard"
+          ),
+          
+          p(
+            class = "hangingindent",
+            "Perrier, V., Meyer, F., and Granjon, D. (2020). shinyWidgets: 
+            Custom Inputs Widgets for Shiny. R package version 0.5.3. Available 
+            from https://CRAN.R-project.org/package=shinyWidgets"
+          ),
           br(),
           br(),
           br(),
@@ -206,6 +256,27 @@ server <- function(input, output, session) {
       )
     }
   )
+  
+  observeEvent(input$go1,{
+    updateTabItems(
+      session = session,
+      inputId = "pages",
+      selected = "prerequisites")
+  })
+  
+  observeEvent(input$goPre,{
+    updateTabItems(
+      session = session,
+      inputId = "pages",
+      selected = "explore")
+  })
+  
+  observeEvent(input$goExp,{
+    updateTabItems(
+      session = session,
+      inputId = "pages",
+      selected = "game")
+  })
 }
 
 # Boast App Call ----
