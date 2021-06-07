@@ -15,7 +15,7 @@ ui <- list(
     skin = "blue",
     ### Create the app header ----
     dashboardHeader(
-      title = "App Template", # You may use a shortened form of the title here
+      title = "Counting Techniques", # You may use a shortened form of the title here
       titleWidth = 250,
       tags$li(class = "dropdown", actionLink("info", icon("info"))),
       tags$li(
@@ -36,9 +36,7 @@ ui <- list(
         menuItem("Overview", tabName = "overview", icon = icon("dashboard")),
         menuItem("Prerequisites", tabName = "prerequisites", icon = icon("book")),
         menuItem("Explore", tabName = "explore", icon = icon("wpexplorer")),
-        menuItem("Challenge", tabName = "challenge", icon = icon("gears")),
         menuItem("Game", tabName = "game", icon = icon("gamepad")),
-        menuItem("Wizard", tabName = "wizard", icon = icon("hat-wizard")),
         menuItem("References", tabName = "references", icon = icon("leanpub"))
       ),
       tags$div(
@@ -82,15 +80,15 @@ ui <- list(
           br(),
           h2("Acknowledgements"),
           p(
-            "This version of the app was developed and coded by Neil J.
-            Hatfield  and Robert P. Carey, III.",
+            "This version of the app was developed and coded by Kellien Peritz and 
+            Shravani Samala.",
             br(),
-            "We would like to extend a special thanks to the Shiny Program
-            Students.",
+            "We would like to extend a special thanks to Dr. Dennis Pearl for providing 
+            the question bank.",
             br(),
             br(),
             br(),
-            div(class = "updated", "Last Update: 5/19/2021 by NJH.")
+            div(class = "updated", "Last Update: 6/7/2021 by NJH.")
           )
         ),
         #### Set up the Prerequisites Page ----
@@ -160,19 +158,7 @@ ui <- list(
           p("Common elements include graphs, sliders, buttons, etc."),
           p("The following comes from the NHST Caveats App:"),
         ),
-        #### Set up a Challenge Page ----
-        tabItem(
-          tabName = "challenge",
-          withMathJax(),
-          h2("Challenge Yourself"),
-          p("The general intent of a Challenge page is to have the user take
-            what they learned in an Exploration and apply that knowledge in new
-            contexts/situations. In essence, to have them challenge their
-            understanding by testing themselves."),
-          p("What this page looks like will be up to you. Something you might
-            consider is to re-create the tools of the Exploration page and then
-            a list of questions for the user to then answer.")
-        ),
+        
         #### Set up a Game Page ----
         tabItem(
           tabName = "game",
@@ -182,16 +168,7 @@ ui <- list(
             Game types include Tic-Tac-Toe, Matching, and a version Hangman to
             name a few. If you have ideas for new game type, please let us know.")
         ),
-        #### Set up a Wizard Page ----
-        tabItem(
-          tabName = "wizard",
-          withMathJax(),
-          h2("Wizard"),
-          p("This page will have a series of inputs and questions for the user to
-            answer/work through in order to have the app create something. These
-            types of Activity pages are currently rare as we try to avoid
-            creating 'calculators' in the BOAST project.")
-        ),
+        
         #### Set up the References Page ----
         tabItem(
           tabName = "references",
