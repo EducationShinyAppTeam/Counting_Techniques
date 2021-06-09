@@ -106,14 +106,82 @@ ui <- list(
                     way you solve a problem (ex.At most vs At least)")
           ),
           br(), 
-          br(), 
+          h3("Counting Techniques"),
           fluidRow(
             box(
-              title = strong("Null Hypothesis Significance Tests (NHSTs)"),
+              withMathJax(), 
+              title = strong("Combinations"),
               status = "primary",
               collapsible = TRUE,
               collapsed = TRUE,
               width = 6,
+              tags$ul(
+                tags$li("Combinations of ", tags$em("n"), "objects taken ", 
+                        tags$em("r"), "at a time"), 
+                tags$li("Number of ", tags$em("unordered"), "subsets")
+              )
+            ),
+            box(
+              title = strong("Permutations"),
+              status = "primary",
+              collapsible = TRUE,
+              collapsed = TRUE,
+              width = 6,
+              p("If there are:"),
+              tags$ul( 
+                tags$li(tags$em("n"), "choices for the 1st position"), 
+                tags$li(tags$em("n-1"), "choices for the 2nd position"), 
+                tags$li(tags$em("n-2"), "choices for the 3rd position"), 
+                tags$li("Then nPr or permutations of ", tags$em("n"), "objects
+                        taken", tags$em("n"), "at a time = "), 
+                tags$li("n * (n - 1) * (n - 2) * ... * 1 = n!")
+              )
+            )
+          ),
+          
+          fluidRow(
+            box(
+              title = strong("Distinguishable Permutations"),
+              status = "primary",
+              collapsible = TRUE,
+              collapsed = TRUE,
+              width = 6,
+              p("Number of distinguishable permutations of ", tags$em("n"), "objects:"),
+              tags$ul( 
+                tags$li(tags$em("n1"), "of object one"), 
+                tags$li(tags$em("n2"), "of object two"), 
+                tags$li(tags$em("nk"), "of object k"), 
+                tags$li("Then nPr or permutations of ", tags$em("n"), "objects
+                        taken", tags$em("n"), "at a time = "), 
+                tags$li("n * (n - 1) * (n - 2) * ... * 1 = n!")
+              )
+            ),
+            box(
+              title = strong("Multiplication Principle"),
+              status = "primary",
+              collapsible = TRUE,
+              collapsed = TRUE,
+              width = 6,
+              p("If there are: "),
+              tags$ul( 
+                tags$li(tags$em("n1"), "outcomes of experiment one"), 
+                tags$li(tags$em("n2"), "outcomes of experiment two"), 
+                tags$li(tags$em("nm"), "outcomes of experiment m"), 
+                tags$li("Then the number of total outcomes from all experiments", 
+                        tags$em("E1, E2,... Em"), "="), 
+                tags$li("n1 * n2 * n3 * ... * nm")
+              )
+            )
+          ),
+          br(), 
+          h3("Binomial Probability: Exactly vs. At Most vs. At Least"), 
+          fluidRow(
+            box(
+              title = strong("Exactly"),
+              status = "primary",
+              collapsible = TRUE,
+              collapsed = TRUE,
+              width = 4,
               "In the Confirmatory Data Analysis tradition, null hypothesis
               significance tests serve as a critical tool to confirm that a
               particular theoretical model describes our data and to make a
@@ -126,11 +194,27 @@ ui <- list(
               simple model (null hypothesis)."
             ),
             box(
-              title = strong(tags$em("p"), "-values"),
+              title = strong("At Most"),
               status = "primary",
               collapsible = TRUE,
               collapsed = TRUE,
-              width = 6,
+              width = 4,
+              "The probability that our selected estimator takes on a value at
+              least as extreme as what we observed given our null hypothesis. If
+              we were to carry out our study infinitely many times and the null
+              hypothesis accurately modeled what we're studying, then we would
+              expect for our estimator to produce a value at least as extreme as
+              what we have seen 100*(p-value)% of the time. The larger the
+              p-value, the more often we would expect our estimator to take on a
+              value at least as extreme as what we've seen; the smaller, the less
+              often."
+            ), 
+            box(
+              title = strong("At Least"),
+              status = "primary",
+              collapsible = TRUE,
+              collapsed = TRUE,
+              width = 4,
               "The probability that our selected estimator takes on a value at
               least as extreme as what we observed given our null hypothesis. If
               we were to carry out our study infinitely many times and the null
