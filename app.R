@@ -52,18 +52,19 @@ ui <- list(
           tabName = "overview",
           withMathJax(),
           h1("Counting Techniques"), # This should be the full name.
-          p("This is a sample Shiny application for BOAST. Remember, this page
-            will act like the front page (home page) of your app. Thus you will
-            want to have this page catch attention and describe (in general terms)
-            what the user can do in the rest of the app."),
+          p("This app is designed to teach and review combinatorics, permutations
+            , and other basic counting principles."),
           h2("Instructions"),
-          p("This information will change depending on what you want to do."),
           tags$ol(
-            tags$li("Review any prerequiste ideas using the Prerequistes tab."),
-            tags$li("Explore the Exploration Tab."),
-            tags$li("Challenge yourself."),
-            tags$li("Play the game to test how far you've come.")
+            tags$li("Review the Prerequistes tab to learn about the different
+                    counting techniques as well as how to use context and/or wording
+                    fromthe problem to solve it."),
+            tags$li("Use the Explore page to practice counting techniques through 
+                    clothing-related scenarios."),
+            tags$li("Use the Challenge page to further practice counting techniques
+                    through poker-style scenarios.")
           ),
+          
           ##### Go Button--location will depend on your goals ----
           div(
             style = "text-align: center",
@@ -99,50 +100,48 @@ ui <- list(
           p("In order to get the most out of this app, please review the
             following:"),
           tags$ul(
-            tags$li("Pre-req 1--Technical/Conceptual Prerequisites are ideas that
-                    users need to have in order to engage with your app fully."),
-            tags$li("Pre-req 2--Contextual Prerequisites refer to any information
-                    about a context in your app that will enrich a user's
-                    understandings."),
-            tags$li("Pre-req 3"),
-            tags$li("Pre-req 4")
+            tags$li("The difference between combinations, and the other counting 
+                    techniques."),
+            tags$li("Understand how different wording in a problem changes the
+                    way you solve a problem (ex.At most vs At least)")
           ),
-          p("Notice the use of an unordered list; users can move through the
-            list any way they wish."),
-          box(
-            title = strong("Null Hypothesis Significance Tests (NHSTs)"),
-            status = "primary",
-            collapsible = TRUE,
-            collapsed = TRUE,
-            width = '100%',
-            "In the Confirmatory Data Analysis tradition, null hypothesis
-            significance tests serve as a critical tool to confirm that a
-            particular theoretical model describes our data and to make a
-            generalization from our sample to the broader population
-            (i.e., make an inference). The null hypothesis often reflects the
-            simpler of two models (e.g., 'no statistical difference',
-            'there is an additive difference of 1', etc.) that we will use to
-            build a sampling distribution for our chosen estimator. These
-            methods let us test whether our sample data are consistent with this
-            simple model (null hypothesis)."
+          br(), 
+          br(), 
+          fluidRow(
+            box(
+              title = strong("Null Hypothesis Significance Tests (NHSTs)"),
+              status = "primary",
+              collapsible = TRUE,
+              collapsed = TRUE,
+              width = 6,
+              "In the Confirmatory Data Analysis tradition, null hypothesis
+              significance tests serve as a critical tool to confirm that a
+              particular theoretical model describes our data and to make a
+              generalization from our sample to the broader population
+              (i.e., make an inference). The null hypothesis often reflects the
+              simpler of two models (e.g., 'no statistical difference',
+              'there is an additive difference of 1', etc.) that we will use to
+              build a sampling distribution for our chosen estimator. These
+              methods let us test whether our sample data are consistent with this
+              simple model (null hypothesis)."
+            ),
+            box(
+              title = strong(tags$em("p"), "-values"),
+              status = "primary",
+              collapsible = TRUE,
+              collapsed = TRUE,
+              width = 6,
+              "The probability that our selected estimator takes on a value at
+              least as extreme as what we observed given our null hypothesis. If
+              we were to carry out our study infinitely many times and the null
+              hypothesis accurately modeled what we're studying, then we would
+              expect for our estimator to produce a value at least as extreme as
+              what we have seen 100*(p-value)% of the time. The larger the
+              p-value, the more often we would expect our estimator to take on a
+              value at least as extreme as what we've seen; the smaller, the less
+              often."
+            )
           ),
-          box(
-            title = strong(tags$em("p"), "-values"),
-            status = "primary",
-            collapsible = TRUE,
-            collapsed = FALSE,
-            width = '100%',
-            "The probability that our selected estimator takes on a value at
-            least as extreme as what we observed given our null hypothesis. If
-            we were to carry out our study infinitely many times and the null
-            hypothesis accurately modeled what we're studying, then we would
-            expect for our estimator to produce a value at least as extreme as
-            what we have seen 100*(p-value)% of the time. The larger the
-            p-value, the more often we would expect our estimator to take on a
-            value at least as extreme as what we've seen; the smaller, the less
-            often."
-          ),
-          
           div(
             style = "text-align: center",
             bsButton(
@@ -152,7 +151,7 @@ ui <- list(
               icon = icon("wpexplorer"),
               style = "default"
             )
-          ),
+          )
         ),
         #### Note: you must have at least one of the following pages. You might
         #### have more than one type and/or more than one of the same type. This
@@ -178,7 +177,7 @@ ui <- list(
               icon = icon("gamepad"),
               style = "default"
             )
-          ),
+          )
         ),
         
         #### Set up a Game Page ----
