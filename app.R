@@ -109,7 +109,6 @@ ui <- list(
           h3("Counting Techniques"),
           fluidRow(
             box(
-              withMathJax(), 
               title = strong("Combinations"),
               status = "primary",
               collapsible = TRUE,
@@ -118,7 +117,8 @@ ui <- list(
               tags$ul(
                 tags$li("Combinations of ", tags$em("n"), "objects taken ", 
                         tags$em("r"), "at a time"), 
-                tags$li("Number of ", tags$em("unordered"), "subsets")
+                tags$li("Number of ", tags$em("unordered"), "subsets"), 
+                tags$li(helpText("{n}C_{r}=\frac{n!}{r!(n-r)!}"))
               )
             ),
             box(
@@ -169,7 +169,7 @@ ui <- list(
                 tags$li(tags$em("nm"), "outcomes of experiment m"), 
                 tags$li("Then the number of total outcomes from all experiments", 
                         tags$em("E1, E2,... Em"), "="), 
-                tags$li("n1 * n2 * n3 * ... * nm")
+                tags$li("n1 * n2 * n3 * ... * nm = n!")
               )
             )
           ),
