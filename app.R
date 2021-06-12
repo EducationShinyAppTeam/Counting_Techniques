@@ -112,29 +112,30 @@ ui <- list(
               title = strong("Combinations"),
               status = "primary",
               collapsible = TRUE,
-              collapsed = TRUE,
+              collapsed = FALSE,
               width = 6,
+              p("If there are:"),
               tags$ul(
-                tags$li("Combinations of ", tags$em("n"), "objects taken ", 
-                        tags$em("r"), "at a time"), 
-                tags$li("Number of ", tags$em("unordered"), "subsets"), 
-                tags$li(helpText("{n}C_{r}=\frac{n!}{r!(n-r)!}"))
+                tags$li("\\({n}\\) objects to be taken \\({r}\\) at a time"), 
+                tags$li("Number of ", tags$em("unordered"), "subsets or Combinations is "), 
+                tags$li("\\(_{n}C_{r}=\\dfrac{n!}{r!(n-r)!}\\)")
               )
             ),
             box(
               title = strong("Permutations"),
               status = "primary",
               collapsible = TRUE,
-              collapsed = TRUE,
+              collapsed = FALSE,
               width = 6,
               p("If there are:"),
               tags$ul( 
-                tags$li(tags$em("n"), "choices for the 1st position"), 
-                tags$li(tags$em("n-1"), "choices for the 2nd position"), 
-                tags$li(tags$em("n-2"), "choices for the 3rd position"), 
+                tags$li("\\({n}\\) choices for the \\(1^{st}\\) position"), 
+                tags$li("\\({n-1}\\) choices for the \\(2^{nd}\\) position"), 
+                tags$li("\\({n-2}\\) choices for the \\(3^{rd}\\) position"), 
                 tags$li("Then nPr or permutations of ", tags$em("n"), "objects
-                        taken", tags$em("n"), "at a time = "), 
-                tags$li("n * (n - 1) * (n - 2) * ... * 1 = n!")
+                        that can be arranged in ", ("r"), "at a time or ordered 
+                        subsets is "), 
+                tags$li("\\(_{n}P_{r}=\\dfrac{n!}{(n-r)!}\\)")
               )
             )
           ),
@@ -144,32 +145,32 @@ ui <- list(
               title = strong("Distinguishable Permutations"),
               status = "primary",
               collapsible = TRUE,
-              collapsed = TRUE,
+              collapsed = FALSE,
               width = 6,
               p("Number of distinguishable permutations of ", tags$em("n"), "objects:"),
               tags$ul( 
-                tags$li(tags$em("n1"), "of object one"), 
-                tags$li(tags$em("n2"), "of object two"), 
-                tags$li(tags$em("nk"), "of object k"), 
+                tags$li("\\(n_{1}\\) of the \\(1^{st}\\) object."),
+                tags$li("\\(n_{2}\\) of the \\(2^{nd}\\) object."),
+                tags$li("\\(n_{k}\\) of the \\(k^{th}\\) object."),
                 tags$li("Then nPr or permutations of ", tags$em("n"), "objects
-                        taken", tags$em("n"), "at a time = "), 
-                tags$li("n * (n - 1) * (n - 2) * ... * 1 = n!")
+                        taken", tags$em("n"), "at a time is "),
+                tags$li("\\(P=\\binom{n}{(n_{1}!)(n_{2}!)\\cdots(n_{k}!)}\\)")
               )
             ),
             box(
               title = strong("Multiplication Principle"),
               status = "primary",
               collapsible = TRUE,
-              collapsed = TRUE,
+              collapsed = FALSE,
               width = 6,
               p("If there are: "),
               tags$ul( 
-                tags$li(tags$em("n1"), "outcomes of experiment one"), 
-                tags$li(tags$em("n2"), "outcomes of experiment two"), 
-                tags$li(tags$em("nm"), "outcomes of experiment m"), 
+                tags$li(("\\({n_{1}}\\)"), "outcomes of experiment one"), 
+                tags$li(("\\({n_{2}}\\)"), "outcomes of experiment two"), 
+                tags$li(("\\({n_{m}}\\)"), "outcomes of experiment m"), 
                 tags$li("Then the number of total outcomes from all experiments", 
-                        tags$em("E1, E2,... Em"), "="), 
-                tags$li("n1 * n2 * n3 * ... * nm = n!")
+                        ("\\({E_{1},E_{2},E_{3}=}\\)")), 
+                tags$li("\\({(n_{1})\\times(n_{2})\\times(n_{3})\\times\\cdots\\times(n_{m})= n!}\\)")
               )
             )
           ),
@@ -180,52 +181,95 @@ ui <- list(
               title = strong("Exactly"),
               status = "primary",
               collapsible = TRUE,
-              collapsed = TRUE,
+              collapsed = FALSE,
               width = 4,
-              "In the Confirmatory Data Analysis tradition, null hypothesis
-              significance tests serve as a critical tool to confirm that a
-              particular theoretical model describes our data and to make a
-              generalization from our sample to the broader population
-              (i.e., make an inference). The null hypothesis often reflects the
-              simpler of two models (e.g., 'no statistical difference',
-              'there is an additive difference of 1', etc.) that we will use to
-              build a sampling distribution for our chosen estimator. These
-              methods let us test whether our sample data are consistent with this
-              simple model (null hypothesis)."
+              p("The probability of obtaining exactly", tags$em("r"), "events 
+                in ", tags$em("n"), "trials = "), 
+              p("\\(P(X=r)=\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
+              p("where ", tags$em("p"), "is the probability of success")
+              
             ),
             box(
               title = strong("At Most"),
               status = "primary",
               collapsible = TRUE,
-              collapsed = TRUE,
+              collapsed = FALSE,
               width = 4,
-              "The probability that our selected estimator takes on a value at
-              least as extreme as what we observed given our null hypothesis. If
-              we were to carry out our study infinitely many times and the null
-              hypothesis accurately modeled what we're studying, then we would
-              expect for our estimator to produce a value at least as extreme as
-              what we have seen 100*(p-value)% of the time. The larger the
-              p-value, the more often we would expect our estimator to take on a
-              value at least as extreme as what we've seen; the smaller, the less
-              often."
+              p("The probability of obtaining ", tags$strong("at most"), tags$em("r"), 
+                "from", tags$em("n"), "trials = "), 
+              p("\\(P(X\\le{r})=\\sum_{i=0}^r\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
+              p("where ", tags$em("p"), "is the probability of success")
+              
+              
             ), 
             box(
               title = strong("At Least"),
               status = "primary",
               collapsible = TRUE,
-              collapsed = TRUE,
+              collapsed = FALSE,
               width = 4,
-              "The probability that our selected estimator takes on a value at
-              least as extreme as what we observed given our null hypothesis. If
-              we were to carry out our study infinitely many times and the null
-              hypothesis accurately modeled what we're studying, then we would
-              expect for our estimator to produce a value at least as extreme as
-              what we have seen 100*(p-value)% of the time. The larger the
-              p-value, the more often we would expect our estimator to take on a
-              value at least as extreme as what we've seen; the smaller, the less
-              often."
+              p("The probability of obtaining ", tags$strong("at least"), tags$em("r"), 
+                "from", tags$em("n"), "trials = "),
+              p("\\(P(X\\ge{r})=\\sum_{i=0}^r\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\) or"), 
+              p("\\(1-P(X\\le{r})\\)"),
+              p("where ", tags$em("p"), "is the probability of success")
+              
+              
             )
-          ),
+          ), 
+            br(), 
+            h3("Example Problems"), 
+            fluidRow(
+              box(
+                title = strong("Combinations Example"),
+                status = "primary",
+                collapsible = TRUE,
+                collapsed = FALSE,
+                width = 12,
+               
+                
+              ),
+              box(
+                title = strong("Permutations Example"),
+                status = "primary",
+                collapsible = TRUE,
+                collapsed = FALSE,
+                width = 12,
+                
+                
+                
+              ), 
+              box(
+                title = strong("Distinguishable Permutations Example"),
+                status = "primary",
+                collapsible = TRUE,
+                collapsed = FALSE,
+                width = 12,
+                
+  
+              ),
+              
+              box(
+                title = strong("Multiplication Principle Example"),
+                status = "primary",
+                collapsible = TRUE,
+                collapsed = FALSE,
+                width = 12,
+                
+                
+              ),
+              
+              box(
+                title = strong("Wording Context Change Example"),
+                status = "primary",
+                collapsible = TRUE,
+                collapsed = FALSE,
+                width = 12,
+                
+                
+              )
+            ),
+          
           div(
             style = "text-align: center",
             bsButton(
