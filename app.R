@@ -186,9 +186,11 @@ ui <- list(
               p("The probability of obtaining exactly", tags$em("r"), "events 
                 in ", tags$em("n"), "trials = "), 
               p("\\(P(X=r)=\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
-              p("where ", tags$em("p"), "is the probability of success")
-              
+              p("where ", tags$em("p"), "is the probability of success"), 
+              br(), 
+              br()
             ),
+            
             box(
               title = strong("At Most"),
               status = "primary",
@@ -198,10 +200,11 @@ ui <- list(
               p("The probability of obtaining ", tags$strong("at most"), tags$em("r"), 
                 "from", tags$em("n"), "trials = "), 
               p("\\(P(X\\le{r})=\\sum_{i=0}^r\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
-              p("where ", tags$em("p"), "is the probability of success")
-              
-              
-            ), 
+              p("where ", tags$em("p"), "is the probability of success"), 
+              br(), 
+              br()
+            ),
+            
             box(
               title = strong("At Least"),
               status = "primary",
@@ -213,10 +216,9 @@ ui <- list(
               p("\\(P(X\\ge{r})=\\sum_{i=0}^r\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\) or"), 
               p("\\(1-P(X\\le{r})\\)"),
               p("where ", tags$em("p"), "is the probability of success")
-              
-              
             )
           ), 
+          
             br(), 
             h3("Example Problems"), 
             fluidRow(
@@ -226,19 +228,29 @@ ui <- list(
                 collapsible = TRUE,
                 collapsed = FALSE,
                 width = 12,
-               
-                
+                p("There are five different types of cheese that one can  use 
+                  for a cheese platter. However they can only choose three to go 
+                  on the plate. How many ways can three cheeses be chosen from 
+                  the five types?"), 
+                p("Answer: \\(_{5}C_{3}=\\dfrac{5!}{3!(5-3)!}=10\\)") 
               ),
+              
               box(
                 title = strong("Permutations Example"),
                 status = "primary",
                 collapsible = TRUE,
                 collapsed = FALSE,
                 width = 12,
-                
-                
-                
+                p("Choosing from the 6 letters ABCDEF, how many ways can three 
+                  letters be arranged?"), 
+                p("Answer: \\(_{6}P_{3}=\\dfrac{6!}{(6-3)!}=120\\)"), 
+                p(tags$b("Note: "),"Notice we must use the formula for permutations
+                  and not combinations because ", tags$b("order matters"), "in 
+                  this situation. For permutations, the group \\(ABC\\) 
+                  is different from \\(CAB\\). If this was a combination
+                  quesion, \\(ABC\\) and \\(CAB\\) would be considered one combination.")
               ), 
+              
               box(
                 title = strong("Distinguishable Permutations Example"),
                 status = "primary",
