@@ -154,7 +154,8 @@ ui <- list(
                 tags$li("\\(n_{k}\\) of the \\(k^{th}\\) object."),
                 tags$li("Then nPr or permutations of ", tags$em("n"), "objects
                         taken", tags$em("n"), "at a time is "),
-                tags$li("\\(P=\\binom{n}{(n_{1}!)(n_{2}!)\\cdots(n_{k}!)}\\)")
+                tags$li("\\(P=\\binom{n}{(n_{1})(n_{2})\\cdots(n_{k})}=\\dfrac{n!}{(n_{1})!(n_{2})!(n_{3})\\cdots(n_{k})!}\\)")
+                ### ask how to line up the equal signs for the n!/n
               )
             ),
             box(
@@ -257,8 +258,16 @@ ui <- list(
                 collapsible = TRUE,
                 collapsed = FALSE,
                 width = 12,
-                
-  
+                p("How many ordered arrangements are there of the word 'Bookkeeper'?"), 
+                p("Answer: \\(\\binom{10}{(1)(2)(2)(3)(1)(1)}=\\dfrac{10!}{(1!)(2!)(2!)(3!)(1!)(1!)}\\)"), #Calculate this answer
+                tags$ul(
+                  tags$li("There is one letter \\(B\\)"), 
+                  tags$li("There are two letter \\(O's\\)"),
+                  tags$li("There are two letter \\(K's\\)"), 
+                  tags$li("There are three letters \\(E's\\)"), 
+                  tags$li("There is one letter \\(P\\)"), 
+                  tags$li("There is one letter \\(R\\)")
+                )
               ),
               
               box(
