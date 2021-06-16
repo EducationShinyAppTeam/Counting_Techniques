@@ -154,7 +154,7 @@ ui <- list(
                 tags$li("\\(n_{k}\\) of the \\(k^{th}\\) object."),
                 tags$li("Then nPr or permutations of ", tags$em("n"), "objects
                         taken", tags$em("n"), "at a time is "),
-                tags$li("\\(P=\\binom{n}{(n_{1})(n_{2})\\cdots(n_{k})}=\\dfrac{n!}{(n_{1})!(n_{2})!(n_{3})\\cdots(n_{k})!}\\)")
+                tags$li("\\(P=\\binom{n}{(n_{1})(n_{2})\\cdots(n_{k})}=\\dfrac{n!}{(n_{1})!(n_{2})!(n_{3})!\\cdots(n_{k})!}\\)")
                 ### ask how to line up the equal signs for the n!/n
               )
             ),
@@ -214,7 +214,7 @@ ui <- list(
               width = 4,
               p("The probability of obtaining ", tags$strong("at least"), tags$em("r"), 
                 "from", tags$em("n"), "trials = "),
-              p("\\(P(X\\ge{r})=\\sum_{i=0}^r\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\) or"), 
+              p("\\(P(X\\ge{r})=\\sum_{i=r}^n\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\) or"), 
               p("\\(1-P(X\\le{r})\\)"),
               p("where ", tags$em("p"), "is the probability of success")
             )
@@ -276,6 +276,9 @@ ui <- list(
                 collapsible = TRUE,
                 collapsed = FALSE,
                 width = 12,
+                p("If there are 9 appetizers, 12 entrees, and 5 desserts, how many
+                  meals can you make?"),
+                p("Answer:", tags$em(tags$strong("Number of Meals")),"\\(=(9)\\times(12)\\times(5)=540\\)")
                 
                 
               ),
@@ -286,9 +289,35 @@ ui <- list(
                 collapsible = TRUE,
                 collapsed = FALSE,
                 width = 12,
-                
-                
-              )
+                p("The probability that a person has traveled out of the country 
+                  is 35%. Out of the 70 people chosen:"), 
+                tags$ol(
+                  tags$li("What is the probability that", tags$strong("exactly"), 
+                          "21 people have traveled outside of the country?",
+                      tags$ul(
+                          tags$li("\\(P(X=21)=\\binom{70}{21}\\cdot(0.35^{21})
+                                  \\cdot(0.65^{70-21})=0.69845\\)")
+                        )),
+                  br(), 
+                  tags$li("What is the probability that", tags$strong("at most"), 
+                          "21 people have traveled outside of the country?",
+                      tags$ul(
+                          tags$li("\\(P(X\\le{21})=\\sum_{i=0}^{21}\\binom{70}{i}
+                                  \\cdot(0.35^{i})\\cdot(0.65^{70-i})=0.22787\\)")
+                        )),
+                  br(),
+                  tags$li("What is the probability that", tags$strong("at least"), 
+                          "21 people have traveled outside of the country?", 
+                      tags$ul(
+                          tags$li("\\(P(X\\ge{21})=\\sum_{i=21}^{70}\\binom{70}{i}
+                                  \\cdot(0.35^{i})\\cdot(0.65^{70-i})=0.84197\\)"), 
+                          #tags$li(tags$strong("OR")), 
+                          tags$li("\\(1-P(X\\le{21})=\\sum_{i=0}^{20}\\binom{70}{i}
+                                  \\cdot(0.35^{i})\\cdot(0.65^{70-i})=0.84197\\)")
+                          
+                      )),
+                  )
+                )
             ),
           
           div(
