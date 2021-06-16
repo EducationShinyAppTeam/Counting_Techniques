@@ -221,6 +221,36 @@ ui <- list(
           ), 
           
             br(), 
+          
+          div(
+            style = "text-align: center",
+            bsButton(
+              inputId = "goPre",
+              label = "GO!",
+              size = "large",
+              icon = icon("wpexplorer"),
+              style = "default"
+            )
+          )
+        ),
+        #### Note: you must have at least one of the following pages. You might
+        #### have more than one type and/or more than one of the same type. This
+        #### will be up to you and the goals for your app.
+        #### Set up an Explore Page
+        tabItem(
+          tabName = "explore",
+          withMathJax(),
+          h2("Explore the Concept"),
+          tabsetPanel(
+          tabPanel(
+            title = "Exploring Counting Techniques",
+            br(),
+            p("Hello, we're still working on the game")
+          ),
+          
+          tabPanel(
+            title = "Example Questions", 
+            br(),
             h3("Example Problems"), 
             fluidRow(
               box(
@@ -294,58 +324,34 @@ ui <- list(
                 tags$ol(
                   tags$li("What is the probability that", tags$strong("exactly"), 
                           "21 people have traveled outside of the country?",
-                      tags$ul(
-                          tags$li("\\(P(X=21)=\\binom{70}{21}\\cdot(0.35^{21})
+                          tags$ul(
+                            tags$li("\\(P(X=21)=\\binom{70}{21}\\cdot(0.35^{21})
                                   \\cdot(0.65^{70-21})=0.69845\\)")
-                        )),
+                          )),
                   br(), 
                   tags$li("What is the probability that", tags$strong("at most"), 
                           "21 people have traveled outside of the country?",
-                      tags$ul(
-                          tags$li("\\(P(X\\le{21})=\\sum_{i=0}^{21}\\binom{70}{i}
+                          tags$ul(
+                            tags$li("\\(P(X\\le{21})=\\sum_{i=0}^{21}\\binom{70}{i}
                                   \\cdot(0.35^{i})\\cdot(0.65^{70-i})=0.22787\\)")
-                        )),
+                          )),
                   br(),
                   tags$li("What is the probability that", tags$strong("at least"), 
                           "21 people have traveled outside of the country?", 
-                      tags$ul(
-                          tags$li("\\(P(X\\ge{21})=\\sum_{i=21}^{70}\\binom{70}{i}
+                          tags$ul(
+                            tags$li("\\(P(X\\ge{21})=\\sum_{i=21}^{70}\\binom{70}{i}
                                   \\cdot(0.35^{i})\\cdot(0.65^{70-i})=0.84197\\)"), 
-                          #tags$li(tags$strong("OR")), 
-                          tags$li("\\(1-P(X\\le{21})=\\sum_{i=0}^{20}\\binom{70}{i}
+                            #tags$li(tags$strong("OR")), 
+                            tags$li("\\(1-P(X\\le{21})=\\sum_{i=0}^{20}\\binom{70}{i}
                                   \\cdot(0.35^{i})\\cdot(0.65^{70-i})=0.84197\\)")
-                          
-                      )),
-                  )
+                            
+                          )),
                 )
+              )
             ),
-          
-          div(
-            style = "text-align: center",
-            bsButton(
-              inputId = "goPre",
-              label = "GO!",
-              size = "large",
-              icon = icon("wpexplorer"),
-              style = "default"
-            )
+            
           )
-        ),
-        #### Note: you must have at least one of the following pages. You might
-        #### have more than one type and/or more than one of the same type. This
-        #### will be up to you and the goals for your app.
-        #### Set up an Explore Page
-        tabItem(
-          tabName = "explore",
-          withMathJax(),
-          h2("Explore the Concept"),
-          p("This page should include something for the user to do, the more
-            active and engaging, the better. The purpose of this page is to help
-            the user build a productive understanding of the concept your app
-            is dedicated to."),
-          p("Common elements include graphs, sliders, buttons, etc."),
-          p("The following comes from the NHST Caveats App:"),
-          
+          ),
           div(
             style = "text-align: center",
             bsButton(
