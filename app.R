@@ -4,6 +4,7 @@ library(shinydashboard)
 library(shinyBS)
 library(shinyWidgets)
 library(boastUtils)
+library(png)
 
 # Load additional dependencies and setup functions
 # source("global.R")
@@ -47,7 +48,7 @@ ui <- list(
     ### Create the content ----
     dashboardBody(
       tabItems(
-        #### Set up the Overview Page ----
+        #### Overview Page ----
         tabItem(
           tabName = "overview",
           withMathJax(),
@@ -65,7 +66,6 @@ ui <- list(
                     through poker-style scenarios.")
           ),
           
-          ##### Go Button--location will depend on your goals ----
           div(
             style = "text-align: center",
             bsButton(
@@ -76,7 +76,6 @@ ui <- list(
               style = "default"
             )
           ),
-          ##### Create two lines of space ----
           br(),
           br(),
           h2("Acknowledgements"),
@@ -92,7 +91,8 @@ ui <- list(
             div(class = "updated", "Last Update: 6/7/2021 by NJH.")
           )
         ),
-        #### Set up the Prerequisites Page ----
+        
+        #### Prerequisites Page ----
         tabItem(
           tabName = "prerequisites",
           withMathJax(),
@@ -233,10 +233,8 @@ ui <- list(
             )
           )
         ),
-        #### Note: you must have at least one of the following pages. You might
-        #### have more than one type and/or more than one of the same type. This
-        #### will be up to you and the goals for your app.
-        #### Set up an Explore Page
+
+#### Explore Page ---- 
         tabItem(
           tabName = "explore",
           withMathJax(),
@@ -247,83 +245,116 @@ ui <- list(
             br(),
             fluidRow(
               column(
-                width = 2.4, 
-                offset = 1, 
-                
-                  tags$figure(
-                    align = "center", 
-                    tags$img(
-                      src = "3-heart.png", 
-                      width = 50, 
-                      alt = "3 of Hearts."
-                    ), 
-                    tags$figcaption("3 of Hearts")
-                  )
-                
-              ), 
-              column(
-                width = 2.4, 
-                offset = 2, 
-                
-                
-                  tags$figure(
-                    align = "center", 
-                    tags$img(
-                      src = "3-heart.png", 
-                      width = 50, 
-                      alt = "3 of Hearts."
-                    ), 
-                    tags$figcaption("3 of Hearts")
-                  )
-                
-              ), 
-              column(
-                width = 2.4, 
-                offset = 3, 
-                
-                
-                  tags$figure(
-                    align = "center", 
-                    tags$img(
-                      src = "3-heart.png", 
-                      width = 50, 
-                      alt = "3 of Hearts."
-                    ), 
-                    tags$figcaption("3 of Hearts")
-                  )
-                
-              ), 
-              column(
-                width = 2.4, 
-                offset = 4, 
-                
+                width = 1,
+                offset = 1,
                 tags$figure(
-                  align = "center", 
+                  align = "center",
                   tags$img(
-                    src = "3-heart.png", 
-                    width = 50, 
-                    alt = "3 of Hearts."
-                  ), 
-                  tags$figcaption("3 of Hearts")
-                  
+                    src = "tshirt-solid.jpg",
+                    width = 75
+                  )
                 )
-              ), 
+              ),
               column(
-                width = 2.4, 
-                offset = 5, 
+                width = 1,
+                offset = 0,
                 tags$figure(
-                  align = "center", 
+                  align = "center",
                   tags$img(
-                    src = "3-heart.png", 
-                    width = 50, 
-                    alt = "3 of Hearts."
-                  ), 
-                  tags$figcaption("3 of Hearts")
-                  
+                    src = "tshirt-stripe.jpg",
+                    width = 75
+                  )
+                )
+              ),
+              column(
+                width = 1,
+                offset = 0,
+                tags$figure(
+                  align = "center",
+                  tags$img(
+                    src = "hoodie-solid.jpg",
+                    width = 75
+                  )
+                )
+              ),
+              column(
+                width = 1,
+                offset = 0,
+                tags$figure(
+                  align = "center",
+                  tags$img(
+                    src = "hoodie-stripe.jpg",
+                    width = 75
+                  )
+                )
+              ),
+              column(
+                width = 1,
+                offset = 0,
+                tags$figure(
+                  align = "center",
+                  tags$img(
+                    src = "pants-solid.jpg",
+                    width = 75
+                  )
+                )
+              ),
+              column(
+                width = 1,
+                offset = 0,
+                tags$figure(
+                  align = "center",
+                  tags$img(
+                    src = "pants-stripe.jpg",
+                    width = 75
+                  )
+                )
+              ),
+              column(
+                width = 1,
+                offset = 0,
+                tags$figure(
+                  align = "center",
+                  tags$img(
+                    src = "shorts-solid.jpg",
+                    width = 75
+                  )
+                )
+              ),
+              column(
+                width = 1,
+                offset = 0,
+                tags$figure(
+                  align = "center",
+                  tags$img(
+                    src = "shorts-stripe.jpg",
+                    width = 75
+                  )
+                )
+              ),
+              column(
+                width = 1,
+                offset = 0,
+                tags$figure(
+                  align = "center",
+                  tags$img(
+                    src = "checker-shoes.jpg",
+                    width = 75
+                  )
+                )
+              ),
+              column(
+                width = 1,
+                offset = 0,
+                tags$figure(
+                  align = "center",
+                  tags$img(
+                    src = "psu-adidas.jpg",
+                    width = 75
+                  )
                 )
               )
-            
-            ) 
+            )
           ),
           
           tabPanel(
@@ -387,8 +418,6 @@ ui <- list(
                 p("If there are 9 appetizers, 12 entrees, and 5 desserts, how many
                   meals can you make?"),
                 p("Answer:", tags$em(tags$strong("Number of Meals")),"\\(=(9)\\times(12)\\times(5)=540\\)")
-                
-                
               ),
               
               box(
@@ -426,8 +455,7 @@ ui <- list(
                           )),
                 )
               )
-            ),
-            
+            )
           )
           ),
           div(
