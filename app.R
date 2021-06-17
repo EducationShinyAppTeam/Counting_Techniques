@@ -245,7 +245,85 @@ ui <- list(
           tabPanel(
             title = "Exploring Counting Techniques",
             br(),
-            p("Hello, we're still working on the game")
+            fluidRow(
+              column(
+                width = 2.4, 
+                offset = 1, 
+                
+                  tags$figure(
+                    align = "center", 
+                    tags$img(
+                      src = "3-heart.png", 
+                      width = 50, 
+                      alt = "3 of Hearts."
+                    ), 
+                    tags$figcaption("3 of Hearts")
+                  )
+                
+              ), 
+              column(
+                width = 2.4, 
+                offset = 2, 
+                
+                
+                  tags$figure(
+                    align = "center", 
+                    tags$img(
+                      src = "3-heart.png", 
+                      width = 50, 
+                      alt = "3 of Hearts."
+                    ), 
+                    tags$figcaption("3 of Hearts")
+                  )
+                
+              ), 
+              column(
+                width = 2.4, 
+                offset = 3, 
+                
+                
+                  tags$figure(
+                    align = "center", 
+                    tags$img(
+                      src = "3-heart.png", 
+                      width = 50, 
+                      alt = "3 of Hearts."
+                    ), 
+                    tags$figcaption("3 of Hearts")
+                  )
+                
+              ), 
+              column(
+                width = 2.4, 
+                offset = 4, 
+                
+                tags$figure(
+                  align = "center", 
+                  tags$img(
+                    src = "3-heart.png", 
+                    width = 50, 
+                    alt = "3 of Hearts."
+                  ), 
+                  tags$figcaption("3 of Hearts")
+                  
+                )
+              ), 
+              column(
+                width = 2.4, 
+                offset = 5, 
+                tags$figure(
+                  align = "center", 
+                  tags$img(
+                    src = "3-heart.png", 
+                    width = 50, 
+                    alt = "3 of Hearts."
+                  ), 
+                  tags$figcaption("3 of Hearts")
+                  
+                )
+              )
+            
+            ) 
           ),
           
           tabPanel(
