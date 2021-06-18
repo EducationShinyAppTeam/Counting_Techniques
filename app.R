@@ -7,6 +7,18 @@ library(boastUtils)
 library(png)
 
 # Load additional dependencies and setup functions
+
+checker_shoes = img(src = "checker-shoes.jpg")
+psu_adidas = img(src = "psu-adidas.jpg")
+tshirt_solid = img(src = "tshirt-solid.jpg")
+tshirt_stripe = img(src = "tshirt-stripe.jpg")
+hoodie_solid = img(src = "hoodie-solid.jpg")
+hoodie_stripe = img(src = "hoodie-stripe.jpg")
+pants_solid = img(src = "pants-solid.jpg")
+pants_stripe = img(src = "pants-stripe.jpg")
+shorts_solid = img(src = "shorts-solid.jpg")
+shorts_stripe = img(src = "shorts-stripe.jpg")
+
 # source("global.R")
 
 # Define UI for App ----
@@ -246,112 +258,115 @@ ui <- list(
             fluidRow(
               column(
                 width = 1,
+                align="center",
                 offset = 1,
-                tags$figure(
-                  align = "center",
-                  tags$img(
-                    src = "tshirt-solid.jpg",
-                    width = 75
-                  )
-                )
+                tags$img(
+                  src = "tshirt_solid.jpg",
+                  width = 75
+                ),
+                textOutput("tshirt_solid_num")
               ),
               column(
                 width = 1,
+                align="center",
                 offset = 0,
-                tags$figure(
-                  align = "center",
-                  tags$img(
-                    src = "tshirt-stripe.jpg",
-                    width = 75
-                  )
-                )
+                tags$img(
+                  src = "tshirt_stripe.jpg",
+                  width = 75
+                ),
+                textOutput("tshirt_stripe_num")
               ),
               column(
                 width = 1,
+                align="center",
                 offset = 0,
-                tags$figure(
-                  align = "center",
-                  tags$img(
-                    src = "hoodie-solid.jpg",
-                    width = 75
-                  )
-                )
+                tags$img(
+                  src = "hoodie_solid.jpg",
+                  width = 75
+                ),
+                textOutput("hoodie_solid_num")
               ),
               column(
                 width = 1,
+                align="center",
                 offset = 0,
-                tags$figure(
-                  align = "center",
-                  tags$img(
-                    src = "hoodie-stripe.jpg",
-                    width = 75
-                  )
-                )
+                tags$img(
+                  src = "hoodie_stripe.jpg",
+                  width = 75
+                ),
+                textOutput("hoodie_stripe_num")
               ),
               column(
                 width = 1,
+                align="center",
                 offset = 0,
-                tags$figure(
-                  align = "center",
-                  tags$img(
-                    src = "pants-solid.jpg",
-                    width = 75
-                  )
-                )
+                tags$img(
+                  src = "pants_solid.jpg",
+                  width = 75
+                ),
+                textOutput("pants_solid_num")
               ),
               column(
                 width = 1,
+                align="center",
                 offset = 0,
-                tags$figure(
-                  align = "center",
-                  tags$img(
-                    src = "pants-stripe.jpg",
-                    width = 75
-                  )
-                )
+                tags$img(
+                  src = "pants_stripe.jpg",
+                  width = 75
+              ),
+              textOutput("pants_stripe_num")
+            ),
+              column(
+                width = 1,
+                align="center",
+                offset = 0,
+                tags$img(
+                  src = "shorts_solid.jpg",
+                  width = 75
+                ),
+                textOutput("shorts_solid_num")
               ),
               column(
                 width = 1,
+                align="center",
                 offset = 0,
-                tags$figure(
-                  align = "center",
-                  tags$img(
-                    src = "shorts-solid.jpg",
-                    width = 75
-                  )
-                )
+                tags$img(
+                  src = "shorts_stripe.jpg",
+                  width = 75
+                ),
+                textOutput("shorts_stripe_num")
               ),
               column(
                 width = 1,
+                align="center",
                 offset = 0,
-                tags$figure(
-                  align = "center",
-                  tags$img(
-                    src = "shorts-stripe.jpg",
-                    width = 75
-                  )
-                )
+                tags$img(
+                  src = "checker_shoes.jpg",
+                  width = 75
+                ),
+                textOutput("checker_shoes_num")
               ),
               column(
                 width = 1,
+                align="center",
                 offset = 0,
-                tags$figure(
-                  align = "center",
-                  tags$img(
-                    src = "checker-shoes.jpg",
-                    width = 75
-                  )
-                )
+                tags$img(
+                  src = "psu_adidas.jpg",
+                  width = 75
               ),
-              column(
-                width = 1,
-                offset = 0,
-                tags$figure(
-                  align = "center",
-                  tags$img(
-                    src = "psu-adidas.jpg",
-                    width = 75
-                  )
+                textOutput("psu_adidas_num")
+              )
+            ),
+            br(),
+            fluidRow(
+              div(
+                style = "text-align: center",
+                bsButton(
+                  inputId = "new_wardrobe",
+                  label = "New Wardrobe",
+                  size = "large",
+                  icon = icon("gamepad"),
+                  style = "default"
                 )
               )
             )
@@ -457,16 +472,6 @@ ui <- list(
               )
             )
           )
-          ),
-          div(
-            style = "text-align: center",
-            bsButton(
-              inputId = "goExp",
-              label = "GO!",
-              size = "large",
-              icon = icon("gamepad"),
-              style = "default"
-            )
           )
         ),
         
@@ -533,6 +538,7 @@ ui <- list(
 
 # Define server logic ----
 server <- function(input, output, session) {
+  
   ## Set up Info button ----
   observeEvent(
     eventExpr = input$info,
@@ -546,26 +552,62 @@ server <- function(input, output, session) {
     }
   )
   
-  observeEvent(input$go1,{
-    updateTabItems(
-      session = session,
-      inputId = "pages",
-      selected = "prerequisites")
-  })
+  observeEvent(
+    eventExpr = input$go1,
+    handlerExpr = {
+      updateTabItems(
+        session = session,
+        inputId = "pages",
+        selected = "prerequisites")
+    }
+  )
   
-  observeEvent(input$goPre,{
-    updateTabItems(
-      session = session,
-      inputId = "pages",
-      selected = "explore")
-  })
+  observeEvent(
+    eventExpr = input$goPre,
+    handlerExpr = {
+      updateTabItems(
+        session = session,
+        inputId = "pages",
+        selected = "explore")
+    }
+  )
   
-  observeEvent(input$goExp,{
-    updateTabItems(
-      session = session,
-      inputId = "pages",
-      selected = "game")
-  })
+  observeEvent(
+    eventExpr = input$goExp,
+    handlerExpr = {
+      updateTabItems(
+        session = session,
+        inputId = "pages",
+        selected = "game")
+    }
+  )
+  
+  random_number1 <- sample(2:7, 1)
+  random_number2 <- sample(2:7, 1)
+  random_number3 <- sample(2:7, 1)
+  random_number4 <- sample(2:7, 1)
+  random_number5 <- sample(2:7, 1)
+  random_number6 <- sample(2:7, 1)
+  random_number7 <- sample(2:7, 1)
+  random_number8 <- sample(2:7, 1)
+  random_number9 <- sample(2:7, 1)
+  random_number10 <- sample(2:7, 1)
+  
+  observeEvent(
+    eventExpr = input$new_wardrobe,
+    handlerExpr = {
+      output$tshirt_solid_num <- renderText(random_number1)
+      output$tshirt_stripe_num <- renderText(random_number2)
+      output$hoodie_solid_num <- renderText(random_number3)
+      output$hoodie_stripe_num <- renderText(random_number4)
+      output$pants_solid_num <- renderText(random_number5)
+      output$pants_stripe_num <- renderText(random_number6)
+      output$shorts_solid_num <- renderText(random_number7)
+      output$shorts_stripe_num <- renderText(random_number8)
+      output$checker_shoes_num <- renderText(random_number9)
+      output$psu_adidas_num <- renderText(random_number10)
+    }
+  )
 }
 
 # Boast App Call ----
