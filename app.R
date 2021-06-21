@@ -441,7 +441,7 @@ ui <- list(
             )
             ),
         
-        ##### GENERAL PRACTICE TAB ----
+            ##### GENERAL PRACTICE TAB ----
         tabPanel(
           title = "More Practice", 
           br(),
@@ -570,12 +570,41 @@ ui <- list(
         tabItem(
           tabName = "game",
           withMathJax(),
-          h2("Practice/Test Yourself with [Type of Game]"),
-          p("On this type of page, you'll set up a game for the user to play.
-            Game types include Tic-Tac-Toe, Matching, and a version Hangman to
-            name a few. If you have ideas for new game type, please let us know.")
-        ),
-        
+          h2("Poker Probability"),
+          inputPanel(
+            column(
+              width = 2,
+              offset = 1,
+              align = "center",
+              tags$img(
+                src = "question.png",
+                alt = "Undetermined poker card",
+                width = "100%"
+              ),
+              tags$img(
+                src = "question.png",
+                alt = "Undetermined poker card",
+                width = "100%"
+              ),
+              tags$img(
+                src = "question.png",
+                alt = "Undetermined poker card",
+                width = "100%"
+              ),
+              tags$img(
+                src = "question.png",
+                alt = "Undetermined poker card",
+                width = "100%"
+              ),
+              tags$img(
+                src = "question.png",
+                alt = "Undetermined poker card",
+                width = "100%"
+              )
+            )
+          )
+          ),
+
         #### Set up the References Page ----
         tabItem(
           tabName = "references",
@@ -678,27 +707,27 @@ server <- function(input, output, session) {
   observeEvent(
     eventExpr = input$new_wardrobe,
     handlerExpr = {
-      random_number1 <- sample(2:7, 1)
-      random_number2 <- sample(2:7, 1)
-      random_number3 <- sample(2:7, 1)
-      random_number4 <- sample(2:7, 1)
-      random_number5 <- sample(2:7, 1)
-      random_number6 <- sample(2:7, 1)
-      random_number7 <- sample(2:7, 1)
-      random_number8 <- sample(2:7, 1)
-      random_number9 <- sample(2:7, 1)
-      random_number10 <- sample(2:7, 1)
+      randomNumber1 <- sample(2:7, 1)
+      randomNumber2 <- sample(2:7, 1)
+      randomNumber3 <- sample(2:7, 1)
+      randomNumber4 <- sample(2:7, 1)
+      randomNumber5 <- sample(2:7, 1)
+      randomNumber6 <- sample(2:7, 1)
+      randomNumber7 <- sample(2:7, 1)
+      randomNumber8 <- sample(2:7, 1)
+      randomNumber9 <- sample(2:7, 1)
+      randomNumber10 <- sample(2:7, 1)
       
-      output$tshirt_solid_num <- renderText(random_number1)
-      output$tshirt_stripe_num <- renderText(random_number2)
-      output$hoodie_solid_num <- renderText(random_number3)
-      output$hoodie_stripe_num <- renderText(random_number4)
-      output$pants_solid_num <- renderText(random_number5)
-      output$pants_stripe_num <- renderText(random_number6)
-      output$shorts_solid_num <- renderText(random_number7)
-      output$shorts_stripe_num <- renderText(random_number8)
-      output$checker_shoes_num <- renderText(random_number9)
-      output$psu_adidas_num <- renderText(random_number10)
+      output$tshirt_solid_num <- renderText(randomNumber1)
+      output$tshirt_stripe_num <- renderText(randomNumber2)
+      output$hoodie_solid_num <- renderText(randomNumber3)
+      output$hoodie_stripe_num <- renderText(randomNumber4)
+      output$pants_solid_num <- renderText(randomNumber5)
+      output$pants_stripe_num <- renderText(randomNumber6)
+      output$shorts_solid_num <- renderText(randomNumber7)
+      output$shorts_stripe_num <- renderText(randomNumber8)
+      output$checker_shoes_num <- renderText(randomNumber9)
+      output$psu_adidas_num <- renderText(randomNumber10)
     }
   )
 }
