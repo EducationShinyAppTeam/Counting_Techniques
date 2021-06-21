@@ -65,19 +65,17 @@ ui <- list(
           tabName = "overview",
           withMathJax(),
           h1("Counting Techniques"), 
-          p("This app is designed to teach and review combinatorics, permutations
-            , and other basic counting principles."),
+          p("This app is designed to teach and review combinatorics and 
+            its application in probability."),
           h2("Instructions"),
           tags$ol(
-            tags$li("Review the Prerequistes tab to learn about the different
-                    counting techniques as well as how to use context and/or wording
-                    fromthe problem to solve it."),
-            tags$li("Use the Explore page to practice counting techniques through 
-                    clothing-related scenarios."),
-            tags$li("Use the Challenge page to further practice counting techniques
-                    through poker-style scenarios.")
-          ),
-          
+            tags$li("Use the Prerequistes page to review the different counting 
+                    principles and the keywords to be aware of when solving problems."),
+            tags$li("Use the Explore page to practice combinatorics in 
+                    clothing-related problems."),
+            tags$li("Use the Challenge page to practice applying combinatorics to 
+                    probability in poker-related problems.")
+            ),
           div(
             style = "text-align: center",
             bsButton(
@@ -374,11 +372,9 @@ ui <- list(
               ),
               br(),
               h4(tags$b("Practice Problems")),
-              br(),
               p("If you are struggling solving the following combination and permutation 
             problems about clothing, review similar problems about candy bars under 
             the 'More Practice' tab. Each candy bar question contains a detailed answer."),
-            br(),
             p(tags$b("Note: "), 
               "Warm weather clothing includes t-shirts and shorts. 
                Cold weather clothing includes hoodies and pants.
@@ -429,9 +425,8 @@ ui <- list(
                 collapsible = TRUE,
                 collapsed = FALSE,
                 width = 6,
-                p("Justin Bieber goes to school 5 days out of the week. 
-                  Given that Thursdsay and Friday will have warm weather, 
-                  how many different outfits could Justin Bieber wear?")
+                p("Given that there is warm weather, 
+                  how many different outfits could you make with the given wardrobe?")
               ),
               box(
                 title = strong("Conditional combination without Replacement"),
@@ -439,9 +434,8 @@ ui <- list(
                 collapsible = TRUE,
                 collapsed = FALSE,
                 width = 6,
-                p("Justin Bieber goes to school 5 days out of the week. 
-                  Given that Thursdsay and Friday will have warm weather, 
-                  how many different outfits could Justin Bieber wear, 
+                p("Given that there is warm weather, 
+                  how many different outfits could you make with the given wardrobe, 
                   without rewearing any clothing articles?")
               )
             )
