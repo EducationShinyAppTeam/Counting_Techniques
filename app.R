@@ -552,34 +552,37 @@ ui <- list(
             (v0.61). [R package]. Available from
             https://CRAN.R-project.org/package=shinyBS"
           ),
-          
           p(
             class = "hangingindent",
             "Carey, R. and Hatfield, N. (2020). boastUtils: BOAST Utilities. 
             R package version 0.1.6.3. Available from 
             https://github.com/EducationShinyAppTeam/boastUtils"
           ),
-          
           p(
             class = "hangingindent",
             "Chang, W., Cheng, J., Allaire, J., Xie, Y., and McPherson, J. 
             (2020). shiny: Web Application Framework for R. R package version 
             1.5.0. Available from https://CRAN.R-project.org/package=shiny"
           ),
-          
           p(
             class = "hangingindent",
             "Chang, W. and Borges Ribeiro, B. (2018). shinydashboard: 
             Create Dashboards with 'Shiny'. R package version 0.7.1. Available 
             from https://CRAN.R-project.org/package=shinydashboard"
           ),
-          
+          p(
+            class = "hangingindent",
+            "Murray, W. (2021). Probability Choices: Combinations & Permutations.",
+            tags$em("Educator"), 
+            "from https://www.educator.com/mathematics/probability/murray/choices_-combinations-+-permutations.php"
+          ),
           p(
             class = "hangingindent",
             "Perrier, V., Meyer, F., and Granjon, D. (2020). shinyWidgets: 
             Custom Inputs Widgets for Shiny. R package version 0.5.3. Available 
             from https://CRAN.R-project.org/package=shinyWidgets"
           ),
+         
           br(),
           br(),
           br(),
