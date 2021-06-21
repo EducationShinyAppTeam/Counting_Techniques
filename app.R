@@ -64,7 +64,7 @@ ui <- list(
         tabItem(
           tabName = "overview",
           withMathJax(),
-          h1("Counting Techniques"), # This should be the full name.
+          h1("Counting Techniques"), 
           p("This app is designed to teach and review combinatorics, permutations
             , and other basic counting principles."),
           h2("Instructions"),
@@ -174,7 +174,8 @@ ui <- list(
             tabPanel(
               title = "Binomial Probability",
               br(),
-              h3("Applying counting tequniques to binomial probability"),
+              h3("Applying counting techniques to binomial probability"),
+              br(),
               fluidRow(
                 box(
                   title = strong("Exactly"),
@@ -239,178 +240,150 @@ ui <- list(
           h2("Explore the Concept"),
           tabsetPanel(
             
-        ##### CLOTHING TAB ----
-          tabPanel(
-            title = "Practice Combinations & Permutations",
-            br(),
-            fluidRow(
-              column(
-                width = 2,
-                align="center",
-                offset = 2,
-                tags$img(
-                  src = "tshirt_solid.jpg",
-                  alt = "Solid t-shirt",
-                  width = "100%"
+            ##### CLOTHING TAB ----
+            tabPanel(
+              title = "Practice Combinations & Permutations",
+              br(),
+              fluidRow(
+                column(
+                  width = 2,
+                  align="center",
+                  offset = 2,
+                  tags$img(
+                    src = "tshirt_solid.jpg",
+                    alt = "Solid t-shirt",
+                    width = "100%"
+                  ),
+                  textOutput("tshirt_solid_num")
                 ),
-                textOutput("tshirt_solid_num")
-              ),
-              column(
-                width = 2,
-                align="center",
-                offset = 0,
-                tags$img(
-                  src = "tshirt_stripe.jpg",
-                  alt = "Striped t-shirt",
-                  width = "100%"
+                column(
+                  width = 2,
+                  align="center",
+                  offset = 0,
+                  tags$img(
+                    src = "tshirt_stripe.jpg",
+                    alt = "Striped t-shirt",
+                    width = "100%"
+                  ),
+                  textOutput("tshirt_stripe_num")
                 ),
-                textOutput("tshirt_stripe_num")
-              ),
-              column(
-                width = 2,
-                align="center",
-                offset = 0,
-                tags$img(
-                  src = "hoodie_solid.jpg",
-                  alt = "Solid hoodie",
-                  width = "100%"
+                column(
+                  width = 2,
+                  align="center",
+                  offset = 0,
+                  tags$img(
+                    src = "hoodie_solid.jpg",
+                    alt = "Solid hoodie",
+                    width = "100%"
+                  ),
+                  textOutput("hoodie_solid_num")
                 ),
-                textOutput("hoodie_solid_num")
-              ),
-              column(
-                width = 2,
-                align="center",
-                offset = 0,
-                tags$img(
-                  src = "hoodie_stripe.jpg",
-                  alt = "Striped hoodie",
-                  width = "100%"
-                ),
-                textOutput("hoodie_stripe_num")
-              )
-            ),
-            fluidRow(
-              column(
-                width = 2,
-                align="center",
-                offset = 2,
-                tags$img(
-                  src = "pants_solid.jpg",
-                  alt = "Solid pants",
-                  width = "100%"
-                ),
-                textOutput("pants_solid_num")
-              ),
-              column(
-                width = 2,
-                align="center",
-                offset = 0,
-                tags$img(
-                  src = "pants_stripe.jpg",
-                  alt = "Striped pants",
-                  width = "100%"
-              ),
-              textOutput("pants_stripe_num")
-            ),
-              column(
-                width = 2,
-                align="center",
-                offset = 0,
-                tags$img(
-                  src = "shorts_solid.jpg",
-                  alt = "Solid shorts",
-                  width = "100%"
-                ),
-                textOutput("shorts_solid_num")
-              ),
-              column(
-                width = 2,
-                align="center",
-                offset = 0,
-                tags$img(
-                  src = "shorts_stripe.jpg",
-                  alt = "Striped shorts",
-                  width = "100%"
-                ),
-                textOutput("shorts_stripe_num")
-              )
-            ),
-            fluidRow(
-              column(
-                width = 2,
-                align="center",
-                offset = 4,
-                tags$img(
-                  src = "checker_shoes.jpg",
-                  alt = "Checkered shoes",
-                  width = "100%"
-                ),
-                textOutput("checker_shoes_num")
-              ),
-              column(
-                width = 2,
-                align="center",
-                offset = 0,
-                tags$img(
-                  src = "psu_adidas.jpg",
-                  alt = "Penn State Adidas",
-                  width = "100%"
-              ),
-                textOutput("psu_adidas_num")
-              )
-            ),
-            br(),
-            fluidRow(
-              div(
-                style = "text-align: center",
-                bsButton(
-                  inputId = "new_wardrobe",
-                  label = "New Wardrobe",
-                  size = "large",
-                  icon = icon("gamepad"),
-                  style = "default"
+                column(
+                  width = 2,
+                  align="center",
+                  offset = 0,
+                  tags$img(
+                    src = "hoodie_stripe.jpg",
+                    alt = "Striped hoodie",
+                    width = "100%"
+                  ),
+                  textOutput("hoodie_stripe_num")
                 )
-              )
-            ),
-            br(),
-            h4(tags$b("Practice Problems")),
+              ),
+              fluidRow(
+                column(
+                  width = 2,
+                  align="center",
+                  offset = 2,
+                  tags$img(
+                    src = "pants_solid.jpg",
+                    alt = "Solid pants",
+                    width = "100%"
+                  ),
+                  textOutput("pants_solid_num")
+                ),
+                column(
+                  width = 2,
+                  align="center",
+                  offset = 0,
+                  tags$img(
+                    src = "pants_stripe.jpg",
+                    alt = "Striped pants",
+                    width = "100%"
+                  ),
+                  textOutput("pants_stripe_num")
+                ),
+                column(
+                  width = 2,
+                  align="center",
+                  offset = 0,
+                  tags$img(
+                    src = "shorts_solid.jpg",
+                    alt = "Solid shorts",
+                    width = "100%"
+                  ),
+                  textOutput("shorts_solid_num")
+                ),
+                column(
+                  width = 2,
+                  align="center",
+                  offset = 0,
+                  tags$img(
+                    src = "shorts_stripe.jpg",
+                    alt = "Striped shorts",
+                    width = "100%"
+                  ),
+                  textOutput("shorts_stripe_num")
+                )
+              ),
+              fluidRow(
+                column(
+                  width = 2,
+                  align="center",
+                  offset = 4,
+                  tags$img(
+                    src = "checker_shoes.jpg",
+                    alt = "Checkered shoes",
+                    width = "100%"
+                  ),
+                  textOutput("checker_shoes_num")
+                ),
+                column(
+                  width = 2,
+                  align="center",
+                  offset = 0,
+                  tags$img(
+                    src = "psu_adidas.jpg",
+                    alt = "Penn State Adidas",
+                    width = "100%"
+                  ),
+                  textOutput("psu_adidas_num")
+                )
+              ),
+              br(),
+              fluidRow(
+                div(
+                  style = "text-align: center",
+                  bsButton(
+                    inputId = "new_wardrobe",
+                    label = "New Wardrobe",
+                    size = "large",
+                    style = "default"
+                  )
+                )
+              ),
+              br(),
+              h4(tags$b("Practice Problems")),
+              br(),
+              p("If you are struggling solving the following combination and permutation 
+            problems about clothing, review similar problems about candy bars under 
+            the 'More Practice' tab. Each candy bar question contains a detailed answer."),
             br(),
             p(tags$b("Note: "), 
-               "Warm weather clothing includes t-shirts and shorts. 
+              "Warm weather clothing includes t-shirts and shorts. 
                Cold weather clothing includes hoodies and pants.
                Shoes can be worn in any type of weather."),
             br(),
-            p(tags$b("Permutation with replacement: "), 
-              "How many outfits could you make with the given wardrobe?"),
-            br(),
-            p(tags$b("Permutation without replacement: "), 
-              "How many outfits could you make with the given wardrobe, 
-              without rewearing any clothing articles?"),
-            br(),
-            p(tags$b("Combination with replacement: "), 
-              "How many different outfits could you make with the given wardrobe?"),
-            br(),
-            p(tags$b("Combination without replacement: "), 
-              "How many different outfits could you make with the given wardrobe, 
-              without rewearing any clothing articles?"),
-            br(),
-            p(tags$b("Conditional combination with replacement:"), 
-              "Justin Bieber goes to school 5 days out of the week. 
-              Given that Thursdsay and Friday will have warm weather, 
-              how many different outfits could Justin Bieber wear?"),
-            br(),
-            p(tags$b("Conditional combination without replacement:"), 
-              "Justin Bieber goes to school 5 days out of the week. 
-              Given that Thursdsay and Friday will have warm weather, 
-              how many different outfits could Justin Bieber wear?, 
-              without rewearing any clothing articles?")
-          ),
-          
-          ##### GENERAL PRACTICE TAB ----
-          tabPanel(
-            title = "More Practice", 
-            br(),
-            h3("Questions with Answer Explanations"), 
             fluidRow(
               box(
                 title = strong("Permutation with Replacement"),
@@ -418,21 +391,89 @@ ui <- list(
                 collapsible = TRUE,
                 collapsed = FALSE,
                 width = 6,
-                p("Distribute 5 different candy bars to 20 children. 
-                  We are willing to give some children more than 1 candy bar. 
-                  How many ways can we distribute the candy bars?"),
-                tags$ul( 
-                  tags$li("Since the candy bars are different, order matters. 
-                          Therefore, we use a permutation."),
-                  tags$li("Since children can receive more than 1 candy bar, 
-                          there is replacement."),
-                  tags$li("\\(n^{r} = 20^{5}\\)")
-                )
+                p("How many outfits could you make with the given wardrobe?"),
               ),
               box(
                 title = strong("Permutation without Replacement"),
                 status = "primary",
                 collapsible = TRUE,
+                collapsed = FALSE,
+                width = 6,
+                p("How many outfits could you make with the given wardrobe, 
+                  without rewearing any clothing articles?")
+              )
+            ),
+            fluidRow(
+              box(
+                title = strong("Combination with Replacement"),
+                status = "primary",
+                collapsible = TRUE,
+                collapsed = FALSE,
+                width = 6,
+                p("How many different outfits could you make with the given wardrobe?")
+              ),
+              box(
+                title = strong("Combination without Replacement"),
+                status = "primary",
+                collapsible = TRUE,
+                collapsed = FALSE,
+                width = 6,
+                p("How many different outfits could you make with the given wardrobe, 
+              without rewearing any clothing articles?")
+              )
+            ),
+            fluidRow(
+              box(
+                title = strong("Conditional combination with Replacement"),
+                status = "primary",
+                collapsible = TRUE,
+                collapsed = FALSE,
+                width = 6,
+                p("Justin Bieber goes to school 5 days out of the week. 
+                  Given that Thursdsay and Friday will have warm weather, 
+                  how many different outfits could Justin Bieber wear?")
+              ),
+              box(
+                title = strong("Conditional combination without Replacement"),
+                status = "primary",
+                collapsible = TRUE,
+                collapsed = FALSE,
+                width = 6,
+                p("Justin Bieber goes to school 5 days out of the week. 
+                  Given that Thursdsay and Friday will have warm weather, 
+                  how many different outfits could Justin Bieber wear, 
+                  without rewearing any clothing articles?")
+              )
+            )
+            ),
+        
+        ##### GENERAL PRACTICE TAB ----
+        tabPanel(
+          title = "More Practice", 
+          br(),
+          h3("Questions with Answer Explanations"), 
+          fluidRow(
+            box(
+              title = strong("Permutation with Replacement"),
+              status = "primary",
+              collapsible = TRUE,
+              collapsed = FALSE,
+              width = 6,
+              p("Distribute 5 different candy bars to 20 children. 
+                  We are willing to give some children more than 1 candy bar. 
+                  How many ways can we distribute the candy bars?"),
+              tags$ul( 
+                tags$li("Since the candy bars are different, order matters. 
+                          Therefore, we use a permutation."),
+                tags$li("Since children can receive more than 1 candy bar, 
+                          there is replacement."),
+                tags$li("\\(n^{r} = 20^{5}\\)")
+              )
+            ),
+            box(
+              title = strong("Permutation without Replacement"),
+              status = "primary",
+              collapsible = TRUE,
                 collapsed = FALSE,
                 width = 6,
                 p("Distribute 5 different candy bars to 20 children. 
@@ -546,8 +587,6 @@ ui <- list(
           tabName = "references",
           withMathJax(),
           h2("References"),
-          p("You'll need to fill in this page with all of the appropriate
-            references for your app."),
           p(
             class = "hangingindent",
             "Bailey, E. (2015). shinyBS: Twitter bootstrap components for shiny.
