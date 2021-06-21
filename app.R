@@ -363,7 +363,7 @@ ui <- list(
                 div(
                   style = "text-align: center",
                   bsButton(
-                    inputId = "new_wardrobe",
+                    inputId = "newWardrobe",
                     label = "New Wardrobe",
                     size = "large",
                     style = "default"
@@ -561,7 +561,7 @@ ui <- list(
                 p("\\(1-P(X\\le{r})\\)"),
                 p("where ", tags$em("p"), "is the probability of success")
               )
-            ), 
+            )
           )
           )
         ),
@@ -571,40 +571,52 @@ ui <- list(
           tabName = "game",
           withMathJax(),
           h2("Poker Probability"),
-          inputPanel(
+          fluidRow(
             column(
               width = 2,
-              offset = 1,
               align = "center",
-              tags$img(
-                src = "question.png",
-                alt = "Undetermined poker card",
-                width = "100%"
-              ),
-              tags$img(
-                src = "question.png",
-                alt = "Undetermined poker card",
-                width = "100%"
-              ),
-              tags$img(
-                src = "question.png",
-                alt = "Undetermined poker card",
-                width = "100%"
-              ),
-              tags$img(
-                src = "question.png",
-                alt = "Undetermined poker card",
-                width = "100%"
-              ),
-              tags$img(
-                src = "question.png",
-                alt = "Undetermined poker card",
-                width = "100%"
+              offset = 1,
+              imageOutput("card1")
+            ),
+            column(
+              width = 2,
+              align = "center",
+              offset = 0,
+              imageOutput("card2")
+            ),
+            column(
+              width = 2,
+              align = "center",
+              offset = 0,
+              imageOutput("card3")
+            ),
+            column(
+              width = 2,
+              align = "center",
+              offset = 0,
+              imageOutput("card4")
+            ),
+            column(
+              width = 2,
+              align = "center",
+              offset = 0,
+              imageOutput("card5")
+            )
+          ),
+          br(),
+          fluidRow(
+            div(
+              style = "text-align: center",
+              bsButton(
+                inputId = "newHand",
+                label = "New Hand",
+                size = "large",
+                style = "default"
               )
             )
           )
-          ),
-
+        ),
+        
         #### Set up the References Page ----
         tabItem(
           tabName = "references",
@@ -660,7 +672,7 @@ ui <- list(
 # Define server logic ----
 server <- function(input, output, session) {
   
-  ## Set up Info button ----
+  ## Set up navigation BUTTONS ----
   observeEvent(
     eventExpr = input$info,
     handlerExpr = {
@@ -668,7 +680,7 @@ server <- function(input, output, session) {
         session = session,
         type = "info",
         title = "Information",
-        text = "This App Template will help you get started building your own app"
+        text = "Apply counting principles to combinatorics and probability problems."
       )
     }
   )
@@ -703,9 +715,9 @@ server <- function(input, output, session) {
     }
   )
   
-  
+  ## Random Number Generator for Wardrobe ----
   observeEvent(
-    eventExpr = input$new_wardrobe,
+    eventExpr = input$newWardrobe,
     handlerExpr = {
       randomNumber1 <- sample(2:7, 1)
       randomNumber2 <- sample(2:7, 1)
@@ -717,7 +729,6 @@ server <- function(input, output, session) {
       randomNumber8 <- sample(2:7, 1)
       randomNumber9 <- sample(2:7, 1)
       randomNumber10 <- sample(2:7, 1)
-      
       output$tshirt_solid_num <- renderText(randomNumber1)
       output$tshirt_stripe_num <- renderText(randomNumber2)
       output$hoodie_solid_num <- renderText(randomNumber3)
@@ -728,6 +739,366 @@ server <- function(input, output, session) {
       output$shorts_stripe_num <- renderText(randomNumber8)
       output$checker_shoes_num <- renderText(randomNumber9)
       output$psu_adidas_num <- renderText(randomNumber10)
+    }
+  )
+  
+  ## Poker Cards ----
+  
+  observeEvent(
+    eventExpr = input$newHand,
+    handlerExpr = {
+      randomNumber11 <- sample(1:9, 1)
+      
+      ### 1 Pair ----
+      if (randomNumber11 == 1) {
+        output$card1 <- renderImage({
+          list(src = "a-club.png",
+               width = "100%",
+               height = "100%",
+               alt = "Ace of clubs")
+        }, deleteFile = FALSE
+        )
+        output$card2 <- renderImage({
+          list(src = "a-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "Ace of hearts")
+        }, deleteFile = FALSE
+        )
+        output$card3 <- renderImage({
+          list(src = "9-spade.png",
+               width = "100%",
+               height = "100%",
+               alt = "9 of spades")
+        }, deleteFile = FALSE
+        )
+        output$card4 <- renderImage({
+          list(src = "8-diamond.png",
+               width = "100%",
+               height = "100%",
+               alt = "8 of diamonds")
+        }, deleteFile = FALSE
+        )
+        output$card5 <- renderImage({
+          list(src = "7-club.png",
+               width = "100%",
+               height = "100%",
+               alt = "7 of clubs")
+        }, deleteFile = FALSE
+        )
+      }
+      
+      ### 2 Pairs ----
+      if (randomNumber11 == 2) {
+        output$card1 <- renderImage({
+          list(src = "k-diamond.png",
+               width = "100%",
+               height = "100%",
+               alt = "King of diamonds")
+        }, deleteFile = FALSE
+        )
+        output$card2 <- renderImage({
+          list(src = "k-club.png",
+               width = "100%",
+               height = "100%",
+               alt = "King of clubs")
+        }, deleteFile = FALSE
+        )
+        output$card3 <- renderImage({
+          list(src = "q-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "Queen of hearts")
+        }, deleteFile = FALSE
+        )
+        output$card4 <- renderImage({
+          list(src = "q-spade.png",
+               width = "100%",
+               height = "100%",
+               alt = "Queen of spades")
+        }, deleteFile = FALSE
+        )
+        output$card5 <- renderImage({
+          list(src = "j-diamond.png",
+               width = "100%",
+               height = "100%",
+               alt = "Jack of diamonds")
+        }, deleteFile = FALSE
+        )
+      }
+      
+      ### 3 of a kind ----
+      if (randomNumber11 == 3) {
+        output$card1 <- renderImage({
+          list(src = "a-club",
+               width = "100%",
+               height = "100%",
+               alt = "Ace of clubs")
+        }, deleteFile = FALSE
+        )
+        output$card2 <- renderImage({
+          list(src = "a-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "Ace of hearts")
+        }, deleteFile = FALSE
+        )
+        output$card3 <- renderImage({
+          list(src = "a-spade.png",
+               width = "100%",
+               height = "100%",
+               alt = "Ace of spades")
+        }, deleteFile = FALSE
+        )
+        output$card4 <- renderImage({
+          list(src = "2-diamond.png",
+               width = "100%",
+               height = "100%",
+               alt = "2 of diamonds")
+        }, deleteFile = FALSE
+        )
+        output$card5 <- renderImage({
+          list(src = "7-club.png",
+               width = "100%",
+               height = "100%",
+               alt = "7 of clubs")
+        }, deleteFile = FALSE
+        )
+      }
+      
+      ### Straight ----
+      if (randomNumber11 == 4) {
+        output$card1 <- renderImage({
+          list(src = "5-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "5 of hearts")
+        }, deleteFile = FALSE
+        )
+        output$card2 <- renderImage({
+          list(src = "6-club.png",
+               width = "100%",
+               height = "100%",
+               alt = "6 of clubs")
+        }, deleteFile = FALSE
+        )
+        output$card3 <- renderImage({
+          list(src = "7-diamond.png",
+               width = "100%",
+               height = "100%",
+               alt = "7 of diamonds")
+        }, deleteFile = FALSE
+        )
+        output$card4 <- renderImage({
+          list(src = "8-spade.png",
+               width = "100%",
+               height = "100%",
+               alt = "8 of spades")
+        }, deleteFile = FALSE
+        )
+        output$card5 <- renderImage({
+          list(src = "9-club.png",
+               width = "100%",
+               height = "100%",
+               alt = "9 of clubs")
+        }, deleteFile = FALSE
+        )
+      }
+
+      ### Flush ----
+      if (randomNumber11 == 5) {
+        output$card1 <- renderImage({
+          list(src = "2-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "2 of hearts")
+        }, deleteFile = FALSE
+        )
+        output$card2 <- renderImage({
+          list(src = "4-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "4 of hearts")
+        }, deleteFile = FALSE
+        )
+        output$card3 <- renderImage({
+          list(src = "6-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "6 of hearts")
+        }, deleteFile = FALSE
+        )
+        output$card4 <- renderImage({
+          list(src = "8-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "8 of hearts")
+        }, deleteFile = FALSE
+        )
+        output$card5 <- renderImage({
+          list(src = "K-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "King of hearts")
+        }, deleteFile = FALSE
+        )
+      }
+
+      ### Full House ----
+      if (randomNumber11 == 6){
+        output$card1 <- renderImage({
+          list(src = "a-spade.png",
+               width = "100%",
+               height = "100%",
+               alt = "Ace of spades")
+        }, deleteFile = FALSE
+        )
+        output$card2 <- renderImage({
+          list(src = "a-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "Ace of hearts")
+        }, deleteFile = FALSE
+        )
+        output$card3 <- renderImage({
+          list(src = "a-club.png",
+               width = "100%",
+               height = "100%",
+               alt = "Ace of clubs")
+        }, deleteFile = FALSE
+        )
+        output$card4 <- renderImage({
+          list(src = "k-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "King of hearts")
+        }, deleteFile = FALSE
+        )
+        output$card5 <- renderImage({
+          list(src = "K-spade.png",
+               width = "100%",
+               height = "100%",
+               alt = "King of spades")
+        }, deleteFile = FALSE
+        )
+      }
+      
+      ### 4 of a kind ----
+      if (randomNumber11 == 7){
+        output$card1 <- renderImage({
+          list(src = "a-spade.png",
+               width = "100%",
+               height = "100%",
+               alt = "Ace of spades")
+        }, deleteFile = FALSE
+        )
+        output$card2 <- renderImage({
+          list(src = "a-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "Ace of hearts")
+        }, deleteFile = FALSE
+        )
+        output$card3 <- renderImage({
+          list(src = "a-club.png",
+               width = "100%",
+               height = "100%",
+               alt = "Ace of clubs")
+        }, deleteFile = FALSE
+        )
+        output$card4 <- renderImage({
+          list(src = "a-diamond.png",
+               width = "100%",
+               height = "100%",
+               alt = "Ace of diamonds")
+        }, deleteFile = FALSE
+        )
+        output$card5 <- renderImage({
+          list(src = "2-spade.png",
+               width = "100%",
+               height = "100%",
+               alt = "2 of spades")
+        }, deleteFile = FALSE
+        )
+      }
+      
+      ### Straight Flush ----
+      if (randomNumber11 == 8) {
+        output$card1 <- renderImage({
+          list(src = "5-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "5 of hearts")
+        }, deleteFile = FALSE
+        )
+        output$card2 <- renderImage({
+          list(src = "6-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "6 of hearts")
+        }, deleteFile = FALSE
+        )
+        output$card3 <- renderImage({
+          list(src = "7-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "7 of hearts")
+        }, deleteFile = FALSE
+        )
+        output$card4 <- renderImage({
+          list(src = "8-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "8 of hearts")
+        }, deleteFile = FALSE
+        )
+        output$card5 <- renderImage({
+          list(src = "9-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "9 of hearts")
+        }, deleteFile = FALSE
+        )
+      }
+      
+      ### Royal Flush ----
+      if (randomNumber11 == 5) {
+        output$card1 <- renderImage({
+          list(src = "10-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "10 of hearts")
+        }, deleteFile = FALSE
+        )
+        output$card2 <- renderImage({
+          list(src = "j-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "Jack of hearts")
+        }, deleteFile = FALSE
+        )
+        output$card3 <- renderImage({
+          list(src = "q-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "Queen of hearts")
+        }, deleteFile = FALSE
+        )
+        output$card4 <- renderImage({
+          list(src = "k-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "King of hearts")
+        }, deleteFile = FALSE
+        )
+        output$card5 <- renderImage({
+          list(src = "a-heart.png",
+               width = "100%",
+               height = "100%",
+               alt = "Ace of hearts")
+        }, deleteFile = FALSE
+        )
+      }
     }
   )
 }
