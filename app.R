@@ -257,102 +257,116 @@ ui <- list(
             br(),
             fluidRow(
               column(
-                width = 1,
+                width = 2,
                 align="center",
-                offset = 1,
+                offset = 2,
                 tags$img(
                   src = "tshirt_solid.jpg",
-                  width = 75
+                  alt = "Solid t-shirt",
+                  width = "100%"
                 ),
                 textOutput("tshirt_solid_num")
               ),
               column(
-                width = 1,
+                width = 2,
                 align="center",
                 offset = 0,
                 tags$img(
                   src = "tshirt_stripe.jpg",
-                  width = 75
+                  alt = "Striped t-shirt",
+                  width = "100%"
                 ),
                 textOutput("tshirt_stripe_num")
               ),
               column(
-                width = 1,
+                width = 2,
                 align="center",
                 offset = 0,
                 tags$img(
                   src = "hoodie_solid.jpg",
-                  width = 75
+                  alt = "Solid hoodie",
+                  width = "100%"
                 ),
                 textOutput("hoodie_solid_num")
               ),
               column(
-                width = 1,
+                width = 2,
                 align="center",
                 offset = 0,
                 tags$img(
                   src = "hoodie_stripe.jpg",
-                  width = 75
+                  alt = "Striped hoodie",
+                  width = "100%"
                 ),
                 textOutput("hoodie_stripe_num")
-              ),
+              )
+            ),
+            fluidRow(
               column(
-                width = 1,
+                width = 2,
                 align="center",
-                offset = 0,
+                offset = 2,
                 tags$img(
                   src = "pants_solid.jpg",
-                  width = 75
+                  alt = "Solid pants",
+                  width = "100%"
                 ),
                 textOutput("pants_solid_num")
               ),
               column(
-                width = 1,
+                width = 2,
                 align="center",
                 offset = 0,
                 tags$img(
                   src = "pants_stripe.jpg",
-                  width = 75
+                  alt = "Striped pants",
+                  width = "100%"
               ),
               textOutput("pants_stripe_num")
             ),
               column(
-                width = 1,
+                width = 2,
                 align="center",
                 offset = 0,
                 tags$img(
                   src = "shorts_solid.jpg",
-                  width = 75
+                  alt = "Solid shorts",
+                  width = "100%"
                 ),
                 textOutput("shorts_solid_num")
               ),
               column(
-                width = 1,
+                width = 2,
                 align="center",
                 offset = 0,
                 tags$img(
                   src = "shorts_stripe.jpg",
-                  width = 75
+                  alt = "Striped shorts",
+                  width = "100%"
                 ),
                 textOutput("shorts_stripe_num")
-              ),
+              )
+            ),
+            fluidRow(
               column(
-                width = 1,
+                width = 2,
                 align="center",
-                offset = 0,
+                offset = 4,
                 tags$img(
                   src = "checker_shoes.jpg",
-                  width = 75
+                  alt = "Checkered shoest",
+                  width = "100%"
                 ),
                 textOutput("checker_shoes_num")
               ),
               column(
-                width = 1,
+                width = 2,
                 align="center",
                 offset = 0,
                 tags$img(
                   src = "psu_adidas.jpg",
-                  width = 75
+                  alt = "Penn State Adidas",
+                  width = "100%"
               ),
                 textOutput("psu_adidas_num")
               )
@@ -582,20 +596,21 @@ server <- function(input, output, session) {
     }
   )
   
-  random_number1 <- sample(2:7, 1)
-  random_number2 <- sample(2:7, 1)
-  random_number3 <- sample(2:7, 1)
-  random_number4 <- sample(2:7, 1)
-  random_number5 <- sample(2:7, 1)
-  random_number6 <- sample(2:7, 1)
-  random_number7 <- sample(2:7, 1)
-  random_number8 <- sample(2:7, 1)
-  random_number9 <- sample(2:7, 1)
-  random_number10 <- sample(2:7, 1)
   
   observeEvent(
     eventExpr = input$new_wardrobe,
     handlerExpr = {
+      random_number1 <- sample(2:7, 1)
+      random_number2 <- sample(2:7, 1)
+      random_number3 <- sample(2:7, 1)
+      random_number4 <- sample(2:7, 1)
+      random_number5 <- sample(2:7, 1)
+      random_number6 <- sample(2:7, 1)
+      random_number7 <- sample(2:7, 1)
+      random_number8 <- sample(2:7, 1)
+      random_number9 <- sample(2:7, 1)
+      random_number10 <- sample(2:7, 1)
+      
       output$tshirt_solid_num <- renderText(random_number1)
       output$tshirt_stripe_num <- renderText(random_number2)
       output$hoodie_solid_num <- renderText(random_number3)
