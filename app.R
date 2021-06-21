@@ -253,7 +253,7 @@ ui <- list(
           h2("Explore the Concept"),
           tabsetPanel(
           tabPanel(
-            title = "Exploring Counting Techniques",
+            title = "Practice Combinations & Permutations",
             br(),
             fluidRow(
               column(
@@ -354,7 +354,7 @@ ui <- list(
                 offset = 4,
                 tags$img(
                   src = "checker_shoes.jpg",
-                  alt = "Checkered shoest",
+                  alt = "Checkered shoes",
                   width = "100%"
                 ),
                 textOutput("checker_shoes_num")
@@ -383,13 +383,45 @@ ui <- list(
                   style = "default"
                 )
               )
-            )
+            ),
+            br(),
+            h4(tags$b("Practice Problems")),
+            br(),
+            p(tags$b("Note: "), 
+               "Warm weather clothing includes t-shirts and shorts. 
+               Cold weather clothing includes hoodies and pants.
+               Shoes can be worn in any type of weather."),
+            br(),
+            p(tags$b("Permutation with replacement: "), 
+              "How many outfits could you make with the given wardrobe?"),
+            br(),
+            p(tags$b("Permutation without replacement: "), 
+              "How many outfits could you make with the given wardrobe, 
+              without rewearing any clothing articles?"),
+            br(),
+            p(tags$b("Combination with replacement: "), 
+              "How many different outfits could you make with the given wardrobe?"),
+            br(),
+            p(tags$b("Combination without replacement: "), 
+              "How many different outfits could you make with the given wardrobe, 
+              without rewearing any clothing articles?"),
+            br(),
+            p(tags$b("Conditional combination with replacement:"), 
+              "Justin Bieber goes to school 5 days out of the week. 
+              Given that Thursdsay and Friday will have warm weather, 
+              how many different outfits could Justin Bieber wear?"),
+            br(),
+            p(tags$b("Conditional combination without replacement:"), 
+              "Justin Bieber goes to school 5 days out of the week. 
+              Given that Thursdsay and Friday will have warm weather, 
+              how many different outfits could Justin Bieber wear?, 
+              without rewearing any clothing articles?")
           ),
           
           tabPanel(
-            title = "Example Questions", 
+            title = "More Practice", 
             br(),
-            h3("Example Problems"), 
+            h3("Questions with Answer Explanations"), 
             fluidRow(
               box(
                 title = strong("Combinations Example"),
