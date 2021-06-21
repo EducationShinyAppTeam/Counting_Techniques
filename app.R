@@ -121,69 +121,54 @@ ui <- list(
           h3("Counting Techniques"),
           fluidRow(
             box(
-              title = strong("Combinations"),
+              title = strong("Permutation with Replacement"),
               status = "primary",
               collapsible = TRUE,
               collapsed = FALSE,
               width = 6,
-              p("If there are:"),
-              tags$ul(
-                tags$li("\\({n}\\) objects to be taken \\({r}\\) at a time"), 
-                tags$li("Number of ", tags$em("unordered"), "subsets or Combinations is "), 
-                tags$li("\\(_{n}C_{r}=\\dfrac{n!}{r!(n-r)!}\\)")
+              p("Number of ways to pick r things from n possibilities:"),
+              tags$ul( 
+                tags$li("\\(n^{r}\\)"),
+                tags$li("Ordered subsets with replacement")
+                
               )
             ),
             box(
-              title = strong("Permutations"),
+              title = strong("Permutation without Replacement"),
               status = "primary",
               collapsible = TRUE,
               collapsed = FALSE,
               width = 6,
-              p("If there are:"),
+              p("Number of ways to pick r things from n possibilities:"),
               tags$ul( 
-                tags$li("\\({n}\\) choices for the \\(1^{st}\\) position"), 
-                tags$li("\\({n-1}\\) choices for the \\(2^{nd}\\) position"), 
-                tags$li("\\({n-2}\\) choices for the \\(3^{rd}\\) position"), 
-                tags$li("Then nPr or permutations of ", tags$em("n"), "objects
-                        that can be arranged in ", ("r"), "at a time or ordered 
-                        subsets is "), 
-                tags$li("\\(_{n}P_{r}=\\dfrac{n!}{(n-r)!}\\)")
+                tags$li("\\(_{n}P_{r}=\\dfrac{n!}{(n-r)!}\\)"),
+                tags$li("Ordered subsets without replacement")
               )
             )
           ),
-          
           fluidRow(
             box(
-              title = strong("Distinguishable Permutations"),
+              title = strong("Combination with Replacement"),
               status = "primary",
               collapsible = TRUE,
               collapsed = FALSE,
               width = 6,
-              p("Number of distinguishable permutations of ", tags$em("n"), "objects:"),
-              tags$ul( 
-                tags$li("\\(n_{1}\\) of the \\(1^{st}\\) object."),
-                tags$li("\\(n_{2}\\) of the \\(2^{nd}\\) object."),
-                tags$li("\\(n_{k}\\) of the \\(k^{th}\\) object."),
-                tags$li("Then nPr or permutations of ", tags$em("n"), "objects
-                        taken", tags$em("n"), "at a time is "),
-                tags$li("\\(P=\\binom{n}{(n_{1})(n_{2})\\cdots(n_{k})}=\\dfrac{n!}{(n_{1})!(n_{2})!(n_{3})!\\cdots(n_{k})!}\\)")
-                ### ask how to line up the equal signs for the n!/n
+              p("Number of ways to pick r things from n possibilities:"),
+              tags$ul(
+                tags$li("\\(_{n+r-1}C_{r}=\\dfrac{(n+r-1)!}{r!(n-1)!}\\)"),
+                tags$li("Unordered subsets with replacement")
               )
             ),
             box(
-              title = strong("Multiplication Principle"),
+              title = strong("Combination without Replacement"),
               status = "primary",
               collapsible = TRUE,
               collapsed = FALSE,
               width = 6,
-              p("If there are: "),
-              tags$ul( 
-                tags$li(("\\({n_{1}}\\)"), "outcomes of experiment one"), 
-                tags$li(("\\({n_{2}}\\)"), "outcomes of experiment two"), 
-                tags$li(("\\({n_{m}}\\)"), "outcomes of experiment m"), 
-                tags$li("Then the number of total outcomes from all experiments", 
-                        ("\\({E_{1},E_{2},E_{3}=}\\)")), 
-                tags$li("\\({(n_{1})\\times(n_{2})\\times(n_{3})\\times\\cdots\\times(n_{m})= n!}\\)")
+              p("Number of ways to pick r things from n possibilities:"),
+              tags$ul(
+                tags$li("\\(_{n}C_{r}=\\dfrac{n!}{r!(n-r)!}\\)"),
+                tags$li("Unordered subsets without replacement")
               )
             )
           ),
@@ -246,7 +231,7 @@ ui <- list(
           )
         ),
 
-#### Explore Page ---- 
+        #### Explore/Clothing Page ---- 
         tabItem(
           tabName = "explore",
           withMathJax(),
@@ -521,7 +506,7 @@ ui <- list(
           )
         ),
         
-        #### Set up a Game Page ----
+        #### Game/Poker Page ----
         tabItem(
           tabName = "game",
           withMathJax(),
