@@ -81,8 +81,8 @@ ui <- list(
           div(
             style = "text-align: center",
             bsButton(
-              inputId = "go1",
-              label = "GO!",
+              inputId = "OverviewToPrereq",
+              label = "Prerequisites",
               size = "large",
               icon = icon("book"),
               style = "default"
@@ -109,121 +109,122 @@ ui <- list(
           tabName = "prerequisites",
           withMathJax(),
           h2("Prerequisites"),
-          p("In order to get the most out of this app, please review the
-            following:"),
-          tags$ul(
-            tags$li("The difference between combinations, and the other counting 
-                    techniques."),
-            tags$li("Understand how different wording in a problem changes the
-                    way you solve a problem (ex.At most vs At least)")
-          ),
-          br(), 
-          h3("Counting Techniques"),
-          fluidRow(
-            box(
-              title = strong("Permutation with Replacement"),
-              status = "primary",
-              collapsible = TRUE,
-              collapsed = FALSE,
-              width = 6,
-              p("Number of ways to pick r things from n possibilities:"),
-              tags$ul( 
-                tags$li("\\(n^{r}\\)"),
-                tags$li("Ordered subsets with replacement")
-                
+          tabsetPanel(
+            
+            ##### COUNTING TAB ----
+            tabPanel(
+              title = "Counting Techniques",
+              br(),
+              fluidRow(
+                box(
+                  title = strong("Permutation with Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("Number of ways to pick r things from n possibilities:"),
+                  tags$ul( 
+                    tags$li("\\(n^{r}\\)"),
+                    tags$li("Ordered subsets with replacement")
+                    
+                  )
+                ),
+                box(
+                  title = strong("Permutation without Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("Number of ways to pick r things from n possibilities:"),
+                  tags$ul( 
+                    tags$li("\\(_{n}P_{r}=\\dfrac{n!}{(n-r)!}\\)"),
+                    tags$li("Ordered subsets without replacement")
+                  )
+                )
+              ),
+              fluidRow(
+                box(
+                  title = strong("Combination with Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("Number of ways to pick r things from n possibilities:"),
+                  tags$ul(
+                    tags$li("\\(_{n+r-1}C_{r}=\\dfrac{(n+r-1)!}{r!(n-1)!}\\)"),
+                    tags$li("Unordered subsets with replacement")
+                  )
+                ),
+                box(
+                  title = strong("Combination without Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("Number of ways to pick r things from n possibilities:"),
+                  tags$ul(
+                    tags$li("\\(_{n}C_{r}=\\dfrac{n!}{r!(n-r)!}\\)"),
+                    tags$li("Unordered subsets without replacement")
+                  )
+                )
               )
             ),
-            box(
-              title = strong("Permutation without Replacement"),
-              status = "primary",
-              collapsible = TRUE,
-              collapsed = FALSE,
-              width = 6,
-              p("Number of ways to pick r things from n possibilities:"),
-              tags$ul( 
-                tags$li("\\(_{n}P_{r}=\\dfrac{n!}{(n-r)!}\\)"),
-                tags$li("Ordered subsets without replacement")
-              )
-            )
-          ),
-          fluidRow(
-            box(
-              title = strong("Combination with Replacement"),
-              status = "primary",
-              collapsible = TRUE,
-              collapsed = FALSE,
-              width = 6,
-              p("Number of ways to pick r things from n possibilities:"),
-              tags$ul(
-                tags$li("\\(_{n+r-1}C_{r}=\\dfrac{(n+r-1)!}{r!(n-1)!}\\)"),
-                tags$li("Unordered subsets with replacement")
-              )
-            ),
-            box(
-              title = strong("Combination without Replacement"),
-              status = "primary",
-              collapsible = TRUE,
-              collapsed = FALSE,
-              width = 6,
-              p("Number of ways to pick r things from n possibilities:"),
-              tags$ul(
-                tags$li("\\(_{n}C_{r}=\\dfrac{n!}{r!(n-r)!}\\)"),
-                tags$li("Unordered subsets without replacement")
-              )
-            )
-          ),
-          br(), 
-          h3("Binomial Probability: Exactly vs. At Most vs. At Least"), 
-          fluidRow(
-            box(
-              title = strong("Exactly"),
-              status = "primary",
-              collapsible = TRUE,
-              collapsed = FALSE,
-              width = 4,
-              p("The probability of obtaining exactly", tags$em("r"), "events 
+            
+            ##### PROBABILITY TAB ----
+            tabPanel(
+              title = "Binomial Probability",
+              br(),
+              h3("Applying counting tequniques to binomial probability"),
+              fluidRow(
+                box(
+                  title = strong("Exactly"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 4,
+                  p("The probability of obtaining exactly", tags$em("r"), "events 
                 in ", tags$em("n"), "trials = "), 
-              p("\\(P(X=r)=\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
-              p("where ", tags$em("p"), "is the probability of success"), 
-              br(), 
-              br()
-            ),
-            
-            box(
-              title = strong("At Most"),
-              status = "primary",
-              collapsible = TRUE,
-              collapsed = FALSE,
-              width = 4,
-              p("The probability of obtaining ", tags$strong("at most"), tags$em("r"), 
-                "from", tags$em("n"), "trials = "), 
-              p("\\(P(X\\le{r})=\\sum_{i=0}^r\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
-              p("where ", tags$em("p"), "is the probability of success"), 
-              br(), 
-              br()
-            ),
-            
-            box(
-              title = strong("At Least"),
-              status = "primary",
-              collapsible = TRUE,
-              collapsed = FALSE,
-              width = 4,
-              p("The probability of obtaining ", tags$strong("at least"), tags$em("r"), 
-                "from", tags$em("n"), "trials = "),
-              p("\\(P(X\\ge{r})=\\sum_{i=r}^n\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\) or"), 
-              p("\\(1-P(X\\le{r})\\)"),
-              p("where ", tags$em("p"), "is the probability of success")
+                p("\\(P(X=r)=\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
+                p("where ", tags$em("p"), "is the probability of success"), 
+                br(), 
+                br()
+                ),
+                
+                box(
+                  title = strong("At Most"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 4,
+                  p("The probability of obtaining ", tags$strong("at most"), tags$em("r"), 
+                    "from", tags$em("n"), "trials = "), 
+                  p("\\(P(X\\le{r})=\\sum_{i=0}^r\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
+                  p("where ", tags$em("p"), "is the probability of success"), 
+                  br(), 
+                  br()
+                ),
+                
+                box(
+                  title = strong("At Least"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 4,
+                  p("The probability of obtaining ", tags$strong("at least"), tags$em("r"), 
+                    "from", tags$em("n"), "trials = "),
+                  p("\\(P(X\\ge{r})=\\sum_{i=r}^n\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\) or"), 
+                  p("\\(1-P(X\\le{r})\\)"),
+                  p("where ", tags$em("p"), "is the probability of success")
+                )
+              )
             )
           ), 
-          
-            br(), 
-          
+          br(), 
           div(
             style = "text-align: center",
             bsButton(
-              inputId = "goPre",
-              label = "GO!",
+              inputId = "PrereqToExplore",
+              label = "Explore",
               size = "large",
               icon = icon("wpexplorer"),
               style = "default"
@@ -232,12 +233,13 @@ ui <- list(
         ),
 
         #### Explore/Clothing Page ---- 
-        ##### CLOTHING TAB ----
         tabItem(
           tabName = "explore",
           withMathJax(),
           h2("Explore the Concept"),
           tabsetPanel(
+            
+        ##### CLOTHING TAB ----
           tabPanel(
             title = "Practice Combinations & Permutations",
             br(),
@@ -610,7 +612,7 @@ server <- function(input, output, session) {
   )
   
   observeEvent(
-    eventExpr = input$go1,
+    eventExpr = input$OverviewToPrereq,
     handlerExpr = {
       updateTabItems(
         session = session,
@@ -620,7 +622,7 @@ server <- function(input, output, session) {
   )
   
   observeEvent(
-    eventExpr = input$goPre,
+    eventExpr = input$PrereqToExplore,
     handlerExpr = {
       updateTabItems(
         session = session,
