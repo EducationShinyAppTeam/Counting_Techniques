@@ -232,6 +232,7 @@ ui <- list(
         ),
 
         #### Explore/Clothing Page ---- 
+        ##### CLOTHING TAB ----
         tabItem(
           tabName = "explore",
           withMathJax(),
@@ -403,105 +404,127 @@ ui <- list(
               without rewearing any clothing articles?")
           ),
           
+          ##### GENERAL PRACTICE TAB ----
           tabPanel(
             title = "More Practice", 
             br(),
             h3("Questions with Answer Explanations"), 
             fluidRow(
               box(
-                title = strong("Combinations Example"),
+                title = strong("Permutation with Replacement"),
                 status = "primary",
                 collapsible = TRUE,
                 collapsed = FALSE,
-                width = 12,
-                p("There are five different types of cheese that one can  use 
-                  for a cheese platter. However they can only choose three to go 
-                  on the plate. How many ways can three cheeses be chosen from 
-                  the five types?"), 
-                p("Answer: \\(_{5}C_{3}=\\dfrac{5!}{3!(5-3)!}=10\\)") 
-              ),
-              
-              box(
-                title = strong("Permutations Example"),
-                status = "primary",
-                collapsible = TRUE,
-                collapsed = FALSE,
-                width = 12,
-                p("Choosing from the 6 letters ABCDEF, how many ways can three 
-                  letters be arranged?"), 
-                p("Answer: \\(_{6}P_{3}=\\dfrac{6!}{(6-3)!}=120\\)"), 
-                p(tags$b("Note: "),"Notice we must use the formula for permutations
-                  and not combinations because ", tags$b("order matters"), "in 
-                  this situation. For permutations, the group \\(ABC\\) 
-                  is different from \\(CAB\\). If this was a combination
-                  quesion, \\(ABC\\) and \\(CAB\\) would be considered one combination.")
-              ), 
-              
-              box(
-                title = strong("Distinguishable Permutations Example"),
-                status = "primary",
-                collapsible = TRUE,
-                collapsed = FALSE,
-                width = 12,
-                p("How many ordered arrangements are there of the word 'Bookkeeper'?"), 
-                p("Answer: \\(\\binom{10}{(1)(2)(2)(3)(1)(1)}=\\dfrac{10!}{(1!)(2!)(2!)(3!)(1!)(1!)}\\)"), #Calculate this answer
-                tags$ul(
-                  tags$li("There is one letter \\(B\\)"), 
-                  tags$li("There are two letter \\(O's\\)"),
-                  tags$li("There are two letter \\(K's\\)"), 
-                  tags$li("There are three letters \\(E's\\)"), 
-                  tags$li("There is one letter \\(P\\)"), 
-                  tags$li("There is one letter \\(R\\)")
+                width = 6,
+                p("Distribute 5 different candy bars to 20 children. 
+                  We are willing to give some children more than 1 candy bar. 
+                  How many ways can we distribute the candy bars?"),
+                tags$ul( 
+                  tags$li("Since the candy bars are different, order matters. 
+                          Therefore, we use a permutation."),
+                  tags$li("Since children can receive more than 1 candy bar, 
+                          there is replacement."),
+                  tags$li("\\(n^{r} = 20^{5}\\)")
                 )
               ),
-              
               box(
-                title = strong("Multiplication Principle Example"),
+                title = strong("Permutation without Replacement"),
                 status = "primary",
                 collapsible = TRUE,
                 collapsed = FALSE,
-                width = 12,
-                p("If there are 9 appetizers, 12 entrees, and 5 desserts, how many
-                  meals can you make?"),
-                p("Answer:", tags$em(tags$strong("Number of Meals")),"\\(=(9)\\times(12)\\times(5)=540\\)")
-              ),
-              
-              box(
-                title = strong("Wording Context Change Example"),
-                status = "primary",
-                collapsible = TRUE,
-                collapsed = FALSE,
-                width = 12,
-                p("The probability that a person has traveled out of the country 
-                  is 35%. Out of the 70 people chosen:"), 
-                tags$ol(
-                  tags$li("What is the probability that", tags$strong("exactly"), 
-                          "21 people have traveled outside of the country?",
-                          tags$ul(
-                            tags$li("\\(P(X=21)=\\binom{70}{21}\\cdot(0.35^{21})
-                                  \\cdot(0.65^{70-21})=0.69845\\)")
-                          )),
-                  br(), 
-                  tags$li("What is the probability that", tags$strong("at most"), 
-                          "21 people have traveled outside of the country?",
-                          tags$ul(
-                            tags$li("\\(P(X\\le{21})=\\sum_{i=0}^{21}\\binom{70}{i}
-                                  \\cdot(0.35^{i})\\cdot(0.65^{70-i})=0.22787\\)")
-                          )),
-                  br(),
-                  tags$li("What is the probability that", tags$strong("at least"), 
-                          "21 people have traveled outside of the country?", 
-                          tags$ul(
-                            tags$li("\\(P(X\\ge{21})=\\sum_{i=21}^{70}\\binom{70}{i}
-                                  \\cdot(0.35^{i})\\cdot(0.65^{70-i})=0.84197\\)"), 
-                            #tags$li(tags$strong("OR")), 
-                            tags$li("\\(1-P(X\\le{21})=\\sum_{i=0}^{20}\\binom{70}{i}
-                                  \\cdot(0.35^{i})\\cdot(0.65^{70-i})=0.84197\\)")
-                            
-                          )),
+                width = 6,
+                p("Distribute 5 different candy bars to 20 children. 
+                  We do not want to give any child more than 1 candy bar. 
+                  How many ways can we distribute the candy bars?"),
+                tags$ul( 
+                  tags$li("Since the candy bars are different, order matters. 
+                          Therefore, we use a permutation."),
+                  tags$li("Since children cannot receive more than 1 candy bar, 
+                          there is no replacement."),
+                  tags$li("\\(_{n}P_{r} = _{20}P_{5} =\\dfrac{20!}{15!}\\)")
                 )
               )
-            )
+            ),
+            fluidRow(
+              box(
+                title = strong("Combination with Replacement"),
+                status = "primary",
+                collapsible = TRUE,
+                collapsed = FALSE,
+                width = 6,
+                p("Distribute 5 identical candy bars to 20 children. 
+                  We are willing to give some children more than 1 candy bar. 
+                  How many ways can we distribute the candy bars?"),
+                tags$ul( 
+                  tags$li("Since the candy bars are identical, order does not 
+                          matter. Therefore, we use a combination."),
+                  tags$li("Since children can receive more than 1 candy bar, 
+                          there is replacement."),
+                  tags$li("\\(_{n+r-1}C_{r} = _{24}C_{5} = \\dfrac{24!}{5!(19)!}\\)")
+                )
+              ),
+              box(
+                title = strong("Combination without Replacement"),
+                status = "primary",
+                collapsible = TRUE,
+                collapsed = FALSE,
+                width = 6,
+                p("Distribute 5 identical candy bars to 20 children. 
+                  We do not want to give any child more than 1 candy bar. 
+                  How many ways can we distribute the candy bars?"),
+                tags$ul( 
+                  tags$li("Since the candy bars are identical, order does not 
+                          matter. Therefore, we use a combination."),
+                  tags$li("Since children cannot receive more than 1 candy bar, 
+                          there is no replacement."),
+                  tags$li("\\(_{n}C_{r} = _{20}C_{5} = \\dfrac{20!}{5!(15)!}\\)")
+                )
+              )
+            ),
+            br(), 
+            h3("Binomial Probability: Exactly vs. At Most vs. At Least"), 
+            fluidRow(
+              box(
+                title = strong("Exactly"),
+                status = "primary",
+                collapsible = TRUE,
+                collapsed = FALSE,
+                width = 4,
+                p("The probability of obtaining exactly", tags$em("r"), "events 
+                in ", tags$em("n"), "trials = "), 
+                p("\\(P(X=r)=\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
+                p("where ", tags$em("p"), "is the probability of success"), 
+                br(), 
+                br()
+              ),
+              
+              box(
+                title = strong("At Most"),
+                status = "primary",
+                collapsible = TRUE,
+                collapsed = FALSE,
+                width = 4,
+                p("The probability of obtaining ", tags$strong("at most"), tags$em("r"), 
+                  "from", tags$em("n"), "trials = "), 
+                p("\\(P(X\\le{r})=\\sum_{i=0}^r\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
+                p("where ", tags$em("p"), "is the probability of success"), 
+                br(), 
+                br()
+              ),
+              
+              box(
+                title = strong("At Least"),
+                status = "primary",
+                collapsible = TRUE,
+                collapsed = FALSE,
+                width = 4,
+                p("The probability of obtaining ", tags$strong("at least"), tags$em("r"), 
+                  "from", tags$em("n"), "trials = "),
+                p("\\(P(X\\ge{r})=\\sum_{i=r}^n\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\) or"), 
+                p("\\(1-P(X\\le{r})\\)"),
+                p("where ", tags$em("p"), "is the probability of success")
+              )
+            ), 
           )
           )
         ),
