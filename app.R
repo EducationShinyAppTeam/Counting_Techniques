@@ -575,7 +575,9 @@ ui <- list(
             column(
               width = 6,
               offset = 0,
-              print("tic-tac-toe will appear here")
+              wellPanel(
+                print("tic-tac-toe will appear here")
+              )
             ),
             column(
               width = 6,
@@ -592,7 +594,7 @@ ui <- list(
           )
         ),
         
-        #### Set up the References Page ----
+        ####  References Page ----
         tabItem(
           tabName = "references",
           withMathJax(),
