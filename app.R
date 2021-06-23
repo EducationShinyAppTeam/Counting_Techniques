@@ -517,50 +517,6 @@ ui <- list(
                     tags$li("\\(_{n}C_{r} = _{20}C_{5} = \\dfrac{20!}{5!(15)!}\\)")
                   )
                 )
-              ),
-              br(), 
-              h3("Binomial Probability: Exactly vs. At Most vs. At Least"), 
-              fluidRow(
-                box(
-                  title = strong("Exactly"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 4,
-                  p("The probability of obtaining exactly", tags$em("r"), "events 
-                in ", tags$em("n"), "trials = "), 
-                p("\\(P(X=r)=\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
-                p("where ", tags$em("p"), "is the probability of success"), 
-                br(), 
-                br()
-                ),
-                
-                box(
-                  title = strong("At Most"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 4,
-                  p("The probability of obtaining ", tags$strong("at most"), tags$em("r"), 
-                    "from", tags$em("n"), "trials = "), 
-                  p("\\(P(X\\le{r})=\\sum_{i=0}^r\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
-                  p("where ", tags$em("p"), "is the probability of success"), 
-                  br(), 
-                  br()
-                ),
-                
-                box(
-                  title = strong("At Least"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 4,
-                  p("The probability of obtaining ", tags$strong("at least"), tags$em("r"), 
-                    "from", tags$em("n"), "trials = "),
-                  p("\\(P(X\\ge{r})=\\sum_{i=r}^n\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\) or"), 
-                  p("\\(1-P(X\\le{r})\\)"),
-                  p("where ", tags$em("p"), "is the probability of success")
-                )
               )
             )
           )
