@@ -388,6 +388,8 @@ ui <- list(
                 collapsed = FALSE,
                 width = 6,
                 p("How many outfits could you make with the given wardrobe?"),
+                br(),
+                uiOutput("clothesQuestion1ans")
               ),
               box(
                 title = strong("Permutation without Replacement"),
@@ -396,7 +398,9 @@ ui <- list(
                 collapsed = FALSE,
                 width = 6,
                 p("How many outfits could you make with the given wardrobe, 
-                  without rewearing any clothing articles?")
+                  without rewearing any outfits?"),
+                br(),
+                uiOutput("clothesQuestion2ans")
               )
             ),
             fluidRow(
@@ -406,7 +410,9 @@ ui <- list(
                 collapsible = TRUE,
                 collapsed = FALSE,
                 width = 6,
-                p("How many different outfits could you make with the given wardrobe?")
+                p("How many different outfits could you make with the given wardrobe?"),
+                br(),
+                uiOutput("clothesQuestion3ans")
               ),
               box(
                 title = strong("Combination without Replacement"),
@@ -415,7 +421,9 @@ ui <- list(
                 collapsed = FALSE,
                 width = 6,
                 p("How many different outfits could you make with the given wardrobe, 
-              without rewearing any clothing articles?")
+              without rewearing any outfits?"),
+              br(),
+              uiOutput("clothesQuestion4ans")
               )
             ),
             fluidRow(
@@ -426,7 +434,9 @@ ui <- list(
                 collapsed = FALSE,
                 width = 6,
                 p("Given that there is warm weather, 
-                  how many different outfits could you make with the given wardrobe?")
+                  how many different outfits could you make with the given wardrobe?"),
+                br(),
+                uiOutput("clothesQuestion5ans")
               ),
               box(
                 title = strong("Conditional combination without Replacement"),
@@ -436,7 +446,9 @@ ui <- list(
                 width = 6,
                 p("Given that there is warm weather, 
                   how many different outfits could you make with the given wardrobe, 
-                  without rewearing any clothing articles?")
+                  without rewearing any outfits?"),
+                br(),
+                uiOutput("clothesQuestion6ans")
               )
             )
             ),
@@ -697,6 +709,7 @@ server <- function(input, output, session) {
   observeEvent(
     eventExpr = input$newWardrobe,
     handlerExpr = {
+      
       randomNumber1 <- sample(2:7, 1)
       randomNumber2 <- sample(2:7, 1)
       randomNumber3 <- sample(2:7, 1)
@@ -707,6 +720,7 @@ server <- function(input, output, session) {
       randomNumber8 <- sample(2:7, 1)
       randomNumber9 <- sample(2:7, 1)
       randomNumber10 <- sample(2:7, 1)
+      
       output$tshirt_solid_num <- renderText(randomNumber1)
       output$tshirt_stripe_num <- renderText(randomNumber2)
       output$hoodie_solid_num <- renderText(randomNumber3)
@@ -717,6 +731,59 @@ server <- function(input, output, session) {
       output$shorts_stripe_num <- renderText(randomNumber8)
       output$checker_shoes_num <- renderText(randomNumber9)
       output$psu_adidas_num <- renderText(randomNumber10)
+      
+      output$clothesQuestion1ans <- renderUI({
+        withMathJax(
+            sprintf(
+              fmt = "\\(n^{r} = %d * %d * %d * %d * %d * %d * %d * %d * %d * %d = %d\\)",
+              randomNumber1,
+              randomNumber2,
+              randomNumber3,
+              randomNumber4,
+              randomNumber5,
+              randomNumber6,
+              randomNumber7,
+              randomNumber8,
+              randomNumber9,
+              randomNumber10,
+              (randomNumber1 * randomNumber2 * randomNumber3 * randomNumber4 * randomNumber5 *randomNumber6 * randomNumber7 * randomNumber8 * randomNumber9 * randomNumber10)
+            )
+          )
+      })
+      output$clothesQuestion2ans <- renderUI({
+        withMathJax(
+          sprintf(
+            fmt = "\\(_{n}P_{r} = %d * %d * %d * %d * %d * %d * %d * %d * %d * %d = %d\\)",
+            (randomNumber1 - 1),
+            (randomNumber2 - 1),
+            (randomNumber3 - 1),
+            (randomNumber4 - 1),
+            (randomNumber5 - 1),
+            (randomNumber6 - 1),
+            (randomNumber7 - 1),
+            (randomNumber8 - 1),
+            (randomNumber9 - 1),
+            (randomNumber10 - 1),
+            ((randomNumber1 - 1) * (randomNumber2 - 1) * (randomNumber3 - 1) * (randomNumber4 - 1) * (randomNumber5 - 1) *(randomNumber6 - 1) * (randomNumber7 - 1) * (randomNumber8 - 1) * (randomNumber9 - 1) * (randomNumber10 - 1))
+          )
+        )
+      })
+      output$clothesQuestion3ans <- renderUI({
+        withMathJax(
+          sprintf(
+            fmt = "\\(_{n+r-1}C_{r} = _{24}C_{5} = \\dfrac{24!}{5!(19)!}\\)" = %d * %d * %d * %d * %d * %d * %d * %d * %d * %d = %d\\)",
+            
+      })
+      output$clothesQuestion4ans <- renderUI({
+        (randomNumber1+randomNumber4)
+      })
+      output$clothesQuestion5ans <- renderUI({
+        (randomNumber1+randomNumber5)
+      })
+      output$clothesQuestion6ans <- renderUI({
+        (randomNumber1+randomNumber6)
+      })
+
     }
   )
   
