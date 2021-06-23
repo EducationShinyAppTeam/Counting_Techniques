@@ -107,7 +107,6 @@ ui <- list(
           tabName = "prerequisites",
           withMathJax(),
           h2("Prerequisites"),
-<<<<<<< HEAD
           p("In order to get the most out of this app, please review the
             following:"),
           tags$ul(
@@ -202,10 +201,9 @@ ui <- list(
               br(), 
               br()
             ),
-=======
+
           tabsetPanel(
->>>>>>> 81eb71fb938b1c1f22ccc62a7e2348b8b0bd5459
-            
+
             ##### COUNTING TAB ----
             tabPanel(
               title = "Counting Techniques",
@@ -326,7 +324,7 @@ ui <- list(
               style = "default"
             )
           )
-        ),
+        )),
         
         #### Explore/Clothing Page ---- 
         tabItem(
@@ -334,7 +332,6 @@ ui <- list(
           withMathJax(),
           h2("Explore the Concept"),
           tabsetPanel(
-<<<<<<< HEAD
           tabPanel(
             title = "Exploring Counting Techniques",
             br(),
@@ -343,8 +340,7 @@ ui <- list(
           
           tabPanel(
             title = "Example Questions", 
-=======
-            
+
             ##### CLOTHING TAB ----
             tabPanel(
               title = "Practice Combinations & Permutations",
@@ -486,7 +482,6 @@ ui <- list(
               "Warm weather clothing includes t-shirts and shorts. 
                Cold weather clothing includes hoodies and pants.
                Shoes can be worn in any type of weather."),
->>>>>>> 81eb71fb938b1c1f22ccc62a7e2348b8b0bd5459
             br(),
             fluidRow(
               box(
@@ -640,7 +635,7 @@ ui <- list(
               )
             )
           )
-        ),
+        )),
         
         #### Game/Poker Page ----
         tabItem(
@@ -766,6 +761,7 @@ ui <- list(
     )
   )
 )
+
 
 # Define server logic ----
 server <- function(input, output, session) {
