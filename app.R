@@ -614,7 +614,26 @@ ui <- list(
                 style = "default"
               )
             )
+          ),
+          fluidRow(
+            column(
+              width = 6,
+              offset = 0,
+              print("tic-tac-toe will appear here")
+            ),
+            column(
+              width = 6,
+              offset = 0,
+              textOutput("prompt"),
+              wellPanel(
+                radioButtons(
+                  inputId = "promptAnsOptions",
+                  label = "Find the probability of being dealt the hand displayed.",
+                  choices =  c("Choice A","Choice B", "Choice C")
+              )
+            )
           )
+        )
         ),
         
         #### Set up the References Page ----
@@ -786,6 +805,17 @@ server <- function(input, output, session) {
                alt = "7 of clubs")
         }, deleteFile = FALSE
         )
+        updateRadioButtons(
+          session = session,
+          inputId = "promptAnsOptions",
+          label = print("The hand that you have been dealt is a 1 PAIR. 
+                        Find the probability of this poker hand."),
+          choices = c(
+            "nicki minaj", 
+            "megan stallion",
+            "saweetie"
+          )
+        )
       }
       
       ### 2 Pairs ----
@@ -824,6 +854,17 @@ server <- function(input, output, session) {
                height = "100%",
                alt = "Jack of diamonds")
         }, deleteFile = FALSE
+        )
+        updateRadioButtons(
+          session = session,
+          inputId = "promptAnsOptions",
+          label = print("The hand that you have been dealt is a 2 PAIRS. 
+                        Find the probability of this poker hand."),
+          choices = c(
+            "dog",
+            "cat",
+            "bird"
+          )
         )
       }
       
@@ -864,6 +905,17 @@ server <- function(input, output, session) {
                alt = "7 of clubs")
         }, deleteFile = FALSE
         )
+        updateRadioButtons(
+          session = session,
+          inputId = "promptAnsOptions",
+          label = print("The hand that you have been dealt is a 3 OF A KIND. 
+                        Find the probability of this poker hand."),
+          choices = c(
+            "happy",
+            "sad",
+            "tired"
+          )
+        )
       }
       
       ### Straight ----
@@ -902,6 +954,17 @@ server <- function(input, output, session) {
                height = "100%",
                alt = "9 of clubs")
         }, deleteFile = FALSE
+        )
+        updateRadioButtons(
+          session = session,
+          inputId = "promptAnsOptions",
+          label = print("The hand that you have been dealt is a STRAIGHT. 
+                        Find the probability of this poker hand."),
+          choices = c(
+            "bachelors",
+            "masters",
+            "doctorate"
+          )
         )
       }
 
@@ -942,6 +1005,17 @@ server <- function(input, output, session) {
                alt = "King of hearts")
         }, deleteFile = FALSE
         )
+        updateRadioButtons(
+          session = session,
+          inputId = "promptAnsOptions",
+          label = print("The hand that you have been dealt is a FLUSH. 
+                        Find the probability of this poker hand."),
+          choices = c(
+            "morning",
+            "afternoon",
+            "evening"
+          )
+        )
       }
 
       ### Full House ----
@@ -980,6 +1054,17 @@ server <- function(input, output, session) {
                height = "100%",
                alt = "King of spades")
         }, deleteFile = FALSE
+        )
+        updateRadioButtons(
+          session = session,
+          inputId = "promptAnsOptions",
+          label = print("The hand that you have been dealt is a FULL HOUSE. 
+                        Find the probability of this poker hand."),
+          choices = c(
+            "dababy",
+            "21 savage",
+            "tyga"
+          )
         )
       }
       
@@ -1020,6 +1105,17 @@ server <- function(input, output, session) {
                alt = "2 of spades")
         }, deleteFile = FALSE
         )
+        updateRadioButtons(
+          session = session,
+          inputId = "promptAnsOptions",
+          label = print("The hand that you have been dealt is a 4 OF A KIND. 
+                        Find the probability of this poker hand."),
+          choices = c(
+            "lil nasx",
+            "lil uzi",
+            "lil wayne"
+          )
+        )
       }
       
       ### Straight Flush ----
@@ -1059,6 +1155,17 @@ server <- function(input, output, session) {
                alt = "9 of hearts")
         }, deleteFile = FALSE
         )
+        updateRadioButtons(
+          session = session,
+          inputId = "promptAnsOptions",
+          label = print("The hand that you have been dealt is a STRAIGHT FLUSH. 
+                        Find the probability of this poker hand."),
+          choices = c(
+            "kim",
+            "kourtney",
+            "khloe"
+          )
+        )
       }
       
       ### Royal Flush ----
@@ -1097,6 +1204,17 @@ server <- function(input, output, session) {
                height = "100%",
                alt = "Ace of hearts")
         }, deleteFile = FALSE
+        )
+        updateRadioButtons(
+          session = session,
+          inputId = "promptAnsOptions",
+          label = print("The hand that you have been dealt is a ROYAL FLUSH. 
+                        Find the probability of this poker hand."),
+          choices = c(
+            "vanilla",
+            "chocolate",
+            "strawberry"
+          )
         )
       }
     }
