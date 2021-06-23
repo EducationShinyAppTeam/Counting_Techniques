@@ -171,7 +171,7 @@ ui <- list(
                 tags$li(("\\({n_{m}}\\)"), "outcomes of experiment m"), 
                 tags$li("Then the number of total outcomes from all experiments", 
                         ("\\({E_{1},E_{2},E_{3}=}\\)")), 
-                tags$li("\\({(n_{1})\\times(n_{2})\\times(n_{3})\\times\\cdots\\times(n_{m})= n!}\\)")
+                tags$li("\\({(n_{1})\\times(n_{2})\\times(n_{3})\\times\\cdots\\times(n_{m})}\\)")
               )
             )
           ),
