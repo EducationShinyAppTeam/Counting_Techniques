@@ -769,10 +769,6 @@ server <- function(input, output, session) {
         )
       })
       output$clothesQuestion3ans <- renderUI({
-        withMathJax(
-          sprintf(
-            fmt = "\\(_{n+r-1}C_{r} = _{24}C_{5} = \\dfrac{24!}{5!(19)!}\\)" = %d * %d * %d * %d * %d * %d * %d * %d * %d * %d = %d\\)",
-            
       })
       output$clothesQuestion4ans <- renderUI({
         (randomNumber1+randomNumber4)
