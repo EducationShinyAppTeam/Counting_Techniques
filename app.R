@@ -571,6 +571,7 @@ ui <- list(
               )
             )
           ),
+          br(),
           fluidRow(
             column(
               width = 6,
@@ -732,6 +733,7 @@ server <- function(input, output, session) {
           list(src = "a-club.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of clubs")
         }, deleteFile = FALSE
         )
@@ -739,6 +741,7 @@ server <- function(input, output, session) {
           list(src = "a-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
         )
@@ -746,6 +749,7 @@ server <- function(input, output, session) {
           list(src = "9-spade.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "9 of spades")
         }, deleteFile = FALSE
         )
@@ -753,6 +757,7 @@ server <- function(input, output, session) {
           list(src = "8-diamond.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "8 of diamonds")
         }, deleteFile = FALSE
         )
@@ -760,6 +765,7 @@ server <- function(input, output, session) {
           list(src = "7-club.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "7 of clubs")
         }, deleteFile = FALSE
         )
@@ -782,6 +788,7 @@ server <- function(input, output, session) {
           list(src = "k-diamond.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "King of diamonds")
         }, deleteFile = FALSE
         )
@@ -789,6 +796,7 @@ server <- function(input, output, session) {
           list(src = "k-club.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "King of clubs")
         }, deleteFile = FALSE
         )
@@ -796,6 +804,7 @@ server <- function(input, output, session) {
           list(src = "q-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Queen of hearts")
         }, deleteFile = FALSE
         )
@@ -803,6 +812,7 @@ server <- function(input, output, session) {
           list(src = "q-spade.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Queen of spades")
         }, deleteFile = FALSE
         )
@@ -810,6 +820,7 @@ server <- function(input, output, session) {
           list(src = "j-diamond.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Jack of diamonds")
         }, deleteFile = FALSE
         )
@@ -832,6 +843,7 @@ server <- function(input, output, session) {
           list(src = "a-club",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of clubs")
         }, deleteFile = FALSE
         )
@@ -839,6 +851,7 @@ server <- function(input, output, session) {
           list(src = "a-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
         )
@@ -846,6 +859,7 @@ server <- function(input, output, session) {
           list(src = "a-spade.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of spades")
         }, deleteFile = FALSE
         )
@@ -853,6 +867,7 @@ server <- function(input, output, session) {
           list(src = "2-diamond.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "2 of diamonds")
         }, deleteFile = FALSE
         )
@@ -860,6 +875,7 @@ server <- function(input, output, session) {
           list(src = "7-club.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "7 of clubs")
         }, deleteFile = FALSE
         )
@@ -882,6 +898,7 @@ server <- function(input, output, session) {
           list(src = "5-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "5 of hearts")
         }, deleteFile = FALSE
         )
@@ -889,6 +906,7 @@ server <- function(input, output, session) {
           list(src = "6-club.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "6 of clubs")
         }, deleteFile = FALSE
         )
@@ -896,6 +914,7 @@ server <- function(input, output, session) {
           list(src = "7-diamond.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "7 of diamonds")
         }, deleteFile = FALSE
         )
@@ -903,6 +922,7 @@ server <- function(input, output, session) {
           list(src = "8-spade.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "8 of spades")
         }, deleteFile = FALSE
         )
@@ -910,6 +930,7 @@ server <- function(input, output, session) {
           list(src = "9-club.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "9 of clubs")
         }, deleteFile = FALSE
         )
@@ -932,6 +953,7 @@ server <- function(input, output, session) {
           list(src = "2-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "2 of hearts")
         }, deleteFile = FALSE
         )
@@ -939,6 +961,7 @@ server <- function(input, output, session) {
           list(src = "4-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "4 of hearts")
         }, deleteFile = FALSE
         )
@@ -946,6 +969,7 @@ server <- function(input, output, session) {
           list(src = "6-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "6 of hearts")
         }, deleteFile = FALSE
         )
@@ -953,6 +977,7 @@ server <- function(input, output, session) {
           list(src = "8-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "8 of hearts")
         }, deleteFile = FALSE
         )
@@ -960,6 +985,7 @@ server <- function(input, output, session) {
           list(src = "K-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "King of hearts")
         }, deleteFile = FALSE
         )
@@ -982,6 +1008,7 @@ server <- function(input, output, session) {
           list(src = "a-spade.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of spades")
         }, deleteFile = FALSE
         )
@@ -989,6 +1016,7 @@ server <- function(input, output, session) {
           list(src = "a-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
         )
@@ -996,6 +1024,7 @@ server <- function(input, output, session) {
           list(src = "a-club.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of clubs")
         }, deleteFile = FALSE
         )
@@ -1003,6 +1032,7 @@ server <- function(input, output, session) {
           list(src = "k-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "King of hearts")
         }, deleteFile = FALSE
         )
@@ -1010,6 +1040,7 @@ server <- function(input, output, session) {
           list(src = "K-spade.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "King of spades")
         }, deleteFile = FALSE
         )
@@ -1032,6 +1063,7 @@ server <- function(input, output, session) {
           list(src = "a-spade.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of spades")
         }, deleteFile = FALSE
         )
@@ -1039,6 +1071,7 @@ server <- function(input, output, session) {
           list(src = "a-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
         )
@@ -1046,6 +1079,7 @@ server <- function(input, output, session) {
           list(src = "a-club.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of clubs")
         }, deleteFile = FALSE
         )
@@ -1053,6 +1087,7 @@ server <- function(input, output, session) {
           list(src = "a-diamond.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of diamonds")
         }, deleteFile = FALSE
         )
@@ -1060,6 +1095,7 @@ server <- function(input, output, session) {
           list(src = "2-spade.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "2 of spades")
         }, deleteFile = FALSE
         )
@@ -1082,6 +1118,7 @@ server <- function(input, output, session) {
           list(src = "5-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "5 of hearts")
         }, deleteFile = FALSE
         )
@@ -1089,6 +1126,7 @@ server <- function(input, output, session) {
           list(src = "6-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "6 of hearts")
         }, deleteFile = FALSE
         )
@@ -1096,6 +1134,7 @@ server <- function(input, output, session) {
           list(src = "7-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "7 of hearts")
         }, deleteFile = FALSE
         )
@@ -1103,6 +1142,7 @@ server <- function(input, output, session) {
           list(src = "8-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "8 of hearts")
         }, deleteFile = FALSE
         )
@@ -1110,6 +1150,7 @@ server <- function(input, output, session) {
           list(src = "9-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "9 of hearts")
         }, deleteFile = FALSE
         )
@@ -1132,6 +1173,7 @@ server <- function(input, output, session) {
           list(src = "10-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "10 of hearts")
         }, deleteFile = FALSE
         )
@@ -1139,6 +1181,7 @@ server <- function(input, output, session) {
           list(src = "j-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Jack of hearts")
         }, deleteFile = FALSE
         )
@@ -1146,6 +1189,7 @@ server <- function(input, output, session) {
           list(src = "q-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Queen of hearts")
         }, deleteFile = FALSE
         )
@@ -1153,6 +1197,7 @@ server <- function(input, output, session) {
           list(src = "k-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "King of hearts")
         }, deleteFile = FALSE
         )
@@ -1160,6 +1205,7 @@ server <- function(input, output, session) {
           list(src = "a-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
         )
