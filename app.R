@@ -75,7 +75,7 @@ ui <- list(
                     clothing-related problems."),
             tags$li("Use the Challenge page to practice applying combinatorics to 
                     probability in poker-related problems.")
-            ),
+          ),
           div(
             style = "text-align: center",
             bsButton(
@@ -230,7 +230,7 @@ ui <- list(
             )
           )
         ),
-
+        
         #### Explore/Clothing Page ---- 
         tabItem(
           tabName = "explore",
@@ -388,6 +388,8 @@ ui <- list(
                 collapsed = FALSE,
                 width = 6,
                 p("How many outfits could you make with the given wardrobe?"),
+                br(),
+                uiOutput("clothesQuestion1ans")
               ),
               box(
                 title = strong("Permutation without Replacement"),
@@ -396,7 +398,9 @@ ui <- list(
                 collapsed = FALSE,
                 width = 6,
                 p("How many outfits could you make with the given wardrobe, 
-                  without rewearing any clothing articles?")
+                  without rewearing any outfits?"),
+                br(),
+                uiOutput("clothesQuestion2ans")
               )
             ),
             fluidRow(
@@ -406,7 +410,9 @@ ui <- list(
                 collapsible = TRUE,
                 collapsed = FALSE,
                 width = 6,
-                p("How many different outfits could you make with the given wardrobe?")
+                p("How many different outfits could you make with the given wardrobe?"),
+                br(),
+                uiOutput("clothesQuestion3ans")
               ),
               box(
                 title = strong("Combination without Replacement"),
@@ -415,7 +421,9 @@ ui <- list(
                 collapsed = FALSE,
                 width = 6,
                 p("How many different outfits could you make with the given wardrobe, 
-              without rewearing any clothing articles?")
+              without rewearing any outfits?"),
+              br(),
+              uiOutput("clothesQuestion4ans")
               )
             ),
             fluidRow(
@@ -426,7 +434,9 @@ ui <- list(
                 collapsed = FALSE,
                 width = 6,
                 p("Given that there is warm weather, 
-                  how many different outfits could you make with the given wardrobe?")
+                  how many different outfits could you make with the given wardrobe?"),
+                br(),
+                uiOutput("clothesQuestion5ans")
               ),
               box(
                 title = strong("Conditional combination without Replacement"),
@@ -436,133 +446,91 @@ ui <- list(
                 width = 6,
                 p("Given that there is warm weather, 
                   how many different outfits could you make with the given wardrobe, 
-                  without rewearing any clothing articles?")
+                  without rewearing any outfits?"),
+                br(),
+                uiOutput("clothesQuestion6ans")
               )
             )
             ),
-        
+            
             ##### GENERAL PRACTICE TAB ----
-        tabPanel(
-          title = "More Practice", 
-          br(),
-          h3("Questions with Answer Explanations"), 
-          fluidRow(
-            box(
-              title = strong("Permutation with Replacement"),
-              status = "primary",
-              collapsible = TRUE,
-              collapsed = FALSE,
-              width = 6,
-              p("Distribute 5 different candy bars to 20 children. 
+            tabPanel(
+              title = "More Practice", 
+              br(),
+              h3("Questions with Answer Explanations"), 
+              fluidRow(
+                box(
+                  title = strong("Permutation with Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("Distribute 5 different candy bars to 20 children. 
                   We are willing to give some children more than 1 candy bar. 
                   How many ways can we distribute the candy bars?"),
-              tags$ul( 
-                tags$li("Since the candy bars are different, order matters. 
+                  tags$ul( 
+                    tags$li("Since the candy bars are different, order matters. 
                           Therefore, we use a permutation."),
-                tags$li("Since children can receive more than 1 candy bar, 
+                    tags$li("Since children can receive more than 1 candy bar, 
                           there is replacement."),
-                tags$li("\\(n^{r} = 20^{5}\\)")
-              )
-            ),
-            box(
-              title = strong("Permutation without Replacement"),
-              status = "primary",
-              collapsible = TRUE,
-                collapsed = FALSE,
-                width = 6,
-                p("Distribute 5 different candy bars to 20 children. 
+                    tags$li("\\(n^{r} = 20^{5}\\)")
+                  )
+                ),
+                box(
+                  title = strong("Permutation without Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("Distribute 5 different candy bars to 20 children. 
                   We do not want to give any child more than 1 candy bar. 
                   How many ways can we distribute the candy bars?"),
-                tags$ul( 
-                  tags$li("Since the candy bars are different, order matters. 
+                  tags$ul( 
+                    tags$li("Since the candy bars are different, order matters. 
                           Therefore, we use a permutation."),
-                  tags$li("Since children cannot receive more than 1 candy bar, 
+                    tags$li("Since children cannot receive more than 1 candy bar, 
                           there is no replacement."),
-                  tags$li("\\(_{n}P_{r} = _{20}P_{5} =\\dfrac{20!}{15!}\\)")
+                    tags$li("\\(_{n}P_{r} = _{20}P_{5} =\\dfrac{20!}{15!}\\)")
+                  )
                 )
-              )
-            ),
-            fluidRow(
-              box(
-                title = strong("Combination with Replacement"),
-                status = "primary",
-                collapsible = TRUE,
-                collapsed = FALSE,
-                width = 6,
-                p("Distribute 5 identical candy bars to 20 children. 
+              ),
+              fluidRow(
+                box(
+                  title = strong("Combination with Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("Distribute 5 identical candy bars to 20 children. 
                   We are willing to give some children more than 1 candy bar. 
                   How many ways can we distribute the candy bars?"),
-                tags$ul( 
-                  tags$li("Since the candy bars are identical, order does not 
+                  tags$ul( 
+                    tags$li("Since the candy bars are identical, order does not 
                           matter. Therefore, we use a combination."),
-                  tags$li("Since children can receive more than 1 candy bar, 
+                    tags$li("Since children can receive more than 1 candy bar, 
                           there is replacement."),
-                  tags$li("\\(_{n+r-1}C_{r} = _{24}C_{5} = \\dfrac{24!}{5!(19)!}\\)")
-                )
-              ),
-              box(
-                title = strong("Combination without Replacement"),
-                status = "primary",
-                collapsible = TRUE,
-                collapsed = FALSE,
-                width = 6,
-                p("Distribute 5 identical candy bars to 20 children. 
+                    tags$li("\\(_{n+r-1}C_{r} = _{24}C_{5} = \\dfrac{24!}{5!(19)!}\\)")
+                  )
+                ),
+                box(
+                  title = strong("Combination without Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("Distribute 5 identical candy bars to 20 children. 
                   We do not want to give any child more than 1 candy bar. 
                   How many ways can we distribute the candy bars?"),
-                tags$ul( 
-                  tags$li("Since the candy bars are identical, order does not 
+                  tags$ul( 
+                    tags$li("Since the candy bars are identical, order does not 
                           matter. Therefore, we use a combination."),
-                  tags$li("Since children cannot receive more than 1 candy bar, 
+                    tags$li("Since children cannot receive more than 1 candy bar, 
                           there is no replacement."),
-                  tags$li("\\(_{n}C_{r} = _{20}C_{5} = \\dfrac{20!}{5!(15)!}\\)")
+                    tags$li("\\(_{n}C_{r} = _{20}C_{5} = \\dfrac{20!}{5!(15)!}\\)")
+                  )
                 )
-              )
-            ),
-            br(), 
-            h3("Binomial Probability: Exactly vs. At Most vs. At Least"), 
-            fluidRow(
-              box(
-                title = strong("Exactly"),
-                status = "primary",
-                collapsible = TRUE,
-                collapsed = FALSE,
-                width = 4,
-                p("The probability of obtaining exactly", tags$em("r"), "events 
-                in ", tags$em("n"), "trials = "), 
-                p("\\(P(X=r)=\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
-                p("where ", tags$em("p"), "is the probability of success"), 
-                br(), 
-                br()
-              ),
-              
-              box(
-                title = strong("At Most"),
-                status = "primary",
-                collapsible = TRUE,
-                collapsed = FALSE,
-                width = 4,
-                p("The probability of obtaining ", tags$strong("at most"), tags$em("r"), 
-                  "from", tags$em("n"), "trials = "), 
-                p("\\(P(X\\le{r})=\\sum_{i=0}^r\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
-                p("where ", tags$em("p"), "is the probability of success"), 
-                br(), 
-                br()
-              ),
-              
-              box(
-                title = strong("At Least"),
-                status = "primary",
-                collapsible = TRUE,
-                collapsed = FALSE,
-                width = 4,
-                p("The probability of obtaining ", tags$strong("at least"), tags$em("r"), 
-                  "from", tags$em("n"), "trials = "),
-                p("\\(P(X\\ge{r})=\\sum_{i=r}^n\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\) or"), 
-                p("\\(1-P(X\\le{r})\\)"),
-                p("where ", tags$em("p"), "is the probability of success")
               )
             )
-          )
           )
         ),
         
@@ -615,11 +583,14 @@ ui <- list(
               )
             )
           ),
+          br(),
           fluidRow(
             column(
               width = 6,
               offset = 0,
-              print("tic-tac-toe will appear here")
+              wellPanel(
+                print("tic-tac-toe will appear here")
+              )
             ),
             column(
               width = 6,
@@ -630,13 +601,13 @@ ui <- list(
                   inputId = "promptAnsOptions",
                   label = "Find the probability of being dealt the hand displayed.",
                   choices =  c("Choice A","Choice B", "Choice C")
+                )
               )
             )
           )
-        )
         ),
         
-        #### Set up the References Page ----
+        ####  References Page ----
         tabItem(
           tabName = "references",
           withMathJax(),
@@ -677,7 +648,7 @@ ui <- list(
             Custom Inputs Widgets for Shiny. R package version 0.5.3. Available 
             from https://CRAN.R-project.org/package=shinyWidgets"
           ),
-         
+          
           br(),
           br(),
           br(),
@@ -738,6 +709,7 @@ server <- function(input, output, session) {
   observeEvent(
     eventExpr = input$newWardrobe,
     handlerExpr = {
+      
       randomNumber1 <- sample(2:7, 1)
       randomNumber2 <- sample(2:7, 1)
       randomNumber3 <- sample(2:7, 1)
@@ -748,6 +720,7 @@ server <- function(input, output, session) {
       randomNumber8 <- sample(2:7, 1)
       randomNumber9 <- sample(2:7, 1)
       randomNumber10 <- sample(2:7, 1)
+      
       output$tshirt_solid_num <- renderText(randomNumber1)
       output$tshirt_stripe_num <- renderText(randomNumber2)
       output$hoodie_solid_num <- renderText(randomNumber3)
@@ -758,6 +731,55 @@ server <- function(input, output, session) {
       output$shorts_stripe_num <- renderText(randomNumber8)
       output$checker_shoes_num <- renderText(randomNumber9)
       output$psu_adidas_num <- renderText(randomNumber10)
+      
+      output$clothesQuestion1ans <- renderUI({
+        withMathJax(
+          sprintf(
+            fmt = "\\(n^{r} = %d * %d * %d * %d * %d * %d * %d * %d * %d * %d = %d\\)",
+            randomNumber1,
+            randomNumber2,
+            randomNumber3,
+            randomNumber4,
+            randomNumber5,
+            randomNumber6,
+            randomNumber7,
+            randomNumber8,
+            randomNumber9,
+            randomNumber10,
+            (randomNumber1 * randomNumber2 * randomNumber3 * randomNumber4 * randomNumber5 *randomNumber6 * randomNumber7 * randomNumber8 * randomNumber9 * randomNumber10)
+          )
+        )
+      })
+      output$clothesQuestion2ans <- renderUI({
+        withMathJax(
+          sprintf(
+            fmt = "\\(_{n}P_{r} = %d * %d * %d * %d * %d * %d * %d * %d * %d * %d = %d\\)",
+            (randomNumber1 - 1),
+            (randomNumber2 - 1),
+            (randomNumber3 - 1),
+            (randomNumber4 - 1),
+            (randomNumber5 - 1),
+            (randomNumber6 - 1),
+            (randomNumber7 - 1),
+            (randomNumber8 - 1),
+            (randomNumber9 - 1),
+            (randomNumber10 - 1),
+            ((randomNumber1 - 1) * (randomNumber2 - 1) * (randomNumber3 - 1) * (randomNumber4 - 1) * (randomNumber5 - 1) *(randomNumber6 - 1) * (randomNumber7 - 1) * (randomNumber8 - 1) * (randomNumber9 - 1) * (randomNumber10 - 1))
+          )
+        )
+      })
+      output$clothesQuestion3ans <- renderUI({
+      })
+      output$clothesQuestion4ans <- renderUI({
+        (randomNumber1+randomNumber4)
+      })
+      output$clothesQuestion5ans <- renderUI({
+        (randomNumber1+randomNumber5)
+      })
+      output$clothesQuestion6ans <- renderUI({
+        (randomNumber1+randomNumber6)
+      })
+      
     }
   )
   
@@ -774,6 +796,7 @@ server <- function(input, output, session) {
           list(src = "a-club.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of clubs")
         }, deleteFile = FALSE
         )
@@ -781,6 +804,7 @@ server <- function(input, output, session) {
           list(src = "a-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
         )
@@ -788,6 +812,7 @@ server <- function(input, output, session) {
           list(src = "9-spade.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "9 of spades")
         }, deleteFile = FALSE
         )
@@ -795,6 +820,7 @@ server <- function(input, output, session) {
           list(src = "8-diamond.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "8 of diamonds")
         }, deleteFile = FALSE
         )
@@ -802,6 +828,7 @@ server <- function(input, output, session) {
           list(src = "7-club.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "7 of clubs")
         }, deleteFile = FALSE
         )
@@ -824,6 +851,7 @@ server <- function(input, output, session) {
           list(src = "k-diamond.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "King of diamonds")
         }, deleteFile = FALSE
         )
@@ -831,6 +859,7 @@ server <- function(input, output, session) {
           list(src = "k-club.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "King of clubs")
         }, deleteFile = FALSE
         )
@@ -838,6 +867,7 @@ server <- function(input, output, session) {
           list(src = "q-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Queen of hearts")
         }, deleteFile = FALSE
         )
@@ -845,6 +875,7 @@ server <- function(input, output, session) {
           list(src = "q-spade.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Queen of spades")
         }, deleteFile = FALSE
         )
@@ -852,6 +883,7 @@ server <- function(input, output, session) {
           list(src = "j-diamond.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Jack of diamonds")
         }, deleteFile = FALSE
         )
@@ -874,6 +906,7 @@ server <- function(input, output, session) {
           list(src = "a-club",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of clubs")
         }, deleteFile = FALSE
         )
@@ -881,6 +914,7 @@ server <- function(input, output, session) {
           list(src = "a-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
         )
@@ -888,6 +922,7 @@ server <- function(input, output, session) {
           list(src = "a-spade.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of spades")
         }, deleteFile = FALSE
         )
@@ -895,6 +930,7 @@ server <- function(input, output, session) {
           list(src = "2-diamond.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "2 of diamonds")
         }, deleteFile = FALSE
         )
@@ -902,6 +938,7 @@ server <- function(input, output, session) {
           list(src = "7-club.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "7 of clubs")
         }, deleteFile = FALSE
         )
@@ -924,6 +961,7 @@ server <- function(input, output, session) {
           list(src = "5-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "5 of hearts")
         }, deleteFile = FALSE
         )
@@ -931,6 +969,7 @@ server <- function(input, output, session) {
           list(src = "6-club.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "6 of clubs")
         }, deleteFile = FALSE
         )
@@ -938,6 +977,7 @@ server <- function(input, output, session) {
           list(src = "7-diamond.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "7 of diamonds")
         }, deleteFile = FALSE
         )
@@ -945,6 +985,7 @@ server <- function(input, output, session) {
           list(src = "8-spade.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "8 of spades")
         }, deleteFile = FALSE
         )
@@ -952,6 +993,7 @@ server <- function(input, output, session) {
           list(src = "9-club.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "9 of clubs")
         }, deleteFile = FALSE
         )
@@ -967,13 +1009,14 @@ server <- function(input, output, session) {
           )
         )
       }
-
+      
       ### Flush ----
       if (randomNumber11 == 5) {
         output$card1 <- renderImage({
           list(src = "2-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "2 of hearts")
         }, deleteFile = FALSE
         )
@@ -981,6 +1024,7 @@ server <- function(input, output, session) {
           list(src = "4-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "4 of hearts")
         }, deleteFile = FALSE
         )
@@ -988,6 +1032,7 @@ server <- function(input, output, session) {
           list(src = "6-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "6 of hearts")
         }, deleteFile = FALSE
         )
@@ -995,6 +1040,7 @@ server <- function(input, output, session) {
           list(src = "8-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "8 of hearts")
         }, deleteFile = FALSE
         )
@@ -1002,6 +1048,7 @@ server <- function(input, output, session) {
           list(src = "K-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "King of hearts")
         }, deleteFile = FALSE
         )
@@ -1017,13 +1064,14 @@ server <- function(input, output, session) {
           )
         )
       }
-
+      
       ### Full House ----
       if (randomNumber11 == 6){
         output$card1 <- renderImage({
           list(src = "a-spade.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of spades")
         }, deleteFile = FALSE
         )
@@ -1031,6 +1079,7 @@ server <- function(input, output, session) {
           list(src = "a-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
         )
@@ -1038,6 +1087,7 @@ server <- function(input, output, session) {
           list(src = "a-club.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of clubs")
         }, deleteFile = FALSE
         )
@@ -1045,6 +1095,7 @@ server <- function(input, output, session) {
           list(src = "k-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "King of hearts")
         }, deleteFile = FALSE
         )
@@ -1052,6 +1103,7 @@ server <- function(input, output, session) {
           list(src = "K-spade.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "King of spades")
         }, deleteFile = FALSE
         )
@@ -1074,6 +1126,7 @@ server <- function(input, output, session) {
           list(src = "a-spade.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of spades")
         }, deleteFile = FALSE
         )
@@ -1081,6 +1134,7 @@ server <- function(input, output, session) {
           list(src = "a-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
         )
@@ -1088,6 +1142,7 @@ server <- function(input, output, session) {
           list(src = "a-club.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of clubs")
         }, deleteFile = FALSE
         )
@@ -1095,6 +1150,7 @@ server <- function(input, output, session) {
           list(src = "a-diamond.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of diamonds")
         }, deleteFile = FALSE
         )
@@ -1102,6 +1158,7 @@ server <- function(input, output, session) {
           list(src = "2-spade.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "2 of spades")
         }, deleteFile = FALSE
         )
@@ -1124,6 +1181,7 @@ server <- function(input, output, session) {
           list(src = "5-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "5 of hearts")
         }, deleteFile = FALSE
         )
@@ -1131,6 +1189,7 @@ server <- function(input, output, session) {
           list(src = "6-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "6 of hearts")
         }, deleteFile = FALSE
         )
@@ -1138,6 +1197,7 @@ server <- function(input, output, session) {
           list(src = "7-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "7 of hearts")
         }, deleteFile = FALSE
         )
@@ -1145,6 +1205,7 @@ server <- function(input, output, session) {
           list(src = "8-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "8 of hearts")
         }, deleteFile = FALSE
         )
@@ -1152,6 +1213,7 @@ server <- function(input, output, session) {
           list(src = "9-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "9 of hearts")
         }, deleteFile = FALSE
         )
@@ -1174,6 +1236,7 @@ server <- function(input, output, session) {
           list(src = "10-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "10 of hearts")
         }, deleteFile = FALSE
         )
@@ -1181,6 +1244,7 @@ server <- function(input, output, session) {
           list(src = "j-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Jack of hearts")
         }, deleteFile = FALSE
         )
@@ -1188,6 +1252,7 @@ server <- function(input, output, session) {
           list(src = "q-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Queen of hearts")
         }, deleteFile = FALSE
         )
@@ -1195,6 +1260,7 @@ server <- function(input, output, session) {
           list(src = "k-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "King of hearts")
         }, deleteFile = FALSE
         )
@@ -1202,6 +1268,7 @@ server <- function(input, output, session) {
           list(src = "a-heart.png",
                width = "100%",
                height = "100%",
+               contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
         )
