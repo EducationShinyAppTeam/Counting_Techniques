@@ -233,10 +233,9 @@ ui <- list(
             )
           )
         ),
-        #### Note: you must have at least one of the following pages. You might
-        #### have more than one type and/or more than one of the same type. This
-        #### will be up to you and the goals for your app.
-        #### Set up an Explore Page
+        
+        
+        #### Set up an Explore Page ----
         tabItem(
           tabName = "explore",
           withMathJax(),
@@ -325,6 +324,68 @@ ui <- list(
                 
               ) 
             ),
+            
+            ##### Tab Panel I'm Working On ----
+            tabPanel(
+              withMathJax(), 
+              title = "Different Scenarios", 
+              br(),
+              h3("Explore Different Scenarios"), 
+              p("Context 2: "), 
+              tags$ul(
+                p("a"), 
+                tags$li("\\({3}\\cdot{5}\\cdot{(4+1)}\\)"), ## Answer
+                tags$li("\\({3}\\cdot{5}\\cdot{4}\\)"), 
+                tags$li("\\([{3}\\cdot{5}]+[{3}\\cdot{5}\\cdot{(4+1)}]\\)"), 
+                tags$li("\\([{3}\\cdot{5}]+[{3}\\cdot{5}\\cdot{4}]\\)")
+              ), 
+              tags$ul(
+                p("b"), 
+                tags$li("\\([(2^3-1)\\cdot(2^5-1)\\cdot{2^4}] +
+                        [3\\cdot(_{5}C_{1}\\cdot_{5}C_{2})\\cdot{2^4}]\\)"), 
+                tags$li("\\([(2^3)\\cdot(2^5)\\cdot{2^4}] +
+                        [3\\cdot(_{5}C_{1}+_{5}C_{2})\\cdot{2^4}]\\)"), 
+                tags$li("\\([(2^3-1)\\cdot(2^5-1)\\cdot{2^4}] +
+                        [3\\cdot(_{5}C_{1}+_{5}C_{2})\\cdot{2^4}]\\)"), ## Answer
+                tags$li("\\([{3}\\cdot{5}\\cdot{4}]+[_{3}C_{1}\\cdot(_{5}C_{1}+_{5}C_{2})\\cdot{4}]\\)")
+              ), 
+              tags$ul(
+                p("c"), 
+                tags$li("\\({3}\\cdot{5}\\cdot{(4+1)}\\)"), ## Answer
+                tags$li("\\({3}\\cdot{5}\\cdot{4}\\)"), 
+                tags$li("\\([{3}\\cdot{5}]+[{3}\\cdot{5}\\cdot{(4+1)}]\\)"), 
+                tags$li("\\([{3}\\cdot{5}]+[{3}\\cdot{5}\\cdot{4}]\\)")
+              ), 
+              
+              p("Context 3: "), 
+              tags$ul(
+                p("a"),
+                tags$li("\\({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3}\\)"), 
+                tags$li("\\(5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3}\\)"), ## Answer
+                tags$li("\\({5}\\cdot{15}\\cdot{3}\\)"), 
+                tags$li("\\(5\\cdot[_{3}C_{2}\\cdot{3}\\cdot(3\\cdot{4})]\\cdot{3}\\)")
+              ), 
+              
+              tags$ul(
+                p("b"),
+                tags$li("\\(({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})^5\\)"), 
+                tags$li("\\(({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})\\cdot{5}\\)"), 
+                tags$li("\\((5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3})\\cdot{5}\\)"), 
+                tags$li("\\((5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3})^5\\)") ## Answer
+              ), 
+              
+              tags$ul(
+                p("c"),
+                tags$li("\\(\\dfrac{({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})!}
+                        {({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})-5)!}\\)"), 
+                tags$li("\\(\\dfrac{5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot)]\\cdot{3}!}
+                        {([5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3}] - 5)!}\\)"), ##Answer
+                tags$li("\\(\\dfrac{({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})!}
+                        {{5!}({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})-5)!}\\)"), 
+                tags$li("\\(5\\cdot[_{3}C_{2}\\cdot{3}\\cdot(3\\cdot{4})]\\cdot{3}\\)")
+              )
+            ), 
+               
             
             tabPanel(
               title = "Example Questions", 
@@ -423,10 +484,10 @@ ui <- list(
                               tags$li("\\(1-P(X\\le{21})=\\sum_{i=0}^{20}\\binom{70}{i}
                                   \\cdot(0.35^{i})\\cdot(0.65^{70-i})=0.84197\\)")
                               
-                            )),
+                            ))
                   )
                 )
-              ),
+              )
               
             )
           ),
