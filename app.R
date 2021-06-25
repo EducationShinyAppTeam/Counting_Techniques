@@ -334,7 +334,7 @@ ui <- list(
               p("Context 2: "), 
               tags$ul(
                 p("a"), 
-                tags$li("\\({3}\\cdot{5}\\cdot{(4+1)}\\)"), ## Answer
+                tags$li("Answer: \\({3}\\cdot{5}\\cdot{(4+1)}\\)"), ## Answer
                 tags$li("\\({3}\\cdot{5}\\cdot{4}\\)"), 
                 tags$li("\\([{3}\\cdot{5}]+[{3}\\cdot{5}\\cdot{(4+1)}]\\)"), 
                 tags$li("\\([{3}\\cdot{5}]+[{3}\\cdot{5}\\cdot{4}]\\)")
@@ -345,13 +345,13 @@ ui <- list(
                         [3\\cdot(_{5}C_{1}\\cdot_{5}C_{2})\\cdot{2^4}]\\)"), 
                 tags$li("\\([(2^3)\\cdot(2^5)\\cdot{2^4}] +
                         [3\\cdot(_{5}C_{1}+_{5}C_{2})\\cdot{2^4}]\\)"), 
-                tags$li("\\([(2^3-1)\\cdot(2^5-1)\\cdot{2^4}] +
+                tags$li("Answer: \\([(2^3-1)\\cdot(2^5-1)\\cdot{2^4}] +
                         [3\\cdot(_{5}C_{1}+_{5}C_{2})\\cdot{2^4}]\\)"), ## Answer
                 tags$li("\\([{3}\\cdot{5}\\cdot{4}]+[_{3}C_{1}\\cdot(_{5}C_{1}+_{5}C_{2})\\cdot{4}]\\)")
               ), 
               tags$ul(
                 p("c"), 
-                tags$li("\\({3}\\cdot{5}\\cdot{(4+1)}\\)"), ## Answer
+                tags$li("Answer: \\({3}\\cdot{5}\\cdot{(4+1)}\\)"), ## Answer
                 tags$li("\\({3}\\cdot{5}\\cdot{4}\\)"), 
                 tags$li("\\([{3}\\cdot{5}]+[{3}\\cdot{5}\\cdot{(4+1)}]\\)"), 
                 tags$li("\\([{3}\\cdot{5}]+[{3}\\cdot{5}\\cdot{4}]\\)")
@@ -361,7 +361,7 @@ ui <- list(
               tags$ul(
                 p("a"),
                 tags$li("\\({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3}\\)"), 
-                tags$li("\\(5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3}\\)"), ## Answer
+                tags$li("Answer: \\(5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3}\\)"), ## Answer
                 tags$li("\\({5}\\cdot{15}\\cdot{3}\\)"), 
                 tags$li("\\(5\\cdot[_{3}C_{2}\\cdot{3}\\cdot(3\\cdot{4})]\\cdot{3}\\)")
               ), 
@@ -371,14 +371,14 @@ ui <- list(
                 tags$li("\\(({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})^5\\)"), 
                 tags$li("\\(({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})\\cdot{5}\\)"), 
                 tags$li("\\((5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3})\\cdot{5}\\)"), 
-                tags$li("\\((5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3})^5\\)") ## Answer
+                tags$li("Answer: \\((5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3})^5\\)") ## Answer
               ), 
               
               tags$ul(
                 p("c"),
                 tags$li("\\(\\dfrac{({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})!}
                         {({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})-5)!}\\)"), 
-                tags$li("\\(\\dfrac{5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot)]\\cdot{3}!}
+                tags$li("Answer: \\(\\dfrac{5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot)]\\cdot{3}!}
                         {([5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3}] - 5)!}\\)"), ##Answer
                 tags$li("\\(\\dfrac{({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})!}
                         {{5!}({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})-5)!}\\)"), 
@@ -389,14 +389,14 @@ ui <- list(
               tags$ul(
                 p("d"),
                 tags$li("\\(_{5\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3}}C_{5}\\)"), 
-                tags$li("\\(_{5\\cdot[3C2+3\\cdot(3\\cdot4)]\\cdot3}C_{5}\\)"), ##Answer
-                tags$li("\\(_{5\\cdot[3C2+3\\cdot(3\\cdot4)]\\cdot3}P_{5}\\)"), 
+                tags$li("Answer: \\(_{5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot4)]\\cdot3}C_{5}\\)"), ##Answer
+                tags$li("\\(_{5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot4)]\\cdot3}P_{5}\\)"), 
                 tags$li("\\(_{5\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3}}P_{5}\\)")
               ), 
               
               tags$ul(
                 p("e"),
-                tags$li("\\(2^5\\)"), ##Answer
+                tags$li("Answer: \\(2^5\\)"), ##Answer
                 tags$li("\\(2\\cdot{2}\\cdot{1}\\)"), 
                 tags$li("\\(_{5}C_{1}\\cdot{5}\\)"), 
                 tags$li("\\(2^5+2^5+1^5\\)")
@@ -407,17 +407,55 @@ ui <- list(
                 p("a"), 
                 tags$li("\\(_{4+3+4}C_{1}\\)"), 
                 tags$li("\\((4^3)^4\\)"), 
-                tags$li("\\({4}\\cdot{3}\\cdot{4}\\)"), ## Answer
+                tags$li("Answer: \\({4}\\cdot{3}\\cdot{4}\\)"), ## Answer
                 tags$li("\\(\\dfrac{(4\\cdot{3}\\cdot{4})!}{4!3!4!}\\)")
               ), 
               tags$ul(
                 p("b"), 
                 tags$li("\\(4(2+_{6}C_{1})\\)"), 
                 tags$li("\\(4(2+_{4}C_{1})\\)"), 
-                tags$li("\\([_{12}C_{3}+_{12}C_{2}\\cdot2]\\cdot{4^3}\\)"), ## Answer
+                tags$li("Answer: \\([_{12}C_{3}+_{12}C_{2}\\cdot2]\\cdot{4^3}\\)"), ## Answer
                 tags$li("\\((2+_{4}C_{1})\\cdot{4^3}\\)")
-              )
+              ), 
               
+              p("Context 5: "), 
+              tags$ul(
+                p("a"), 
+                tags$li("\\(15^4\\)"), 
+                tags$li("\\(4!\\)"), 
+                tags$li("\\(_{15}P_{4}\\) or \\(\\dfrac{15!}{(15-4)!}\\)"), 
+                tags$li("Answer: \\(_{15}C_{4}\\) or \\(\\dfrac{15!}{4!(15-4)!}\\)") ## Answer
+              ), 
+              tags$ul(
+                p("b"), 
+                tags$li("\\(4(1+_{14}C_{3})\\)"), 
+                tags$li("Answer: \\(15\\cdot_{14}C_{3} = _{15}C_{4}\\cdot{4})\\)"), ## Answer
+                tags$li("\\(4\\cdot(15^4)\\)"), 
+                tags$li("\\(4(_{4}C_{1} + _{11}C_{3})\\)")
+              ), 
+              
+              p("Context 6: "), 
+              tags$ul(
+                p("a"), 
+                tags$li("\\(6\\cdot_{50}C_{1}\\)"), 
+                tags$li("\\(6\\cdot_{50}C_{6}\\)"), 
+                tags$li("\\(300^6\\)"), 
+                tags$li("Answer: \\(_{300}C_{6}\\)") ## Answer
+              ), 
+              tags$ul(
+                p("b"), 
+                tags$li("\\(6\\cdot_{50}C_{1}\\)"), 
+                tags$li("\\(\\dfrac{_{300}C_{6}}{6}\\)"), 
+                tags$li("Answer: \\(6\\cdot_{50}C_{6}\\)"), ## Answer
+                tags$li("\\(50!\\cdot{49!}\\cdot{48}!\\cdot{47!}\\cdot{46!}\\)")
+              ), 
+              tags$ul(
+                p("c"), 
+                tags$li("\\(50\\cdot{49}\\cdot{48}\\cdot{47}+350\\cdot{349}\\)"), 
+                tags$li("\\([6\\cdot(_{50}C_{4})]\\cdot[_{350}C_{2}]\\)"), 
+                tags$li("\\([6\\cdot(_{300}C_{4})]\\cdot[_{296}C_{2}]\\)"), 
+                tags$li("Answer: \\([6\\cdot(_{50}C_{4})]\\cdot[_{5}C_{2}\\cdot{50}\\cdot{50}]\\)") ## Answer
+              ), 
               
             ), 
                
