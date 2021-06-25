@@ -382,8 +382,43 @@ ui <- list(
                         {([5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3}] - 5)!}\\)"), ##Answer
                 tags$li("\\(\\dfrac{({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})!}
                         {{5!}({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})-5)!}\\)"), 
-                tags$li("\\(5\\cdot[_{3}C_{2}\\cdot{3}\\cdot(3\\cdot{4})]\\cdot{3}\\)")
+                tags$li("\\(\\dfrac{5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot)]\\cdot{3}!}
+                        {([5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3}]\\cdot{5})!}\\)")
+              ), 
+              
+              tags$ul(
+                p("d"),
+                tags$li("\\(_{5\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3}}C_{5}\\)"), 
+                tags$li("\\(_{5\\cdot[3C2+3\\cdot(3\\cdot4)]\\cdot3}C_{5}\\)"), ##Answer
+                tags$li("\\(_{5\\cdot[3C2+3\\cdot(3\\cdot4)]\\cdot3}P_{5}\\)"), 
+                tags$li("\\(_{5\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3}}P_{5}\\)")
+              ), 
+              
+              tags$ul(
+                p("e"),
+                tags$li("\\(2^5\\)"), ##Answer
+                tags$li("\\(2\\cdot{2}\\cdot{1}\\)"), 
+                tags$li("\\(_{5}C_{1}\\cdot{5}\\)"), 
+                tags$li("\\(2^5+2^5+1^5\\)")
+              ), 
+              
+              p("Context 4: "), 
+              tags$ul(
+                p("a"), 
+                tags$li("\\(_{4+3+4}C_{1}\\)"), 
+                tags$li("\\((4^3)^4\\)"), 
+                tags$li("\\({4}\\cdot{3}\\cdot{4}\\)"), ## Answer
+                tags$li("\\(\\dfrac{(4\\cdot{3}\\cdot{4})!}{4!3!4!}\\)")
+              ), 
+              tags$ul(
+                p("b"), 
+                tags$li("\\(4(2+_{6}C_{1})\\)"), 
+                tags$li("\\(4(2+_{4}C_{1})\\)"), 
+                tags$li("\\([_{12}C_{3}+_{12}C_{2}\\cdot2]\\cdot{4^3}\\)"), ## Answer
+                tags$li("\\((2+_{4}C_{1})\\cdot{4^3}\\)")
               )
+              
+              
             ), 
                
             
