@@ -905,7 +905,7 @@ server <- function(input, output, session) {
       ### 3 of a kind ----
       if (randomNumber11 == 3) {
         output$card1 <- renderImage({
-          list(src = "www/a-club",
+          list(src = "www/a-club.png",
                width = "100%",
                
                contentType = "image/png", 
