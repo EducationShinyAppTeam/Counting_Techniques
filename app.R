@@ -109,129 +109,124 @@ ui <- list(
           tabName = "prerequisites",
           withMathJax(),
           h2("Prerequisites"),
-          tabsetPanel(
-            
-            ##### COUNTING TAB ----
-            tabPanel(
-              title = "Counting Techniques",
-              br(),
-              fluidRow(
-                box(
-                  title = strong("Permutation with Replacement"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 6,
-                  p("Number of ways to pick r things from n possibilities:"),
-                  tags$ul( 
-                    tags$li("\\(n^{r}\\)"),
-                    tags$li("Ordered subsets with replacement")
-                    
-                  )
-                ),
-                box(
-                  title = strong("Permutation without Replacement"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 6,
-                  p("Number of ways to pick r things from n possibilities:"),
-                  tags$ul( 
-                    tags$li("\\(_{n}P_{r}=\\dfrac{n!}{(n-r)!}\\)"),
-                    tags$li("Ordered subsets without replacement")
-                  )
-                )
-              ),
-              fluidRow(
-                box(
-                  title = strong("Combination with Replacement"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 6,
-                  p("Number of ways to pick r things from n possibilities:"),
-                  tags$ul(
-                    tags$li("\\(_{n+r-1}C_{r}=\\dfrac{(n+r-1)!}{r!(n-1)!}\\)"),
-                    tags$li("Unordered subsets with replacement")
-                  )
-                ),
-                box(
-                  title = strong("Combination without Replacement"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 6,
-                  p("Number of ways to pick r things from n possibilities:"),
-                  tags$ul(
-                    tags$li("\\(_{n}C_{r}=\\dfrac{n!}{r!(n-r)!}\\)"),
-                    tags$li("Unordered subsets without replacement")
-                  )
-                )
+          br(),
+          fluidRow(
+            box(
+              title = strong("Permutation with Replacement"),
+              status = "primary",
+              collapsible = TRUE,
+              collapsed = FALSE,
+              width = 6,
+              p("Number of ways to pick r things from n possibilities:"),
+              tags$ul( 
+                tags$li("\\(n^{r}\\)"),
+                tags$li("Ordered subsets with replacement")
+                
               )
             ),
-            
-            ##### PROBABILITY TAB ----
-            tabPanel(
-              title = "Binomial Probability",
-              br(),
-              h3("Applying counting techniques to binomial probability"),
-              br(),
-              fluidRow(
-                box(
-                  title = strong("Exactly"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 4,
-                  p("The probability of obtaining exactly", tags$em("r"), "events 
-                in ", tags$em("n"), "trials = "), 
-                p("\\(P(X=r)=\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
-                p("where ", tags$em("p"), "is the probability of success"), 
-                br(), 
-                br()
-                ),
-                
-                box(
-                  title = strong("At Most"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 4,
-                  p("The probability of obtaining ", tags$strong("at most"), tags$em("r"), 
-                    "from", tags$em("n"), "trials = "), 
-                  p("\\(P(X\\le{r})=\\sum_{i=0}^r\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
-                  p("where ", tags$em("p"), "is the probability of success"), 
-                  br(), 
-                  br()
-                ),
-                
-                box(
-                  title = strong("At Least"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 4,
-                  p("The probability of obtaining ", tags$strong("at least"), tags$em("r"), 
-                    "from", tags$em("n"), "trials = "),
-                  p("\\(P(X\\ge{r})=\\sum_{i=r}^n\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\) or"), 
-                  p("\\(1-P(X\\le{r})\\)"),
-                  p("where ", tags$em("p"), "is the probability of success")
-                )
+            box(
+              title = strong("Permutation without Replacement"),
+              status = "primary",
+              collapsible = TRUE,
+              collapsed = FALSE,
+              width = 6,
+              p("Number of ways to pick r things from n possibilities:"),
+              tags$ul( 
+                tags$li("\\(_{n}P_{r}=\\dfrac{n!}{(n-r)!}\\)"),
+                tags$li("Ordered subsets without replacement")
               )
             )
-          ), 
-          br(), 
-          div(
-            style = "text-align: center",
-            bsButton(
-              inputId = "PrereqToExplore",
-              label = "Explore",
-              size = "large",
-              icon = icon("wpexplorer"),
-              style = "default"
+          ),
+          fluidRow(
+            box(
+              title = strong("Combination with Replacement"),
+              status = "primary",
+              collapsible = TRUE,
+              collapsed = FALSE,
+              width = 6,
+              p("Number of ways to pick r things from n possibilities:"),
+              tags$ul(
+                tags$li("\\(\\binom{n+r-1}{r} = \\dfrac{(n+r-1)!}{r!(n-1)!}\\)"),
+                tags$li("Unordered subsets with replacement")
+              )
+            ),
+            box(
+              title = strong("Combination without Replacement"),
+              status = "primary",
+              collapsible = TRUE,
+              collapsed = FALSE,
+              width = 6,
+              p("Number of ways to pick r things from n possibilities:"),
+              tags$ul(
+                tags$li("\\(\\binom{n}{r} = \\dfrac{n!}{r!(n-r)!}\\)"),
+                tags$li("Unordered subsets without replacement")
+              )
             )
           )
         ),
+            
+          #   ##### PROBABILITY TAB ----
+          #   tabPanel(
+          #     title = "Binomial Probability",
+          #     br(),
+          #     h3("Applying counting techniques to binomial probability"),
+          #     br(),
+          #     fluidRow(
+          #       box(
+          #         title = strong("Exactly"),
+          #         status = "primary",
+          #         collapsible = TRUE,
+          #         collapsed = FALSE,
+          #         width = 4,
+          #         p("The probability of obtaining exactly", tags$em("r"), "events 
+          #       in ", tags$em("n"), "trials = "), 
+          #       p("\\(P(X=r)=\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
+          #       p("where ", tags$em("p"), "is the probability of success"), 
+          #       br(), 
+          #       br()
+          #       ),
+          #       
+          #       box(
+          #         title = strong("At Most"),
+          #         status = "primary",
+          #         collapsible = TRUE,
+          #         collapsed = FALSE,
+          #         width = 4,
+          #         p("The probability of obtaining ", tags$strong("at most"), tags$em("r"), 
+          #           "from", tags$em("n"), "trials = "), 
+          #         p("\\(P(X\\le{r})=\\sum_{i=0}^r\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
+          #         p("where ", tags$em("p"), "is the probability of success"), 
+          #         br(), 
+          #         br()
+          #       ),
+          #       
+          #       box(
+          #         title = strong("At Least"),
+          #         status = "primary",
+          #         collapsible = TRUE,
+          #         collapsed = FALSE,
+          #         width = 4,
+          #         p("The probability of obtaining ", tags$strong("at least"), tags$em("r"), 
+          #           "from", tags$em("n"), "trials = "),
+          #         p("\\(P(X\\ge{r})=\\sum_{i=r}^n\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\) or"), 
+          #         p("\\(1-P(X\\le{r})\\)"),
+          #         p("where ", tags$em("p"), "is the probability of success")
+          #       )
+          #     )
+          #   )
+          # ), 
+          # br(), 
+          # div(
+          #   style = "text-align: center",
+          #   bsButton(
+          #     inputId = "PrereqToExplore",
+          #     label = "Explore",
+          #     size = "large",
+          #     icon = icon("wpexplorer"),
+          #     style = "default"
+          #   )
+          # )
+        # ),
         
         #### Explore/Clothing Page ---- 
         tabItem(
@@ -511,7 +506,7 @@ ui <- list(
                           matter. Therefore, we use a combination."),
                     tags$li("Since children can receive more than 1 candy bar, 
                           there is replacement."),
-                    tags$li("\\(_{n+r-1}C_{r} = _{24}C_{5} = \\dfrac{24!}{5!(19)!}\\)")
+                    tags$li("\\(\\binom{n+r-1}{r} = \\binom(24}{5} = \\dfrac{24!}{5!(19)!}\\)")
                   )
                 ),
                 box(
@@ -528,7 +523,7 @@ ui <- list(
                           matter. Therefore, we use a combination."),
                     tags$li("Since children cannot receive more than 1 candy bar, 
                           there is no replacement."),
-                    tags$li("\\(_{n}C_{r} = _{20}C_{5} = \\dfrac{20!}{5!(15)!}\\)")
+                    tags$li("\\\\binom{n}{r} = \\binom{20}{5} = \\dfrac{20!}{5!(15)!}\\)")
                   )
                 )
               )
@@ -591,19 +586,28 @@ ui <- list(
               width = 6,
               offset = 0,
               wellPanel(
-                print("tic-tac-toe will appear here")
-              )
-            ),
-            column(
-              width = 6,
-              offset = 0,
-              textOutput("prompt"),
-              wellPanel(
                 radioButtons(
                   inputId = "promptAnsOptions",
                   label = "Find the probability of being dealt the hand displayed.",
                   choices =  c("Choice A","Choice B", "Choice C")
                 )
+              )
+            ),
+            column(
+              width = 6,
+              offset = 0,
+              wellPanel(
+                div(
+                  style = "text-align: center",
+                  bsButton(
+                    inputId = "explainbttn",
+                    label = "Answer Explanation",
+                    size = "large",
+                    style = "default"
+                  )
+                ),
+                br(),
+                uiOutput("explain")
               )
             )
           )
@@ -797,7 +801,6 @@ server <- function(input, output, session) {
         output$card1 <- renderImage({
           list(src = "www/a-club.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "Ace of clubs")
         }, deleteFile = FALSE
@@ -805,7 +808,6 @@ server <- function(input, output, session) {
         output$card2 <- renderImage({
           list(src = "www/a-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
@@ -813,7 +815,6 @@ server <- function(input, output, session) {
         output$card3 <- renderImage({
           list(src = "www/9-spade.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "9 of spades")
         }, deleteFile = FALSE
@@ -821,7 +822,6 @@ server <- function(input, output, session) {
         output$card4 <- renderImage({
           list(src = "www/8-diamond.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "8 of diamonds")
         }, deleteFile = FALSE
@@ -829,7 +829,6 @@ server <- function(input, output, session) {
         output$card5 <- renderImage({
           list(src = "www/7-club.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "7 of clubs")
         }, deleteFile = FALSE
@@ -845,6 +844,12 @@ server <- function(input, output, session) {
             pqb$choiceD[1]
           )
         )
+        observeEvent(
+          eventExpr = input$explainbttn,
+          handlerExpr = {
+            output$explain <- renderUI()
+          }
+        )
       }
       
       ### 2 Pairs ----
@@ -852,7 +857,6 @@ server <- function(input, output, session) {
         output$card1 <- renderImage({
           list(src = "www/k-diamond.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "King of diamonds")
         }, deleteFile = FALSE
@@ -860,7 +864,6 @@ server <- function(input, output, session) {
         output$card2 <- renderImage({
           list(src = "www/k-club.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "King of clubs")
         }, deleteFile = FALSE
@@ -868,7 +871,6 @@ server <- function(input, output, session) {
         output$card3 <- renderImage({
           list(src = "www/q-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "Queen of hearts")
         }, deleteFile = FALSE
@@ -876,7 +878,6 @@ server <- function(input, output, session) {
         output$card4 <- renderImage({
           list(src = "www/q-spade.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "Queen of spades")
         }, deleteFile = FALSE
@@ -884,7 +885,6 @@ server <- function(input, output, session) {
         output$card5 <- renderImage({
           list(src = "www/j-diamond.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "Jack of diamonds")
         }, deleteFile = FALSE
@@ -900,6 +900,12 @@ server <- function(input, output, session) {
             pqb$choiceD[2]
           )
         )
+        observeEvent(
+          eventExpr = input$explainbttn,
+          handlerExpr = {
+            output$explain <- renderUI()
+          }
+        )
       }
       
       ### 3 of a kind ----
@@ -907,7 +913,6 @@ server <- function(input, output, session) {
         output$card1 <- renderImage({
           list(src = "www/a-club.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "Ace of clubs")
         }, deleteFile = FALSE
@@ -915,7 +920,6 @@ server <- function(input, output, session) {
         output$card2 <- renderImage({
           list(src = "www/a-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
@@ -923,7 +927,6 @@ server <- function(input, output, session) {
         output$card3 <- renderImage({
           list(src = "www/a-spade.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "Ace of spades")
         }, deleteFile = FALSE
@@ -931,7 +934,6 @@ server <- function(input, output, session) {
         output$card4 <- renderImage({
           list(src = "www/2-diamond.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "2 of diamonds")
         }, deleteFile = FALSE
@@ -939,7 +941,6 @@ server <- function(input, output, session) {
         output$card5 <- renderImage({
           list(src = "www/7-club.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "7 of clubs")
         }, deleteFile = FALSE
@@ -955,6 +956,12 @@ server <- function(input, output, session) {
             pqb$choiceD[3]
           )
         )
+        observeEvent(
+          eventExpr = input$explainbttn,
+          handlerExpr = {
+            output$explain <- renderUI()
+          }
+        )
       }
       
       ### Straight ----
@@ -962,7 +969,6 @@ server <- function(input, output, session) {
         output$card1 <- renderImage({
           list(src = "www/5-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "5 of hearts")
         }, deleteFile = FALSE
@@ -970,7 +976,6 @@ server <- function(input, output, session) {
         output$card2 <- renderImage({
           list(src = "www/6-club.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "6 of clubs")
         }, deleteFile = FALSE
@@ -978,7 +983,6 @@ server <- function(input, output, session) {
         output$card3 <- renderImage({
           list(src = "www/7-diamond.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "7 of diamonds")
         }, deleteFile = FALSE
@@ -986,7 +990,6 @@ server <- function(input, output, session) {
         output$card4 <- renderImage({
           list(src = "www/8-spade.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "8 of spades")
         }, deleteFile = FALSE
@@ -994,7 +997,6 @@ server <- function(input, output, session) {
         output$card5 <- renderImage({
           list(src = "www/9-club.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "9 of clubs")
         }, deleteFile = FALSE
@@ -1010,6 +1012,12 @@ server <- function(input, output, session) {
             pqb$choiceD[4]
           )
         )
+        observeEvent(
+          eventExpr = input$explainbttn,
+          handlerExpr = {
+            output$explain <- renderUI()
+          }
+        )
       }
       
       ### Flush ----
@@ -1017,7 +1025,6 @@ server <- function(input, output, session) {
         output$card1 <- renderImage({
           list(src = "www/2-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "2 of hearts")
         }, deleteFile = FALSE
@@ -1033,7 +1040,6 @@ server <- function(input, output, session) {
         output$card3 <- renderImage({
           list(src = "www/6-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "6 of hearts")
         }, deleteFile = FALSE
@@ -1041,7 +1047,6 @@ server <- function(input, output, session) {
         output$card4 <- renderImage({
           list(src = "www/8-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "8 of hearts")
         }, deleteFile = FALSE
@@ -1065,6 +1070,12 @@ server <- function(input, output, session) {
             pqb$choiceD[5]
           )
         )
+        observeEvent(
+          eventExpr = input$explainbttn,
+          handlerExpr = {
+            output$explain <- renderUI()
+          }
+        )
       }
       
       ### Full House ----
@@ -1072,7 +1083,6 @@ server <- function(input, output, session) {
         output$card1 <- renderImage({
           list(src = "www/a-spade.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "Ace of spades")
         }, deleteFile = FALSE
@@ -1080,7 +1090,6 @@ server <- function(input, output, session) {
         output$card2 <- renderImage({
           list(src = "www/a-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
@@ -1088,7 +1097,6 @@ server <- function(input, output, session) {
         output$card3 <- renderImage({
           list(src = "www/a-club.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "Ace of clubs")
         }, deleteFile = FALSE
@@ -1096,7 +1104,6 @@ server <- function(input, output, session) {
         output$card4 <- renderImage({
           list(src = "www/k-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "King of hearts")
         }, deleteFile = FALSE
@@ -1104,7 +1111,6 @@ server <- function(input, output, session) {
         output$card5 <- renderImage({
           list(src = "www/k-spade.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "King of spades")
         }, deleteFile = FALSE
@@ -1120,6 +1126,12 @@ server <- function(input, output, session) {
             pqb$choiceD[6]
           )
         )
+        observeEvent(
+          eventExpr = input$explainbttn,
+          handlerExpr = {
+            output$explain <- renderUI()
+          }
+        )
       }
       
       ### 4 of a kind ----
@@ -1127,7 +1139,6 @@ server <- function(input, output, session) {
         output$card1 <- renderImage({
           list(src = "www/a-spade.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "Ace of spades")
         }, deleteFile = FALSE
@@ -1135,7 +1146,6 @@ server <- function(input, output, session) {
         output$card2 <- renderImage({
           list(src = "www/a-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
@@ -1143,7 +1153,6 @@ server <- function(input, output, session) {
         output$card3 <- renderImage({
           list(src = "www/a-club.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "Ace of clubs")
         }, deleteFile = FALSE
@@ -1151,7 +1160,6 @@ server <- function(input, output, session) {
         output$card4 <- renderImage({
           list(src = "www/a-diamond.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "Ace of diamonds")
         }, deleteFile = FALSE
@@ -1159,7 +1167,6 @@ server <- function(input, output, session) {
         output$card5 <- renderImage({
           list(src = "www/2-spade.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "2 of spades")
         }, deleteFile = FALSE
@@ -1182,7 +1189,6 @@ server <- function(input, output, session) {
         output$card1 <- renderImage({
           list(src = "www/5-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "5 of hearts")
         }, deleteFile = FALSE
@@ -1190,7 +1196,6 @@ server <- function(input, output, session) {
         output$card2 <- renderImage({
           list(src = "www/6-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "6 of hearts")
         }, deleteFile = FALSE
@@ -1198,7 +1203,6 @@ server <- function(input, output, session) {
         output$card3 <- renderImage({
           list(src = "www/7-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "7 of hearts")
         }, deleteFile = FALSE
@@ -1206,7 +1210,6 @@ server <- function(input, output, session) {
         output$card4 <- renderImage({
           list(src = "www/8-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "8 of hearts")
         }, deleteFile = FALSE
@@ -1214,7 +1217,6 @@ server <- function(input, output, session) {
         output$card5 <- renderImage({
           list(src = "www/9-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "9 of hearts")
         }, deleteFile = FALSE
@@ -1230,6 +1232,12 @@ server <- function(input, output, session) {
             pqb$choiceD[8]
           )
         )
+        observeEvent(
+          eventExpr = input$explainbttn,
+          handlerExpr = {
+            output$explain <- renderUI()
+          }
+        )
       }
       
       ### Royal Flush ----
@@ -1237,7 +1245,6 @@ server <- function(input, output, session) {
         output$card1 <- renderImage({
           list(src = "www/10-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "10 of hearts")
         }, deleteFile = FALSE
@@ -1245,7 +1252,6 @@ server <- function(input, output, session) {
         output$card2 <- renderImage({
           list(src = "www/j-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "Jack of hearts")
         }, deleteFile = FALSE
@@ -1253,7 +1259,6 @@ server <- function(input, output, session) {
         output$card3 <- renderImage({
           list(src = "www/q-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "Queen of hearts")
         }, deleteFile = FALSE
@@ -1261,7 +1266,6 @@ server <- function(input, output, session) {
         output$card4 <- renderImage({
           list(src = "www/k-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "King of hearts")
         }, deleteFile = FALSE
@@ -1269,7 +1273,6 @@ server <- function(input, output, session) {
         output$card5 <- renderImage({
           list(src = "www/a-heart.png",
                width = "100%",
-               
                contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
@@ -1284,6 +1287,12 @@ server <- function(input, output, session) {
             pqb$choiceC[9],
             pqb$choiceD[9]
           )
+        )
+        observeEvent(
+          eventExpr = input$explainbttn,
+          handlerExpr = {
+            output$explain <- renderUI()
+          }
         )
       }
     }
