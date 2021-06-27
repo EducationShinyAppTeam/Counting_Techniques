@@ -1,0 +1,10 @@
+﻿question,frequency,choiceA,choiceB,choiceC,choiceD
+How many one pairs are possible in poker?,1098240,1098240,54912,10200,123552
+How many two pairs are possible in poker?,123552,54912,123552,5108,1098240
+How many 3 of a kinds are possible in poker?,54912,123552,10200,54912,5108
+How many straights are possible in poker?,10200,54912,5108,123552,10200
+How many flushes are possible in poker?,5108,5108,624,10200,3744
+How many full houses are possible in poker?,3744,10200,3744,5108,624
+How many 4 of a kinds are possible in poker?,624,3744,36,624,5108
+How many straight flushes are possible in poker?,36,624,4,40,36
+How many royal flushes are possible in poker?,4,4,40,20,10

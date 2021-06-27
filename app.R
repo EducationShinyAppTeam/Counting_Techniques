@@ -4,9 +4,11 @@ library(shinydashboard)
 library(shinyBS)
 library(shinyWidgets)
 library(boastUtils)
-library(png)
+library(data.table)
 
 # Load additional dependencies and setup functions
+
+pqb <- fread("www/pokerquestionbank.csv")
 
 checker_shoes = img(src = "checker-shoes.jpg")
 psu_adidas = img(src = "psu-adidas.jpg")
@@ -793,41 +795,41 @@ server <- function(input, output, session) {
       ### 1 Pair ----
       if (randomNumber11 == 1) {
         output$card1 <- renderImage({
-          list(src = "a-club.png",
+          list(src = "www/a-club.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "Ace of clubs")
         }, deleteFile = FALSE
         )
         output$card2 <- renderImage({
-          list(src = "a-heart.png",
+          list(src = "www/a-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
         )
         output$card3 <- renderImage({
-          list(src = "9-spade.png",
+          list(src = "www/9-spade.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "9 of spades")
         }, deleteFile = FALSE
         )
         output$card4 <- renderImage({
-          list(src = "8-diamond.png",
+          list(src = "www/8-diamond.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "8 of diamonds")
         }, deleteFile = FALSE
         )
         output$card5 <- renderImage({
-          list(src = "7-club.png",
+          list(src = "www/7-club.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "7 of clubs")
         }, deleteFile = FALSE
@@ -835,12 +837,12 @@ server <- function(input, output, session) {
         updateRadioButtons(
           session = session,
           inputId = "promptAnsOptions",
-          label = print("The hand that you have been dealt is a 1 PAIR. 
-                        Find the probability of this poker hand."),
+          label = print(pqb$question[1]),
           choices = c(
-            "nicki minaj", 
-            "megan stallion",
-            "saweetie"
+            pqb$choiceA[1], 
+            pqb$choiceB[1],
+            pqb$choiceC[1],
+            pqb$choiceD[1]
           )
         )
       }
@@ -848,41 +850,41 @@ server <- function(input, output, session) {
       ### 2 Pairs ----
       if (randomNumber11 == 2) {
         output$card1 <- renderImage({
-          list(src = "k-diamond.png",
+          list(src = "www/k-diamond.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "King of diamonds")
         }, deleteFile = FALSE
         )
         output$card2 <- renderImage({
-          list(src = "k-club.png",
+          list(src = "www/k-club.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "King of clubs")
         }, deleteFile = FALSE
         )
         output$card3 <- renderImage({
-          list(src = "q-heart.png",
+          list(src = "www/q-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "Queen of hearts")
         }, deleteFile = FALSE
         )
         output$card4 <- renderImage({
-          list(src = "q-spade.png",
+          list(src = "www/q-spade.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "Queen of spades")
         }, deleteFile = FALSE
         )
         output$card5 <- renderImage({
-          list(src = "j-diamond.png",
+          list(src = "www/j-diamond.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "Jack of diamonds")
         }, deleteFile = FALSE
@@ -890,12 +892,12 @@ server <- function(input, output, session) {
         updateRadioButtons(
           session = session,
           inputId = "promptAnsOptions",
-          label = print("The hand that you have been dealt is a 2 PAIRS. 
-                        Find the probability of this poker hand."),
+          label = print(pqb$question[2]),
           choices = c(
-            "dog",
-            "cat",
-            "bird"
+            pqb$choiceA[2], 
+            pqb$choiceB[2],
+            pqb$choiceC[2],
+            pqb$choiceD[2]
           )
         )
       }
@@ -903,41 +905,41 @@ server <- function(input, output, session) {
       ### 3 of a kind ----
       if (randomNumber11 == 3) {
         output$card1 <- renderImage({
-          list(src = "a-club",
+          list(src = "www/a-club",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "Ace of clubs")
         }, deleteFile = FALSE
         )
         output$card2 <- renderImage({
-          list(src = "a-heart.png",
+          list(src = "www/a-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
         )
         output$card3 <- renderImage({
-          list(src = "a-spade.png",
+          list(src = "www/a-spade.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "Ace of spades")
         }, deleteFile = FALSE
         )
         output$card4 <- renderImage({
-          list(src = "2-diamond.png",
+          list(src = "www/2-diamond.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "2 of diamonds")
         }, deleteFile = FALSE
         )
         output$card5 <- renderImage({
-          list(src = "7-club.png",
+          list(src = "www/7-club.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "7 of clubs")
         }, deleteFile = FALSE
@@ -945,12 +947,12 @@ server <- function(input, output, session) {
         updateRadioButtons(
           session = session,
           inputId = "promptAnsOptions",
-          label = print("The hand that you have been dealt is a 3 OF A KIND. 
-                        Find the probability of this poker hand."),
+          label = print(pqb$question[3]),
           choices = c(
-            "happy",
-            "sad",
-            "tired"
+            pqb$choiceA[3], 
+            pqb$choiceB[3],
+            pqb$choiceC[3],
+            pqb$choiceD[3]
           )
         )
       }
@@ -958,41 +960,41 @@ server <- function(input, output, session) {
       ### Straight ----
       if (randomNumber11 == 4) {
         output$card1 <- renderImage({
-          list(src = "5-heart.png",
+          list(src = "www/5-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "5 of hearts")
         }, deleteFile = FALSE
         )
         output$card2 <- renderImage({
-          list(src = "6-club.png",
+          list(src = "www/6-club.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "6 of clubs")
         }, deleteFile = FALSE
         )
         output$card3 <- renderImage({
-          list(src = "7-diamond.png",
+          list(src = "www/7-diamond.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "7 of diamonds")
         }, deleteFile = FALSE
         )
         output$card4 <- renderImage({
-          list(src = "8-spade.png",
+          list(src = "www/8-spade.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "8 of spades")
         }, deleteFile = FALSE
         )
         output$card5 <- renderImage({
-          list(src = "9-club.png",
+          list(src = "www/9-club.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "9 of clubs")
         }, deleteFile = FALSE
@@ -1000,12 +1002,12 @@ server <- function(input, output, session) {
         updateRadioButtons(
           session = session,
           inputId = "promptAnsOptions",
-          label = print("The hand that you have been dealt is a STRAIGHT. 
-                        Find the probability of this poker hand."),
+          label = print(pqb$question[4]),
           choices = c(
-            "bachelors",
-            "masters",
-            "doctorate"
+            pqb$choiceA[4], 
+            pqb$choiceB[4],
+            pqb$choiceC[4],
+            pqb$choiceD[4]
           )
         )
       }
@@ -1013,41 +1015,41 @@ server <- function(input, output, session) {
       ### Flush ----
       if (randomNumber11 == 5) {
         output$card1 <- renderImage({
-          list(src = "2-heart.png",
+          list(src = "www/2-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "2 of hearts")
         }, deleteFile = FALSE
         )
         output$card2 <- renderImage({
-          list(src = "4-heart.png",
+          list(src = "www/4-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "4 of hearts")
         }, deleteFile = FALSE
         )
         output$card3 <- renderImage({
-          list(src = "6-heart.png",
+          list(src = "www/6-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "6 of hearts")
         }, deleteFile = FALSE
         )
         output$card4 <- renderImage({
-          list(src = "8-heart.png",
+          list(src = "www/8-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "8 of hearts")
         }, deleteFile = FALSE
         )
         output$card5 <- renderImage({
-          list(src = "K-heart.png",
+          list(src = "www/K-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "King of hearts")
         }, deleteFile = FALSE
@@ -1055,12 +1057,12 @@ server <- function(input, output, session) {
         updateRadioButtons(
           session = session,
           inputId = "promptAnsOptions",
-          label = print("The hand that you have been dealt is a FLUSH. 
-                        Find the probability of this poker hand."),
+          label = print(pqb$question[5]),
           choices = c(
-            "morning",
-            "afternoon",
-            "evening"
+            pqb$choiceA[5], 
+            pqb$choiceB[5],
+            pqb$choiceC[5],
+            pqb$choiceD[5]
           )
         )
       }
@@ -1068,41 +1070,41 @@ server <- function(input, output, session) {
       ### Full House ----
       if (randomNumber11 == 6){
         output$card1 <- renderImage({
-          list(src = "a-spade.png",
+          list(src = "www/a-spade.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "Ace of spades")
         }, deleteFile = FALSE
         )
         output$card2 <- renderImage({
-          list(src = "a-heart.png",
+          list(src = "www/a-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
         )
         output$card3 <- renderImage({
-          list(src = "a-club.png",
+          list(src = "www/a-club.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "Ace of clubs")
         }, deleteFile = FALSE
         )
         output$card4 <- renderImage({
-          list(src = "k-heart.png",
+          list(src = "www/k-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "King of hearts")
         }, deleteFile = FALSE
         )
         output$card5 <- renderImage({
-          list(src = "K-spade.png",
+          list(src = "www/k-spade.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "King of spades")
         }, deleteFile = FALSE
@@ -1110,12 +1112,12 @@ server <- function(input, output, session) {
         updateRadioButtons(
           session = session,
           inputId = "promptAnsOptions",
-          label = print("The hand that you have been dealt is a FULL HOUSE. 
-                        Find the probability of this poker hand."),
+          label = print(pqb$question[6]),
           choices = c(
-            "dababy",
-            "21 savage",
-            "tyga"
+            pqb$choiceA[6], 
+            pqb$choiceB[6],
+            pqb$choiceC[6],
+            pqb$choiceD[6]
           )
         )
       }
@@ -1123,41 +1125,41 @@ server <- function(input, output, session) {
       ### 4 of a kind ----
       if (randomNumber11 == 7){
         output$card1 <- renderImage({
-          list(src = "a-spade.png",
+          list(src = "www/a-spade.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "Ace of spades")
         }, deleteFile = FALSE
         )
         output$card2 <- renderImage({
-          list(src = "a-heart.png",
+          list(src = "www/a-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
         )
         output$card3 <- renderImage({
-          list(src = "a-club.png",
+          list(src = "www/a-club.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "Ace of clubs")
         }, deleteFile = FALSE
         )
         output$card4 <- renderImage({
-          list(src = "a-diamond.png",
+          list(src = "www/a-diamond.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "Ace of diamonds")
         }, deleteFile = FALSE
         )
         output$card5 <- renderImage({
-          list(src = "2-spade.png",
+          list(src = "www/2-spade.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "2 of spades")
         }, deleteFile = FALSE
@@ -1165,12 +1167,12 @@ server <- function(input, output, session) {
         updateRadioButtons(
           session = session,
           inputId = "promptAnsOptions",
-          label = print("The hand that you have been dealt is a 4 OF A KIND. 
-                        Find the probability of this poker hand."),
+          label = print(pqb$question[7]),
           choices = c(
-            "lil nasx",
-            "lil uzi",
-            "lil wayne"
+            pqb$choiceA[7], 
+            pqb$choiceB[7],
+            pqb$choiceC[7],
+            pqb$choiceD[7]
           )
         )
       }
@@ -1178,41 +1180,41 @@ server <- function(input, output, session) {
       ### Straight Flush ----
       if (randomNumber11 == 8) {
         output$card1 <- renderImage({
-          list(src = "5-heart.png",
+          list(src = "www/5-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "5 of hearts")
         }, deleteFile = FALSE
         )
         output$card2 <- renderImage({
-          list(src = "6-heart.png",
+          list(src = "www/6-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "6 of hearts")
         }, deleteFile = FALSE
         )
         output$card3 <- renderImage({
-          list(src = "7-heart.png",
+          list(src = "www/7-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "7 of hearts")
         }, deleteFile = FALSE
         )
         output$card4 <- renderImage({
-          list(src = "8-heart.png",
+          list(src = "www/8-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "8 of hearts")
         }, deleteFile = FALSE
         )
         output$card5 <- renderImage({
-          list(src = "9-heart.png",
+          list(src = "www/9-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "9 of hearts")
         }, deleteFile = FALSE
@@ -1220,12 +1222,12 @@ server <- function(input, output, session) {
         updateRadioButtons(
           session = session,
           inputId = "promptAnsOptions",
-          label = print("The hand that you have been dealt is a STRAIGHT FLUSH. 
-                        Find the probability of this poker hand."),
+          label = print(pqb$question[8]),
           choices = c(
-            "kim",
-            "kourtney",
-            "khloe"
+            pqb$choiceA[8], 
+            pqb$choiceB[8],
+            pqb$choiceC[8],
+            pqb$choiceD[8]
           )
         )
       }
@@ -1233,41 +1235,41 @@ server <- function(input, output, session) {
       ### Royal Flush ----
       if (randomNumber11 == 5) {
         output$card1 <- renderImage({
-          list(src = "10-heart.png",
+          list(src = "www/10-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "10 of hearts")
         }, deleteFile = FALSE
         )
         output$card2 <- renderImage({
-          list(src = "j-heart.png",
+          list(src = "www/j-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "Jack of hearts")
         }, deleteFile = FALSE
         )
         output$card3 <- renderImage({
-          list(src = "q-heart.png",
+          list(src = "www/q-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "Queen of hearts")
         }, deleteFile = FALSE
         )
         output$card4 <- renderImage({
-          list(src = "k-heart.png",
+          list(src = "www/k-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "King of hearts")
         }, deleteFile = FALSE
         )
         output$card5 <- renderImage({
-          list(src = "a-heart.png",
+          list(src = "www/a-heart.png",
                width = "100%",
-               height = "100%",
+               
                contentType = "image/png", 
                alt = "Ace of hearts")
         }, deleteFile = FALSE
@@ -1275,12 +1277,12 @@ server <- function(input, output, session) {
         updateRadioButtons(
           session = session,
           inputId = "promptAnsOptions",
-          label = print("The hand that you have been dealt is a ROYAL FLUSH. 
-                        Find the probability of this poker hand."),
+          label = print(pqb$question[9]),
           choices = c(
-            "vanilla",
-            "chocolate",
-            "strawberry"
+            pqb$choiceA[9], 
+            pqb$choiceB[9],
+            pqb$choiceC[9],
+            pqb$choiceD[9]
           )
         )
       }
