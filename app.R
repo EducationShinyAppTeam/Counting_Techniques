@@ -541,43 +541,41 @@ ui <- list(
               width = 2,
               align = "center",
               offset = 1,
-              imageOutput("card1")
+              uiOutput("card1")
             ),
             column(
               width = 2,
               align = "center",
               offset = 0,
-              imageOutput("card2")
+              uiOutput("card2")
             ),
             column(
               width = 2,
               align = "center",
               offset = 0,
-              imageOutput("card3")
+              uiOutput("card3")
             ),
             column(
               width = 2,
               align = "center",
               offset = 0,
-              imageOutput("card4")
+              uiOutput("card4")
             ),
             column(
               width = 2,
               align = "center",
               offset = 0,
-              imageOutput("card5")
+              uiOutput("card5")
             )
           ),
-          br(),
-          fluidRow(
-            div(
-              style = "text-align: center",
-              bsButton(
-                inputId = "newHand",
-                label = "New Hand",
-                size = "large",
-                style = "default"
-              )
+          hr(),
+          div(
+            style = "text-align: center;",
+            bsButton(
+              inputId = "newHand",
+              label = "New Hand",
+              size = "large",
+              style = "default"
             )
           ),
           br(),
@@ -609,7 +607,9 @@ ui <- list(
                 br(),
                 uiOutput("explain")
               )
-          )
+          ),
+          uiOutput("math1"),
+          uiOutput("math2")
         ),
         
         ####  References Page ----
@@ -792,89 +792,75 @@ server <- function(input, output, session) {
   
   ### Defining hands and question choices ----
   
-  onePair <- "\binom{13}{1}\binom{4}{2}\times\binom{12}{3}\binom{4}{1}^3}"
-  twoPairs <- "\binom{13}{2}\binom{4}{2}^2\times\binom{11}{1}\binom{4}{1}"
-  threeKind <- "\binom{13}{1}\binom{4}{3}\times\binom{12}{2}\binom{4}{1}^2"
-  straight <- "\binom{10}{1}\binom{4}{1}^5-\binom{10}{1}\binom{4}{1}"
-  flush <- "\binom{13}{5}\binom{4}{1}-\binom{10}{1}\binom{4}{1}"
-  fullHouse <- "\binom{13}{1}\binom{4}{3}\times\binom{12}{1}\binom{4}{2}"
-  fourKind <- "\binom{13}{1}\binom{4}{4}\times\binom{12}{1}\binom{4}{1}"
-  straightFlush <- "10\binom{4}{1}-\binom{4}{1}"
-  royalFlush <- "\binom{1}{1}^5\times\binom{4}{1}"
-  wrongChoice1 <- "\binom{10}{1}\times\binom{4}{1}"
-  wrongChoice2 <- "\binom{10}{1}^5\times\binom{4}{1}"
-  
-  titleAllChoices <- c("Choice A", "Choice B", "Choice C", "Choice D")
-  codeChoices1 <- c("\binom{13}{1}\binom{4}{2}\times\binom{12}{3}\binom{4}{1}^3}",
-                   "\binom{13}{1}\binom{4}{3}\times\binom{12}{2}\binom{4}{1}\binom{4}{1}", 
-                   "\binom{10}{1}\binom{4}{1}^5-\binom{10}{1}\binom{4}{1}", 
-                   "\binom{13}{2}\binom{4}{2}^2\times\binom{11}{1}\binom{4}{1}")
-  choices1 <- data.frame(titleAllChoices, codeChoices1) 
-  hand1choices <- setNames(as.character(choices1$codeChoices1), choices1$titleAllChoices)    
+  onePair <- "\\(\\binom{13}{1}\\binom{4}{2}\\times\\binom{12}{3}\\binom{4}{1}^3\\)"
+  twoPairs <- "\\(\\binom{13}{2}\\binom{4}{2}^2\\times\\binom{11}{1}\\binom{4}{1}\\)"
+  threeKind <- "\\(\\binom{13}{1}\\binom{4}{3}\\times\\binom{12}{2}\\binom{4}{1}^2\\)"
+  straight <- "\\(\\binom{10}{1}\\binom{4}{1}^5-\\binom{10}{1}\\binom{4}{1}\\)"
+  flush <- "\\(\\binom{13}{5}\\binom{4}{1}-\\binom{10}{1}\\binom{4}{1}\\)"
+  fullHouse <- "\\(\\binom{13}{1}\\binom{4}{3}\\times\\binom{12}{1}\\binom{4}{2}\\)"
+  fourKind <- "\\(\\binom{13}{1}\\binom{4}{4}\\times\\binom{12}{1}\\binom{4}{1}\\)"
+  straightFlush <- "\\(\\binom{10}{1}\\binom{4}{1}-\\binom{4}{1}\\)"
+  royalFlush <- "\\(\\binom{1}{1}^5\\times\\binom{4}{1}\\)"
+  wrongChoice1 <- "\\(\\binom{10}{1}\\times\\binom{4}{1}\\)"
+  wrongChoice2 <- "\\(\\binom{10}{1}^5\\times\\binom{4}{1}\\)"
   
   observeEvent(
     eventExpr = input$newHand,
     handlerExpr = {
-      randomNumber11 <- sample(1:1, 1)
+      randomNumber11 <- sample(1:9, 1)
       
       ### 1 Pair ----
       if (randomNumber11 == 1) {
-        output$card1 <- renderImage({
-          list(src = "www/a-club.png",
+        output$card1 <- renderUI({
+          img(src = "a-club.png",
                width = "100%",
                contentType = "image/png", 
                alt = "Ace of clubs")
-        }, deleteFile = FALSE
-        )
-        output$card2 <- renderImage({
-          list(src = "www/a-heart.png",
+        })
+        output$card2 <- renderUI({
+          img(src = "a-heart.png",
                width = "100%",
                contentType = "image/png", 
                alt = "Ace of hearts")
-        }, deleteFile = FALSE
-        )
-        output$card3 <- renderImage({
-          list(src = "www/9-spade.png",
+        })
+        output$card3 <- renderUI({
+          img(src = "9-spade.png",
                width = "100%",
                contentType = "image/png", 
                alt = "9 of spades")
-        }, deleteFile = FALSE
-        )
-        output$card4 <- renderImage({
-          list(src = "www/8-diamond.png",
+        })
+        output$card4 <- renderUI({
+          img(src = "8-diamond.png",
                width = "100%",
                contentType = "image/png", 
                alt = "8 of diamonds")
-        }, deleteFile = FALSE
-        )
-        output$card5 <- renderImage({
-          list(src = "www/7-club.png",
+        })
+        output$card5 <- renderUI({
+          img(src = "7-club.png",
                width = "100%",
                contentType = "image/png", 
                alt = "7 of clubs")
-        }, deleteFile = FALSE
-        )
+        })
         updateRadioButtons(
           session = session,
           inputId = "promptAnsOptions",
           label = print(pqb$question[1]),
-          choices = c("\binom{13}{1}\binom{4}{2}\times\binom{12}{3}\binom{4}{1}^3}",
-                      "\binom{13}{1}\binom{4}{3}\times\binom{12}{2}\binom{4}{1}\binom{4}{1}", 
-                      "\binom{10}{1}\binom{4}{1}^5-\binom{10}{1}\binom{4}{1}", 
-                      "\binom{13}{2}\binom{4}{2}\binom{4}{2}\times\binom{11}{1}\binom{4}{1}")
+          choices = c(onePair, threeKind, straight, twoPairs)
         )
+        output$math1 <- renderUI({withMathJax()})
+        output$math2 <- renderUI({withMathJax()})
         observeEvent(
           eventExpr = input$explainbttn,
           handlerExpr = {
             output$explain <- renderUI(
               withMathJax(
                 "For a 1 pair, we need 1 rank to appear twice: ",
-                "\binom{13}{1}\binom{4}{2}",
+                "\\(\\binom{13}{1}\\binom{4}{2}\\)",
                 "For the remaining cards, they can be any rank and any suit, 
                 except for the rank of the 1 pair: ",
-                "\binom{12}{3}\binom{4}{1}\binom{4}{1}\binom{4}{1}", 
+                "\\(\\binom{12}{3}\\binom{4}{1}\\binom{4}{1}\\binom{4}{1}\\)", 
                 "Therefore, the total number of ways to be dealt 1 pair is: ",
-                "\binom{13}{1}\binom{4}{2}\times\binom{12}{3}\binom{4}{1}^3"
+                "\\(\\binom{13}{1}\\binom{4}{2}\\times\\binom{12}{3}\\binom{4}{1}^3\\)"
               )
             )
           }
@@ -883,63 +869,57 @@ server <- function(input, output, session) {
       
       ### 2 Pairs ----
       if (randomNumber11 == 2) {
-        output$card1 <- renderImage({
-          list(src = "www/k-diamond.png",
+        output$card1 <- renderUI({
+          img(src = "k-diamond.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "King of diamonds")
-        }, deleteFile = FALSE
+        }
         )
-        output$card2 <- renderImage({
-          list(src = "www/k-club.png",
+        output$card2 <- renderUI({
+          img(src = "k-club.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "King of clubs")
-        }, deleteFile = FALSE
+        }
         )
-        output$card3 <- renderImage({
-          list(src = "www/q-heart.png",
+        output$card3 <- renderUI({
+          img(src = "q-heart.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "Queen of hearts")
-        }, deleteFile = FALSE
-        )
-        output$card4 <- renderImage({
-          list(src = "www/q-spade.png",
+        })
+        output$card4 <- renderUI({
+          img(src = "q-spade.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "Queen of spades")
-        }, deleteFile = FALSE
-        )
-        output$card5 <- renderImage({
-          list(src = "www/j-diamond.png",
+        })
+        output$card5 <- renderUI({
+          img(src = "j-diamond.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "Jack of diamonds")
-        }, deleteFile = FALSE
-        )
+        })
         updateRadioButtons(
           session = session,
           inputId = "promptAnsOptions",
           label = print(pqb$question[2]),
-          choices = c(
-            threeKind, 
-            twoPairs,
-            flush,
-            onePair
-          )
+          choices = c(threeKind, twoPairs, flush, onePair)
         )
+        output$math1 <- renderUI({withMathJax()})
+        output$math2 <- renderUI({withMathJax()})
         observeEvent(
           eventExpr = input$explainbttn,
           handlerExpr = {
             output$explain <- renderUI(
               "For a 2 pair, we need 2 ranks to appear twice: ",
-              "\binom{13}{2}\binom{4}{2}\binom{4}{2}",
+              "\\(\\binom{13}{2}\\binom{4}{2}\\binom{4}{2}\\)",
               "For the remaining card, it can be any suit and any rank, 
               except for the 2 ranks of the 2 pairs: ",
-              "\binom{11}{1}\binom{4}{1}",
+              "\\(\\binom{11}{1}\\binom{4}{1}\\)",
               "Therefore, the total number of ways to be dealt a 2 pair is: ",
-              "\binom{13}{2}\binom{4}{2}^2\times\binom{11}{1}\binom{4}{1}"
+              "\\(\\binom{13}{2}\binom{4}{2}^2\\times\\binom{11}{1}\\binom{4}{1}\\)"
             )
           }
         )
@@ -947,63 +927,55 @@ server <- function(input, output, session) {
       
       ### 3 of a kind ----
       if (randomNumber11 == 3) {
-        output$card1 <- renderImage({
-          list(src = "www/a-club.png",
+        output$card1 <- renderUI({
+          img(src = "a-club.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "Ace of clubs")
-        }, deleteFile = FALSE
-        )
-        output$card2 <- renderImage({
-          list(src = "www/a-heart.png",
+        })
+        output$card2 <- renderUI({
+          img(src = "a-heart.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "Ace of hearts")
-        }, deleteFile = FALSE
-        )
-        output$card3 <- renderImage({
-          list(src = "www/a-spade.png",
+        })
+        output$card3 <- renderUI({
+          img(src = "a-spade.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "Ace of spades")
-        }, deleteFile = FALSE
-        )
-        output$card4 <- renderImage({
-          list(src = "www/2-diamond.png",
+        })
+        output$card4 <- renderUI({
+          img(src = "2-diamond.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "2 of diamonds")
-        }, deleteFile = FALSE
-        )
-        output$card5 <- renderImage({
-          list(src = "www/7-club.png",
+        })
+        output$card5 <- renderUI({
+          img(src = "7-club.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "7 of clubs")
-        }, deleteFile = FALSE
-        )
+        })
         updateRadioButtons(
           session = session,
           inputId = "promptAnsOptions",
           label = print(pqb$question[3]),
-          choices = c(
-            twoPairs, 
-            straight,
-            threeKind,
-            flush
-          )
+          choices = c(twoPairs, straight, threeKind, flush)
         )
+        output$math1 <- renderUI({withMathJax()})
+        output$math2 <- renderUI({withMathJax()})
         observeEvent(
           eventExpr = input$explainbttn,
           handlerExpr = {
             output$explain <- renderUI(
               "For a 3-of-a-kind, we need 1 rank to appear three times: ",
-              "\binom{13}{1}\binom{4}{3}",
+              "\\(\\binom{13}{1}\\binom{4}{3}\\)",
               "For the remaining 2 cards, they can be any suit and any rank, 
               except for the rank of the 3-of-a-kind: ",
-              "\binom{12}{2}\binom{4}{1}\binom{4}{1}",
+              "\\(\\binom{12}{2}\\binom{4}{1}\\binom{4}{1}\\)",
               "Therefore, the total number of ways to be dealt a 3-of-a-kind is: ",
-              "\binom{13}{1}\binom{4}{3}\times\binom{12}{2}\binom{4}{1}^2"
+              "\\(\\binom{13}{1}\\binom{4}{3}\\times\\binom{12}{2}\\binom{4}{1}^2\\)"
             )
           }
         )
@@ -1011,64 +983,56 @@ server <- function(input, output, session) {
       
       ### Straight ----
       if (randomNumber11 == 4) {
-        output$card1 <- renderImage({
-          list(src = "www/5-heart.png",
+        output$card1 <- renderUI({
+          img(src = "5-heart.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "5 of hearts")
-        }, deleteFile = FALSE
-        )
-        output$card2 <- renderImage({
-          list(src = "www/6-club.png",
+        })
+        output$card2 <- renderUI({
+          img(src = "6-club.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "6 of clubs")
-        }, deleteFile = FALSE
-        )
-        output$card3 <- renderImage({
-          list(src = "www/7-diamond.png",
+        })
+        output$card3 <- renderUI({
+          img(src = "7-diamond.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "7 of diamonds")
-        }, deleteFile = FALSE
-        )
-        output$card4 <- renderImage({
-          list(src = "www/8-spade.png",
+        })
+        output$card4 <- renderUI({
+          img(src = "8-spade.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "8 of spades")
-        }, deleteFile = FALSE
-        )
-        output$card5 <- renderImage({
-          list(src = "www/9-club.png",
+        })
+        output$card5 <- renderUI({
+          img(src = "9-club.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "9 of clubs")
-        }, deleteFile = FALSE
-        )
+        })
         updateRadioButtons(
           session = session,
           inputId = "promptAnsOptions",
           label = print(pqb$question[4]),
-          choices = c(
-            threeKind, 
-            flush,
-            twoPairs,
-            straight
-          )
+          choices = c(threeKind, flush, twoPairs, straight)
         )
+        output$math1 <- renderUI({withMathJax()})
+        output$math2 <- renderUI({withMathJax()})
         observeEvent(
           eventExpr = input$explainbttn,
           handlerExpr = {
             output$explain <- renderUI(
               "For a straight, we need 5 cards in rank order of any suit. 
               Additionally, aces can be high or low, but not both simutaneously. : ",
-              "\binom{10}{1}\binom{4}{1}\binom{4}{1}\binom{4}{1}\binom{4}{1}\binom{4}{1}",
+              "\\(\\binom{10}{1}\\binom{4}{1}\\binom{4}{1}\\binom{4}{1}\\binom{4}{1}\\binom{4}{1}\\)",
               "There also exists another hand called a straight flush, 
               which is a special type of straight, so we remove these: ",
-              "-\binom{10}{1}\binom{4}{1}",
+              "\\(-\\binom{10}{1}\\binom{4}{1}\\)",
               "Therefore, the total number of ways to be dealt a straight is: ",
-              "\binom{10}{1}\binom{4}{1}^5-\binom{10}{1}\binom{4}{1}"
+              "\\(\\binom{10}{1}\\binom{4}{1}^5-\\binom{10}{1}\\binom{4}{1}\\)"
             )
           }
         )
@@ -1076,66 +1040,58 @@ server <- function(input, output, session) {
       
       ### Flush ----
       if (randomNumber11 == 5) {
-        output$card1 <- renderImage({
-          list(src = "www/2-heart.png",
+        output$card1 <- renderUI({
+          img(src = "2-heart.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "2 of hearts")
-        }, deleteFile = FALSE
-        )
-        output$card2 <- renderImage({
-          list(src = "www/4-heart.png",
+        })
+        output$card2 <- renderUI({
+          img(src = "4-heart.png",
                width = "100%",
                
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "4 of hearts")
-        }, deleteFile = FALSE
-        )
-        output$card3 <- renderImage({
-          list(src = "www/6-heart.png",
+        })
+        output$card3 <- renderUI({
+          img(src = "6-heart.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "6 of hearts")
-        }, deleteFile = FALSE
-        )
-        output$card4 <- renderImage({
-          list(src = "www/8-heart.png",
+        })
+        output$card4 <- renderUI({
+          img(src = "8-heart.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "8 of hearts")
-        }, deleteFile = FALSE
-        )
-        output$card5 <- renderImage({
-          list(src = "www/K-heart.png",
+        })
+        output$card5 <- renderUI({
+          img(src = "K-heart.png",
                width = "100%",
                
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "King of hearts")
-        }, deleteFile = FALSE
-        )
+        })
         updateRadioButtons(
           session = session,
           inputId = "promptAnsOptions",
           label = print(pqb$question[5]),
-          choices = c(
-            flush,
-            fourKind,
-            straight,
-            fullHouse
-          )
+          choices = c(flush, fourKind, straight, fullHouse)
         )
+        output$math1 <- renderUI({withMathJax()})
+        output$math2 <- renderUI({withMathJax()})
         observeEvent(
           eventExpr = input$explainbttn,
           handlerExpr = {
             output$explain <- renderUI(
               "For a flush, we need 5 cards of any rank, but all the same suit.
               Additionally, aces can be high or low, but not both simutaneously. : ",
-              "\binom{13}{5}\binom{4}{1}",
+              "\\(\\binom{13}{5}\\binom{4}{1}\\)",
               "There also exists another hand called a straight flush, 
               which is a special type of flush, so we remove these: ",
-              "-\binom{10}{1}\binom{4}{1}",
+              "\\(-\\binom{10}{1}\\binom{4}{1}\\)",
               "Therefore, the total number of ways to be dealt a flush is: ",
-              "\binom{13}{5}\binom{4}{1}-\binom{10}{1}\binom{4}{1}"
+              "\\(\\binom{13}{5}\\binom{4}{1}-\\binom{10}{1}\\binom{4}{1}\\)"
             )
           }
         )
@@ -1143,52 +1099,44 @@ server <- function(input, output, session) {
       
       ### Full House ----
       if (randomNumber11 == 6){
-        output$card1 <- renderImage({
-          list(src = "www/a-spade.png",
+        output$card1 <- renderUI({
+          img(src = "a-spade.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "Ace of spades")
-        }, deleteFile = FALSE
-        )
-        output$card2 <- renderImage({
-          list(src = "www/a-heart.png",
+        })
+        output$card2 <- renderUI({
+          img(src = "a-heart.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "Ace of hearts")
-        }, deleteFile = FALSE
-        )
-        output$card3 <- renderImage({
-          list(src = "www/a-club.png",
+        })
+        output$card3 <- renderUI({
+          img(src = "a-club.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "Ace of clubs")
-        }, deleteFile = FALSE
-        )
-        output$card4 <- renderImage({
-          list(src = "www/k-heart.png",
+        })
+        output$card4 <- renderUI({
+          img(src = "k-heart.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "King of hearts")
-        }, deleteFile = FALSE
-        )
-        output$card5 <- renderImage({
-          list(src = "www/k-spade.png",
+        })
+        output$card5 <- renderUI({
+          img(src = "k-spade.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "King of spades")
-        }, deleteFile = FALSE
-        )
+        })
         updateRadioButtons(
           session = session,
           inputId = "promptAnsOptions",
           label = print(pqb$question[6]),
-          choices = c(
-            straight,
-            fullHouse,
-            flush,
-            fourKind
-          )
+          choices = c(straight, fullHouse, flush, fourKind)
         )
+        output$math1 <- renderUI({withMathJax()})
+        output$math2 <- renderUI({withMathJax()})
         observeEvent(
           eventExpr = input$explainbttn,
           handlerExpr = {
@@ -1196,10 +1144,10 @@ server <- function(input, output, session) {
               "For a full house, we need 3 cards of the same rank and 2 cards of the same rank, 
               but different from that of the first 3 cards. all cards can be of any suit. Simply,
               think of combining a 3-of-a-kind and a 1 pair into the same hand.",
-              "3-of-a-kind: ", "\binom{13}{1}\binom{4}{3}",
-              "1 pair: ", "\binom{13}{1}\binom{4}{2}",
+              "3-of-a-kind: ", "\\(\\binom{13}{1}\\binom{4}{3}\\)",
+              "1 pair: ", "\\(\\binom{13}{1}\\binom{4}{2}\\)",
               "Therefore, the total number of ways you can be dealt a full house is: ",
-              "\binom{13}{1}\binom{4}{3}\times\binom{12}{1}\binom{4}{2}"
+              "\\(\\binom{13}{1}\\binom{4}{3}\\times\\binom{12}{1}\\binom{4}{2}\\)"
             )
           }
         )
@@ -1207,63 +1155,55 @@ server <- function(input, output, session) {
       
       ### 4 of a kind ----
       if (randomNumber11 == 7){
-        output$card1 <- renderImage({
-          list(src = "www/a-spade.png",
+        output$card1 <- renderUI({
+          img(src = "a-spade.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "Ace of spades")
-        }, deleteFile = FALSE
-        )
-        output$card2 <- renderImage({
-          list(src = "www/a-heart.png",
+        })
+        output$card2 <- renderUI({
+          img(src = "a-heart.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "Ace of hearts")
-        }, deleteFile = FALSE
-        )
-        output$card3 <- renderImage({
-          list(src = "www/a-club.png",
+        })
+        output$card3 <- renderUI({
+          img(src = "a-club.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "Ace of clubs")
-        }, deleteFile = FALSE
-        )
-        output$card4 <- renderImage({
-          list(src = "www/a-diamond.png",
+        })
+        output$card4 <- renderUI({
+          img(src = "a-diamond.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "Ace of diamonds")
-        }, deleteFile = FALSE
-        )
-        output$card5 <- renderImage({
-          list(src = "www/2-spade.png",
+        })
+        output$card5 <- renderUI({
+          img(src = "2-spade.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "2 of spades")
-        }, deleteFile = FALSE
-        )
+        })
         updateRadioButtons(
           session = session,
           inputId = "promptAnsOptions",
           label = print(pqb$question[7]),
-          choices = c(
-            fullHouse,
-            straightFlush,
-            fourKind,
-            flush
-          )
+          choices = c(fullHouse, straightFlush, fourKind, flush)
         )
+        output$math1 <- renderUI({withMathJax()})
+        output$math2 <- renderUI({withMathJax()})
         observeEvent(
           eventExpr = input$explainbttn,
           handlerExpr = {
             output$explain <- renderUI(
               "For a 4-of-a-kind, we need 4 cards of the same suit and any rank: ",
-              "\binom{13}{1}\binom{4}{4}",
+              "\\(\\binom{13}{1}\\binom{4}{4}\\)",
               "The last remaining card, can be any suit and any rank, 
               except for the rank used in the 4-of-a-kind: ",
-              "\binom{12}{1}\binom{4}{1}",
+              "\\(\\binom{12}{1}\\binom{4}{1}\\)",
               "Therefore, the total number of ways you can be dealt a 4-of-a-kind is: ",
-              "\binom{13}{1}\binom{4}{4}\times\binom{12}{1}\binom{4}{1}"
+              "\\(\\binom{13}{1}\\binom{4}{4}\\times\\binom{12}{1}\\binom{4}{1}\\)"
             )
           }
         )
@@ -1271,64 +1211,56 @@ server <- function(input, output, session) {
       
       ### Straight Flush ----
       if (randomNumber11 == 8) {
-        output$card1 <- renderImage({
-          list(src = "www/5-heart.png",
+        output$card1 <- renderUI({
+          img(src = "5-heart.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "5 of hearts")
-        }, deleteFile = FALSE
-        )
-        output$card2 <- renderImage({
-          list(src = "www/6-heart.png",
+        })
+        output$card2 <- renderUI({
+          img(src = "6-heart.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "6 of hearts")
-        }, deleteFile = FALSE
-        )
-        output$card3 <- renderImage({
-          list(src = "www/7-heart.png",
+        })
+        output$card3 <- renderUI({
+          img(src = "7-heart.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "7 of hearts")
-        }, deleteFile = FALSE
-        )
-        output$card4 <- renderImage({
-          list(src = "www/8-heart.png",
+        })
+        output$card4 <- renderUI({
+          img(src = "8-heart.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "8 of hearts")
-        }, deleteFile = FALSE
-        )
-        output$card5 <- renderImage({
-          list(src = "www/9-heart.png",
+        })
+        output$card5 <- renderUI({
+          img(src = "9-heart.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "9 of hearts")
-        }, deleteFile = FALSE
-        )
+        })
         updateRadioButtons(
           session = session,
           inputId = "promptAnsOptions",
           label = print(pqb$question[8]),
-          choices = c(
-            fourKind,
-            royalFlush,
-            wrongChoice1,
-            straightFlush
-          )
+          choices = c(fourKind, royalFlush, wrongChoice1, straightFlush)
         )
+        output$math1 <- renderUI({withMathJax()})
+        output$math2 <- renderUI({withMathJax()})
         observeEvent(
           eventExpr = input$explainbttn,
           handlerExpr = {
             output$explain <- renderUI(
               "For a straight flush, we need 5 cards in rank order of the same suit. 
               Additionally, aces can be high or low, but not both simutaneously: ",
-              "\binom{10}{1}\binom{4}{1}",
+              "\\(\\binom{10}{1}\\binom{4}{1}\\)",
               "There also exists another hand called a royal flush, 
               which is a special type of straight flush, so we remove these: ",
-              "-\binom{1}{1}^5\times\binom{4}{1}",
+              "\\(-\\binom{1}{1}^5\\times\\binom{4}{1}\\)",
               "Therefore, the total number of ways to be dealt a straight flush is: ",
-              "\binom{10}{1}\binom{4}{1}-\binom{4}{1}"
+              "\\(\\binom{10}{1}\\binom{4}{1}-\\binom{4}{1}\\)"
             )
           }
         )
@@ -1336,61 +1268,53 @@ server <- function(input, output, session) {
       
       ### Royal Flush ----
       if (randomNumber11 == 5) {
-        output$card1 <- renderImage({
-          list(src = "www/10-heart.png",
+        output$card1 <- renderUI({
+          img(src = "10-heart.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "10 of hearts")
-        }, deleteFile = FALSE
-        )
-        output$card2 <- renderImage({
-          list(src = "www/j-heart.png",
+        })
+        output$card2 <- renderUI({
+          img(src = "j-heart.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "Jack of hearts")
-        }, deleteFile = FALSE
-        )
-        output$card3 <- renderImage({
-          list(src = "www/q-heart.png",
+        })
+        output$card3 <- renderUI({
+          img(src = "q-heart.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "Queen of hearts")
-        }, deleteFile = FALSE
-        )
-        output$card4 <- renderImage({
-          list(src = "www/k-heart.png",
+        })
+        output$card4 <- renderUI({
+          img(src = "k-heart.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "King of hearts")
-        }, deleteFile = FALSE
-        )
-        output$card5 <- renderImage({
-          list(src = "www/a-heart.png",
+        })
+        output$card5 <- renderUI({
+          img(src = "a-heart.png",
                width = "100%",
-               contentType = "image/png", 
+               contentType = "UI/png", 
                alt = "Ace of hearts")
-        }, deleteFile = FALSE
-        )
+        })
         updateRadioButtons(
           session = session,
           inputId = "promptAnsOptions",
           label = print(pqb$question[9]),
-          choices = c(
-            royalFlush, 
-            straightFlush,
-            wrongChoice1,
-            wrongChoice2
-          )
+          choices = c(royalFlush, straightFlush, wrongChoice1, wrongChoice2)
         )
+        output$math1 <- renderUI({withMathJax()})
+        output$math2 <- renderUI({withMathJax()})
         observeEvent(
           eventExpr = input$explainbttn,
           handlerExpr = {
             output$explain <- renderUI(
               "For a royal flush, we need a straight flush but with only the 5 
               top ranking cards (Ace, King, Queen, Jack, and 10): ",
-              "\binom{1}{1}^5\times\binom{4}{1}",
+              "\\(\\binom{1}{1}^5\\times\\binom{4}{1}\\)",
               "Therefore, the total number of ways you can be dealt a royal flush is: ",
-              "\binom{4}{1}"
+              "\\(\\binom{4}{1}\\)"
             )
           }
         )
