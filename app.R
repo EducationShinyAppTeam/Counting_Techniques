@@ -536,6 +536,7 @@ ui <- list(
           tabName = "game",
           withMathJax(),
           h2("Poker Probability"),
+          br(),
           fluidRow(
             column(
               width = 2,
@@ -568,7 +569,6 @@ ui <- list(
               uiOutput("card5")
             )
           ),
-          hr(),
           div(
             style = "text-align: center;",
             bsButton(
@@ -586,8 +586,8 @@ ui <- list(
               wellPanel(
                 radioButtons(
                   inputId = "promptAnsOptions",
-                  label = "Calculate how many ways the hand displayed can be dealt.",
-                  choices =  c("Choice A","Choice B", "Choice C", "Choice D")
+                  label = "Click the 'New Hand' button to begin the poker questions",
+                  choices =  c("Choice A","Choice B", "Choice C", "Choice D"),
                 ),
                 uiOutput("gradingIcon")
               )
@@ -845,7 +845,8 @@ server <- function(input, output, session) {
           session = session,
           inputId = "promptAnsOptions",
           label = print(pqb$question[1]),
-          choices = c(onePair, threeKind, straight, twoPairs)
+          choices = c(onePair, threeKind, straight, twoPairs),
+          selected = NULL
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
@@ -905,7 +906,8 @@ server <- function(input, output, session) {
           session = session,
           inputId = "promptAnsOptions",
           label = print(pqb$question[2]),
-          choices = c(threeKind, twoPairs, flush, onePair)
+          choices = c(threeKind, twoPairs, flush, onePair),
+          selected = NULL
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
@@ -913,6 +915,7 @@ server <- function(input, output, session) {
           eventExpr = input$explainbttn,
           handlerExpr = {
             output$explain <- renderUI(
+              withMathJax(
               "For a 2 pair, we need 2 ranks to appear twice: ",
               "\\(\\binom{13}{2}\\binom{4}{2}\\binom{4}{2}\\)",
               "For the remaining card, it can be any suit and any rank, 
@@ -920,6 +923,7 @@ server <- function(input, output, session) {
               "\\(\\binom{11}{1}\\binom{4}{1}\\)",
               "Therefore, the total number of ways to be dealt a 2 pair is: ",
               "\\(\\binom{13}{2}\binom{4}{2}^2\\times\\binom{11}{1}\\binom{4}{1}\\)"
+              )
             )
           }
         )
@@ -961,7 +965,8 @@ server <- function(input, output, session) {
           session = session,
           inputId = "promptAnsOptions",
           label = print(pqb$question[3]),
-          choices = c(twoPairs, straight, threeKind, flush)
+          choices = c(twoPairs, straight, threeKind, flush),
+          selected = NULL
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
@@ -969,6 +974,7 @@ server <- function(input, output, session) {
           eventExpr = input$explainbttn,
           handlerExpr = {
             output$explain <- renderUI(
+              withMathJax(
               "For a 3-of-a-kind, we need 1 rank to appear three times: ",
               "\\(\\binom{13}{1}\\binom{4}{3}\\)",
               "For the remaining 2 cards, they can be any suit and any rank, 
@@ -976,6 +982,7 @@ server <- function(input, output, session) {
               "\\(\\binom{12}{2}\\binom{4}{1}\\binom{4}{1}\\)",
               "Therefore, the total number of ways to be dealt a 3-of-a-kind is: ",
               "\\(\\binom{13}{1}\\binom{4}{3}\\times\\binom{12}{2}\\binom{4}{1}^2\\)"
+              )
             )
           }
         )
@@ -1017,7 +1024,8 @@ server <- function(input, output, session) {
           session = session,
           inputId = "promptAnsOptions",
           label = print(pqb$question[4]),
-          choices = c(threeKind, flush, twoPairs, straight)
+          choices = c(threeKind, flush, twoPairs, straight),
+          selected = NULL
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
@@ -1025,6 +1033,7 @@ server <- function(input, output, session) {
           eventExpr = input$explainbttn,
           handlerExpr = {
             output$explain <- renderUI(
+              withMathJax(
               "For a straight, we need 5 cards in rank order of any suit. 
               Additionally, aces can be high or low, but not both simutaneously. : ",
               "\\(\\binom{10}{1}\\binom{4}{1}\\binom{4}{1}\\binom{4}{1}\\binom{4}{1}\\binom{4}{1}\\)",
@@ -1033,6 +1042,7 @@ server <- function(input, output, session) {
               "\\(-\\binom{10}{1}\\binom{4}{1}\\)",
               "Therefore, the total number of ways to be dealt a straight is: ",
               "\\(\\binom{10}{1}\\binom{4}{1}^5-\\binom{10}{1}\\binom{4}{1}\\)"
+              )
             )
           }
         )
@@ -1076,7 +1086,8 @@ server <- function(input, output, session) {
           session = session,
           inputId = "promptAnsOptions",
           label = print(pqb$question[5]),
-          choices = c(flush, fourKind, straight, fullHouse)
+          choices = c(flush, fourKind, straight, fullHouse),
+          selected = NULL
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
@@ -1084,6 +1095,7 @@ server <- function(input, output, session) {
           eventExpr = input$explainbttn,
           handlerExpr = {
             output$explain <- renderUI(
+              withMathJax(
               "For a flush, we need 5 cards of any rank, but all the same suit.
               Additionally, aces can be high or low, but not both simutaneously. : ",
               "\\(\\binom{13}{5}\\binom{4}{1}\\)",
@@ -1092,6 +1104,7 @@ server <- function(input, output, session) {
               "\\(-\\binom{10}{1}\\binom{4}{1}\\)",
               "Therefore, the total number of ways to be dealt a flush is: ",
               "\\(\\binom{13}{5}\\binom{4}{1}-\\binom{10}{1}\\binom{4}{1}\\)"
+              )
             )
           }
         )
@@ -1133,7 +1146,8 @@ server <- function(input, output, session) {
           session = session,
           inputId = "promptAnsOptions",
           label = print(pqb$question[6]),
-          choices = c(straight, fullHouse, flush, fourKind)
+          choices = c(straight, fullHouse, flush, fourKind),
+          selected = NULL
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
@@ -1141,6 +1155,7 @@ server <- function(input, output, session) {
           eventExpr = input$explainbttn,
           handlerExpr = {
             output$explain <- renderUI(
+              withMathJax(
               "For a full house, we need 3 cards of the same rank and 2 cards of the same rank, 
               but different from that of the first 3 cards. all cards can be of any suit. Simply,
               think of combining a 3-of-a-kind and a 1 pair into the same hand.",
@@ -1148,6 +1163,7 @@ server <- function(input, output, session) {
               "1 pair: ", "\\(\\binom{13}{1}\\binom{4}{2}\\)",
               "Therefore, the total number of ways you can be dealt a full house is: ",
               "\\(\\binom{13}{1}\\binom{4}{3}\\times\\binom{12}{1}\\binom{4}{2}\\)"
+              )
             )
           }
         )
@@ -1189,7 +1205,8 @@ server <- function(input, output, session) {
           session = session,
           inputId = "promptAnsOptions",
           label = print(pqb$question[7]),
-          choices = c(fullHouse, straightFlush, fourKind, flush)
+          choices = c(fullHouse, straightFlush, fourKind, flush),
+          selected = NULL
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
@@ -1197,6 +1214,7 @@ server <- function(input, output, session) {
           eventExpr = input$explainbttn,
           handlerExpr = {
             output$explain <- renderUI(
+              withMathJax(
               "For a 4-of-a-kind, we need 4 cards of the same suit and any rank: ",
               "\\(\\binom{13}{1}\\binom{4}{4}\\)",
               "The last remaining card, can be any suit and any rank, 
@@ -1204,6 +1222,7 @@ server <- function(input, output, session) {
               "\\(\\binom{12}{1}\\binom{4}{1}\\)",
               "Therefore, the total number of ways you can be dealt a 4-of-a-kind is: ",
               "\\(\\binom{13}{1}\\binom{4}{4}\\times\\binom{12}{1}\\binom{4}{1}\\)"
+              )
             )
           }
         )
@@ -1245,7 +1264,8 @@ server <- function(input, output, session) {
           session = session,
           inputId = "promptAnsOptions",
           label = print(pqb$question[8]),
-          choices = c(fourKind, royalFlush, wrongChoice1, straightFlush)
+          choices = c(fourKind, royalFlush, wrongChoice1, straightFlush),
+          selected = NULL
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
@@ -1253,6 +1273,7 @@ server <- function(input, output, session) {
           eventExpr = input$explainbttn,
           handlerExpr = {
             output$explain <- renderUI(
+              withMathJax(
               "For a straight flush, we need 5 cards in rank order of the same suit. 
               Additionally, aces can be high or low, but not both simutaneously: ",
               "\\(\\binom{10}{1}\\binom{4}{1}\\)",
@@ -1261,6 +1282,7 @@ server <- function(input, output, session) {
               "\\(-\\binom{1}{1}^5\\times\\binom{4}{1}\\)",
               "Therefore, the total number of ways to be dealt a straight flush is: ",
               "\\(\\binom{10}{1}\\binom{4}{1}-\\binom{4}{1}\\)"
+              )
             )
           }
         )
@@ -1302,7 +1324,8 @@ server <- function(input, output, session) {
           session = session,
           inputId = "promptAnsOptions",
           label = print(pqb$question[9]),
-          choices = c(royalFlush, straightFlush, wrongChoice1, wrongChoice2)
+          choices = c(royalFlush, straightFlush, wrongChoice1, wrongChoice2),
+          selected = NULL
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
@@ -1310,11 +1333,13 @@ server <- function(input, output, session) {
           eventExpr = input$explainbttn,
           handlerExpr = {
             output$explain <- renderUI(
-              "For a royal flush, we need a straight flush but with only the 5 
+              withMathJax(
+                "For a royal flush, we need a straight flush but with only the 5 
               top ranking cards (Ace, King, Queen, Jack, and 10): ",
               "\\(\\binom{1}{1}^5\\times\\binom{4}{1}\\)",
               "Therefore, the total number of ways you can be dealt a royal flush is: ",
               "\\(\\binom{4}{1}\\)"
+              )
             )
           }
         )
