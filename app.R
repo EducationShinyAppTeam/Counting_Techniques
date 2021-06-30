@@ -569,6 +569,7 @@ ui <- list(
               uiOutput("card5")
             )
           ),
+          br(),
           div(
             style = "text-align: center;",
             bsButton(
