@@ -463,6 +463,22 @@ ui <- list(
                 tags$li("Answer: \\([6\\cdot(_{50}C_{4})]\\cdot[_{5}C_{2}\\cdot{50}\\cdot{50}]\\)") ## Answer
               ), 
               
+              tags$ul(
+                p("d"), 
+                tags$li("Answer: \\([6\\cdot{_{50}C_{4}}][_{5}C_{2}\\cdot{50}\\cdot{50}]+[6\\cdot{_{50}C_{5}}][5\\cdot{50}]+[6\\cdot{_{50}C_{6}}]\\)"), ##Answer
+                tags$li("\\([_{50}C_{4}][_{5}C_{2}\\cdot{50}\\cdot{50}]+[_{50}C_{5}][5\\cdot{50}]+[_{50}C_{6}]\\)"), 
+                tags$li("\\([6\\cdot{_{50}C_{4}}][_{5}C_{2}\\cdot{50}\\cdot{50}]\\cdot[6\\cdot{_{50}C_{5}}][5\\cdot{50}]\\cdot[6\\cdot{_{50}C_{6}}]\\)"), 
+                tags$li("\\([_{50}C_{4}][_{5}C_{2}\\cdot{50}\\cdot{50}]\\cdot[_{50}C_{5}][5\\cdot{50}]\\cdot[_{50}C_{6}]\\)"), 
+              ), 
+              
+              tags$ul(
+                p("e"), 
+                tags$li("\\(_{300}C_{6}+([6\\cdot{_{50}C_{4}}][_{5}C_{2}\\cdot{50}\\cdot{50}]+[6\\cdot{_{50}C_{5}}][5\\cdot{50}]+[6\\cdot{_{50}C_{6}}])\\)"), ##Answer
+                tags$li("\\(_{300}C_{6}-6\\cdot(50\\cdot{49}\\cdot{48}\\cdot{47})\\)"), 
+                tags$li("Answer: \\(_{300}C_{6}–([6\\cdot{_{50}C_{4}}][_{5}C_{2}\\cdot{50}\\cdot{50}]+[6\\cdot{_{50}C_{5}}][5\\cdot{50}]+[6\\cdot{_{50}C_{6}}])\\)"), ##Answer
+                tags$li("\\([6\\cdot{_{50}C_{4}}][_{5}C_{2}\\cdot{50}\\cdot{50}]+[6\\cdot{_{50}C_{5}}][5\\cdot{50}]+[6\\cdot{_{50}C_{6}}]\\)"), 
+              )
+              
             ), 
             
             tabPanel(
@@ -471,11 +487,12 @@ ui <- list(
               
               fluidRow(
                 column(
-                  width = 6,
+                  width = 12,
                   wellPanel(
                     style = "background-color: #FFFFFF",
                     
                     h3("Context"),
+                    uiOutput("context"), 
                     uiOutput("question"),
                     br(),
                     bsButton(
@@ -692,6 +709,23 @@ ui <- list(
             #     tags$li("\([6\cdot(_{300}C_{4})]\cdot[_{296}C_{2}]\)"),
             #     tags$li("Answer: \([6\cdot(_{50}C_{4})]\cdot[_{5}C_{2}\cdot{50}\cdot{50}]\)") ## Answer
             #   ),
+            # 
+            # tags$ul(
+            #   p("d"), 
+            #   tags$li("Answer: \([6\cdot{_{50}C_{4}}][_{5}C_{2}\cdot{50}\cdot{50}]+[6\cdot{_{50}C_{5}}][5\cdot{50}]+[6\cdot{_{50}C_{6}}]\)"), ##Answer
+            #   tags$li("\([_{50}C_{4}][_{5}C_{2}\cdot{50}\cdot{50}]+[_{50}C_{5}][5\cdot{50}]+[_{50}C_{6}]\)"), 
+            #   tags$li("\([6\cdot{_{50}C_{4}}][_{5}C_{2}\cdot{50}\cdot{50}]\cdot[6\cdot{_{50}C_{5}}][5\cdot{50}]\cdot[6\cdot{_{50}C_{6}}]\)"), 
+            #   tags$li("\([_{50}C_{4}][_{5}C_{2}\cdot{50}\cdot{50}]\cdot[_{50}C_{5}][5\cdot{50}]\cdot[_{50}C_{6}]\)"), 
+            # ), 
+            # 
+            # tags$ul(
+            #   p("e"), 
+            #   tags$li("\(_{300}C_{6}+([6\cdot{_{50}C_{4}}][_{5}C_{2}\cdot{50}\cdot{50}]+[6\cdot{_{50}C_{5}}][5\cdot{50}]+[6\cdot{_{50}C_{6}}])\)"), 
+            #   tags$li("\(_{300}C_{6}-6\cdot(50\cdot{49}\cdot{48}\cdot{47})\)"), 
+            #   tags$li("Answer: \(_{300}C_{6}–([6\\cdot{_{50}C_{4}}][_{5}C_{2}\cdot{50}\cdot{50}]+[6\cdot{_{50}C_{5}}][5\cdot{50}]+[6\cdot{_{50}C_{6}}])\)"), ##Answer
+            #   tags$li("\([6\cdot{_{50}C_{4}}][_{5}C_{2}\cdot{50}\cdot{50}]+[6\cdot{_{50}C_{5}}][5\cdot{50}]+[6\cdot{_{50}C_{6}}]\)"), 
+            # ), 
+            
             # 
             # ),
 
@@ -948,6 +982,7 @@ server <- function(input, output, session) {
     correct = 0
   )
   hint <- as.matrix(bank[1:nrow(bank), 10])
+  context <- as.matrix(bank[1:nrow(bank), 4])
   
   # Reset button
   observeEvent(input$restart, {
@@ -975,6 +1010,12 @@ server <- function(input, output, session) {
       withMathJax()
       hint <<- withMathJax(bank[id, 10])
       return(bank[id, 5])
+    })
+    
+    output$context <- renderUI({
+      withMathJax()
+      hint <<- withMathJax(bank[id, 10])
+      return(bank[id, 4])
     })
     
     output$hint <- renderUI({
