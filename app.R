@@ -506,7 +506,7 @@ ui <- list(
                           matter. Therefore, we use a combination."),
                     tags$li("Since children can receive more than 1 candy bar, 
                           there is replacement."),
-                    tags$li("\\(\\binom{n+r-1}{r} = \\binom(24}{5} = \\dfrac{24!}{5!(19)!}\\)")
+                    tags$li("\\(\\binom{n+r-1}{r} = \\binom{24}{5} = \\dfrac{24!}{5!(19)!}\\)")
                   )
                 ),
                 box(
@@ -523,7 +523,7 @@ ui <- list(
                           matter. Therefore, we use a combination."),
                     tags$li("Since children cannot receive more than 1 candy bar, 
                           there is no replacement."),
-                    tags$li("\\\\binom{n}{r} = \\binom{20}{5} = \\dfrac{20!}{5!(15)!}\\)")
+                    tags$li("\\(\\binom{n}{r} = \\binom{20}{5} = \\dfrac{20!}{5!(15)!}\\)")
                   )
                 )
               )
@@ -588,15 +588,15 @@ ui <- list(
               wellPanel(
                 radioButtons(
                   inputId = "promptAnsOptions",
-                  label = "Find the probability of being dealt the hand displayed.",
-                  choices =  c("Choice A","Choice B", "Choice C")
-                )
+                  label = "Calculate how many ways the hand displayed can be dealt.",
+                  choices =  c("Choice A","Choice B", "Choice C", "Choice D")
+                ),
+                uiOutput("gradingIcon")
               )
             ),
             column(
               width = 6,
               offset = 0,
-              wellPanel(
                 div(
                   style = "text-align: center",
                   bsButton(
@@ -609,7 +609,6 @@ ui <- list(
                 br(),
                 uiOutput("explain")
               )
-            )
           )
         ),
         
@@ -791,10 +790,32 @@ server <- function(input, output, session) {
   
   ## Poker Cards ----
   
+  ### Defining hands and question choices ----
+  
+  onePair <- "\binom{13}{1}\binom{4}{2}\times\binom{12}{3}\binom{4}{1}^3}"
+  twoPairs <- "\binom{13}{2}\binom{4}{2}^2\times\binom{11}{1}\binom{4}{1}"
+  threeKind <- "\binom{13}{1}\binom{4}{3}\times\binom{12}{2}\binom{4}{1}^2"
+  straight <- "\binom{10}{1}\binom{4}{1}^5-\binom{10}{1}\binom{4}{1}"
+  flush <- "\binom{13}{5}\binom{4}{1}-\binom{10}{1}\binom{4}{1}"
+  fullHouse <- "\binom{13}{1}\binom{4}{3}\times\binom{12}{1}\binom{4}{2}"
+  fourKind <- "\binom{13}{1}\binom{4}{4}\times\binom{12}{1}\binom{4}{1}"
+  straightFlush <- "10\binom{4}{1}-\binom{4}{1}"
+  royalFlush <- "\binom{1}{1}^5\times\binom{4}{1}"
+  wrongChoice1 <- "\binom{10}{1}\times\binom{4}{1}"
+  wrongChoice2 <- "\binom{10}{1}^5\times\binom{4}{1}"
+  
+  titleAllChoices <- c("Choice A", "Choice B", "Choice C", "Choice D")
+  codeChoices1 <- c("\binom{13}{1}\binom{4}{2}\times\binom{12}{3}\binom{4}{1}^3}",
+                   "\binom{13}{1}\binom{4}{3}\times\binom{12}{2}\binom{4}{1}\binom{4}{1}", 
+                   "\binom{10}{1}\binom{4}{1}^5-\binom{10}{1}\binom{4}{1}", 
+                   "\binom{13}{2}\binom{4}{2}^2\times\binom{11}{1}\binom{4}{1}")
+  choices1 <- data.frame(titleAllChoices, codeChoices1) 
+  hand1choices <- setNames(as.character(choices1$codeChoices1), choices1$titleAllChoices)    
+  
   observeEvent(
     eventExpr = input$newHand,
     handlerExpr = {
-      randomNumber11 <- sample(1:9, 1)
+      randomNumber11 <- sample(1:1, 1)
       
       ### 1 Pair ----
       if (randomNumber11 == 1) {
@@ -837,17 +858,25 @@ server <- function(input, output, session) {
           session = session,
           inputId = "promptAnsOptions",
           label = print(pqb$question[1]),
-          choices = c(
-            pqb$choiceA[1], 
-            pqb$choiceB[1],
-            pqb$choiceC[1],
-            pqb$choiceD[1]
-          )
+          choices = c("\binom{13}{1}\binom{4}{2}\times\binom{12}{3}\binom{4}{1}^3}",
+                      "\binom{13}{1}\binom{4}{3}\times\binom{12}{2}\binom{4}{1}\binom{4}{1}", 
+                      "\binom{10}{1}\binom{4}{1}^5-\binom{10}{1}\binom{4}{1}", 
+                      "\binom{13}{2}\binom{4}{2}\binom{4}{2}\times\binom{11}{1}\binom{4}{1}")
         )
         observeEvent(
           eventExpr = input$explainbttn,
           handlerExpr = {
-            output$explain <- renderUI()
+            output$explain <- renderUI(
+              withMathJax(
+                "For a 1 pair, we need 1 rank to appear twice: ",
+                "\binom{13}{1}\binom{4}{2}",
+                "For the remaining cards, they can be any rank and any suit, 
+                except for the rank of the 1 pair: ",
+                "\binom{12}{3}\binom{4}{1}\binom{4}{1}\binom{4}{1}", 
+                "Therefore, the total number of ways to be dealt 1 pair is: ",
+                "\binom{13}{1}\binom{4}{2}\times\binom{12}{3}\binom{4}{1}^3"
+              )
+            )
           }
         )
       }
@@ -894,16 +923,24 @@ server <- function(input, output, session) {
           inputId = "promptAnsOptions",
           label = print(pqb$question[2]),
           choices = c(
-            pqb$choiceA[2], 
-            pqb$choiceB[2],
-            pqb$choiceC[2],
-            pqb$choiceD[2]
+            threeKind, 
+            twoPairs,
+            flush,
+            onePair
           )
         )
         observeEvent(
           eventExpr = input$explainbttn,
           handlerExpr = {
-            output$explain <- renderUI()
+            output$explain <- renderUI(
+              "For a 2 pair, we need 2 ranks to appear twice: ",
+              "\binom{13}{2}\binom{4}{2}\binom{4}{2}",
+              "For the remaining card, it can be any suit and any rank, 
+              except for the 2 ranks of the 2 pairs: ",
+              "\binom{11}{1}\binom{4}{1}",
+              "Therefore, the total number of ways to be dealt a 2 pair is: ",
+              "\binom{13}{2}\binom{4}{2}^2\times\binom{11}{1}\binom{4}{1}"
+            )
           }
         )
       }
@@ -950,16 +987,24 @@ server <- function(input, output, session) {
           inputId = "promptAnsOptions",
           label = print(pqb$question[3]),
           choices = c(
-            pqb$choiceA[3], 
-            pqb$choiceB[3],
-            pqb$choiceC[3],
-            pqb$choiceD[3]
+            twoPairs, 
+            straight,
+            threeKind,
+            flush
           )
         )
         observeEvent(
           eventExpr = input$explainbttn,
           handlerExpr = {
-            output$explain <- renderUI()
+            output$explain <- renderUI(
+              "For a 3-of-a-kind, we need 1 rank to appear three times: ",
+              "\binom{13}{1}\binom{4}{3}",
+              "For the remaining 2 cards, they can be any suit and any rank, 
+              except for the rank of the 3-of-a-kind: ",
+              "\binom{12}{2}\binom{4}{1}\binom{4}{1}",
+              "Therefore, the total number of ways to be dealt a 3-of-a-kind is: ",
+              "\binom{13}{1}\binom{4}{3}\times\binom{12}{2}\binom{4}{1}^2"
+            )
           }
         )
       }
@@ -1006,16 +1051,25 @@ server <- function(input, output, session) {
           inputId = "promptAnsOptions",
           label = print(pqb$question[4]),
           choices = c(
-            pqb$choiceA[4], 
-            pqb$choiceB[4],
-            pqb$choiceC[4],
-            pqb$choiceD[4]
+            threeKind, 
+            flush,
+            twoPairs,
+            straight
           )
         )
         observeEvent(
           eventExpr = input$explainbttn,
           handlerExpr = {
-            output$explain <- renderUI()
+            output$explain <- renderUI(
+              "For a straight, we need 5 cards in rank order of any suit. 
+              Additionally, aces can be high or low, but not both simutaneously. : ",
+              "\binom{10}{1}\binom{4}{1}\binom{4}{1}\binom{4}{1}\binom{4}{1}\binom{4}{1}",
+              "There also exists another hand called a straight flush, 
+              which is a special type of straight, so we remove these: ",
+              "-\binom{10}{1}\binom{4}{1}",
+              "Therefore, the total number of ways to be dealt a straight is: ",
+              "\binom{10}{1}\binom{4}{1}^5-\binom{10}{1}\binom{4}{1}"
+            )
           }
         )
       }
@@ -1064,16 +1118,25 @@ server <- function(input, output, session) {
           inputId = "promptAnsOptions",
           label = print(pqb$question[5]),
           choices = c(
-            pqb$choiceA[5], 
-            pqb$choiceB[5],
-            pqb$choiceC[5],
-            pqb$choiceD[5]
+            flush,
+            fourKind,
+            straight,
+            fullHouse
           )
         )
         observeEvent(
           eventExpr = input$explainbttn,
           handlerExpr = {
-            output$explain <- renderUI()
+            output$explain <- renderUI(
+              "For a flush, we need 5 cards of any rank, but all the same suit.
+              Additionally, aces can be high or low, but not both simutaneously. : ",
+              "\binom{13}{5}\binom{4}{1}",
+              "There also exists another hand called a straight flush, 
+              which is a special type of flush, so we remove these: ",
+              "-\binom{10}{1}\binom{4}{1}",
+              "Therefore, the total number of ways to be dealt a flush is: ",
+              "\binom{13}{5}\binom{4}{1}-\binom{10}{1}\binom{4}{1}"
+            )
           }
         )
       }
@@ -1120,16 +1183,24 @@ server <- function(input, output, session) {
           inputId = "promptAnsOptions",
           label = print(pqb$question[6]),
           choices = c(
-            pqb$choiceA[6], 
-            pqb$choiceB[6],
-            pqb$choiceC[6],
-            pqb$choiceD[6]
+            straight,
+            fullHouse,
+            flush,
+            fourKind
           )
         )
         observeEvent(
           eventExpr = input$explainbttn,
           handlerExpr = {
-            output$explain <- renderUI()
+            output$explain <- renderUI(
+              "For a full house, we need 3 cards of the same rank and 2 cards of the same rank, 
+              but different from that of the first 3 cards. all cards can be of any suit. Simply,
+              think of combining a 3-of-a-kind and a 1 pair into the same hand.",
+              "3-of-a-kind: ", "\binom{13}{1}\binom{4}{3}",
+              "1 pair: ", "\binom{13}{1}\binom{4}{2}",
+              "Therefore, the total number of ways you can be dealt a full house is: ",
+              "\binom{13}{1}\binom{4}{3}\times\binom{12}{1}\binom{4}{2}"
+            )
           }
         )
       }
@@ -1176,11 +1247,25 @@ server <- function(input, output, session) {
           inputId = "promptAnsOptions",
           label = print(pqb$question[7]),
           choices = c(
-            pqb$choiceA[7], 
-            pqb$choiceB[7],
-            pqb$choiceC[7],
-            pqb$choiceD[7]
+            fullHouse,
+            straightFlush,
+            fourKind,
+            flush
           )
+        )
+        observeEvent(
+          eventExpr = input$explainbttn,
+          handlerExpr = {
+            output$explain <- renderUI(
+              "For a 4-of-a-kind, we need 4 cards of the same suit and any rank: ",
+              "\binom{13}{1}\binom{4}{4}",
+              "The last remaining card, can be any suit and any rank, 
+              except for the rank used in the 4-of-a-kind: ",
+              "\binom{12}{1}\binom{4}{1}",
+              "Therefore, the total number of ways you can be dealt a 4-of-a-kind is: ",
+              "\binom{13}{1}\binom{4}{4}\times\binom{12}{1}\binom{4}{1}"
+            )
+          }
         )
       }
       
@@ -1226,16 +1311,25 @@ server <- function(input, output, session) {
           inputId = "promptAnsOptions",
           label = print(pqb$question[8]),
           choices = c(
-            pqb$choiceA[8], 
-            pqb$choiceB[8],
-            pqb$choiceC[8],
-            pqb$choiceD[8]
+            fourKind,
+            royalFlush,
+            wrongChoice1,
+            straightFlush
           )
         )
         observeEvent(
           eventExpr = input$explainbttn,
           handlerExpr = {
-            output$explain <- renderUI()
+            output$explain <- renderUI(
+              "For a straight flush, we need 5 cards in rank order of the same suit. 
+              Additionally, aces can be high or low, but not both simutaneously: ",
+              "\binom{10}{1}\binom{4}{1}",
+              "There also exists another hand called a royal flush, 
+              which is a special type of straight flush, so we remove these: ",
+              "-\binom{1}{1}^5\times\binom{4}{1}",
+              "Therefore, the total number of ways to be dealt a straight flush is: ",
+              "\binom{10}{1}\binom{4}{1}-\binom{4}{1}"
+            )
           }
         )
       }
@@ -1282,16 +1376,22 @@ server <- function(input, output, session) {
           inputId = "promptAnsOptions",
           label = print(pqb$question[9]),
           choices = c(
-            pqb$choiceA[9], 
-            pqb$choiceB[9],
-            pqb$choiceC[9],
-            pqb$choiceD[9]
+            royalFlush, 
+            straightFlush,
+            wrongChoice1,
+            wrongChoice2
           )
         )
         observeEvent(
           eventExpr = input$explainbttn,
           handlerExpr = {
-            output$explain <- renderUI()
+            output$explain <- renderUI(
+              "For a royal flush, we need a straight flush but with only the 5 
+              top ranking cards (Ace, King, Queen, Jack, and 10): ",
+              "\binom{1}{1}^5\times\binom{4}{1}",
+              "Therefore, the total number of ways you can be dealt a royal flush is: ",
+              "\binom{4}{1}"
+            )
           }
         )
       }

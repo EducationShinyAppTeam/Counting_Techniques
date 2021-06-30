@@ -1,10 +1,12 @@
-﻿question,frequency,choiceA,choiceB,choiceC,choiceD
-How many one pairs are possible in poker?,1098240,1098240,54912,10200,123552
-How many two pairs are possible in poker?,123552,54912,123552,5108,1098240
-How many 3 of a kinds are possible in poker?,54912,123552,10200,54912,5108
-How many straights are possible in poker?,10200,54912,5108,123552,10200
-How many flushes are possible in poker?,5108,5108,624,10200,3744
-How many full houses are possible in poker?,3744,10200,3744,5108,624
-How many 4 of a kinds are possible in poker?,624,3744,36,624,5108
-How many straight flushes are possible in poker?,36,624,4,40,36
-How many royal flushes are possible in poker?,4,4,40,20,10
+﻿question,frequency,choiceA,choiceB,choiceC,choiceD,,,
+How many one pairs are possible in poker?,1098240,1098240,54912,10200,123552,,onePair,"  onePair <- ""\binom{13}{1}\binom{4}{2}\times\binom{12}{3}\binom{4}{1}\binom{4}{1}\binom{4}{1}"""
+How many two pairs are possible in poker?,123552,54912,123552,5108,1098240,,twoPairs,"  twoPairs <- ""\binom{13}{2}\binom{4}{2}\binom{4}{2}\times\binom{11}{1}\binom{4}{1}"""
+How many 3 of a kinds are possible in poker?,54912,123552,10200,54912,5108,,,"  threeKind <- ""\binom{13}{1}\binom{4}{3}\times\binom{12}{2}\binom{4}{1}\binom{4}{1}"""
+How many straights are possible in poker?,10200,54912,5108,123552,10200,,,"  straight <- ""\binom{10}{1}\binom{4}{1}^5-\binom{10}{1}\binom{4}{1}"""
+How many flushes are possible in poker?,5108,5108,624,10200,3744,,,"  flush <- ""\binom{13}{5}\binom{4}{1}-\binom{10}{1}\binom{4}{1}"""
+How many full houses are possible in poker?,3744,10200,3744,5108,624,,,"  fullHouse <- ""\binom{13}{1}\binom{4}{3}\times\binom{12}{1}\binom{4}{2}"""
+How many 4 of a kinds are possible in poker?,624,3744,36,624,5108,,,"  fourKind <- ""\binom{13}{1}\binom{4}{4}\times\binom{12}{1}\binom{4}{1}"""
+How many straight flushes are possible in poker?,36,624,4,40,36,,,"  straightFlush <- ""10\binom{4}{1}-\binom{4}{1}"""
+How many royal flushes are possible in poker?,4,4,40,20,10,,,"  royalFlush <- ""\binom{1}{1}^5\times\binom{4}{1}"""
+,,,,,,,,"  wrongChoice1 <- ""\binom{10}{1}\times\binom{4}{1}"""
+,,,,,,,,"  wrongChoice2 <- ""\binom{10}{1}^5\times\binom{4}{1}"""
