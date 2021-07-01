@@ -597,18 +597,17 @@ ui <- list(
             column(
               width = 6,
               offset = 0,
-                div(
-                  style = "text-align: center",
-                  bsButton(
-                    inputId = "explainbttn",
-                    label = "Answer Explanation",
-                    size = "large",
-                    style = "default"
-                  )
-                ),
-                br(),
-                uiOutput("explain")
-              )
+              div(
+                style = "text-align: center",
+                actionButton(
+                  inputId = "showExplain",
+                  label = "Answer Explanation",
+                  size = "large",
+                  style = "default"
+                )
+              ),
+              br()
+            )
           ),
           uiOutput("math1"),
           uiOutput("math2")
@@ -840,7 +839,7 @@ server <- function(input, output, session) {
   observeEvent(
     eventExpr = input$newHand,
     handlerExpr = {
-      randomNumber11 <- sample(1:9, 1)
+      randomNumber11 <- sample(1:1, 1)
       
       ### 1 Pair ----
       if (randomNumber11 == 1) {
@@ -883,19 +882,21 @@ server <- function(input, output, session) {
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
+        
         observeEvent(
-          eventExpr = input$explainbttn,
+          eventExpr = input$showExplain,
           handlerExpr = {
-            output$explain <- renderUI(
-              withMathJax(
+            sendSweetAlert(
+              session = session,
+              title = "1 Pair Answer Explanation",
+              text = withMathJax(),
                 "For a 1 pair, we need 1 rank to appear twice: ",
-                "\\(\\binom{13}{1}\\binom{4}{2}\\)",
+                "\\(\\binom{13}{1}\\binom{4}{2}\\)\\",
                 "For the remaining cards, they can be any rank and any suit, 
                 except for the rank of the 1 pair: ",
                 "\\(\\binom{12}{3}\\binom{4}{1}\\binom{4}{1}\\binom{4}{1}\\)", 
                 "Therefore, the total number of ways to be dealt 1 pair is: ",
                 "\\(\\binom{13}{1}\\binom{4}{2}\\times\\binom{12}{3}\\binom{4}{1}^3\\)"
-              )
             )
           }
         )
@@ -944,8 +945,9 @@ server <- function(input, output, session) {
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
+        
         observeEvent(
-          eventExpr = input$explainbttn,
+          eventExpr = input$showExplain,
           handlerExpr = {
             output$explain <- renderUI(
               withMathJax(
@@ -1003,8 +1005,9 @@ server <- function(input, output, session) {
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
+        
         observeEvent(
-          eventExpr = input$explainbttn,
+          eventExpr = input$showExplain,
           handlerExpr = {
             output$explain <- renderUI(
               withMathJax(
@@ -1062,8 +1065,9 @@ server <- function(input, output, session) {
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
+        
         observeEvent(
-          eventExpr = input$explainbttn,
+          eventExpr = input$showExplain,
           handlerExpr = {
             output$explain <- renderUI(
               withMathJax(
@@ -1124,8 +1128,9 @@ server <- function(input, output, session) {
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
+        
         observeEvent(
-          eventExpr = input$explainbttn,
+          eventExpr = input$showExplain,
           handlerExpr = {
             output$explain <- renderUI(
               withMathJax(
@@ -1184,8 +1189,9 @@ server <- function(input, output, session) {
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
+        
         observeEvent(
-          eventExpr = input$explainbttn,
+          eventExpr = input$showExplain,
           handlerExpr = {
             output$explain <- renderUI(
               withMathJax(
@@ -1243,8 +1249,9 @@ server <- function(input, output, session) {
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
+       
         observeEvent(
-          eventExpr = input$explainbttn,
+          eventExpr = input$showExplain,
           handlerExpr = {
             output$explain <- renderUI(
               withMathJax(
@@ -1302,8 +1309,9 @@ server <- function(input, output, session) {
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
+        
         observeEvent(
-          eventExpr = input$explainbttn,
+          eventExpr = input$showExplain,
           handlerExpr = {
             output$explain <- renderUI(
               withMathJax(
@@ -1362,8 +1370,9 @@ server <- function(input, output, session) {
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
+        
         observeEvent(
-          eventExpr = input$explainbttn,
+          eventExpr = input$showExplain,
           handlerExpr = {
             output$explain <- renderUI(
               withMathJax(
