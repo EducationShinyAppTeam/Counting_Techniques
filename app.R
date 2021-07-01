@@ -574,7 +574,7 @@ ui <- list(
             style = "text-align: center;",
             bsButton(
               inputId = "newHand",
-              label = "New Hand",
+              label = "Deal a Hand",
               size = "large",
               style = "default"
             )
@@ -587,8 +587,9 @@ ui <- list(
               wellPanel(
                 radioButtons(
                   inputId = "promptAnsOptions",
-                  label = "Click the 'New Hand' button to begin the poker questions",
+                  label = "Click the 'Deal a Hand' button to begin the poker questions",
                   choices =  c("Choice A","Choice B", "Choice C", "Choice D"),
+                  selected = character(0)
                 ),
                 uiOutput("gradingIcon")
               )
@@ -791,6 +792,37 @@ server <- function(input, output, session) {
   
   ## Poker Cards ----
   
+  output$card1 <- renderUI({
+    img(src = "pokercard-back.png",
+        width = "100%",
+        contentType = "image/png", 
+        alt = "Poker card backside")
+  })
+  output$card2 <- renderUI({
+    img(src = "pokercard-back.png",
+        width = "100%",
+        contentType = "image/png", 
+        alt = "Poker card backside")
+  })
+  output$card3 <- renderUI({
+    img(src = "pokercard-back.png",
+        width = "100%",
+        contentType = "image/png", 
+        alt = "Poker card backside")
+  })
+  output$card4 <- renderUI({
+    img(src = "pokercard-back.png",
+        width = "100%",
+        contentType = "image/png", 
+        alt = "Poker card backside")
+  })
+  output$card5 <- renderUI({
+    img(src = "pokercard-back.png",
+        width = "100%",
+        contentType = "image/png", 
+        alt = "Poker card backside")
+  })
+  
   ### Defining hands and question choices ----
   
   onePair <- "\\(\\binom{13}{1}\\binom{4}{2}\\times\\binom{12}{3}\\binom{4}{1}^3\\)"
@@ -847,7 +879,7 @@ server <- function(input, output, session) {
           inputId = "promptAnsOptions",
           label = print(pqb$question[1]),
           choices = c(onePair, threeKind, straight, twoPairs),
-          selected = NULL
+          selected = character(0)
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
@@ -908,7 +940,7 @@ server <- function(input, output, session) {
           inputId = "promptAnsOptions",
           label = print(pqb$question[2]),
           choices = c(threeKind, twoPairs, flush, onePair),
-          selected = NULL
+          selected = character(0)
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
@@ -967,7 +999,7 @@ server <- function(input, output, session) {
           inputId = "promptAnsOptions",
           label = print(pqb$question[3]),
           choices = c(twoPairs, straight, threeKind, flush),
-          selected = NULL
+          selected = character(0)
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
@@ -1026,7 +1058,7 @@ server <- function(input, output, session) {
           inputId = "promptAnsOptions",
           label = print(pqb$question[4]),
           choices = c(threeKind, flush, twoPairs, straight),
-          selected = NULL
+          selected = character(0)
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
@@ -1088,7 +1120,7 @@ server <- function(input, output, session) {
           inputId = "promptAnsOptions",
           label = print(pqb$question[5]),
           choices = c(flush, fourKind, straight, fullHouse),
-          selected = NULL
+          selected = character(0)
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
@@ -1148,7 +1180,7 @@ server <- function(input, output, session) {
           inputId = "promptAnsOptions",
           label = print(pqb$question[6]),
           choices = c(straight, fullHouse, flush, fourKind),
-          selected = NULL
+          selected = character(0)
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
@@ -1207,7 +1239,7 @@ server <- function(input, output, session) {
           inputId = "promptAnsOptions",
           label = print(pqb$question[7]),
           choices = c(fullHouse, straightFlush, fourKind, flush),
-          selected = NULL
+          selected = character(0)
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
@@ -1266,7 +1298,7 @@ server <- function(input, output, session) {
           inputId = "promptAnsOptions",
           label = print(pqb$question[8]),
           choices = c(fourKind, royalFlush, wrongChoice1, straightFlush),
-          selected = NULL
+          selected = character(0)
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
@@ -1326,7 +1358,7 @@ server <- function(input, output, session) {
           inputId = "promptAnsOptions",
           label = print(pqb$question[9]),
           choices = c(royalFlush, straightFlush, wrongChoice1, wrongChoice2),
-          selected = NULL
+          selected = character(0)
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
