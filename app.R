@@ -606,7 +606,8 @@ ui <- list(
                   style = "default"
                 )
               ),
-              br()
+              br(),
+              uiOutput("explain")
             )
           ),
           uiOutput("math1"),
@@ -889,14 +890,15 @@ server <- function(input, output, session) {
             sendSweetAlert(
               session = session,
               title = "1 Pair Answer Explanation",
-              text = withMathJax(),
+              text = withMathJax(
                 "For a 1 pair, we need 1 rank to appear twice: ",
-                "\\(\\binom{13}{1}\\binom{4}{2}\\)\\",
+                "\\(\\binom{13}{1}\\binom{4}{2}\\)",
                 "For the remaining cards, they can be any rank and any suit, 
                 except for the rank of the 1 pair: ",
                 "\\(\\binom{12}{3}\\binom{4}{1}\\binom{4}{1}\\binom{4}{1}\\)", 
                 "Therefore, the total number of ways to be dealt 1 pair is: ",
                 "\\(\\binom{13}{1}\\binom{4}{2}\\times\\binom{12}{3}\\binom{4}{1}^3\\)"
+              )
             )
           }
         )
