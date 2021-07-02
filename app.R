@@ -982,7 +982,7 @@ server <- function(input, output, session) {
     correct = 0
   )
   hint <- as.matrix(bank[1:nrow(bank), 10])
-  context <- as.matrix(bank[1:nrow(bank), 4])
+  
   
   # Reset button
   observeEvent(input$restart, {
@@ -1018,11 +1018,6 @@ server <- function(input, output, session) {
       return(bank[id, 4])
     })
     
-    output$hint <- renderUI({
-      withMathJax()
-      hint <<- withMathJax(bank[id, 10])
-      return(bank[id, 10])
-    })
     
     updateRadioGroupButtons(
       session, "mc1",

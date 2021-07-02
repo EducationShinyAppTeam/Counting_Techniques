@@ -407,8 +407,10 @@ ui <- list(
                   wellPanel(
                     style = "background-color: #FFFFFF",
                     
-                    h3("Context"),
+                    h4("Context"),
                     uiOutput("context"), 
+                    br(), 
+                    h4("Question:"), 
                     uiOutput("question"),
                     br(),
                     bsButton(
@@ -828,7 +830,8 @@ server <- function(input, output, session) {
         session = session,
         type = "info",
         title = "Information",
-        text = "This App Template will help you get started building your own app"
+        text = "This app is designed to help you learn and review Counting
+        Techniques"
       )
     }
   )
@@ -892,9 +895,8 @@ server <- function(input, output, session) {
     mistake = 0,
     correct = 0
   )
-  hint <- as.matrix(bank[1:nrow(bank), 10])
-  context <- as.matrix(bank[1:nrow(bank), 4])
-  
+  #hint <- as.matrix(bank[1:nrow(bank), 10])
+
   # Reset button
   observeEvent(input$restart, {
     updateButton(
@@ -992,6 +994,12 @@ server <- function(input, output, session) {
     return(withMathJax(bank[id, 5]))
   })
   
+  output$context <- renderUI({
+    withMathJax()
+    hint <<- withMathJax(bank[id, 10])
+    return(bank[id, 4])
+  })
+  
   ### NEXT QUESTION BUTTON###
   observeEvent(input$nextq, {
     if (length(Qs_array) > 1) {
@@ -1002,6 +1010,9 @@ server <- function(input, output, session) {
         updateButton(session, "submit", disabled = FALSE)
         output$question <- renderUI({
           return(withMathJax(bank[id, 5]))
+        })
+        output$context <- renderUI({
+          return(withMathJax(bank[id, 4]))
         })
         updateRadioGroupButtons(
           session, "mc1",
@@ -1041,6 +1052,9 @@ server <- function(input, output, session) {
       withBusyIndicatorServer("nextq", {
         output$question <- renderUI({
           return(withMathJax(bank[id, 5]))
+        })
+        output$context <- renderUI({
+          return(withMathJax(bank[id, 4]))
         })
         updateButton(
           session = session, 
@@ -1099,6 +1113,9 @@ server <- function(input, output, session) {
         h4("Run out of question. Please click Restart to start over")
       )
       output$question <- renderUI({
+        return(NULL)
+      })
+      output$context <- renderUI({
         return(NULL)
       })
       output$hintDisplay <- renderUI({
@@ -1163,9 +1180,9 @@ server <- function(input, output, session) {
           session = session, 
           inputId = "restart", 
           disabled = FALSE)
-        output$hintDisplay <- renderUI({
-          return(NULL)
-        })
+        # output$hintDisplay <- renderUI({
+        #   return(NULL)
+        # })
       }
       else {
         updateButton(
@@ -1223,24 +1240,6 @@ server <- function(input, output, session) {
       }
     }
     
-    # .generateAnsweredStatement(
-    #   session,
-    #   object = "submit",
-    #   verb = "answered",
-    #   description = bank[id, 2],
-    #   response = input$mc1,
-    #   interactionType = "choice",
-    #   success = success,
-    #   completion = GAME_OVER
-    # )
-    
-    # if (GAME_OVER) {
-    #   if (WIN) {
-    #     .generateStatement(session, object = "game", verb = "completed", description = "Player has won the game.")
-    #   } else {
-    #     .generateStatement(session, object = "game", verb = "completed", description = "Player has lost the game.")
-    #   }
-    # }
     
     output$mark <- renderUI({
       if(!is.null(input$mc1) || length(input$mc1) != 0) {
