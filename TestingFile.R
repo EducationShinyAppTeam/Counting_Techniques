@@ -1193,9 +1193,8 @@ server <- function(input, output, session) {
           session = session, 
           inputId = "nextq", 
           disabled = FALSE)
-        output$hintDisplay <- renderUI({
-          return(NULL)
-        })
+        
+      
       }
     } else {
       # print("wrong")
@@ -1222,9 +1221,7 @@ server <- function(input, output, session) {
           session = session, 
           inputId = "restart",
           disabled = FALSE)
-        output$hintDisplay <- renderUI({
-          return(NULL)
-        })
+        
       } else {
         updateButton(
           session = session, 
@@ -1234,9 +1231,6 @@ server <- function(input, output, session) {
           session = session, 
           inputId = "nextq",
           disabled = FALSE)
-        output$hintDisplay <- renderUI({
-          return(NULL)
-        })
       }
     }
     
@@ -1273,8 +1267,6 @@ server <- function(input, output, session) {
       output$hintDisplay <- renderUI({
         p(tags$b("Hint:"), bank[id, 10])
       })
-      
-      
     })
   
 }
