@@ -591,7 +591,15 @@ ui <- list(
                   choices =  c("Choice A","Choice B", "Choice C", "Choice D"),
                   selected = character(0)
                 ),
-                uiOutput("gradingIcon")
+                div(
+                  style = "text-align: center;",
+                  bsButton(
+                    inputId = "submit",
+                    label = "Submit",
+                    style = "default",
+                    size = "large"
+                  )
+                )
               )
             ),
             column(
@@ -599,6 +607,10 @@ ui <- list(
               offset = 0,
               div(
                 style = "text-align: center",
+                textOutput("showScore"),
+                br(),
+                uiOutput("scoreImg"),
+                br(),
                 actionButton(
                   inputId = "showExplain",
                   label = "Answer Explanation",
@@ -823,6 +835,12 @@ server <- function(input, output, session) {
         alt = "Poker card backside")
   })
   
+  scoreCount <- reactiveVal(0)
+  
+  output$showScore <- renderText({
+    paste("Your score is", scoreCount(), ".")
+  })
+  
   ### Defining hands and question choices ----
   
   onePair <- "\\(\\binom{13}{1}\\binom{4}{2}\\times\\binom{12}{3}\\binom{4}{1}^3\\)"
@@ -880,9 +898,34 @@ server <- function(input, output, session) {
           label = print(pqb$question[1]),
           choices = c(onePair, threeKind, straight, twoPairs),
           selected = character(0)
-        )
+          )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
+        
+        observeEvent(
+          eventExpr = input$submit,
+          handlerExpr = {
+            if (!is.null(input$promptAnsOptions)) {
+              correct <- input$promptAnsOptions == onePair
+              
+              if (correct) {
+                scoreCount(scoreCount() + 2)
+                output$scoreImg <- renderUI({
+                  img(src = "check.png", 
+                      alt = "Success, you are correct",
+                      width = 50)
+                })
+              } else {
+                scoreCount(scoreCount() - 2)
+                output$scoreImg <- renderUI({
+                  img(src = "cross.png",
+                      alt = "Sorry, you are incorrect", 
+                      width = 50)
+                })
+              }
+            }
+          }
+        )
         
         observeEvent(
           eventExpr = input$showExplain,
@@ -944,10 +987,35 @@ server <- function(input, output, session) {
           label = print(pqb$question[2]),
           choices = c(threeKind, twoPairs, flush, onePair),
           selected = character(0)
-        )
+          )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
         
+        observeEvent(
+          eventExpr = input$submit,
+          handlerExpr = {
+            if (!is.null(input$promptAnsOptions)) {
+              correct <- input$promptAnsOptions == twoPairs
+              
+              if (correct) {
+                scoreCount(scoreCount() + 2)
+                output$scoreImg <- renderUI({
+                  img(src = "check.png", 
+                      alt = "Success, you are correct",
+                      width = 50)
+                })
+              } else {
+                scoreCount(scoreCount() - 2)
+                output$scoreImg <- renderUI({
+                  img(src = "cross.png",
+                      alt = "Sorry, you are incorrect", 
+                      width = 50)
+                })
+              }
+            }
+          }
+        )
+
         observeEvent(
           eventExpr = input$showExplain,
           handlerExpr = {
@@ -1009,6 +1077,31 @@ server <- function(input, output, session) {
         output$math2 <- renderUI({withMathJax()})
         
         observeEvent(
+          eventExpr = input$submit,
+          handlerExpr = {
+            if (!is.null(input$promptAnsOptions)) {
+              correct <- input$promptAnsOptions == threeKind
+              
+              if (correct) {
+                scoreCount(scoreCount() + 2)
+                output$scoreImg <- renderUI({
+                  img(src = "check.png", 
+                      alt = "Success, you are correct",
+                      width = 50)
+                })
+              } else {
+                scoreCount(scoreCount() - 2)
+                output$scoreImg <- renderUI({
+                  img(src = "cross.png",
+                      alt = "Sorry, you are incorrect", 
+                      width = 50)
+                })
+              }
+            }
+          }
+        )
+        
+        observeEvent(
           eventExpr = input$showExplain,
           handlerExpr = {
             output$explain <- renderUI(
@@ -1067,6 +1160,31 @@ server <- function(input, output, session) {
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
+        
+        observeEvent(
+          eventExpr = input$submit,
+          handlerExpr = {
+            if (!is.null(input$promptAnsOptions)) {
+              correct <- input$promptAnsOptions == straight
+              
+              if (correct) {
+                scoreCount(scoreCount() + 2)
+                output$scoreImg <- renderUI({
+                  img(src = "check.png", 
+                      alt = "Success, you are correct",
+                      width = 50)
+                })
+              } else {
+                scoreCount(scoreCount() - 2)
+                output$scoreImg <- renderUI({
+                  img(src = "cross.png",
+                      alt = "Sorry, you are incorrect", 
+                      width = 50)
+                })
+              }
+            }
+          }
+        )
         
         observeEvent(
           eventExpr = input$showExplain,
@@ -1132,6 +1250,31 @@ server <- function(input, output, session) {
         output$math2 <- renderUI({withMathJax()})
         
         observeEvent(
+          eventExpr = input$submit,
+          handlerExpr = {
+            if (!is.null(input$promptAnsOptions)) {
+              correct <- input$promptAnsOptions == flush
+              
+              if (correct) {
+                scoreCount(scoreCount() + 2)
+                output$scoreImg <- renderUI({
+                  img(src = "check.png", 
+                      alt = "Success, you are correct",
+                      width = 50)
+                })
+              } else {
+                scoreCount(scoreCount() - 2)
+                output$scoreImg <- renderUI({
+                  img(src = "cross.png",
+                      alt = "Sorry, you are incorrect", 
+                      width = 50)
+                })
+              }
+            }
+          }
+        )
+        
+        observeEvent(
           eventExpr = input$showExplain,
           handlerExpr = {
             output$explain <- renderUI(
@@ -1191,6 +1334,31 @@ server <- function(input, output, session) {
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
+        
+        observeEvent(
+          eventExpr = input$submit,
+          handlerExpr = {
+            if (!is.null(input$promptAnsOptions)) {
+              correct <- input$promptAnsOptions == fullHouse
+              
+              if (correct) {
+                scoreCount(scoreCount() + 2)
+                output$scoreImg <- renderUI({
+                  img(src = "check.png", 
+                      alt = "Success, you are correct",
+                      width = 50)
+                })
+              } else {
+                scoreCount(scoreCount() - 2)
+                output$scoreImg <- renderUI({
+                  img(src = "cross.png",
+                      alt = "Sorry, you are incorrect", 
+                      width = 50)
+                })
+              }
+            }
+          }
+        )
         
         observeEvent(
           eventExpr = input$showExplain,
@@ -1253,6 +1421,31 @@ server <- function(input, output, session) {
         output$math2 <- renderUI({withMathJax()})
        
         observeEvent(
+          eventExpr = input$submit,
+          handlerExpr = {
+            if (!is.null(input$promptAnsOptions)) {
+              correct <- input$promptAnsOptions == fourKind
+              
+              if (correct) {
+                scoreCount(scoreCount() + 2)
+                output$scoreImg <- renderUI({
+                  img(src = "check.png", 
+                      alt = "Success, you are correct",
+                      width = 50)
+                })
+              } else {
+                scoreCount(scoreCount() - 2)
+                output$scoreImg <- renderUI({
+                  img(src = "cross.png",
+                      alt = "Sorry, you are incorrect", 
+                      width = 50)
+                })
+              }
+            }
+          }
+        )
+        
+        observeEvent(
           eventExpr = input$showExplain,
           handlerExpr = {
             output$explain <- renderUI(
@@ -1311,6 +1504,31 @@ server <- function(input, output, session) {
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
+        
+        observeEvent(
+          eventExpr = input$submit,
+          handlerExpr = {
+            if (!is.null(input$promptAnsOptions)) {
+              correct <- input$promptAnsOptions == straightFlush
+              
+              if (correct) {
+                scoreCount(scoreCount() + 2)
+                output$scoreImg <- renderUI({
+                  img(src = "check.png", 
+                      alt = "Success, you are correct",
+                      width = 50)
+                })
+              } else {
+                scoreCount(scoreCount() - 2)
+                output$scoreImg <- renderUI({
+                  img(src = "cross.png",
+                      alt = "Sorry, you are incorrect", 
+                      width = 50)
+                })
+              }
+            }
+          }
+        )
         
         observeEvent(
           eventExpr = input$showExplain,
@@ -1372,6 +1590,31 @@ server <- function(input, output, session) {
         )
         output$math1 <- renderUI({withMathJax()})
         output$math2 <- renderUI({withMathJax()})
+        
+        observeEvent(
+          eventExpr = input$submit,
+          handlerExpr = {
+            if (!is.null(input$promptAnsOptions)) {
+              correct <- input$promptAnsOptions == royalFlush
+              
+              if (correct) {
+                scoreCount(scoreCount() + 2)
+                output$scoreImg <- renderUI({
+                  img(src = "check.png", 
+                      alt = "Success, you are correct",
+                      width = 50)
+                })
+              } else {
+                scoreCount(scoreCount() - 2)
+                output$scoreImg <- renderUI({
+                  img(src = "cross.png",
+                      alt = "Sorry, you are incorrect", 
+                      width = 50)
+                })
+              }
+            }
+          }
+        )
         
         observeEvent(
           eventExpr = input$showExplain,
