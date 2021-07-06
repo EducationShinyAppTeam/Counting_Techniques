@@ -242,90 +242,6 @@ ui <- list(
           withMathJax(),
           h2("Explore the Concept"),
           tabsetPanel(
-            tabPanel(
-              title = "Exploring Counting Techniques",
-              br(),
-              fluidRow(
-                column(
-                  width = 2.4, 
-                  offset = 1, 
-                  
-                  tags$figure(
-                    align = "center", 
-                    tags$img(
-                      src = "3-heart.png", 
-                      width = 50, 
-                      alt = "3 of Hearts."
-                    ), 
-                    tags$figcaption("3 of Hearts")
-                  )
-                  
-                ), 
-                column(
-                  width = 2.4, 
-                  offset = 2, 
-                  
-                  
-                  tags$figure(
-                    align = "center", 
-                    tags$img(
-                      src = "3-heart.png", 
-                      width = 50, 
-                      alt = "3 of Hearts."
-                    ), 
-                    tags$figcaption("3 of Hearts")
-                  )
-                  
-                ), 
-                column(
-                  width = 2.4, 
-                  offset = 3, 
-                  
-                  
-                  tags$figure(
-                    align = "center", 
-                    tags$img(
-                      src = "3-heart.png", 
-                      width = 50, 
-                      alt = "3 of Hearts."
-                    ), 
-                    tags$figcaption("3 of Hearts")
-                  )
-                  
-                ), 
-                column(
-                  width = 2.4, 
-                  offset = 4, 
-                  
-                  tags$figure(
-                    align = "center", 
-                    tags$img(
-                      src = "3-heart.png", 
-                      width = 50, 
-                      alt = "3 of Hearts."
-                    ), 
-                    tags$figcaption("3 of Hearts")
-                    
-                  )
-                ), 
-                column(
-                  width = 2.4, 
-                  offset = 5, 
-                  tags$figure(
-                    align = "center", 
-                    tags$img(
-                      src = "3-heart.png", 
-                      width = 50, 
-                      alt = "3 of Hearts."
-                    ), 
-                    tags$figcaption("3 of Hearts")
-                    
-                  )
-                )
-                
-              ) 
-            ),
-            
             ##### Tab Panel I'm Working On ----
             tabPanel(
               withMathJax(), 
@@ -491,8 +407,10 @@ ui <- list(
                   wellPanel(
                     style = "background-color: #FFFFFF",
                     
-                    h3("Context"),
+                    h4("Context"),
                     uiOutput("context"), 
+                    br(), 
+                    h4("Question:"), 
                     uiOutput("question"),
                     br(),
                     bsButton(
@@ -565,11 +483,6 @@ ui <- list(
                       disabled = FALSE
                     )
                   )
-                ),
-                column(
-                  width = 6,
-                  uiOutput("correct", align = "center"),
-                  uiOutput("distPlot", align = "center")
                 )
               ),
               uiOutput("math1"),
@@ -728,7 +641,7 @@ ui <- list(
             
             # 
             # ),
-
+            
             
             tabPanel(
               title = "Example Questions", 
@@ -917,7 +830,8 @@ server <- function(input, output, session) {
         session = session,
         type = "info",
         title = "Information",
-        text = "This App Template will help you get started building your own app"
+        text = "This app is designed to help you learn and review Counting
+        Techniques"
       )
     }
   )
@@ -942,36 +856,36 @@ server <- function(input, output, session) {
       inputId = "pages",
       selected = "game")
   })
-
-###Explore Page Practice ----
+  
+  ###Explore Page Practice ----
   ##### Variables starting value---- 
   selected <<- c()
   correct_answer <<- c()
-
-  withBusyIndicatorServer <- function(buttonId, expr) {
-    # UX stuff: show the "busy" message, hide the other messages, disable the button
-    loadingEl <- sprintf("[data-for-btn=%s] .btn-loading-indicator", buttonId)
-    doneEl <- sprintf("[data-for-btn=%s] .btn-done-indicator", buttonId)
-    errEl <- sprintf("[data-for-btn=%s] .btn-err", buttonId)
-    shinyjs::disable(buttonId)
-    shinyjs::show(selector = loadingEl)
-    shinyjs::hide(selector = doneEl)
-    shinyjs::hide(selector = errEl)
-    on.exit({
-      shinyjs::enable(buttonId)
-      shinyjs::hide(selector = loadingEl)
-    })
-    
-    # Try to run the code when the button is clicked and show an error message if
-    # an error occurs or a success message if it completes
-    tryCatch({
-      value <- expr
-      shinyjs::show(selector = doneEl)
-      shinyjs::delay(2000, shinyjs::hide(selector = doneEl, anim = TRUE, animType = "fade",
-                                         time = 0.5))
-      value
-    }, error = function(err) { errorFunc(err, buttonId) })
-  }
+  
+  # withBusyIndicatorServer <- function(buttonId, expr) {
+  #   # UX stuff: show the "busy" message, hide the other messages, disable the button
+  #   loadingEl <- sprintf("[data-for-btn=%s] .btn-loading-indicator", buttonId)
+  #   doneEl <- sprintf("[data-for-btn=%s] .btn-done-indicator", buttonId)
+  #   errEl <- sprintf("[data-for-btn=%s] .btn-err", buttonId)
+  #   shinyjs::disable(buttonId)
+  #   shinyjs::show(selector = loadingEl)
+  #   shinyjs::hide(selector = doneEl)
+  #   shinyjs::hide(selector = errEl)
+  #   on.exit({
+  #     shinyjs::enable(buttonId)
+  #     shinyjs::hide(selector = loadingEl)
+  #   })
+  #   
+  #   # Try to run the code when the button is clicked and show an error message if
+  #   # an error occurs or a success message if it completes
+  #   tryCatch({
+  #     value <- expr
+  #     shinyjs::show(selector = doneEl)
+  #     shinyjs::delay(2000, shinyjs::hide(selector = doneEl, anim = TRUE, animType = "fade",
+  #                                        time = 0.5))
+  #     value
+  #   }, error = function(err) { errorFunc(err, buttonId) })
+  # }
   
   ##### Reading in Questions ----
   bank <- read.csv("exploreQuestions.csv", stringsAsFactors = FALSE)
@@ -981,8 +895,7 @@ server <- function(input, output, session) {
     mistake = 0,
     correct = 0
   )
-  hint <- as.matrix(bank[1:nrow(bank), 10])
-  
+  #hint <- as.matrix(bank[1:nrow(bank), 10])
   
   # Reset button
   observeEvent(input$restart, {
@@ -1005,7 +918,7 @@ server <- function(input, output, session) {
     id <- 1
     
     GAME_OVER <<- FALSE
-
+    
     output$question <- renderUI({
       withMathJax()
       hint <<- withMathJax(bank[id, 10])
@@ -1018,14 +931,19 @@ server <- function(input, output, session) {
       return(bank[id, 4])
     })
     
+    output$hint <- renderUI({
+      withMathJax()
+      hint <<- withMathJax(bank[id, 10])
+      return(bank[id, 10])
+    })
     
     updateRadioGroupButtons(
       session, "mc1",
       choices = list(
-        bank[id, "A"],
-        bank[id, "B"],
-        bank[id, "C"],
-        bank[id, "D"]
+        "A" = bank[id, "A"],
+        "B" = bank[id, "B"],
+        "C" = bank[id, "C"],
+        "D" = bank[id, "D"] 
       ),
       selected = character(0),
       checkIcon = list(
@@ -1076,6 +994,12 @@ server <- function(input, output, session) {
     return(withMathJax(bank[id, 5]))
   })
   
+  output$context <- renderUI({
+    withMathJax()
+    hint <<- withMathJax(bank[id, 10])
+    return(bank[id, 4])
+  })
+  
   ### NEXT QUESTION BUTTON###
   observeEvent(input$nextq, {
     if (length(Qs_array) > 1) {
@@ -1087,14 +1011,17 @@ server <- function(input, output, session) {
         output$question <- renderUI({
           return(withMathJax(bank[id, 5]))
         })
+        output$context <- renderUI({
+          return(withMathJax(bank[id, 4]))
+        })
         updateRadioGroupButtons(
           session, "mc1",
           selected = character(0),
           choices = list(
-            bank[id, "A"],
-            bank[id, "B"],
-            bank[id, "C"],
-            bank[id, "D"]
+            "A" = bank[id, "A"],
+            "B" = bank[id, "B"],
+            "C" = bank[id, "C"],
+            "D" = bank[id, "D"] 
           ),
           checkIcon = list(
             yes = icon("check-square"),
@@ -1126,6 +1053,9 @@ server <- function(input, output, session) {
         output$question <- renderUI({
           return(withMathJax(bank[id, 5]))
         })
+        output$context <- renderUI({
+          return(withMathJax(bank[id, 4]))
+        })
         updateButton(
           session = session, 
           inputId = "submit", 
@@ -1135,10 +1065,10 @@ server <- function(input, output, session) {
           inputId = "mc1",
           selected = character(0),
           choices = list(
-            bank[id, "A"],
-            bank[id, "B"],
-            bank[id, "C"],
-            bank[id, "D"]
+            "A" = bank[id, "A"],
+            "B" = bank[id, "B"],
+            "C" = bank[id, "C"],
+            "D" = bank[id, "D"] 
           ),
           checkIcon = list(
             yes = icon("check-square"),
@@ -1185,6 +1115,9 @@ server <- function(input, output, session) {
       output$question <- renderUI({
         return(NULL)
       })
+      output$context <- renderUI({
+        return(NULL)
+      })
       output$hintDisplay <- renderUI({
         return(NULL)
       })
@@ -1214,7 +1147,9 @@ server <- function(input, output, session) {
   
   ### SUBMIT BUTTON###
   observeEvent(input$submit, {
-    cAnswer <- bank[id, 12]
+    cAnswer <- bank[id, "Answer"]
+    print(cAnswer)
+    print(input$mc1)
     WIN <- FALSE
     if(!is.null(input$mc1) || length(input$mc1) != 0){
       success <- input$mc1 == cAnswer
@@ -1247,9 +1182,9 @@ server <- function(input, output, session) {
           session = session, 
           inputId = "restart", 
           disabled = FALSE)
-        output$hintDisplay <- renderUI({
-          return(NULL)
-        })
+        # output$hintDisplay <- renderUI({
+        #   return(NULL)
+        # })
       }
       else {
         updateButton(
@@ -1260,9 +1195,8 @@ server <- function(input, output, session) {
           session = session, 
           inputId = "nextq", 
           disabled = FALSE)
-        output$hintDisplay <- renderUI({
-          return(NULL)
-        })
+        
+        
       }
     } else {
       # print("wrong")
@@ -1289,9 +1223,7 @@ server <- function(input, output, session) {
           session = session, 
           inputId = "restart",
           disabled = FALSE)
-        output$hintDisplay <- renderUI({
-          return(NULL)
-        })
+        
       } else {
         updateButton(
           session = session, 
@@ -1301,30 +1233,9 @@ server <- function(input, output, session) {
           session = session, 
           inputId = "nextq",
           disabled = FALSE)
-        output$hintDisplay <- renderUI({
-          return(NULL)
-        })
       }
     }
     
-    # .generateAnsweredStatement(
-    #   session,
-    #   object = "submit",
-    #   verb = "answered",
-    #   description = bank[id, 2],
-    #   response = input$mc1,
-    #   interactionType = "choice",
-    #   success = success,
-    #   completion = GAME_OVER
-    # )
-    
-    # if (GAME_OVER) {
-    #   if (WIN) {
-    #     .generateStatement(session, object = "game", verb = "completed", description = "Player has won the game.")
-    #   } else {
-    #     .generateStatement(session, object = "game", verb = "completed", description = "Player has lost the game.")
-    #   }
-    # }
     
     output$mark <- renderUI({
       if(!is.null(input$mc1) || length(input$mc1) != 0) {
@@ -1358,10 +1269,8 @@ server <- function(input, output, session) {
       output$hintDisplay <- renderUI({
         p(tags$b("Hint:"), bank[id, 10])
       })
-  
-      
     })
-
+  
 }
 # Boast App Call ----
 boastUtils::boastApp(ui = ui, server = server)
