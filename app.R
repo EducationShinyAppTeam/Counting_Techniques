@@ -104,7 +104,7 @@ ui <- list(
             tags$li("The difference between combinations, and the other counting 
                     techniques."),
             tags$li("Understand how different wording in a problem changes the
-                    way you solve a problem (ex.At most vs At least)")
+                    way you solve a problem (e.g., at most vs. at least)")
           ),
           br(), 
           h3("Counting Techniques"),
@@ -259,60 +259,58 @@ ui <- list(
               tags$ul(
                 p("b"), 
                 tags$li("\\([(2^3-1)\\cdot(2^5-1)\\cdot{2^4}] +
-                        [3\\cdot(_{5}C_{1}\\cdot_{5}C_{2})\\cdot{2^4}]\\)"), 
-                tags$li("\\([(2^3)\\cdot(2^5)\\cdot{2^4}] +
-                        [3\\cdot(_{5}C_{1}+_{5}C_{2})\\cdot{2^4}]\\)"), 
+                        [3\\cdot(\\binom{5}{1}\\cdot\\binom{5}{2})\\cdot{2^4}]\\)"), 
+                tags$li("\\([{2^3}\\cdot{2^5}\\cdot{2^4}] +
+                        [3\\cdot(\\binom{5}{1}+\\binom{5}{2})\\cdot{2^4}]\\)"), 
                 tags$li("Answer: \\([(2^3-1)\\cdot(2^5-1)\\cdot{2^4}] +
-                        [3\\cdot(_{5}C_{1}+_{5}C_{2})\\cdot{2^4}]\\)"), ## Answer
-                tags$li("\\([{3}\\cdot{5}\\cdot{4}]+[_{3}C_{1}\\cdot(_{5}C_{1}+_{5}C_{2})\\cdot{4}]\\)")
+                        [3\\cdot(\\binom{5}{1}+\\binom{5}{2})\\cdot{2^4}]\\)"), ## Answer
+                tags$li("\\([{3}\\cdot{5}\\cdot{4}]+[\\binom{2}{1}\\cdot(\\binom{5}{1}+\\binom{5}{2})\\cdot{4}]\\)")
               ), 
               tags$ul(
                 p("c"), 
                 tags$li("Answer: \\({3}\\cdot{5}\\cdot{(4+1)}\\)"), ## Answer
                 tags$li("\\({3}\\cdot{5}\\cdot{4}\\)"), 
                 tags$li("\\({1}\\cdot{2}\\cdot{(4+1)}\\)"), 
-                tags$li("\\({1}\\cdot{(_{5}C_{1}+_{5}C_{2})}\\cdot{(4+1)}\\)")
+                tags$li("\\({1}\\cdot{(\\binom{5}{1}+\\binom{5}{2})}\\cdot{(4+1)}\\)")
               ), 
               
               p("Context 3: "), 
               tags$ul(
                 p("a"),
                 tags$li("\\({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3}\\)"), 
-                tags$li("Answer: \\(5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3}\\)"), ## Answer
+                tags$li("Answer: \\(5\\cdot[\\binom{3}{2}+3\\cdot(3\\cdot{4})]\\cdot{3}\\)"), ## Answer
                 tags$li("\\({5}\\cdot{15}\\cdot{3}\\)"), 
-                tags$li("\\(5\\cdot[_{3}C_{2}\\cdot{3}\\cdot(3\\cdot{4})]\\cdot{3}\\)")
+                tags$li("\\(5\\cdot[\\binom{3}{2}\\cdot{3}\\cdot(3\\cdot{4})]\\cdot{3}\\)")
               ), 
               
               tags$ul(
                 p("b"),
                 tags$li("\\(({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})^5\\)"), 
                 tags$li("\\(({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})\\cdot{5}\\)"), 
-                tags$li("\\((5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3})\\cdot{5}\\)"), 
-                tags$li("Answer: \\((5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3})^5\\)") ## Answer
+                tags$li("\\((5\\cdot[\\binom{3}{2}+3\\cdot(3\\cdot{4})]\\cdot{3})\\cdot{5}\\)"), 
+                tags$li("Answer: \\((5\\cdot[\\binom{3}{2}+3\\cdot(3\\cdot{4})]\\cdot{3})^5\\)") ## Answer
               ), 
               
               tags$ul(
                 p("c"),
                 tags$li("\\(\\dfrac{({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})!}
                         {(({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})-5)!}\\)"), 
-                tags$li("Answer: \\(\\dfrac{(5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3})!}
-                        {([5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3}] - 5)!}\\)"), ##Answer
+                tags$li("Answer: \\(\\dfrac{(5\\cdot[\\binom{3}{2}+3\\cdot(3\\cdot{4})]\\cdot{3})!}
+                        {([5\\cdot[\\binom{3}{2}+3\\cdot(3\\cdot{4})]\\cdot{3}] - 5)!}\\)"), ##Answer
                 tags$li("\\(\\dfrac{({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})!}
                         {{5!}(({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})-5)!}\\)"), 
-                tags$li("\\(\\dfrac{(5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3})!}
-                        {([5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3}]\\cdot{5})!}\\)")
+                tags$li("\\(\\dfrac{(5\\cdot[\\binom{3}{2}+3\\cdot(3\\cdot{4})]\\cdot{3})!}
+                        {([5\\cdot[\\binom{3}{2}+3\\cdot(3\\cdot{4})]\\cdot{3}]\\cdot{5})!}\\)")
               ), 
+              
               
               tags$ul(
                 p("d"),
-                tags$li("\\(\\dfrac{(5\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})!}
-                        {5![(5\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})-5]!}\\)"), 
-                tags$li("Answer: \\(\\dfrac{(5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3})!}
-                        {5!(5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})]\\cdot{3})-5)!}\\)"), ##Answer
-                tags$li("\\(\\dfrac{5\\cdot[_{3}C_{2}+3(3\\cdot{4}]\\cdot{3})!}
-                        {(5\\cdot[_{3}C_{2}+3\\cdot(3\\cdot{4})\\cdot{3})-5)!}\\)"), 
-                tags$li("\\(\\dfrac{(5\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})!}
-                        {[(5\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})-5]!}\\)"), 
+                tags$li("\\(\\binom{5\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3}}{5}\\)"), 
+                tags$li("Answer: \\(\\binom{5\\cdot[\\binom{3}{2}+3\\cdot(3\\cdot{4})]\\cdot{3}}{5}\\)"), ##Answer
+                tags$li("\\(_{(5\\cdot[\\binom{3}{2}+3(3\\cdot{4})]\\cdot{3})}P_{5}\\)"), 
+                tags$li("\\(_{(5\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})}P_{5}\\)"), 
+              
                 
               ), 
               
@@ -320,24 +318,24 @@ ui <- list(
                 p("e"),
                 tags$li("Answer: \\(2^5\\)"), ##Answer
                 tags$li("\\(2\\cdot{2}\\cdot{1}\\)"), 
-                tags$li("\\(_{5}C_{1}\\cdot{5}\\)"), 
+                tags$li("\\(\\binom{5}{1}\\cdot{5}\\)"), 
                 tags$li("\\(2^5+2^5+1^5\\)")
               ), 
               
               p("Context 4: "), 
               tags$ul(
                 p("a"), 
-                tags$li("\\(_{4+3+4}C_{1}\\)"), 
+                tags$li("\\(\\binom{4+3+4}{1}\\)"), 
                 tags$li("\\((4^3)^4\\)"), 
                 tags$li("Answer: \\({4}\\cdot{3}\\cdot{4}\\)"), ## Answer
                 tags$li("\\(\\dfrac{(4\\cdot{3}\\cdot{4})!}{4!3!4!}\\)")
               ), 
               tags$ul(
                 p("b"), 
-                tags$li("\\(4(2+_{6}C_{1})\\)"), 
-                tags$li("\\(4(2+_{4}C_{1})\\)"), 
-                tags$li("Answer: \\([_{12}C_{3}+_{12}C_{2}\\cdot2]\\cdot{4^3}\\)"), ## Answer
-                tags$li("\\((2+_{4}C_{1})\\cdot{4^3}\\)")
+                tags$li("\\(4[2+\\binom{6}{1}]\\)"), 
+                tags$li("\\(4[2+\\binom{4}{1}]\\)"), 
+                tags$li("Answer: \\([\\binom{12}{3}+\\binom{12}{2}\\cdot2]\\cdot{4^3}\\)"), ## Answer
+                tags$li("\\([2+\\binom{4}{1}]\\cdot{4^3}\\)")
               ), 
               
               p("Context 5: "), 
@@ -345,54 +343,54 @@ ui <- list(
                 p("a"), 
                 tags$li("\\(15^4\\)"), 
                 tags$li("\\(4!\\)"), 
-                tags$li("\\(_{15}P_{4}\\) or \\(\\dfrac{15!}{(15-4)!}\\)"), 
-                tags$li("Answer: \\(_{15}C_{4}\\) or \\(\\dfrac{15!}{4!(15-4)!}\\)") ## Answer
+                tags$li("\\(_{15}P_{4}\\)"), 
+                tags$li("Answer: \\(\\binom{15}{4}\\)") ## Answer
               ), 
               tags$ul(
                 p("b"), 
-                tags$li("\\(4(1+_{14}C_{3})\\)"), 
-                tags$li("Answer: \\(15\\cdot_{14}C_{3} = _{15}C_{4}\\cdot{4})\\)"), ## Answer
+                tags$li("\\(4[1+\\binom{14}{3}]\\)"), 
+                tags$li("Answer: \\(15\\cdot\\binom{14}{3} = \\binom{15}{4}\\cdot{4}\\)"), ## Answer
                 tags$li("\\(4\\cdot(15^4)\\)"), 
-                tags$li("\\(4(_{4}C_{1} + _{11}C_{3})\\)")
+                tags$li("\\(4[\\binom{4}{1} + \\binom{11}{3}]\\)")
               ), 
               
               p("Context 6: "), 
               tags$ul(
                 p("a"), 
-                tags$li("\\(6\\cdot_{50}C_{1}\\)"), 
-                tags$li("\\(6\\cdot_{50}C_{6}\\)"), 
+                tags$li("\\(6\\cdot\\binom{50}{1}\\)"), 
+                tags$li("\\(6\\cdot\\binom{50}{6}\\)"), 
                 tags$li("\\(300^6\\)"), 
-                tags$li("Answer: \\(_{300}C_{6}\\)") ## Answer
+                tags$li("Answer: \\(\\binom{300}{6}\\)") ## Answer
               ), 
               tags$ul(
                 p("b"), 
-                tags$li("\\(6\\cdot_{50}C_{1}\\)"), 
-                tags$li("\\(\\dfrac{_{300}C_{6}}{6}\\)"), 
-                tags$li("Answer: \\(6\\cdot_{50}C_{6}\\)"), ## Answer
+                tags$li("\\(6\\cdot\\binom{50}{1}\\)"), 
+                tags$li("\\(\\dfrac{\\binom{300}{6}}{6}\\)"), 
+                tags$li("Answer: \\(6\\cdot\\binom{50}{6}\\)"), ## Answer
                 tags$li("\\(50!\\cdot{49!}\\cdot{48}!\\cdot{47!}\\cdot{46!}\\)")
               ), 
               tags$ul(
                 p("c"), 
                 tags$li("\\(50\\cdot{49}\\cdot{48}\\cdot{47}+350\\cdot{349}\\)"), 
-                tags$li("\\([6\\cdot(_{50}C_{4})]\\cdot[_{350}C_{2}]\\)"), 
-                tags$li("\\([6\\cdot(_{300}C_{4})]\\cdot[_{296}C_{2}]\\)"), 
-                tags$li("Answer: \\([6\\cdot(_{50}C_{4})]\\cdot[_{5}C_{2}\\cdot{50}\\cdot{50}]\\)") ## Answer
+                tags$li("\\([6\\cdot\\binom{50}{4}]\\cdot\\binom{350}{2}\\)"), 
+                tags$li("\\([6\\cdot\\binom{300}{4}]\\cdot\\binom{296}{2}\\)"), 
+                tags$li("Answer: \\([6\\cdot\\binom{50}{4}]\\cdot[\\binom{5}{2}\\cdot{50}\\cdot{50}]\\)") ## Answer
               ), 
               
               tags$ul(
                 p("d"), 
-                tags$li("Answer: \\([6\\cdot{_{50}C_{4}}][_{5}C_{2}\\cdot{50}\\cdot{50}]+[6\\cdot{_{50}C_{5}}][5\\cdot{50}]+[6\\cdot{_{50}C_{6}}]\\)"), ##Answer
-                tags$li("\\([_{50}C_{4}][_{5}C_{2}\\cdot{50}\\cdot{50}]+[_{50}C_{5}][5\\cdot{50}]+[_{50}C_{6}]\\)"), 
-                tags$li("\\([6\\cdot{_{50}C_{4}}][_{5}C_{2}\\cdot{50}\\cdot{50}]\\cdot[6\\cdot{_{50}C_{5}}][5\\cdot{50}]\\cdot[6\\cdot{_{50}C_{6}}]\\)"), 
-                tags$li("\\([_{50}C_{4}][_{5}C_{2}\\cdot{50}\\cdot{50}]\\cdot[_{50}C_{5}][5\\cdot{50}]\\cdot[_{50}C_{6}]\\)"), 
+                tags$li("Answer: \\([6\\cdot\\binom{50}{4}][\\binom{5}{2}\\cdot{50}\\cdot{50}]+[6\\cdot\\binom{50}{5}][5\\cdot{50}]+[6\\cdot\\binom{50}{6}]\\)"), ##Answer
+                tags$li("\\(\\binom{50}{4}[\\binom{5}{2}\\cdot{50}\\cdot{50}]+\\binom{50}{5}[5\\cdot{50}]+\\binom{50}{6}\\)"), 
+                tags$li("\\([6\\cdot\\binom{50}{4}][\\binom{5}{2}\\cdot{50}\\cdot{50}]\\cdot[6\\cdot\\binom{50}{5}][5\\cdot{50}]\\cdot[6\\cdot\\binom{50}{6}]\\)"), 
+                tags$li("\\(\\binom{50}{4}[\\binom{5}{2}\\cdot{50}\\cdot{50}]\\cdot\\binom{50}{5}[5\\cdot{50}]\\cdot\\binom{50}{6}\\)"), 
               ), 
               
               tags$ul(
                 p("e"), 
-                tags$li("\\(_{300}C_{6}+([6\\cdot{_{50}C_{4}}][_{5}C_{2}\\cdot{50}\\cdot{50}]+[6\\cdot{_{50}C_{5}}][5\\cdot{50}]+[6\\cdot{_{50}C_{6}}])\\)"), ##Answer
-                tags$li("\\(_{300}C_{6}-6\\cdot(50\\cdot{49}\\cdot{48}\\cdot{47})\\)"), 
-                tags$li("Answer: \\(_{300}C_{6}–([6\\cdot{_{50}C_{4}}][_{5}C_{2}\\cdot{50}\\cdot{50}]+[6\\cdot{_{50}C_{5}}][5\\cdot{50}]+[6\\cdot{_{50}C_{6}}])\\)"), ##Answer
-                tags$li("\\([6\\cdot{_{50}C_{4}}][_{5}C_{2}\\cdot{50}\\cdot{50}]+[6\\cdot{_{50}C_{5}}][5\\cdot{50}]+[6\\cdot{_{50}C_{6}}]\\)"), 
+                tags$li("\\(\\binom{300}{6}+([6\\cdot\\binom{50}{4}][\\binom{5}{2}\\cdot{50}\\cdot{50}]+[6\\cdot\\binom{50}{5}][5\\cdot{50}]+[6\\cdot\\binom{50}{6}])\\)"), 
+                tags$li("\\(\\binom{300}{6}-6\\cdot(50\\cdot{49}\\cdot{48}\\cdot{47})\\)"), 
+                tags$li("Answer: \\(\\binom{300}{6}–([6\\cdot\\binom{50}{4}][\\binom{5}{2}\\cdot{50}\\cdot{50}]+[6\\cdot\\binom{50}{5}][5\\cdot{50}]+[6\\cdot\\binom{50}{6}])\\)"), ##Answer
+                tags$li("\\([6\\cdot\\binom{50}{4}][\\binom{5}{2}\\cdot{50}\\cdot{50}]+[6\\cdot\\binom{50}{5}][5\\cdot{50}]+[6\\cdot\\binom{50}{6}]\\)"), 
               )
               
             ), 
@@ -410,7 +408,7 @@ ui <- list(
                     h4("Context"),
                     uiOutput("context"), 
                     br(), 
-                    h4("Question:"), 
+                    h4("Question"), 
                     uiOutput("question"),
                     br(),
                     bsButton(
@@ -862,30 +860,30 @@ server <- function(input, output, session) {
   selected <<- c()
   correct_answer <<- c()
   
-  # withBusyIndicatorServer <- function(buttonId, expr) {
-  #   # UX stuff: show the "busy" message, hide the other messages, disable the button
-  #   loadingEl <- sprintf("[data-for-btn=%s] .btn-loading-indicator", buttonId)
-  #   doneEl <- sprintf("[data-for-btn=%s] .btn-done-indicator", buttonId)
-  #   errEl <- sprintf("[data-for-btn=%s] .btn-err", buttonId)
-  #   shinyjs::disable(buttonId)
-  #   shinyjs::show(selector = loadingEl)
-  #   shinyjs::hide(selector = doneEl)
-  #   shinyjs::hide(selector = errEl)
-  #   on.exit({
-  #     shinyjs::enable(buttonId)
-  #     shinyjs::hide(selector = loadingEl)
-  #   })
-  #   
-  #   # Try to run the code when the button is clicked and show an error message if
-  #   # an error occurs or a success message if it completes
-  #   tryCatch({
-  #     value <- expr
-  #     shinyjs::show(selector = doneEl)
-  #     shinyjs::delay(2000, shinyjs::hide(selector = doneEl, anim = TRUE, animType = "fade",
-  #                                        time = 0.5))
-  #     value
-  #   }, error = function(err) { errorFunc(err, buttonId) })
-  # }
+  withBusyIndicatorServer <- function(buttonId, expr) {
+    # UX stuff: show the "busy" message, hide the other messages, disable the button
+    loadingEl <- sprintf("[data-for-btn=%s] .btn-loading-indicator", buttonId)
+    doneEl <- sprintf("[data-for-btn=%s] .btn-done-indicator", buttonId)
+    errEl <- sprintf("[data-for-btn=%s] .btn-err", buttonId)
+    shinyjs::disable(buttonId)
+    shinyjs::show(selector = loadingEl)
+    shinyjs::hide(selector = doneEl)
+    shinyjs::hide(selector = errEl)
+    on.exit({
+      shinyjs::enable(buttonId)
+      shinyjs::hide(selector = loadingEl)
+    })
+
+    # Try to run the code when the button is clicked and show an error message if
+    # an error occurs or a success message if it completes
+    tryCatch({
+      value <- expr
+      shinyjs::show(selector = doneEl)
+      shinyjs::delay(2000, shinyjs::hide(selector = doneEl, anim = TRUE, animType = "fade",
+                                         time = 0.5))
+      value
+    }, error = function(err) { errorFunc(err, buttonId) })
+  }
   
   ##### Reading in Questions ----
   bank <- read.csv("exploreQuestions.csv", stringsAsFactors = FALSE)
@@ -940,10 +938,10 @@ server <- function(input, output, session) {
     updateRadioGroupButtons(
       session, "mc1",
       choices = list(
-        "A" = bank[id, "A"],
-        "B" = bank[id, "B"],
-        "C" = bank[id, "C"],
-        "D" = bank[id, "D"] 
+        bank[id, "A"],
+        bank[id, "B"],
+        bank[id, "C"],
+        bank[id, "D"] 
       ),
       selected = character(0),
       checkIcon = list(
@@ -1018,10 +1016,10 @@ server <- function(input, output, session) {
           session, "mc1",
           selected = character(0),
           choices = list(
-            "A" = bank[id, "A"],
-            "B" = bank[id, "B"],
-            "C" = bank[id, "C"],
-            "D" = bank[id, "D"] 
+            bank[id, "A"],
+            bank[id, "B"],
+            bank[id, "C"],
+            bank[id, "D"] 
           ),
           checkIcon = list(
             yes = icon("check-square"),
@@ -1065,10 +1063,10 @@ server <- function(input, output, session) {
           inputId = "mc1",
           selected = character(0),
           choices = list(
-            "A" = bank[id, "A"],
-            "B" = bank[id, "B"],
-            "C" = bank[id, "C"],
-            "D" = bank[id, "D"] 
+            bank[id, "A"],
+            bank[id, "B"],
+            bank[id, "C"],
+            bank[id, "D"] 
           ),
           checkIcon = list(
             yes = icon("check-square"),
@@ -1128,7 +1126,7 @@ server <- function(input, output, session) {
           bank[id, "A"],
           bank[id, "B"],
           bank[id, "C"],
-          bank[id, "D"]
+          bank[id, "D"] 
         ),
         checkIcon = list(
           yes = icon("check-square"),
@@ -1147,9 +1145,11 @@ server <- function(input, output, session) {
   
   ### SUBMIT BUTTON###
   observeEvent(input$submit, {
-    cAnswer <- bank[id, "Answer"]
-    print(cAnswer)
-    print(input$mc1)
+    letterAnswer <- bank[id, "Answer"]
+    cAnswer <- bank[id, letterAnswer]
+    #print(cAnswer)
+    #print(bank[id, cAnswer])
+    #print(input$mc1)
     WIN <- FALSE
     if(!is.null(input$mc1) || length(input$mc1) != 0){
       success <- input$mc1 == cAnswer
@@ -1237,17 +1237,25 @@ server <- function(input, output, session) {
     }
     
     
-    output$mark <- renderUI({
-      if(!is.null(input$mc1) || length(input$mc1) != 0) {
-        if (input$mc1 == cAnswer) {
-          img(src = "check.png", width = 50, alt = "Correct.")
-        } else {
-          img(src = "cross.png", width = 50, alt = "Incorrect")
-        }
-      } else {
-        img(src = "cross.png", width = 50, alt = "Incorrect")
-      }
-    })
+    output$mark <- renderIcon(
+      icon = ifelse(
+        test = input$mc1 == cAnswer, 
+        yes = "correct", 
+        no = "incorrect"
+      )
+    )
+      
+    #   renderUI({
+    #   if(!is.null(input$mc1) || length(input$mc1) != 0) {
+    #     if (input$mc1 == cAnswer) {
+    #       img(src = "check.png", width = 50, alt = "Correct.")
+    #     } else {
+    #       img(src = "cross.png", width = 50, alt = "Incorrect")
+    #     }
+    #   } else {
+    #     img(src = "cross.png", width = 50, alt = "Incorrect")
+    #   }
+    # })
   })
   
   #### PRINT NUMBER OF CORRECT ANSWERS####
