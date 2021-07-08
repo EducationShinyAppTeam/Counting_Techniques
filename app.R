@@ -176,51 +176,7 @@ ui <- list(
               )
             )
           ),
-          br(), 
-          h3("Binomial Probability: Exactly vs. At Most vs. At Least"), 
-          fluidRow(
-            box(
-              title = strong("Exactly"),
-              status = "primary",
-              collapsible = TRUE,
-              collapsed = FALSE,
-              width = 4,
-              p("The probability of obtaining exactly", tags$em("r"), "events 
-                in ", tags$em("n"), "trials = "), 
-              p("\\(P(X=r)=\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
-              p("where ", tags$em("p"), "is the probability of success"), 
-              br(), 
-              br()
-            ),
-            
-            box(
-              title = strong("At Most"),
-              status = "primary",
-              collapsible = TRUE,
-              collapsed = FALSE,
-              width = 4,
-              p("The probability of obtaining ", tags$strong("at most"), tags$em("r"), 
-                "from", tags$em("n"), "trials = "), 
-              p("\\(P(X\\le{r})=\\sum_{i=0}^r\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
-              p("where ", tags$em("p"), "is the probability of success"), 
-              br(), 
-              br()
-            ),
-            
-            box(
-              title = strong("At Least"),
-              status = "primary",
-              collapsible = TRUE,
-              collapsed = FALSE,
-              width = 4,
-              p("The probability of obtaining ", tags$strong("at least"), tags$em("r"), 
-                "from", tags$em("n"), "trials = "),
-              p("\\(P(X\\ge{r})=\\sum_{i=r}^n\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\) or"), 
-              p("\\(1-P(X\\le{r})\\)"),
-              p("where ", tags$em("p"), "is the probability of success")
-            )
-          ), 
-          
+        
           br(), 
           
           div(
@@ -243,182 +199,108 @@ ui <- list(
           h2("Explore the Concept"),
           tabsetPanel(
             ##### Tab Panel I'm Working On ----
-            tabPanel(
-              withMathJax(), 
-              title = "Different Scenarios", 
-              br(),
-              h3("Explore Different Scenarios"), 
-              p("Context 2: "), 
-              tags$ul(
-                p("a"), 
-                tags$li("Answer: \\({3}\\cdot{5}\\cdot{(4+1)}\\)"), ## Answer
-                tags$li("\\({3}\\cdot{5}\\cdot{4}\\)"), 
-                tags$li("\\([{3}\\cdot{5}]+[{3}\\cdot{5}\\cdot{(4+1)}]\\)"), 
-                tags$li("\\([{3}\\cdot{5}]+[{3}\\cdot{5}\\cdot{4}]\\)")
-              ), 
-              tags$ul(
-                p("b"), 
-                tags$li("\\([(2^3-1)\\cdot(2^5-1)\\cdot{2^4}] +
-                        [3\\cdot(\\binom{5}{1}\\cdot\\binom{5}{2})\\cdot{2^4}]\\)"), 
-                tags$li("\\([{2^3}\\cdot{2^5}\\cdot{2^4}] +
-                        [3\\cdot(\\binom{5}{1}+\\binom{5}{2})\\cdot{2^4}]\\)"), 
-                tags$li("Answer: \\([(2^3-1)\\cdot(2^5-1)\\cdot{2^4}] +
-                        [3\\cdot(\\binom{5}{1}+\\binom{5}{2})\\cdot{2^4}]\\)"), ## Answer
-                tags$li("\\([{3}\\cdot{5}\\cdot{4}]+[\\binom{2}{1}\\cdot(\\binom{5}{1}+\\binom{5}{2})\\cdot{4}]\\)")
-              ), 
-              tags$ul(
-                p("c"), 
-                tags$li("Answer: \\({3}\\cdot{5}\\cdot{(4+1)}\\)"), ## Answer
-                tags$li("\\({3}\\cdot{5}\\cdot{4}\\)"), 
-                tags$li("\\({1}\\cdot{2}\\cdot{(4+1)}\\)"), 
-                tags$li("\\({1}\\cdot{(\\binom{5}{1}+\\binom{5}{2})}\\cdot{(4+1)}\\)")
-              ), 
-              
-              p("Context 3: "), 
-              tags$ul(
-                p("a"),
-                tags$li("\\({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3}\\)"), 
-                tags$li("Answer: \\(5\\cdot[\\binom{3}{2}+3\\cdot(3\\cdot{4})]\\cdot{3}\\)"), ## Answer
-                tags$li("\\({5}\\cdot{15}\\cdot{3}\\)"), 
-                tags$li("\\(5\\cdot[\\binom{3}{2}\\cdot{3}\\cdot(3\\cdot{4})]\\cdot{3}\\)")
-              ), 
-              
-              tags$ul(
-                p("b"),
-                tags$li("\\(({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})^5\\)"), 
-                tags$li("\\(({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})\\cdot{5}\\)"), 
-                tags$li("\\((5\\cdot[\\binom{3}{2}+3\\cdot(3\\cdot{4})]\\cdot{3})\\cdot{5}\\)"), 
-                tags$li("Answer: \\((5\\cdot[\\binom{3}{2}+3\\cdot(3\\cdot{4})]\\cdot{3})^5\\)") ## Answer
-              ), 
-              
-              tags$ul(
-                p("c"),
-                tags$li("\\(\\dfrac{({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})!}
-                        {(({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})-5)!}\\)"), 
-                tags$li("Answer: \\(\\dfrac{(5\\cdot[\\binom{3}{2}+3\\cdot(3\\cdot{4})]\\cdot{3})!}
-                        {([5\\cdot[\\binom{3}{2}+3\\cdot(3\\cdot{4})]\\cdot{3}] - 5)!}\\)"), ##Answer
-                tags$li("\\(\\dfrac{({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})!}
-                        {{5!}(({5}\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})-5)!}\\)"), 
-                tags$li("\\(\\dfrac{(5\\cdot[\\binom{3}{2}+3\\cdot(3\\cdot{4})]\\cdot{3})!}
-                        {([5\\cdot[\\binom{3}{2}+3\\cdot(3\\cdot{4})]\\cdot{3}]\\cdot{5})!}\\)")
-              ), 
-              
-              
-              tags$ul(
-                p("d"),
-                tags$li("\\(\\binom{5\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3}}{5}\\)"), 
-                tags$li("Answer: \\(\\binom{5\\cdot[\\binom{3}{2}+3\\cdot(3\\cdot{4})]\\cdot{3}}{5}\\)"), ##Answer
-                tags$li("\\(_{(5\\cdot[\\binom{3}{2}+3(3\\cdot{4})]\\cdot{3})}P_{5}\\)"), 
-                tags$li("\\(_{(5\\cdot{3}\\cdot{3}\\cdot{4}\\cdot{3})}P_{5}\\)"), 
-              
-                
-              ), 
-              
-              tags$ul(
-                p("e"),
-                tags$li("Answer: \\(2^5\\)"), ##Answer
-                tags$li("\\(2\\cdot{2}\\cdot{1}\\)"), 
-                tags$li("\\(\\binom{5}{1}\\cdot{5}\\)"), 
-                tags$li("\\(2^5+2^5+1^5\\)")
-              ), 
-              
-              p("Context 4: "), 
-              tags$ul(
-                p("a"), 
-                tags$li("\\(\\binom{4+3+4}{1}\\)"), 
-                tags$li("\\((4^3)^4\\)"), 
-                tags$li("Answer: \\({4}\\cdot{3}\\cdot{4}\\)"), ## Answer
-                tags$li("\\(\\dfrac{(4\\cdot{3}\\cdot{4})!}{4!3!4!}\\)")
-              ), 
-              tags$ul(
-                p("b"), 
-                tags$li("\\(4[2+\\binom{6}{1}]\\)"), 
-                tags$li("\\(4[2+\\binom{4}{1}]\\)"), 
-                tags$li("Answer: \\([\\binom{12}{3}+\\binom{12}{2}\\cdot2]\\cdot{4^3}\\)"), ## Answer
-                tags$li("\\([2+\\binom{4}{1}]\\cdot{4^3}\\)")
-              ), 
-              
-              p("Context 5: "), 
-              tags$ul(
-                p("a"), 
-                tags$li("\\(15^4\\)"), 
-                tags$li("\\(4!\\)"), 
-                tags$li("\\(_{15}P_{4}\\)"), 
-                tags$li("Answer: \\(\\binom{15}{4}\\)") ## Answer
-              ), 
-              tags$ul(
-                p("b"), 
-                tags$li("\\(4[1+\\binom{14}{3}]\\)"), 
-                tags$li("Answer: \\(15\\cdot\\binom{14}{3} = \\binom{15}{4}\\cdot{4}\\)"), ## Answer
-                tags$li("\\(4\\cdot(15^4)\\)"), 
-                tags$li("\\(4[\\binom{4}{1} + \\binom{11}{3}]\\)")
-              ), 
-              
-              p("Context 6: "), 
-              tags$ul(
-                p("a"), 
-                tags$li("\\(6\\cdot\\binom{50}{1}\\)"), 
-                tags$li("\\(6\\cdot\\binom{50}{6}\\)"), 
-                tags$li("\\(300^6\\)"), 
-                tags$li("Answer: \\(\\binom{300}{6}\\)") ## Answer
-              ), 
-              tags$ul(
-                p("b"), 
-                tags$li("\\(6\\cdot\\binom{50}{1}\\)"), 
-                tags$li("\\(\\dfrac{\\binom{300}{6}}{6}\\)"), 
-                tags$li("Answer: \\(6\\cdot\\binom{50}{6}\\)"), ## Answer
-                tags$li("\\(50!\\cdot{49!}\\cdot{48}!\\cdot{47!}\\cdot{46!}\\)")
-              ), 
-              tags$ul(
-                p("c"), 
-                tags$li("\\(50\\cdot{49}\\cdot{48}\\cdot{47}+350\\cdot{349}\\)"), 
-                tags$li("\\([6\\cdot\\binom{50}{4}]\\cdot\\binom{350}{2}\\)"), 
-                tags$li("\\([6\\cdot\\binom{300}{4}]\\cdot\\binom{296}{2}\\)"), 
-                tags$li("Answer: \\([6\\cdot\\binom{50}{4}]\\cdot[\\binom{5}{2}\\cdot{50}\\cdot{50}]\\)") ## Answer
-              ), 
-              
-              tags$ul(
-                p("d"), 
-                tags$li("Answer: \\([6\\cdot\\binom{50}{4}][\\binom{5}{2}\\cdot{50}\\cdot{50}]+[6\\cdot\\binom{50}{5}][5\\cdot{50}]+[6\\cdot\\binom{50}{6}]\\)"), ##Answer
-                tags$li("\\(\\binom{50}{4}[\\binom{5}{2}\\cdot{50}\\cdot{50}]+\\binom{50}{5}[5\\cdot{50}]+\\binom{50}{6}\\)"), 
-                tags$li("\\([6\\cdot\\binom{50}{4}][\\binom{5}{2}\\cdot{50}\\cdot{50}]\\cdot[6\\cdot\\binom{50}{5}][5\\cdot{50}]\\cdot[6\\cdot\\binom{50}{6}]\\)"), 
-                tags$li("\\(\\binom{50}{4}[\\binom{5}{2}\\cdot{50}\\cdot{50}]\\cdot\\binom{50}{5}[5\\cdot{50}]\\cdot\\binom{50}{6}\\)"), 
-              ), 
-              
-              tags$ul(
-                p("e"), 
-                tags$li("\\(\\binom{300}{6}+([6\\cdot\\binom{50}{4}][\\binom{5}{2}\\cdot{50}\\cdot{50}]+[6\\cdot\\binom{50}{5}][5\\cdot{50}]+[6\\cdot\\binom{50}{6}])\\)"), 
-                tags$li("\\(\\binom{300}{6}-6\\cdot(50\\cdot{49}\\cdot{48}\\cdot{47})\\)"), 
-                tags$li("Answer: \\(\\binom{300}{6}–([6\\cdot\\binom{50}{4}][\\binom{5}{2}\\cdot{50}\\cdot{50}]+[6\\cdot\\binom{50}{5}][5\\cdot{50}]+[6\\cdot\\binom{50}{6}])\\)"), ##Answer
-                tags$li("\\([6\\cdot\\binom{50}{4}][\\binom{5}{2}\\cdot{50}\\cdot{50}]+[6\\cdot\\binom{50}{5}][5\\cdot{50}]+[6\\cdot\\binom{50}{6}]\\)"), 
-              )
-              
-            ), 
+            # tabPanel(
+            #   withMathJax(),
+            #   title = "Multiple Choice", 
+            #   fluidRow(
+            #     column(
+            #       width = 12,
+            #       wellPanel(
+            #         style = "background-color: #FFFFFF",
+            #         
+            #         h4("Context"),
+            #         uiOutput("context"), 
+            #         br(), 
+            #         h4("Question"), 
+            #         uiOutput("question"),
+            #         br(),
+            #         bsButton(
+            #           inputId = "hint",
+            #           label = "Hint",
+            #           icon = icon("question"),
+            #           size = "large", 
+            #           disabled = FALSE
+            #         ),
+            #         br(),
+            #         radioGroupButtons(
+            #           inputId = "mc1",
+            #           label = "Which expression addresses the question?",
+            #           status = "game",
+            #           direction = "vertical",
+            #           selected = character(0),
+            #           checkIcon = list(
+            #             yes = icon("check-square"),
+            #             no = icon("square-o")
+            #           ),
+            #           
+            #           choices = list(
+            #             # "Pick the expression below that best addresses the question.",
+            #             "\\(\\frac{1}{4}\\)",
+            #             "\\(\\frac{2}{4}\\)",
+            #             "\\(\\frac{3}{4}\\)",
+            #             "\\(\\frac{4}{4}\\)"
+            #           ),
+            #           width = "100%",
+            #           justified = FALSE,
+            #           individual = FALSE
+            #           
+            #           
+            #         ),
+            #         
+            #         #Paste hint instead of pop-up 
+            #         uiOutput("hintDisplay"),
+            #         br(),
+            #         
+            #         fluidRow(
+            #           column(
+            #             width = 3,
+            #             bsButton(
+            #               inputId = "submit",
+            #               label = "Submit",
+            #               size = "large",
+            #               style = "default",
+            #               disabled = FALSE
+            #             )
+            #           ),
+            #           column(
+            #             width = 4,
+            #             uiOutput("mark")
+            #           )
+            #         ),
+            #         br(),
+            #         bsButton(
+            #           inputId = "nextq",
+            #           label = "Next Question",
+            #           size = "large",
+            #           style = "default",
+            #           disabled = TRUE
+            #         ),
+            #         br(),
+            #         bsButton(
+            #           "restart",
+            #           "Restart",
+            #           size = "large",
+            #           style = "danger",
+            #           disabled = FALSE
+            #         )
+            #       )
+            #     )
+            #   ),
+            #   uiOutput("math1"),
+            #   uiOutput("math2")
+            # ), 
             
             tabPanel(
               withMathJax(),
-              title = "Multiple Choice", 
-              
-              fluidRow(
-                column(
-                  width = 12,
-                  wellPanel(
-                    style = "background-color: #FFFFFF",
-                    
-                    h4("Context"),
-                    uiOutput("context"), 
-                    br(), 
-                    h4("Question"), 
-                    uiOutput("question"),
-                    br(),
-                    bsButton(
-                      inputId = "hint",
-                      label = "Hint",
-                      icon = icon("question"),
-                      size = "large", 
-                      disabled = FALSE
-                    ),
-                    br(),
+              title = "Multiple Choice Layout", 
+              br(), 
+                h4("Question"),
+                uiOutput("context"), 
+                uiOutput("question"),
+                br(),
+                br(), 
+                fluidRow(
+                  column(width = 6, 
                     radioGroupButtons(
                       inputId = "mc1",
                       label = "Which expression addresses the question?",
@@ -429,7 +311,7 @@ ui <- list(
                         yes = icon("check-square"),
                         no = icon("square-o")
                       ),
-                      
+                     
                       choices = list(
                         # "Pick the expression below that best addresses the question.",
                         "\\(\\frac{1}{4}\\)",
@@ -437,34 +319,39 @@ ui <- list(
                         "\\(\\frac{3}{4}\\)",
                         "\\(\\frac{4}{4}\\)"
                       ),
-                      width = "100%",
                       justified = FALSE,
                       individual = FALSE
-                      
-                      
+                    ) 
+                  ), 
+                  column(width = 6, 
+                    bsButton(
+                      inputId = "hint",
+                      label = "Hint",
+                      icon = icon("question"),
+                      size = "large",
+                      disabled = FALSE
                     ),
-                    
-                    #Paste hint instead of pop-up 
                     uiOutput("hintDisplay"),
-                    br(),
-                    
-                    fluidRow(
-                      column(
-                        width = 3,
-                        bsButton(
-                          inputId = "submit",
-                          label = "Submit",
-                          size = "large",
-                          style = "default",
-                          disabled = FALSE
-                        )
-                      ),
-                      column(
-                        width = 4,
-                        uiOutput("mark")
-                      )
-                    ),
-                    br(),
+                    br()
+                  )
+                ), 
+                fluidRow(
+                  column(
+                    width = 3, 
+                      bsButton(
+                        inputId = "submit",
+                        label = "Submit",
+                        size = "large",
+                        style = "default",
+                        disabled = FALSE
+                      ), 
+                  ),
+                  column(
+                    width = 3,
+                    uiOutput("mark")
+                  ), 
+                  column(
+                    width = 3, 
                     bsButton(
                       inputId = "nextq",
                       label = "Next Question",
@@ -472,7 +359,9 @@ ui <- list(
                       style = "default",
                       disabled = TRUE
                     ),
-                    br(),
+                  ), 
+                  column(
+                    width = 3, 
                     bsButton(
                       "restart",
                       "Restart",
@@ -482,270 +371,11 @@ ui <- list(
                     )
                   )
                 )
-              ),
-              uiOutput("math1"),
-              uiOutput("math2")
             ), 
-            # tabPanel(
-            #   withMathJax(),
-            #   title = "Excel Sheet",
-            #   br(),
-            #   h3("Explore Different Scenarios"),
-            #   p("Context 2: "),
-            #   tags$ul(
-            #     p("a"),
-            #     tags$li("Answer: \({3}\cdot{5}\cdot{(4+1)}\)"), ## Answer
-            #     tags$li("\({3}\cdot{5}\cdot{4}\)"),
-            #     tags$li("\([{3}\cdot{5}]+[{3}\cdot{5}\cdot{(4+1)}]\)"),
-            #     tags$li("\([{3}\cdot{5}]+[{3}\cdot{5}\cdot{4}]\)")
-            #   ),
-            #   tags$ul(
-            #     p("b"),
-            #     tags$li("\([(2^3-1)\cdot(2^5-1)\cdot{2^4}] +
-            #             [3\cdot(_{5}C_{1}\cdot_{5}C_{2})\cdot{2^4}]\)"),
-            #     tags$li("\([(2^3)\cdot(2^5)\cdot{2^4}] +
-            #             [3\\cdot(_{5}C_{1}+_{5}C_{2})\cdot{2^4}]\)"),
-            #     tags$li("Answer: \([(2^3-1)\cdot(2^5-1)\cdot{2^4}] +
-            #             [3\cdot(_{5}C_{1}+_{5}C_{2})\cdot{2^4}]\)"), ## Answer
-            #     tags$li("\([{3}\cdot{5}\cdot{4}]+[_{3}C_{1}\cdot(_{5}C_{1}+_{5}C_{2})\cdot{4}]\)")
-            #   ),
-            #   tags$ul(
-            #     p("c"),
-            #     tags$li("Answer: \({3}\cdot{5}\cdot{(4+1)}\)"), ## Answer
-            #     tags$li("\({3}\cdot{5}\cdot{4}\)"),
-            #     tags$li("\({1}\cdot{2}\cdot{(4+1)}\)"),
-            #     tags$li("\({1}\cdot{(_{5}C_{1}+_{5}C_{2})}\cdot{(4+1)}\)")
-            #   ),
-            # 
-            #   p("Context 3: "),
-            #   tags$ul(
-            #     p("a"),
-            #     tags$li("\({5}\cdot{3}\cdot{3}\cdot{4}\cdot{3}\)"),
-            #     tags$li("Answer: \(5\cdot[_{3}C_{2}+3\cdot(3\cdot{4})]\cdot{3}\)"), ## Answer
-            #     tags$li("\({5}\cdot{15}\cdot{3}\)"),
-            #     tags$li("\(5\cdot[_{3}C_{2}\cdot{3}\cdot(3\cdot{4})]\cdot{3}\)")
-            #   ),
-            # 
-            #   tags$ul(
-            #     p("b"),
-            #     tags$li("\(({5}\cdot{3}\cdot{3}\cdot{4}\cdot{3})^5\)"),
-            #     tags$li("\(({5}\cdot{3}\cdot{3}\cdot{4}\cdot{3})\cdot{5}\)"),
-            #     tags$li("\((5\cdot[_{3}C_{2}+3\cdot(3\cdot{4})]\cdot{3})\cdot{5}\)"),
-            #     tags$li("Answer: \((5\cdot[_{3}C_{2}+3\cdot(3\cdot{4})]\cdot{3})^5\)") ## Answer
-            #   ),
-            # 
-            #   tags$ul(
-            #     p("c"),
-            #     tags$li("\(\dfrac{({5}\cdot{3}\cdot{3}\cdot{4}\cdot{3})!}
-            #             {(({5}\cdot{3}\cdot{3}\cdot{4}\cdot{3})-5)!}\)"),
-            #     tags$li("Answer: \(\dfrac{(5\cdot[_{3}C_{2}+3\cdot(3\cdot{4})]\cdot{3})!}
-            #             {([5\cdot[_{3}C_{2}+3\cdot(3\cdot{4})]\cdot{3}] - 5)!}\)"), ##Answer
-            #     tags$li("\(\dfrac{({5}\cdot{3}\cdot{3}\cdot{4}\cdot{3})!}
-            #             {{5!}(({5}\cdot{3}\cdot{3}\cdot{4}\cdot{3})-5)!}\)"), 
-            #     tags$li("\(\dfrac{(5\cdot[_{3}C_{2}+3\cdot(3\cdot{4})]\cdot{3})!}
-            #             {([5\cdot[_{3}C_{2}+3\cdot(3\cdot{4})]\cdot{3}]\cdot{5})!}\)")
-            #   ), 
-            # 
-            # tags$ul(
-            #   p("d"),
-            #   tags$li("\(\dfrac{(5\cdot{3}\cdot{3}\cdot{4}\cdot{3})!}
-            #             {5![(5\cdot{3}\cdot{3}\cdot{4}\cdot{3})-5]!}\)"), 
-            #   tags$li("Answer: \(\dfrac{(5\cdot[_{3}C_{2}+3\cdot(3\cdot{4})]\cdot{3})!}
-            #             {5!(5\cdot[_{3}C_{2}+3\cdot(3\cdot{4})]\cdot{3})-5)!}\)"), ##Answer
-            #   tags$li("\(\dfrac{5\cdot[_{3}C_{2}+3(3\cdot{4}]\cdot{3})!}
-            #             {(5\cdot[_{3}C_{2}+3\cdot(3\cdot{4})\cdot{3})-5)!}\)"), 
-            #   tags$li("\(\dfrac{(5\cdot{3}\cdot{3}\cdot{4}\cdot{3})!}
-            #             {[(5\cdot{3}\cdot{3}\cdot{4}\cdot{3})-5]!}\)"), 
-            #   ),
-            # 
-            #   tags$ul(
-            #     p("e"),
-            #     tags$li("Answer: \(2^5\)"), ##Answer
-            #     tags$li("\(2\cdot{2}\cdot{1}\)"),
-            #     tags$li("\(_{5}C_{1}\cdot{5}\)"),
-            #     tags$li("\(2^5+2^5+1^5\)")
-            #   ),
-            # 
-            #   p("Context 4: "),
-            #   tags$ul(
-            #     p("a"),
-            #     tags$li("\(_{4+3+4}C_{1}\)"),
-            #     tags$li("\((4^3)^4\)"),
-            #     tags$li("Answer: \({4}\cdot{3}\cdot{4}\)"), ## Answer
-            #     tags$li("\(\dfrac{(4\cdot{3}\cdot{4})!}{4!3!4!}\)")
-            #   ),
-            #   tags$ul(
-            #     p("b"),
-            #     tags$li("\(4(2+_{6}C_{1})\)"),
-            #     tags$li("\(4(2+_{4}C_{1})\)"),
-            #     tags$li("Answer: \([_{12}C_{3}+_{12}C_{2}\cdot2]\cdot{4^3}\)"), ## Answer
-            #     tags$li("\((2+_{4}C_{1})\cdot{4^3}\)")
-            #   ),
-            # 
-            #   p("Context 5: "),
-            #   tags$ul(
-            #     p("a"),
-            #     tags$li("\(15^4\)"),
-            #     tags$li("\(4!\)"),
-            #     tags$li("\(_{15}P_{4}\) or \(\dfrac{15!}{(15-4)!}\)"),
-            #     tags$li("Answer: \(_{15}C_{4}\) or \(\dfrac{15!}{4!(15-4)!}\)") ## Answer
-            #   ),
-            #   tags$ul(
-            #     p("b"),
-            #     tags$li("\(4(1+_{14}C_{3})\)"),
-            #     tags$li("Answer: \(15\cdot_{14}C_{3} = _{15}C_{4}\cdot{4})\)"), ## Answer
-            #     tags$li("\(4\cdot(15^4)\)"),
-            #     tags$li("\(4(_{4}C_{1} + _{11}C_{3})\)")
-            #   ),
-            # 
-            #   p("Context 6: "),
-            #   tags$ul(
-            #     p("a"),
-            #     tags$li("\(6\cdot_{50}C_{1}\)"),
-            #     tags$li("\(6\cdot_{50}C_{6}\)"),
-            #     tags$li("\(300^6\)"),
-            #     tags$li("Answer: \(_{300}C_{6}\)") ## Answer
-            #   ),
-            #   tags$ul(
-            #     p("b"),
-            #     tags$li("\(6\cdot_{50}C_{1}\)"),
-            #     tags$li("\(\dfrac{_{300}C_{6}}{6}\)"),
-            #     tags$li("Answer: \(6\cdot_{50}C_{6}\)"), ## Answer
-            #     tags$li("\(50!\cdot{49!}\cdot{48}!\cdot{47!}\cdot{46!}\)")
-            #   ),
-            #   tags$ul(
-            #     p("c"),
-            #     tags$li("\(50\cdot{49}\cdot{48}\cdot{47}+350\cdot{349}\)"),
-            #     tags$li("\([6\cdot(_{50}C_{4})]\cdot[_{350}C_{2}]\)"),
-            #     tags$li("\([6\cdot(_{300}C_{4})]\cdot[_{296}C_{2}]\)"),
-            #     tags$li("Answer: \([6\cdot(_{50}C_{4})]\cdot[_{5}C_{2}\cdot{50}\cdot{50}]\)") ## Answer
-            #   ),
-            # 
-            # tags$ul(
-            #   p("d"), 
-            #   tags$li("Answer: \([6\cdot{_{50}C_{4}}][_{5}C_{2}\cdot{50}\cdot{50}]+[6\cdot{_{50}C_{5}}][5\cdot{50}]+[6\cdot{_{50}C_{6}}]\)"), ##Answer
-            #   tags$li("\([_{50}C_{4}][_{5}C_{2}\cdot{50}\cdot{50}]+[_{50}C_{5}][5\cdot{50}]+[_{50}C_{6}]\)"), 
-            #   tags$li("\([6\cdot{_{50}C_{4}}][_{5}C_{2}\cdot{50}\cdot{50}]\cdot[6\cdot{_{50}C_{5}}][5\cdot{50}]\cdot[6\cdot{_{50}C_{6}}]\)"), 
-            #   tags$li("\([_{50}C_{4}][_{5}C_{2}\cdot{50}\cdot{50}]\cdot[_{50}C_{5}][5\cdot{50}]\cdot[_{50}C_{6}]\)"), 
-            # ), 
-            # 
-            # tags$ul(
-            #   p("e"), 
-            #   tags$li("\(_{300}C_{6}+([6\cdot{_{50}C_{4}}][_{5}C_{2}\cdot{50}\cdot{50}]+[6\cdot{_{50}C_{5}}][5\cdot{50}]+[6\cdot{_{50}C_{6}}])\)"), 
-            #   tags$li("\(_{300}C_{6}-6\cdot(50\cdot{49}\cdot{48}\cdot{47})\)"), 
-            #   tags$li("Answer: \(_{300}C_{6}–([6\\cdot{_{50}C_{4}}][_{5}C_{2}\cdot{50}\cdot{50}]+[6\cdot{_{50}C_{5}}][5\cdot{50}]+[6\cdot{_{50}C_{6}}])\)"), ##Answer
-            #   tags$li("\([6\cdot{_{50}C_{4}}][_{5}C_{2}\cdot{50}\cdot{50}]+[6\cdot{_{50}C_{5}}][5\cdot{50}]+[6\cdot{_{50}C_{6}}]\)"), 
-            # ), 
-            
-            # 
-            # ),
-            
-            
-            tabPanel(
-              title = "Example Questions", 
-              br(),
-              h3("Example Problems"), 
-              fluidRow(
-                box(
-                  title = strong("Combinations Example"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 12,
-                  p("There are five different types of cheese that one can  use 
-                  for a cheese platter. However they can only choose three to go 
-                  on the plate. How many ways can three cheeses be chosen from 
-                  the five types?"), 
-                  p("Answer: \\(_{5}C_{3}=\\dfrac{5!}{3!(5-3)!}=10\\)") 
-                ),
-                
-                box(
-                  title = strong("Permutations Example"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 12,
-                  p("Choosing from the 6 letters ABCDEF, how many ways can three 
-                  letters be arranged?"), 
-                  p("Answer: \\(_{6}P_{3}=\\dfrac{6!}{(6-3)!}=120\\)"), 
-                  p(tags$b("Note: "),"Notice we must use the formula for permutations
-                  and not combinations because ", tags$b("order matters"), "in 
-                  this situation. For permutations, the group \\(ABC\\) 
-                  is different from \\(CAB\\). If this was a combination
-                  quesion, \\(ABC\\) and \\(CAB\\) would be considered one combination.")
-                ), 
-                
-                box(
-                  title = strong("Distinguishable Permutations Example"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 12,
-                  p("How many ordered arrangements are there of the word 'Bookkeeper'?"), 
-                  p("Answer: \\(\\binom{10}{(1)(2)(2)(3)(1)(1)}=\\dfrac{10!}{(1!)(2!)(2!)(3!)(1!)(1!)}\\)"), #Calculate this answer
-                  tags$ul(
-                    tags$li("There is one letter \\(B\\)"), 
-                    tags$li("There are two letter \\(O's\\)"),
-                    tags$li("There are two letter \\(K's\\)"), 
-                    tags$li("There are three letters \\(E's\\)"), 
-                    tags$li("There is one letter \\(P\\)"), 
-                    tags$li("There is one letter \\(R\\)")
-                  )
-                ),
-                
-                box(
-                  title = strong("Multiplication Principle Example"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 12,
-                  p("If there are 9 appetizers, 12 entrees, and 5 desserts, how many
-                  meals can you make?"),
-                  p("Answer:", tags$em(tags$strong("Number of Meals")),"\\(=(9)\\times(12)\\times(5)=540\\)")
-                  
-                  
-                ),
-                
-                box(
-                  title = strong("Wording Context Change Example"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 12,
-                  p("The probability that a person has traveled out of the country 
-                  is 35%. Out of the 70 people chosen:"), 
-                  tags$ol(
-                    tags$li("What is the probability that", tags$strong("exactly"), 
-                            "21 people have traveled outside of the country?",
-                            tags$ul(
-                              tags$li("\\(P(X=21)=\\binom{70}{21}\\cdot(0.35^{21})
-                                  \\cdot(0.65^{70-21})=0.69845\\)")
-                            )),
-                    br(), 
-                    tags$li("What is the probability that", tags$strong("at most"), 
-                            "21 people have traveled outside of the country?",
-                            tags$ul(
-                              tags$li("\\(P(X\\le{21})=\\sum_{i=0}^{21}\\binom{70}{i}
-                                  \\cdot(0.35^{i})\\cdot(0.65^{70-i})=0.22787\\)")
-                            )),
-                    br(),
-                    tags$li("What is the probability that", tags$strong("at least"), 
-                            "21 people have traveled outside of the country?", 
-                            tags$ul(
-                              tags$li("\\(P(X\\ge{21})=\\sum_{i=21}^{70}\\binom{70}{i}
-                                  \\cdot(0.35^{i})\\cdot(0.65^{70-i})=0.84197\\)"), 
-                              #tags$li(tags$strong("OR")), 
-                              tags$li("\\(1-P(X\\le{21})=\\sum_{i=0}^{20}\\binom{70}{i}
-                                  \\cdot(0.35^{i})\\cdot(0.65^{70-i})=0.84197\\)")
-                              
-                            ))
-                  )
-                )
-              )
-              
-            )
-          ),
-          div(
+            uiOutput("math1"),
+            uiOutput("math2")
+          ), 
+        div(
             style = "text-align: center",
             bsButton(
               inputId = "goExp",
@@ -755,8 +385,9 @@ ui <- list(
               style = "default"
             )
           )
-        ),
-        
+        ), 
+  
+       
         #### Set up a Game Page ----
         tabItem(
           tabName = "game",
@@ -893,8 +524,7 @@ server <- function(input, output, session) {
     mistake = 0,
     correct = 0
   )
-  #hint <- as.matrix(bank[1:nrow(bank), 10])
-  
+
   # Reset button
   observeEvent(input$restart, {
     updateButton(
@@ -1147,9 +777,6 @@ server <- function(input, output, session) {
   observeEvent(input$submit, {
     letterAnswer <- bank[id, "Answer"]
     cAnswer <- bank[id, letterAnswer]
-    #print(cAnswer)
-    #print(bank[id, cAnswer])
-    #print(input$mc1)
     WIN <- FALSE
     if(!is.null(input$mc1) || length(input$mc1) != 0){
       success <- input$mc1 == cAnswer
@@ -1244,18 +871,6 @@ server <- function(input, output, session) {
         no = "incorrect"
       )
     )
-      
-    #   renderUI({
-    #   if(!is.null(input$mc1) || length(input$mc1) != 0) {
-    #     if (input$mc1 == cAnswer) {
-    #       img(src = "check.png", width = 50, alt = "Correct.")
-    #     } else {
-    #       img(src = "cross.png", width = 50, alt = "Incorrect")
-    #     }
-    #   } else {
-    #     img(src = "cross.png", width = 50, alt = "Incorrect")
-    #   }
-    # })
   })
   
   #### PRINT NUMBER OF CORRECT ANSWERS####
