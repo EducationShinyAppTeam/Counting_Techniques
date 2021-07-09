@@ -199,109 +199,8 @@ ui <- list(
           withMathJax(),
           h2("Explore the Concept"),
           tabsetPanel(
-            ##### Tab Panel I'm Working On ----
-            # tabPanel(
-            #   withMathJax(),
-            #   title = "Multiple Choice", 
-            #   fluidRow(
-            #     column(
-            #       width = 12,
-            #       wellPanel(
-            #         style = "background-color: #FFFFFF",
-            #         
-            #         h4("Context"),
-            #         uiOutput("context"), 
-            #         br(), 
-            #         h4("Question"), 
-            #         uiOutput("question"),
-            #         br(),
-            #         bsButton(
-            #           inputId = "hint",
-            #           label = "Hint",
-            #           icon = icon("question"),
-            #           size = "large", 
-            #           disabled = FALSE
-            #         ),
-            #         br(),
-            #         radioGroupButtons(
-            #           inputId = "mc1",
-            #           label = "Which expression addresses the question?",
-            #           status = "game",
-            #           direction = "vertical",
-            #           selected = character(0),
-            #           checkIcon = list(
-            #             yes = icon("check-square"),
-            #             no = icon("square-o")
-            #           ),
-            #           
-            #           choices = list(
-            #             # "Pick the expression below that best addresses the question.",
-            #             "\\(\\frac{1}{4}\\)",
-            #             "\\(\\frac{2}{4}\\)",
-            #             "\\(\\frac{3}{4}\\)",
-            #             "\\(\\frac{4}{4}\\)"
-            #           ),
-            #           width = "100%",
-            #           justified = FALSE,
-            #           individual = FALSE
-            #           
-            #           
-            #         ),
-            #         
-            #         #Paste hint instead of pop-up 
-            #         uiOutput("hintDisplay"),
-            #         br(),
-            #         
-            #         fluidRow(
-            #           column(
-            #             width = 3,
-            #             bsButton(
-            #               inputId = "submit",
-            #               label = "Submit",
-            #               size = "large",
-            #               style = "default",
-            #               disabled = FALSE
-            #             )
-            #           ),
-            #           column(
-            #             width = 4,
-            #             uiOutput("mark")
-            #           )
-            #         ),
-            #         br(),
-            #         bsButton(
-            #           inputId = "nextq",
-            #           label = "Next Question",
-            #           size = "large",
-            #           style = "default",
-            #           disabled = TRUE
-            #         ),
-            #         br(),
-            #         bsButton(
-            #           "restart",
-            #           "Restart",
-            #           size = "large",
-            #           style = "danger",
-            #           disabled = FALSE
-            #         )
-            #       )
-            #     )
-            #   ),
-            #   uiOutput("math1"),
-            #   uiOutput("math2")
-            # ), 
-            
             tabPanel(
               withMathJax(),
-              tags$head(
-                tags$style(
-                  HTML(
-                    ".MathJax {
-                      font-size: 1em !important;
-                    }"
-                  )
-                )
-              ),
               title = "Multiple Choice Layout", 
               br(), 
                 h4("Question"),
@@ -385,32 +284,19 @@ ui <- list(
                     width = 2, 
                     uiOutput("mark")
                   )
-                ), 
+                ),
+              fluidRow(
+                column(
+                  width = 12, 
+                  br(), 
+                  uiOutput("feedback")
+                )
                 
-              
-                  # column(
-                  #   width = 3, 
-                  #   bsButton(
-                  #     inputId = "nextq",
-                  #     label = "Next Question",
-                  #     size = "large",
-                  #     style = "default",
-                  #     disabled = TRUE
-                  #   ),
-                  # ), 
-                  # column(
-                  #   width = 3, 
-                  #   bsButton(
-                  #     "restart",
-                  #     "Restart",
-                  #     size = "large",
-                  #     style = "danger",
-                  #     disabled = FALSE
-                  #   )
-                  # )
-                ), 
-            uiOutput("math1"),
-            uiOutput("math2")
+              ), 
+              uiOutput("math1"),
+              uiOutput("math2")
+              ) 
+            
             ), 
           br(), 
           br(),
@@ -492,7 +378,6 @@ ui <- list(
 
 # Define server logic ----
 server <- function(input, output, session) {
-  withMathJax()
   ## Set up Info button ----
   observeEvent(
     eventExpr = input$info,
@@ -529,9 +414,6 @@ server <- function(input, output, session) {
   })
   
   ###Explore Page Practice ----
-  ##### Variables starting value---- 
-  selected <<- c()
-  correct_answer <<- c()
   
   withBusyIndicatorServer <- function(buttonId, expr) {
     # UX stuff: show the "busy" message, hide the other messages, disable the button
@@ -561,11 +443,6 @@ server <- function(input, output, session) {
   ##### Reading in Questions ----
   questionBank <- read.csv("exploreQuestions.csv", stringsAsFactors = FALSE)
   Qs_array <- c(1:nrow(questionBank))
-  value <- reactiveValues(
-    index = 1,
-    mistake = 0,
-    correct = 0
-  )
 
   # Reset button
   observeEvent(input$restart, {
@@ -588,15 +465,7 @@ server <- function(input, output, session) {
     Qs_array <<- c(1:Qs)
     id <- 1
     
-    GAME_OVER <<- FALSE
-    
     output$question <- renderUI({
-      withMathJax()
-      hint <<- withMathJax(questionBank[id, 10])
-      return(questionBank[id, 5])
-    })
-    
-    output$context <- renderUI({
       withMathJax()
       hint <<- withMathJax(questionBank[id, 10])
       return(paste(questionBank[id, 4], questionBank[id, 5]))
@@ -606,6 +475,12 @@ server <- function(input, output, session) {
       withMathJax()
       hint <<- withMathJax(questionBank[id, 10])
       return(questionBank[id, 10])
+    })
+    
+    output$feedback <- renderUI({
+      withMathJax()
+      hint <<- withMathJax(questionBank[id, 10])
+      return(withMathJax(questionBank[id, 11]))
     })
     
     updateRadioGroupButtons(
@@ -621,7 +496,6 @@ server <- function(input, output, session) {
         yes = icon("check-square"),
         no = icon("square-o")
       ),
-      status = "game"
     )
     output$math1 <- renderUI({
       withMathJax()
@@ -638,6 +512,7 @@ server <- function(input, output, session) {
   
   # Print out a question
   output$question <- renderUI({
+    withMathJax()
     id <<- sample(Qs_array, 1, replace = FALSE, prob = NULL)
     Qs_array <<- Qs_array[!Qs_array %in% id]
     updateRadioGroupButtons(
@@ -662,17 +537,14 @@ server <- function(input, output, session) {
       withMathJax()
     })
     hint <<- withMathJax(questionBank[id, 10])
-    return(withMathJax(questionBank[id, 5]))
+    return(withMathJax(paste(questionBank[id, 4], questionBank[id, 5])))
   })
   
-  output$context <- renderUI({
-    withMathJax()
-    hint <<- withMathJax(questionBank[id, 10])
-    return(questionBank[id, 4])
-  })
+  
   
   ### NEXT QUESTION BUTTON###
   observeEvent(input$nextq, {
+    withMathJax()
     if (length(Qs_array) > 1) {
       id <<- sample(Qs_array, 1, replace = FALSE, prob = NULL)
       Qs_array <<- Qs_array[!Qs_array %in% id]
@@ -680,11 +552,9 @@ server <- function(input, output, session) {
       withBusyIndicatorServer("nextq", {
         updateButton(session, "submit", disabled = FALSE)
         output$question <- renderUI({
-          return(withMathJax(questionBank[id, 5]))
+          return(paste(questionBank[id, 4], questionBank[id, 5]))
         })
-        output$context <- renderUI({
-          return(withMathJax(questionBank[id, 4]))
-        })
+        
         updateRadioGroupButtons(
           session, "mc1",
           selected = character(0),
@@ -715,6 +585,9 @@ server <- function(input, output, session) {
       output$hintDisplay <- renderUI({
         return(NULL)
       })
+      output$feedback <- renderUI({
+        return(NULL)
+      })
     }
     else if (length(Qs_array) == 1) {
       id <<- Qs_array[1]
@@ -722,11 +595,9 @@ server <- function(input, output, session) {
       hint <<- questionBank[id, 10]
       withBusyIndicatorServer("nextq", {
         output$question <- renderUI({
-          return(withMathJax(questionBank[id, 5]))
+          return(paste(questionBank[id, 4], questionBank[id, 5]))
         })
-        output$context <- renderUI({
-          return(withMathJax(questionBank[id, 4]))
-        })
+        
         updateButton(
           session = session, 
           inputId = "submit", 
@@ -745,7 +616,6 @@ server <- function(input, output, session) {
             yes = icon("check-square"),
             no = icon("square-o")
           ),
-          status = "game"
         )
         output$math1 <- renderUI({
           withMathJax()
@@ -760,6 +630,9 @@ server <- function(input, output, session) {
       
       ##HINT###
       output$hintDisplay <- renderUI({
+        return(NULL)
+      })
+      output$feedback <- renderUI({
         return(NULL)
       })
     }
@@ -786,10 +659,12 @@ server <- function(input, output, session) {
       output$question <- renderUI({
         return(NULL)
       })
-      output$context <- renderUI({
+      
+      output$hintDisplay <- renderUI({
         return(NULL)
       })
-      output$hintDisplay <- renderUI({
+      
+      output$feedback <- renderUI({
         return(NULL)
       })
       updateRadioGroupButtons(
@@ -818,28 +693,15 @@ server <- function(input, output, session) {
   
   ### SUBMIT BUTTON###
   observeEvent(input$submit, {
+    withMathJax()
     letterAnswer <- questionBank[id, "Answer"]
     cAnswer <- questionBank[id, letterAnswer]
-    WIN <- FALSE
-    if(!is.null(input$mc1) || length(input$mc1) != 0){
-      success <- input$mc1 == cAnswer
-    } else {
-      success <- FALSE
-    }
-    
-    if (success) {
-      # print("correct")
-      value$correct <- value$correct + 1
-      if (value$correct == 12) {
-        WIN <- TRUE
-        GAME_OVER <<- TRUE
-        sendSweetAlert(
-          session = session,
-          title = "Success:",
-          type = "success",
-          closeOnClickOutside = TRUE,
-          h4("Congrats! You Win! Please click Restart to start over.")
-        )
+    mc1Length <- length(input$mc1)
+    print(mc1Length)
+    print(letterAnswer)
+    print(cAnswer)
+    if(!is.null(input$mc1)){
+        input$mc1 != cAnswer
         updateButton(
           session = session, 
           inputId = "submit", 
@@ -847,95 +709,74 @@ server <- function(input, output, session) {
         updateButton(
           session = session, 
           inputId = "nextq", 
-          disabled = TRUE)
+          disabled = FALSE)
         updateButton(
           session = session, 
           inputId = "restart", 
           disabled = FALSE)
-        # output$hintDisplay <- renderUI({
-        #   return(NULL)
-        # })
+        
+        output$mark <- renderIcon(
+          icon = ifelse(
+            test = input$mc1 == cAnswer, 
+            yes = "correct", 
+            no = "incorrect"
+          )
+        )
+    }
+    else {
+      updateButton(
+        session = session, 
+        inputId = "submit", 
+        disabled = TRUE)
+      updateButton(
+        session = session, 
+        inputId = "nextq", 
+        disabled = FALSE)
+      updateButton(
+        session = session, 
+        inputId = "restart", 
+        disabled = FALSE)
+      
+      output$mark <- renderIcon(
+        icon = ifelse(
+          test = input$mc1 == cAnswer, 
+          yes = "correct", 
+          no = "incorrect"
+        )
+      )
+    }
+  
+    ### PRINT HINTS###
+    observeEvent(
+      eventExpr = input$hint, 
+      handlerExpr = {
+        output$math1 <- renderUI({
+          withMathJax()
+        })
+        output$math2 <- renderUI({
+          withMathJax()
+        })
+        withMathJax()
+        output$hintDisplay <- renderUI({
+          p(tags$b("Hint:"), questionBank[id, 10])
+        })
+      })
+      
+    ### FEEDBACK###
+    output$feedback <- renderUI({
+      withMathJax()
+      letterAnswer <- questionBank[id, "Answer"]
+      cAnswer <- questionBank[id, letterAnswer]
+      if (input$mc1 == cAnswer) {
+        p("CORRECT!", br(), withMathJax(questionBank[id, 11]))
       }
       else {
-        updateButton(
-          session = session, 
-          inputId = "submit", 
-          disabled = TRUE)
-        updateButton(
-          session = session, 
-          inputId = "nextq", 
-          disabled = FALSE)
-        
-        
+        p(strong("Answer:"), br(), questionBank[id, 12], 
+          br(), strong("Explanation:"), br(),  withMathJax(questionBank[id, 11]))
       }
-    } else {
-      # print("wrong")
-      value[["mistake"]] <<- value[["mistake"]] + 1
-      if (value[["mistake"]] == 4) {
-        WIN <- FALSE
-        GAME_OVER <<- TRUE
-        sendSweetAlert(
-          session = session,
-          title = "Lost:",
-          type = "error",
-          closeOnClickOutside = TRUE,
-          h4("You lost. Please click Restart to start over")
-        )
-        updateButton(
-          session = session, 
-          inputId = "submit", 
-          disabled = TRUE)
-        updateButton(
-          session = session, 
-          inputId = "nextq", 
-          disabled = TRUE)
-        updateButton(
-          session = session, 
-          inputId = "restart",
-          disabled = FALSE)
-        
-      } else {
-        updateButton(
-          session = session, 
-          inputId = "submit", 
-          disabled = TRUE)
-        updateButton(
-          session = session, 
-          inputId = "nextq",
-          disabled = FALSE)
-      }
-    }
-    
-    
-    output$mark <- renderIcon(
-      icon = ifelse(
-        test = input$mc1 == cAnswer, 
-        yes = "correct", 
-        no = "incorrect"
-      )
-    )
-  })
-  
-  #### PRINT NUMBER OF CORRECT ANSWERS####
-  output$correct <- renderUI({
-    paste("Number of correct answers:", value$correct)
-  })
-  
-  ### PRINT HINTS###
-  observeEvent(
-    eventExpr = input$hint, 
-    handlerExpr = {
-      output$math1 <- renderUI({
-        withMathJax()
-      })
-      output$math2 <- renderUI({
-        withMathJax()
-      })
-      withMathJax()
-      output$hintDisplay <- renderUI({
-        p(tags$b("Hint:"), questionBank[id, 10])
-      })
     })
+  })
+  
   
 }
 # Boast App Call ----
