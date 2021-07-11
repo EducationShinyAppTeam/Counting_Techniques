@@ -414,7 +414,6 @@ server <- function(input, output, session) {
   })
   
   ###Explore Page Practice ----
-  
   withBusyIndicatorServer <- function(buttonId, expr) {
     # UX stuff: show the "busy" message, hide the other messages, disable the button
     loadingEl <- sprintf("[data-for-btn=%s] .btn-loading-indicator", buttonId)
@@ -467,20 +466,20 @@ server <- function(input, output, session) {
     
     output$question <- renderUI({
       withMathJax()
-      hint <<- withMathJax(questionBank[id, 10])
-      return(paste(questionBank[id, 4], questionBank[id, 5]))
+      hint <<- withMathJax(questionBank[id, "Hint"])
+      return(paste(questionBank[id, "Scenario"], questionBank[id, "Question"]))
     })
     
     output$hint <- renderUI({
       withMathJax()
-      hint <<- withMathJax(questionBank[id, 10])
-      return(questionBank[id, 10])
+      hint <<- withMathJax(questionBank[id, "Hint"])
+      return(questionBank[id, "Hint"])
     })
     
     output$feedback <- renderUI({
       withMathJax()
-      hint <<- withMathJax(questionBank[id, 10])
-      return(withMathJax(questionBank[id, 11]))
+      hint <<- withMathJax(questionBank[id, "Hint"])
+      return(withMathJax(questionBank[id, "Feedback"]))
     })
     
     updateRadioGroupButtons(
@@ -536,11 +535,9 @@ server <- function(input, output, session) {
     output$math2 <- renderUI({
       withMathJax()
     })
-    hint <<- withMathJax(questionBank[id, 10])
-    return(withMathJax(paste(questionBank[id, 4], questionBank[id, 5])))
+    hint <<- withMathJax(questionBank[id, "Hint"])
+    return(withMathJax(paste(questionBank[id, "Scenario"], questionBank[id, "Question"])))
   })
-  
-  
   
   ### NEXT QUESTION BUTTON###
   observeEvent(input$nextq, {
@@ -548,11 +545,11 @@ server <- function(input, output, session) {
     if (length(Qs_array) > 1) {
       id <<- sample(Qs_array, 1, replace = FALSE, prob = NULL)
       Qs_array <<- Qs_array[!Qs_array %in% id]
-      hint <<- questionBank[id, 10]
+      hint <<- questionBank["Hint"]
       withBusyIndicatorServer("nextq", {
         updateButton(session, "submit", disabled = FALSE)
         output$question <- renderUI({
-          return(paste(questionBank[id, 4], questionBank[id, 5]))
+          return(paste(questionBank[id, "Scenario"], questionBank[id, "Question"]))
         })
         
         updateRadioGroupButtons(
@@ -592,10 +589,10 @@ server <- function(input, output, session) {
     else if (length(Qs_array) == 1) {
       id <<- Qs_array[1]
       Qs_array <<- Qs_array[!Qs_array %in% id]
-      hint <<- questionBank[id, 10]
+      hint <<- questionBank[id, "Hint"]
       withBusyIndicatorServer("nextq", {
         output$question <- renderUI({
-          return(paste(questionBank[id, 4], questionBank[id, 5]))
+          return(paste(questionBank[id, "Scenario"], questionBank[id, "Question"]))
         })
         
         updateButton(
@@ -700,8 +697,8 @@ server <- function(input, output, session) {
     print(mc1Length)
     print(letterAnswer)
     print(cAnswer)
-    if(!is.null(input$mc1)){
-        input$mc1 != cAnswer
+    if(length(input$mc1) == 0){
+        answer = "E"
         updateButton(
           session = session, 
           inputId = "submit", 
@@ -717,13 +714,14 @@ server <- function(input, output, session) {
         
         output$mark <- renderIcon(
           icon = ifelse(
-            test = input$mc1 == cAnswer, 
+            test = answer == cAnswer, 
             yes = "correct", 
             no = "incorrect"
           )
         )
     }
-    else {
+    else{
+      input$mc1 == input$mc1
       updateButton(
         session = session, 
         inputId = "submit", 
@@ -758,7 +756,7 @@ server <- function(input, output, session) {
         })
         withMathJax()
         output$hintDisplay <- renderUI({
-          p(tags$b("Hint:"), questionBank[id, 10])
+          p(tags$b("Hint:"), questionBank[id, "Hint"])
         })
       })
       
@@ -767,17 +765,25 @@ server <- function(input, output, session) {
       withMathJax()
       letterAnswer <- questionBank[id, "Answer"]
       cAnswer <- questionBank[id, letterAnswer]
-      if (input$mc1 == cAnswer) {
-        p("CORRECT!", br(), withMathJax(questionBank[id, 11]))
+      if(length(input$mc1) == 0){
+        answer = "E"
       }
       else {
-        p(strong("Answer:"), br(), questionBank[id, 12], 
-          br(), strong("Explanation:"), br(),  withMathJax(questionBank[id, 11]))
+        answer = input$mc1
+      }
+      if (answer == cAnswer) {
+        p("CORRECT!", br(), withMathJax(questionBank[id, "Feedback"]))
+      }
+      else if (answer == "E"){
+        p(strong("Answer:"), br(), questionBank[id, "Answer"], 
+        br(), strong("Explanation:"), br(),  withMathJax(questionBank[id, "Feedback"]))
+      }
+      else{
+        p(strong("Answer:"), br(), questionBank[id, "Answer"], 
+        br(), strong("Explanation:"), br(),  withMathJax(questionBank[id, "Feedback"]))
       }
     })
   })
-  
-  
 }
 # Boast App Call ----
 boastUtils::boastApp(ui = ui, server = server)
