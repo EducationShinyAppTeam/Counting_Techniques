@@ -223,7 +223,7 @@ ui <- list(
                   )
                 ), 
                 fluidRow(
-                  column(width = 8, 
+                  column(width = 12, 
                     radioGroupButtons(
                       inputId = "mc1",
                       label = tags$b("Which expression addresses the question?"),
@@ -442,7 +442,11 @@ server <- function(input, output, session) {
   ##### Reading in Questions ----
   questionBank <- read.csv("exploreQuestions.csv", stringsAsFactors = FALSE)
   Qs_array <- c(1:nrow(questionBank))
-
+  
+  Qs <<- nrow(questionBank)
+  Qs_array <<- c(1:Qs)
+  id <- 1
+  
   # Reset button
   observeEvent(input$restart, {
     withMathJax()
@@ -460,10 +464,6 @@ server <- function(input, output, session) {
       disabled = FALSE)
     
     
-    Qs <<- nrow(questionBank)
-    Qs_array <<- c(1:Qs)
-    id <- 1
-    
     output$question <- renderUI({
       withMathJax()
       hint <<- withMathJax(questionBank[id, "Hint"])
@@ -474,12 +474,6 @@ server <- function(input, output, session) {
       withMathJax()
       hint <<- withMathJax(questionBank[id, "Hint"])
       return(questionBank[id, "Hint"])
-    })
-    
-    output$feedback <- renderUI({
-      withMathJax()
-      hint <<- withMathJax(questionBank[id, "Hint"])
-      return(withMathJax(questionBank[id, "Feedback"]))
     })
     
     updateRadioGroupButtons(
@@ -495,6 +489,7 @@ server <- function(input, output, session) {
         yes = icon("check-square"),
         no = icon("square-o")
       ),
+      status = "game"
     )
     output$math1 <- renderUI({
       withMathJax()
@@ -505,8 +500,7 @@ server <- function(input, output, session) {
     output$mark <- renderUI({
       img(src = NULL, width = 50)
     })
-    value[["mistake"]] <<- 0
-    value$correct <<- 0
+    
   })
   
   # Print out a question
@@ -613,6 +607,7 @@ server <- function(input, output, session) {
             yes = icon("check-square"),
             no = icon("square-o")
           ),
+          status = "game"
         )
         output$math1 <- renderUI({
           withMathJax()
@@ -743,22 +738,6 @@ server <- function(input, output, session) {
         )
       )
     }
-  
-    ### PRINT HINTS###
-    observeEvent(
-      eventExpr = input$hint, 
-      handlerExpr = {
-        output$math1 <- renderUI({
-          withMathJax()
-        })
-        output$math2 <- renderUI({
-          withMathJax()
-        })
-        withMathJax()
-        output$hintDisplay <- renderUI({
-          p(tags$b("Hint:"), questionBank[id, "Hint"])
-        })
-      })
       
     ### FEEDBACK###
     output$feedback <- renderUI({
@@ -784,6 +763,22 @@ server <- function(input, output, session) {
       }
     })
   })
+  
+  ### PRINT HINTS###
+  observeEvent(
+    eventExpr = input$hint, 
+    handlerExpr = {
+      output$math1 <- renderUI({
+        withMathJax()
+      })
+      output$math2 <- renderUI({
+        withMathJax()
+      })
+      withMathJax()
+      output$hintDisplay <- renderUI({
+        p(tags$b("Hint:"), questionBank[id, "Hint"])
+      })
+    })
 }
 # Boast App Call ----
 boastUtils::boastApp(ui = ui, server = server)
