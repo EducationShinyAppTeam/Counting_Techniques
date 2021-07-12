@@ -66,7 +66,7 @@ ui <- list(
             tags$li("Use the Challenge page to further practice counting techniques
                     through poker-style scenarios.")
           ),
-          
+
           ##### Go Button--location will depend on your goals ----
           div(
             style = "text-align: center",
@@ -250,7 +250,7 @@ ui <- list(
                 ), 
                 fluidRow(
                   column(
-                    width = 2, 
+                    width = 1, 
                     bsButton(
                       "restart",
                       "Restart",
@@ -260,17 +260,7 @@ ui <- list(
                     ), 
                   ), 
                   column(
-                    width = 2, 
-                    bsButton(
-                      inputId = "nextq",
-                      label = "Next Question",
-                      size = "large",
-                      style = "default",
-                      disabled = TRUE
-                    ),
-                  ), 
-                  column(
-                    width = 2, 
+                    width = 1, 
                     bsButton(
                       inputId = "submit",
                       label = "Submit",
@@ -281,8 +271,18 @@ ui <- list(
                     
                   ),
                   column(
-                    width = 2, 
+                    width = 1, 
                     uiOutput("mark")
+                  ), 
+                  column(
+                    width = 1, 
+                    bsButton(
+                      inputId = "nextq",
+                      label = "Next Question",
+                      size = "large",
+                      style = "default",
+                      disabled = TRUE
+                    ),
                   )
                 ),
               fluidRow(
