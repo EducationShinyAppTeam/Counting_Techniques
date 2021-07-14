@@ -800,15 +800,45 @@ server <- function(input, output, session) {
   )
   
   ## Poker Page ----
+  
+  scoreCount <- reactiveVal(0)
+  
+  output$showScore <- renderText({
+    paste("Your score is", scoreCount(), ".")
+  })
+  
   handNum <- reactiveVal(0)
+  
   observeEvent(
     eventExpr = input$newHand,
     handlerExpr = {
       handNum(sample(x = 1:nrow(pokerHands), size = 1))
+      updateRadioButtons(
+        session = session,
+        inputId = "pokerAnswers",
+        label = pokerHands$question[handNum()],
+        choices = c(pokerHands$mathcodeCorrect[handNum()],
+                    pokerHands$mathcodeAlt1[handNum()],
+                    pokerHands$mathcodeAlt2[handNum()],
+                    pokerHands$mathcodeAlt3[handNum()])
+      )
     },
     ignoreNULL = TRUE,
     ignoreInit = TRUE
   )
+  
+  observeEvent(
+    eventExpr = input$submit,
+    handlerExpr = {
+      if (!is.null(input$pokerAnswers)) {
+        correct <- input$pokerAnswers == pokerHands$mathcodeCorrect[handNum()]
+        if (correct) {
+          scoreCount(scoreCount() + 3)
+          output$scoreImg <- renderIcon(icon = "correct", width = 50)}
+      } else {
+        scoreCount(scoreCount() - 1)
+        output$scoreImg <- renderIcon(icon = "incorrect", width = 50)}
+    })
   
   output$card1 <- renderUI({
     if (handNum() == 0) {
