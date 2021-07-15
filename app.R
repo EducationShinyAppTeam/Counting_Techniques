@@ -822,6 +822,9 @@ server <- function(input, output, session) {
                     pokerHands$mathcodeAlt2[handNum()],
                     pokerHands$mathcodeAlt3[handNum()])
       )
+      output$math1 <- renderUI({withMathJax()})
+      output$math2 <- renderUI({withMathJax()})
+      
     },
     ignoreNULL = TRUE,
     ignoreInit = TRUE
@@ -834,11 +837,11 @@ server <- function(input, output, session) {
         correct <- input$pokerAnswers == pokerHands$mathcodeCorrect[handNum()]
         if (correct) {
           scoreCount(scoreCount() + 3)
-          output$scoreImg <- renderIcon(icon = "correct", width = 50)}
+          output$scoreImg <- renderIcon(icon = "correct", width = 50)
       } else {
         scoreCount(scoreCount() - 1)
-        output$scoreImg <- renderIcon(icon = "incorrect", width = 50)}
-    })
+        output$scoreImg <- renderIcon(icon = "incorrect", width = 50)}}
+        })
   
   output$card1 <- renderUI({
     if (handNum() == 0) {
