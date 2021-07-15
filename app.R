@@ -816,7 +816,8 @@ server <- function(input, output, session) {
         choices = c(pokerHands$mathcodeCorrect[handNum()],
                     pokerHands$mathcodeAlt1[handNum()],
                     pokerHands$mathcodeAlt2[handNum()],
-                    pokerHands$mathcodeAlt3[handNum()])
+                    pokerHands$mathcodeAlt3[handNum()]),
+        selected = character(0)
       )
       output$math1 <- renderUI({withMathJax()})
       output$math2 <- renderUI({withMathJax()})
