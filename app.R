@@ -610,15 +610,11 @@ ui <- list(
                 br(),
                 uiOutput("scoreImg"),
                 br(),
-                actionButton(
-                  inputId = "showExplain",
-                  label = "Answer Explanation",
-                  size = "large",
-                  style = "default"
+                bsButton(
+                  inputId = "showExpln",
+                  label = "Answer Explanation"
                 )
-              ),
-              br(),
-              uiOutput("explain")
+              )
             )
           ),
           uiOutput("math1"),
@@ -842,6 +838,20 @@ server <- function(input, output, session) {
         scoreCount(scoreCount() - 1)
         output$scoreImg <- renderIcon(icon = "incorrect", width = 50)}}
         })
+  
+  observeEvent(
+    eventExpr = input$showExpln,
+    handlerExpr = {
+      sendSweetAlert(
+        session = session,
+        title = "Answer Explanation",
+        text = pokerHands$ansExpln[handNum()],
+        closeOnClickOutside = TRUE,
+        showCloseButton = TRUE
+      )
+      output$math1 <- renderUI({withMathJax()})
+      output$math2 <- renderUI({withMathJax()})
+    })
   
   output$card1 <- renderUI({
     if (handNum() == 0) {
