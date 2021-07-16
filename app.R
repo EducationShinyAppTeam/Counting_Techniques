@@ -192,6 +192,7 @@ ui <- list(
             )
           )
         ),
+        ###Explore page ----
         tabItem(
           tabName = "explore",
           withMathJax(),
@@ -415,88 +416,88 @@ ui <- list(
               withMathJax(),
               title = "Multiple Choice Layout", 
               br(), 
-                h4("Question"),
-                uiOutput("context"), 
-                uiOutput("question"),
-                br(),
-                fluidRow(
-                  column(
+              h4("Question"),
+              uiOutput("context"), 
+              uiOutput("question"),
+              br(),
+              fluidRow(
+                column(
                   width = 12, 
-                    bsButton(
-                      inputId = "hint",
-                      label = "Hint",
-                      icon = icon("question"),
-                      size = "large",
-                      disabled = FALSE
-                    ),
-                    br(), 
-                    uiOutput("hintDisplay"),
-                    br(),
-                  )
-                ), 
-                fluidRow(
-                  column(width = 12, 
-                    radioGroupButtons(
-                      inputId = "mc1",
-                      label = tags$b("Which expression addresses the question?"),
-                      status = "game",
-                      direction = "vertical",
-                      selected = character(0),
-                      checkIcon = list(
-                        yes = icon("check-square"),
-                        no = icon("square-o")
-                      ),
-                     
-                      choices = list(
-                        # "Pick the expression below that best addresses the question.",
-                        "\\(\\frac{1}{4}\\)",
-                        "\\(\\frac{2}{4}\\)",
-                        "\\(\\frac{3}{4}\\)",
-                        "\\(\\frac{4}{4}\\)"
-                      ),
-                      justified = FALSE,
-                      individual = FALSE, 
-                    ),  
-                    br(), 
-                  )
-                ), 
-                fluidRow(
-                  column(
-                    width = 1, 
-                    bsButton(
-                      "restart",
-                      "Restart",
-                      size = "large",
-                      style = "danger",
-                      disabled = FALSE
-                    ), 
-                  ), 
-                  column(
-                    width = 1, 
-                    bsButton(
-                      inputId = "submit",
-                      label = "Submit",
-                      size = "large",
-                      style = "default",
-                      disabled = FALSE
-                    ), 
-                    
+                  bsButton(
+                    inputId = "hint",
+                    label = "Hint",
+                    icon = icon("question"),
+                    size = "large",
+                    disabled = FALSE
                   ),
-                  column(
-                    width = 1, 
-                    uiOutput("mark")
+                  br(), 
+                  uiOutput("hintDisplay"),
+                  br(),
+                )
+              ), 
+              fluidRow(
+                column(width = 12, 
+                       radioGroupButtons(
+                         inputId = "mc1",
+                         label = tags$b("Which expression addresses the question?"),
+                         status = "game",
+                         direction = "vertical",
+                         selected = character(0),
+                         checkIcon = list(
+                           yes = icon("check-square"),
+                           no = icon("square-o")
+                         ),
+                         
+                         choices = list(
+                           # "Pick the expression below that best addresses the question.",
+                           "\\(\\frac{1}{4}\\)",
+                           "\\(\\frac{2}{4}\\)",
+                           "\\(\\frac{3}{4}\\)",
+                           "\\(\\frac{4}{4}\\)"
+                         ),
+                         justified = FALSE,
+                         individual = FALSE, 
+                       ),  
+                       br(), 
+                )
+              ), 
+              fluidRow(
+                column(
+                  width = 1, 
+                  bsButton(
+                    "restart",
+                    "Restart",
+                    size = "large",
+                    style = "danger",
+                    disabled = FALSE
                   ), 
-                  column(
-                    width = 1, 
-                    bsButton(
-                      inputId = "nextq",
-                      label = "Next Question",
-                      size = "large",
-                      style = "default",
-                      disabled = TRUE
-                    ),
-                  )
+                ), 
+                column(
+                  width = 1, 
+                  bsButton(
+                    inputId = "submit",
+                    label = "Submit",
+                    size = "large",
+                    style = "default",
+                    disabled = FALSE
+                  ), 
+                  
                 ),
+                column(
+                  width = 1, 
+                  uiOutput("mark")
+                ), 
+                column(
+                  width = 1, 
+                  bsButton(
+                    inputId = "nextq",
+                    label = "Next Question",
+                    size = "large",
+                    style = "default",
+                    disabled = TRUE
+                  ),
+                )
+              ),
               fluidRow(
                 column(
                   width = 12, 
@@ -507,25 +508,8 @@ ui <- list(
               ), 
               uiOutput("math1"),
               uiOutput("math2")
-              ) 
-            
             ), 
-          br(), 
-          br(),
-          br(), 
-          
-          div(
-            style = "text-align: center;",
-            bsButton(
-              inputId = "goExp",
-              label = "GO!",
-              size = "large",
-              icon = icon("gamepad"),
-              style = "default"
-            )
-          ) 
-        ),
-        ##### GENERAL PRACTICE TAB ----
+            ##### GENERAL PRACTICE TAB ----
             tabPanel(
               title = "More Practice", 
               br(),
@@ -603,7 +587,22 @@ ui <- list(
                 )
               )
             ) 
-          )
+            
+          ), 
+          br(), 
+          br(),
+          br(), 
+          
+          div(
+            style = "text-align: center;",
+            bsButton(
+              inputId = "goExp",
+              label = "GO!",
+              size = "large",
+              icon = icon("gamepad"),
+              style = "default"
+            )
+          ) 
         ),
         tabItem(
           tabName = "game",
