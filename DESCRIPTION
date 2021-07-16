@@ -1,15 +1,15 @@
-Title: Sample App - A Lengthy Title
-ShortName: Sample App
-Date: 2021-05-13
+Title: Counting Techniques
+ShortName: Counting Techniques
+Date: 2021-07-13
 Lifecycle: experimental
 Authors@R: c(
-    person(given = "Neil", family = "Hatfield", email = "neil.hatfield@psu.edu", role = c("aut", "cre")),
-    person(given = "Robert", family = "Carey", email = "rpc5102@psu.edu", role = c("aut"))
+    person(given = "Shravani", family = "Samala", email = "sjs7049@psu.edu", role = c("aut", "cre")),
+    person(given = "Kellien", family = "Peritz", email = "kqp5476@psu.edu", role = c("aut", "cre"))
   )
-Chapter: Sample Chapter
-Description: This app is focused on the common types of xyz.
+Chapter: Probability
+Description: This app is focused on the common counting techniques.
 LearningObjectives: c(
-    "The student will learn to understand Concept A in way z.",
+    "The student will learn to understand combinations permutations, and the multiplication principle using the explore page.",
     "The student will learn to understand Concept B as description y."
   )
 DisplayMode: Normal
