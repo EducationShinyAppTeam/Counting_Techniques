@@ -180,6 +180,41 @@ ui <- list(
               )
             )
           ),
+          fluidRow(
+            box(
+              title = strong("Distinguishable Permutations"),
+              status = "primary",
+              collapsible = TRUE,
+              collapsed = FALSE,
+              width = 6,
+              p("Number of distinguishable permutations of ", tags$em("n"), "objects:"),
+              tags$ul( 
+                tags$li("\\(n_{1}\\) of the \\(1^{st}\\) object."),
+                tags$li("\\(n_{2}\\) of the \\(2^{nd}\\) object."),
+                tags$li("\\(n_{k}\\) of the \\(k^{th}\\) object."),
+                tags$li("Then \\_{n}P_{r}\\) or permutations of ", tags$em("n"), "objects
+                        taken", tags$em("n"), "at a time is "),
+                tags$li("\\(P=\\binom{n}{(n_{1})(n_{2})\\cdots(n_{k})}=\\dfrac{n!}{(n_{1})!(n_{2})!(n_{3})!\\cdots(n_{k})!}\\)")
+                ### ask how to line up the equal signs for the n!/n
+              )
+            ),
+            box(
+              title = strong("Multiplication Principle"),
+              status = "primary",
+              collapsible = TRUE,
+              collapsed = FALSE,
+              width = 6,
+              p("If there are: "),
+              tags$ul( 
+                tags$li(("\\({n_{1}}\\)"), "outcomes of experiment one"), 
+                tags$li(("\\({n_{2}}\\)"), "outcomes of experiment two"), 
+                tags$li(("\\({n_{m}}\\)"), "outcomes of experiment m"), 
+                tags$li("Then the number of total outcomes from all experiments", 
+                        ("\\({E_{1},E_{2},E_{3}=}\\)")), 
+                tags$li("\\({(n_{1})\\times(n_{2})\\times(n_{3})\\times\\cdots\\times(n_{m})= n!}\\)")
+              )
+            )
+          ), 
           br(),
           div(
             style = "text-align: center;",
@@ -200,7 +235,7 @@ ui <- list(
           tabsetPanel(
             ##### CLOTHING TAB ----
             tabPanel(
-              title = "Practice Combinations & Permutations",
+              title = "Practice Combinations and Permutations",
               br(),
               fluidRow(
                 column(
@@ -333,88 +368,88 @@ ui <- list(
               br(),
               h4(tags$b("Practice Problems")),
               p("If you are struggling solving the following combination and permutation 
-            problems about clothing, review similar problems about candy bars under 
-            the 'More Practice' tab. Each candy bar question contains a detailed answer."),
-            p(tags$b("Note: "), 
-              "Warm weather clothing includes t-shirts and shorts. 
+                problems about clothing, review similar problems about candy bars under 
+                the 'More Practice' tab. Each candy bar question contains a detailed answer."),
+              p(tags$b("Note: "), 
+                "Warm weather clothing includes t-shirts and shorts. 
                Cold weather clothing includes hoodies and pants.
                Shoes can be worn in any type of weather."),
-            br(),
-            fluidRow(
-              box(
-                title = strong("Permutation with Replacement"),
-                status = "primary",
-                collapsible = TRUE,
-                collapsed = FALSE,
-                width = 6,
-                p("How many outfits could you make with the given wardrobe?"),
-                br(),
-                uiOutput("clothesQuestion1ans")
-              ),
-              box(
-                title = strong("Permutation without Replacement"),
-                status = "primary",
-                collapsible = TRUE,
-                collapsed = FALSE,
-                width = 6,
-                p("How many outfits could you make with the given wardrobe, 
+              br(),
+              fluidRow(
+                box(
+                  title = strong("Permutation with Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("How many outfits could you make with the given wardrobe?"),
+                  br(),
+                  uiOutput("clothesQuestion1ans")
+                ),
+                box(
+                  title = strong("Permutation without Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("How many outfits could you make with the given wardrobe, 
                   without rewearing any outfits?"),
-                br(),
-                uiOutput("clothesQuestion2ans")
-              )
-            ),
-            fluidRow(
-              box(
-                title = strong("Combination with Replacement"),
-                status = "primary",
-                collapsible = TRUE,
-                collapsed = FALSE,
-                width = 6,
-                p("How many different outfits could you make with the given wardrobe?"),
-                br(),
-                uiOutput("clothesQuestion3ans")
+                  br(),
+                  uiOutput("clothesQuestion2ans")
+                )
               ),
-              box(
-                title = strong("Combination without Replacement"),
-                status = "primary",
-                collapsible = TRUE,
-                collapsed = FALSE,
-                width = 6,
-                p("How many different outfits could you make with the given wardrobe, 
+              fluidRow(
+                box(
+                  title = strong("Combination with Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("How many different outfits could you make with the given wardrobe?"),
+                  br(),
+                  uiOutput("clothesQuestion3ans")
+                ),
+                box(
+                  title = strong("Combination without Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("How many different outfits could you make with the given wardrobe, 
               without rewearing any outfits?"),
               br(),
               uiOutput("clothesQuestion4ans")
-              )
-            ),
-            fluidRow(
-              box(
-                title = strong("Conditional combination with Replacement"),
-                status = "primary",
-                collapsible = TRUE,
-                collapsed = FALSE,
-                width = 6,
-                p("Given that there is warm weather, 
-                  how many different outfits could you make with the given wardrobe?"),
-                br(),
-                uiOutput("clothesQuestion5ans")
+                )
               ),
-              box(
-                title = strong("Conditional combination without Replacement"),
-                status = "primary",
-                collapsible = TRUE,
-                collapsed = FALSE,
-                width = 6,
-                p("Given that there is warm weather, 
+              fluidRow(
+                box(
+                  title = strong("Conditional combination with Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("Given that there is warm weather, 
+                  how many different outfits could you make with the given wardrobe?"),
+                  br(),
+                  uiOutput("clothesQuestion5ans")
+                ),
+                box(
+                  title = strong("Conditional combination without Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("Given that there is warm weather, 
                   how many different outfits could you make with the given wardrobe, 
                   without rewearing any outfits?"),
-                br(),
-                uiOutput("clothesQuestion6ans")
+                  br(),
+                  uiOutput("clothesQuestion6ans")
+                )
               )
-            )
             ),
             tabPanel(
               withMathJax(),
-              title = "Multiple Choice Layout", 
+              title = "Multiple Choice", 
               br(), 
               h4("Question"),
               uiOutput("context"), 
@@ -506,89 +541,11 @@ ui <- list(
                 )
                 
               ), 
-              uiOutput("math1"),
-              uiOutput("math2")
             ), 
-            ##### GENERAL PRACTICE TAB ----
-            tabPanel(
-              title = "More Practice", 
-              br(),
-              h3("Questions with Answer Explanations"), 
-              fluidRow(
-                box(
-                  title = strong("Permutation with Replacement"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 6,
-                  p("Distribute 5 different candy bars to 20 children. 
-                  We are willing to give some children more than 1 candy bar. 
-                  How many ways can we distribute the candy bars?"),
-                  tags$ul( 
-                    tags$li("Since the candy bars are different, order matters. 
-                          Therefore, we use a permutation."),
-                    tags$li("Since children can receive more than 1 candy bar, 
-                          there is replacement."),
-                    tags$li("\\(n^{r} = 20^{5}\\)")
-                  )
-                ),
-                box(
-                  title = strong("Permutation without Replacement"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 6,
-                  p("Distribute 5 different candy bars to 20 children. 
-                  We do not want to give any child more than 1 candy bar. 
-                  How many ways can we distribute the candy bars?"),
-                  tags$ul( 
-                    tags$li("Since the candy bars are different, order matters. 
-                          Therefore, we use a permutation."),
-                    tags$li("Since children cannot receive more than 1 candy bar, 
-                          there is no replacement."),
-                    tags$li("\\(_{n}P_{r} = _{20}P_{5} =\\dfrac{20!}{15!}\\)")
-                  )
-                )
-              ),
-              fluidRow(
-                box(
-                  title = strong("Combination with Replacement"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 6,
-                  p("Distribute 5 identical candy bars to 20 children. 
-                  We are willing to give some children more than 1 candy bar. 
-                  How many ways can we distribute the candy bars?"),
-                  tags$ul( 
-                    tags$li("Since the candy bars are identical, order does not 
-                          matter. Therefore, we use a combination."),
-                    tags$li("Since children can receive more than 1 candy bar, 
-                          there is replacement."),
-                    tags$li("\\(\\binom{n+r-1}{r} = \\binom{24}{5} = \\dfrac{24!}{5!(19)!}\\)")
-                  )
-                ),
-                box(
-                  title = strong("Combination without Replacement"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 6,
-                  p("Distribute 5 identical candy bars to 20 children. 
-                  We do not want to give any child more than 1 candy bar. 
-                  How many ways can we distribute the candy bars?"),
-                  tags$ul( 
-                    tags$li("Since the candy bars are identical, order does not 
-                          matter. Therefore, we use a combination."),
-                    tags$li("Since children cannot receive more than 1 candy bar, 
-                          there is no replacement."),
-                    tags$li("\\(\\binom{n}{r} = \\binom{20}{5} = \\dfrac{20!}{5!(15)!}\\)")
-                  )
-                )
-              )
-            ) 
-            
-          ), 
+            uiOutput("math1"),
+            uiOutput("math2")
+          ),
+          
           br(), 
           br(),
           br(), 
@@ -743,6 +700,7 @@ ui <- list(
 server <- function(input, output, session) {
   
   ## Set up navigation buttons ----
+  ## Set up Info button ----
   observeEvent(
     eventExpr = input$info,
     handlerExpr = {
@@ -829,7 +787,7 @@ server <- function(input, output, session) {
             randomNumber9,
             randomNumber10,
             (randomNumber1 * randomNumber2 * randomNumber3 * randomNumber4 * randomNumber5 *randomNumber6 * randomNumber7 * randomNumber8 * randomNumber9 * randomNumber10)
-          )
+          ), 
         )
       })
       output$clothesQuestion2ans <- renderUI({
