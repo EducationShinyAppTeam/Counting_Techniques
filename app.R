@@ -90,7 +90,7 @@ ui <- list(
             style = "text-align: center;",
             bsButton(
               inputId = "overviewToPrereq",
-              label = "Prerequisites",
+              label = "Prerequisites!",
               size = "large",
               icon = icon("book"),
               style = "default"
@@ -220,14 +220,14 @@ ui <- list(
             style = "text-align: center;",
             bsButton(
               inputId = "prereqToExplore",
-              label = "GO!",
+              label = "Explore!",
               size = "large",
               icon = icon("wpexplorer"),
               style = "default"
             )
           )
         ),
-        ###Explore page ----
+        ####Explore page ----
         tabItem(
           tabName = "explore",
           withMathJax(),
@@ -510,7 +510,7 @@ ui <- list(
                 column(
                   width = 1, 
                   bsButton(
-                    inputId = "submit",
+                    inputId = "submit1",
                     label = "Submit",
                     size = "large",
                     style = "default",
@@ -541,9 +541,9 @@ ui <- list(
                 )
                 
               ), 
-            ), 
-            uiOutput("math1"),
-            uiOutput("math2")
+              uiOutput("math3"),
+              uiOutput("math4")
+            )
           ),
           
           br(), 
@@ -554,12 +554,13 @@ ui <- list(
             style = "text-align: center;",
             bsButton(
               inputId = "goExp",
-              label = "GO!",
+              label = "Game!",
               size = "large",
               icon = icon("gamepad"),
               style = "default"
             )
           ) 
+          
         ),
         tabItem(
           tabName = "game",
@@ -787,7 +788,7 @@ server <- function(input, output, session) {
             randomNumber9,
             randomNumber10,
             (randomNumber1 * randomNumber2 * randomNumber3 * randomNumber4 * randomNumber5 *randomNumber6 * randomNumber7 * randomNumber8 * randomNumber9 * randomNumber10)
-          ), 
+          )
         )
       })
       output$clothesQuestion2ans <- renderUI({
@@ -809,14 +810,18 @@ server <- function(input, output, session) {
         )
       })
       output$clothesQuestion3ans <- renderUI({
+        withMathJax()
       })
       output$clothesQuestion4ans <- renderUI({
+        withMathJax()
         (randomNumber1+randomNumber4)
       })
       output$clothesQuestion5ans <- renderUI({
+        withMathJax()
         (randomNumber1+randomNumber5)
       })
       output$clothesQuestion6ans <- renderUI({
+        withMathJax()
         (randomNumber1+randomNumber6)
       })
     }
@@ -974,7 +979,7 @@ server <- function(input, output, session) {
     withMathJax()
     updateButton(
       session = session, 
-      inputId = "submit", 
+      inputId = "submit1", 
       disabled = FALSE)
     updateButton(
       session = session, 
@@ -1013,10 +1018,10 @@ server <- function(input, output, session) {
       ),
       status = "game"
     )
-    output$math1 <- renderUI({
+    output$math3 <- renderUI({
       withMathJax()
     })
-    output$math2 <- renderUI({
+    output$math4 <- renderUI({
       withMathJax()
     })
     output$mark <- renderUI({
@@ -1045,10 +1050,10 @@ server <- function(input, output, session) {
       ),
       status = "game"
     )
-    output$math1 <- renderUI({
+    output$math3 <- renderUI({
       withMathJax()
     })
-    output$math2 <- renderUI({
+    output$math4 <- renderUI({
       withMathJax()
     })
     hint <<- withMathJax(questionBank[id, "Hint"])
@@ -1063,7 +1068,7 @@ server <- function(input, output, session) {
       Qs_array <<- Qs_array[!Qs_array %in% id]
       hint <<- questionBank["Hint"]
       withBusyIndicatorServer("nextq", {
-        updateButton(session, "submit", disabled = FALSE)
+        updateButton(session, "submit1", disabled = FALSE)
         output$question <- renderUI({
           return(paste(questionBank[id, "Scenario"], questionBank[id, "Question"]))
         })
@@ -1083,10 +1088,10 @@ server <- function(input, output, session) {
           ),
           status = "game"
         )
-        output$math1 <- renderUI({
+        output$math3 <- renderUI({
           withMathJax()
         })
-        output$math2 <- renderUI({
+        output$math4 <- renderUI({
           withMathJax()
         })
         output$mark <- renderUI({
@@ -1113,7 +1118,7 @@ server <- function(input, output, session) {
         
         updateButton(
           session = session, 
-          inputId = "submit", 
+          inputId = "submit1", 
           disabled = FALSE)
         updateRadioGroupButtons(
           session = session, 
@@ -1131,10 +1136,10 @@ server <- function(input, output, session) {
           ),
           status = "game"
         )
-        output$math1 <- renderUI({
+        output$math3 <- renderUI({
           withMathJax()
         })
-        output$math2 <- renderUI({
+        output$math4 <- renderUI({
           withMathJax()
         })
         output$mark <- renderUI({
@@ -1153,7 +1158,7 @@ server <- function(input, output, session) {
     else {
       updateButton(
         session = session, 
-        inputId = "submit", 
+        inputId = "submit1", 
         disabled = TRUE)
       updateButton(
         session = session, 
@@ -1196,17 +1201,17 @@ server <- function(input, output, session) {
         ),
         status = "game"
       )
-      output$math1 <- renderUI({
+      output$math3 <- renderUI({
         withMathJax()
       })
-      output$math2 <- renderUI({
+      output$math4 <- renderUI({
         withMathJax()
       })
     }
   })
   
   ### SUBMIT BUTTON###
-  observeEvent(input$submit, {
+  observeEvent(input$submit1, {
     withMathJax()
     letterAnswer <- questionBank[id, "Answer"]
     cAnswer <- questionBank[id, letterAnswer]
@@ -1218,7 +1223,7 @@ server <- function(input, output, session) {
         answer = "E"
         updateButton(
           session = session, 
-          inputId = "submit", 
+          inputId = "submit1", 
           disabled = TRUE)
         updateButton(
           session = session, 
@@ -1241,7 +1246,7 @@ server <- function(input, output, session) {
       input$mc1 == input$mc1
       updateButton(
         session = session, 
-        inputId = "submit", 
+        inputId = "submit1", 
         disabled = TRUE)
       updateButton(
         session = session, 
@@ -1290,10 +1295,10 @@ server <- function(input, output, session) {
   observeEvent(
     eventExpr = input$hint, 
     handlerExpr = {
-      output$math1 <- renderUI({
+      output$math3 <- renderUI({
         withMathJax()
       })
-      output$math2 <- renderUI({
+      output$math4 <- renderUI({
         withMathJax()
       })
       withMathJax()
