@@ -565,7 +565,7 @@ ui <- list(
         tabItem(
           tabName = "game",
           withMathJax(),
-          h2("Poker Probability"),
+          h2("Poker Combinatorics"),
           br(),
           fluidRow(
             column(
