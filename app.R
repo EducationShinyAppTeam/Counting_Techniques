@@ -233,7 +233,7 @@ ui <- list(
           withMathJax(),
           h2("Explore the Concept"),
           tabsetPanel(
-            ##### CLOTHING TAB ----
+            ##### Clothing Tab ----
             tabPanel(
               title = "Practice Combinations and Permutations",
               br(),
@@ -447,6 +447,7 @@ ui <- list(
                 )
               )
             ),
+            ##### MCQ tab ----
             tabPanel(
               withMathJax(),
               title = "Multiple Choice", 
@@ -562,6 +563,7 @@ ui <- list(
           ) 
           
         ),
+        #### Poker Page ---- 
         tabItem(
           tabName = "game",
           withMathJax(),
@@ -599,8 +601,18 @@ ui <- list(
               uiOutput("card5")
             )
           ),
+          fluidRow(
+            column(
+              width = 12,
+              align = "center",
+              offset = 0,
+              textOutput("caption"),
+              tags$head(tags$style("font-size: 8px;
+                                   font-style: title case"
+                                   ))
+            )
+          ),
           br(),
-          textOutput("handPicker"),
           fluidRow(
             column(
               width = 6,
@@ -858,6 +870,7 @@ server <- function(input, output, session) {
     eventExpr = input$newHand,
     handlerExpr = {
       handNum(sample(x = 1:nrow(pokerHands), size = 1))
+      output$caption <- renderText(pokerHands$caption[handNum()],)
       updateRadioButtons(
         session = session,
         inputId = "pokerAnswers",
@@ -980,7 +993,7 @@ server <- function(input, output, session) {
     }
   })
   
-  ### Explore Page Practice ----
+  ## Explore Page Practice ----
   withBusyIndicatorServer <- function(buttonId, expr) {
     # UX stuff: show the "busy" message, hide the other messages, disable the button
     loadingEl <- sprintf("[data-for-btn=%s] .btn-loading-indicator", buttonId)
