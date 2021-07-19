@@ -498,7 +498,7 @@ ui <- list(
               ), 
               fluidRow(
                 column(
-                  width = 1, 
+                  width = 2, 
                   bsButton(
                     "restart",
                     "Restart",
@@ -508,7 +508,7 @@ ui <- list(
                   ), 
                 ), 
                 column(
-                  width = 1, 
+                  width = 2, 
                   bsButton(
                     inputId = "submit1",
                     label = "Submit",
@@ -519,11 +519,11 @@ ui <- list(
                   
                 ),
                 column(
-                  width = 1, 
+                  width = 2, 
                   uiOutput("mark")
                 ), 
                 column(
-                  width = 1, 
+                  width = 2, 
                   bsButton(
                     inputId = "nextq",
                     label = "Next Question",
@@ -604,26 +604,43 @@ ui <- list(
           fluidRow(
             column(
               width = 6,
-              offset = 0,
-              wellPanel(
-                radioButtons(
-                  inputId = "pokerAnswers",
-                  label = "Click the 'New Hand' button to begin the poker questions.",
-                  choices =  character(0),
-                  selected = character(0)
-                ),
-                div(
-                  style = "text-align: center;",
+              # offset = 1,
+              radioButtons(
+                inputId = "pokerAnswers",
+                label = "Click the 'New Hand' button to begin the poker questions.",
+                choices =  character(0),
+                selected = character(0)
+              ), 
+              fluidRow(
+                column(
+                  width = 2,
+                  offset = 0,
                   bsButton(
                     inputId = "newHand",
-                    label = "New Hand"
-                  ),
+                    label = "New Hand",
+                    size = "large",
+                    style = "default",
+                    disabled = FALSE
+                  )
+                ),
+                column(
+                  width = 2,
+                  offset = 1, 
                   bsButton(
                     inputId = "submit",
-                    label = "Submit Answer"
-                  )
+                    label = "Submit Answer",
+                    size = "large",
+                    style = "default",
+                    disabled = FALSE
+                  ),
+                ),
+                column(
+                  width = 2,
+                  offset = 2, 
+                  uiOutput("scoreImg")
                 )
-              )
+              ),
+              
             ),
             column(
               width = 6,
@@ -632,13 +649,14 @@ ui <- list(
                 style = "text-align: center",
                 textOutput("showScore"),
                 br(),
-                uiOutput("scoreImg"),
-                br(),
                 bsButton(
                   inputId = "showExpln",
-                  label = "Answer Explanation"
-                )
-              )
+                  label = "Answer Explanation", 
+                  disabled = TRUE
+                ), 
+              ), 
+              br(), 
+              uiOutput("showExplnDisplay")
             )
           ),
           uiOutput("math1"),
@@ -852,12 +870,20 @@ server <- function(input, output, session) {
       )
       output$math1 <- renderUI({withMathJax()})
       output$math2 <- renderUI({withMathJax()})
+      output$showExplnDisplay <- renderUI({
+        return = NULL
+      })
+      updateButton(
+        session = session, 
+        inputId = "showExpln", 
+        disabled = TRUE)
       
     },
     ignoreNULL = TRUE,
     ignoreInit = TRUE
   )
   
+
   observeEvent(
     eventExpr = input$submit,
     handlerExpr = {
@@ -869,21 +895,35 @@ server <- function(input, output, session) {
       } else {
         scoreCount(scoreCount() - 1)
         output$scoreImg <- renderIcon(icon = "incorrect", width = 50)}}
+      updateButton(
+        session = session, 
+        inputId = "showExpln", 
+        disabled = FALSE)
         })
+    
   
   observeEvent(
     eventExpr = input$showExpln,
     handlerExpr = {
-      sendSweetAlert(
-        session = session,
-        title = "Answer Explanation",
-        text = pokerHands$ansExpln[handNum()],
-        closeOnClickOutside = TRUE,
-        showCloseButton = TRUE
-      )
       output$math1 <- renderUI({withMathJax()})
       output$math2 <- renderUI({withMathJax()})
+      output$showExplnDisplay <- renderUI({
+        p(tags$b("Answer Explanation: "), withMathJax(pokerHands$ansExpln[handNum()]))
+      })
     })
+  # observeEvent(
+  #   eventExpr = input$showExpln,
+  #   handlerExpr = {
+  #     sendSweetAlert(
+  #       session = session,
+  #       title = "Answer Explanation",
+  #       text = pokerHands$ansExpln[handNum()],
+  #       closeOnClickOutside = TRUE,
+  #       showCloseButton = TRUE
+  #     )
+  #     output$math1 <- renderUI({withMathJax()})
+  #     output$math2 <- renderUI({withMathJax()})
+  #   })
   
   output$card1 <- renderUI({
     if (handNum() == 0) {
