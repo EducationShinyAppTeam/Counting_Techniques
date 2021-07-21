@@ -192,9 +192,10 @@ ui <- list(
                 tags$li("\\(n_{1}\\) of the \\(1^{st}\\) object."),
                 tags$li("\\(n_{2}\\) of the \\(2^{nd}\\) object."),
                 tags$li("\\(n_{k}\\) of the \\(k^{th}\\) object."),
-                tags$li("Then \\_{n}P_{r}\\) or permutations of ", tags$em("n"), "objects
+                tags$li("Then \\(_{n}P_{r}\\) or permutations of ", tags$em("n"), "objects
                         taken", tags$em("n"), "at a time is "),
-                tags$li("\\(P=\\binom{n}{(n_{1})(n_{2})\\cdots(n_{k})}=\\dfrac{n!}{(n_{1})!(n_{2})!(n_{3})!\\cdots(n_{k})!}\\)")
+                tags$li("\\(P=\\binom{n}{(n_{1})(n_{2})\\cdots(n_{k})}=\\dfrac{n!}
+                        {(n_{1})!(n_{2})!(n_{3})!\\cdots(n_{k})!}\\)")
                 ### ask how to line up the equal signs for the n!/n
               )
             ),
