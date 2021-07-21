@@ -228,12 +228,14 @@ ui <- list(
             )
           )
         ),
+        
         ####Explore page ----
         tabItem(
           tabName = "explore",
           withMathJax(),
           h2("Explore the Concept"),
           tabsetPanel(
+            
             ##### Clothing Tab ----
             tabPanel(
               title = "Practice Combinations and Permutations",
@@ -448,6 +450,86 @@ ui <- list(
                 )
               )
             ),
+            
+            ##### Candy bars tab ----
+            tabPanel(
+              title = "More Practice", 
+              br(),
+              h3("Questions with Answer Explanations"), 
+              fluidRow(
+                box(
+                  title = strong("Permutation with Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("Distribute 5 different candy bars to 20 children. 
+                  We are willing to give some children more than 1 candy bar. 
+                  How many ways can we distribute the candy bars?"),
+                  tags$ul( 
+                    tags$li("Since the candy bars are different, order matters. 
+                          Therefore, we use a permutation."),
+                    tags$li("Since children can receive more than 1 candy bar, 
+                          there is replacement."),
+                    tags$li("\\(n^{r} = 20^{5}\\)")
+                  )
+                ),
+                box(
+                  title = strong("Permutation without Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("Distribute 5 different candy bars to 20 children. 
+                  We do not want to give any child more than 1 candy bar. 
+                  How many ways can we distribute the candy bars?"),
+                  tags$ul( 
+                    tags$li("Since the candy bars are different, order matters. 
+                          Therefore, we use a permutation."),
+                    tags$li("Since children cannot receive more than 1 candy bar, 
+                          there is no replacement."),
+                    tags$li("\\(_{n}P_{r} = _{20}P_{5} =\\dfrac{20!}{15!}\\)")
+                  )
+                )
+              ),
+              fluidRow(
+                box(
+                  title = strong("Combination with Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("Distribute 5 identical candy bars to 20 children. 
+                  We are willing to give some children more than 1 candy bar. 
+                  How many ways can we distribute the candy bars?"),
+                  tags$ul( 
+                    tags$li("Since the candy bars are identical, order does not 
+                          matter. Therefore, we use a combination."),
+                    tags$li("Since children can receive more than 1 candy bar, 
+                          there is replacement."),
+                    tags$li("\\(\\binom{n+r-1}{r} = \\binom(24}{5} = \\dfrac{24!}{5!(19)!}\\)")
+                  )
+                ),
+                box(
+                  title = strong("Combination without Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("Distribute 5 identical candy bars to 20 children. 
+                  We do not want to give any child more than 1 candy bar. 
+                  How many ways can we distribute the candy bars?"),
+                  tags$ul( 
+                    tags$li("Since the candy bars are identical, order does not 
+                          matter. Therefore, we use a combination."),
+                    tags$li("Since children cannot receive more than 1 candy bar, 
+                          there is no replacement."),
+                    tags$li("\\\\binom{n}{r} = \\binom{20}{5} = \\dfrac{20!}{5!(15)!}\\)")
+                  )
+                )
+              )
+            ),
+        
             ##### MCQ tab ----
             tabPanel(
               withMathJax(),
