@@ -244,116 +244,24 @@ ui <- list(
                 column(
                   width = 2,
                   align="center",
-                  offset = 2,
-                  tags$img(
-                    src = "tshirt_solid.jpg",
-                    alt = "Solid t-shirt",
-                    width = "100%"
-                  ),
-                  textOutput("tshirt_solid_num")
-                ),
-                column(
-                  width = 2,
-                  align="center",
-                  offset = 0,
-                  tags$img(
-                    src = "tshirt_stripe.jpg",
-                    alt = "Striped t-shirt",
-                    width = "100%"
-                  ),
-                  textOutput("tshirt_stripe_num")
-                ),
-                column(
-                  width = 2,
-                  align="center",
-                  offset = 0,
-                  tags$img(
-                    src = "hoodie_solid.jpg",
-                    alt = "Solid hoodie",
-                    width = "100%"
-                  ),
-                  textOutput("hoodie_solid_num")
-                ),
-                column(
-                  width = 2,
-                  align="center",
-                  offset = 0,
-                  tags$img(
-                    src = "hoodie_stripe.jpg",
-                    alt = "Striped hoodie",
-                    width = "100%"
-                  ),
-                  textOutput("hoodie_stripe_num")
-                )
-              ),
-              fluidRow(
-                column(
-                  width = 2,
-                  align="center",
-                  offset = 2,
-                  tags$img(
-                    src = "pants_solid.jpg",
-                    alt = "Solid pants",
-                    width = "100%"
-                  ),
-                  textOutput("pants_solid_num")
-                ),
-                column(
-                  width = 2,
-                  align="center",
-                  offset = 0,
-                  tags$img(
-                    src = "pants_stripe.jpg",
-                    alt = "Striped pants",
-                    width = "100%"
-                  ),
-                  textOutput("pants_stripe_num")
-                ),
-                column(
-                  width = 2,
-                  align="center",
-                  offset = 0,
-                  tags$img(
-                    src = "shorts_solid.jpg",
-                    alt = "Solid shorts",
-                    width = "100%"
-                  ),
-                  textOutput("shorts_solid_num")
-                ),
-                column(
-                  width = 2,
-                  align="center",
-                  offset = 0,
-                  tags$img(
-                    src = "shorts_stripe.jpg",
-                    alt = "Striped shorts",
-                    width = "100%"
-                  ),
-                  textOutput("shorts_stripe_num")
-                )
-              ),
-              fluidRow(
-                column(
-                  width = 2,
-                  align="center",
                   offset = 4,
                   tags$img(
-                    src = "checker_shoes.jpg",
-                    alt = "Checkered shoes",
+                    src = "whiteCandy.png",
+                    alt = "White chocolate bar",
                     width = "100%"
                   ),
-                  textOutput("checker_shoes_num")
+                  textOutput("whiteNum")
                 ),
                 column(
                   width = 2,
                   align="center",
                   offset = 0,
                   tags$img(
-                    src = "psu_adidas.jpg",
-                    alt = "Penn State Adidas",
+                    src = "darkCandy.pnf",
+                    alt = "Dark chocolate bar",
                     width = "100%"
                   ),
-                  textOutput("psu_adidas_num")
+                  textOutput("darkNum")
                 )
               ),
               br(),
@@ -361,8 +269,8 @@ ui <- list(
                 div(
                   style = "text-align: center",
                   bsButton(
-                    inputId = "newWardrobe",
-                    label = "New Wardrobe",
+                    inputId = "newCandies",
+                    label = "New chocolate bars",
                     size = "large",
                     style = "default"
                   )
@@ -385,9 +293,25 @@ ui <- list(
                   collapsible = TRUE,
                   collapsed = FALSE,
                   width = 6,
+                  p("Distribute 5 different candy bars to 20 children. 
+                  We are willing to give some children more than 1 candy bar. 
+                  How many ways can we distribute the candy bars?"),
+                  tags$ul( 
+                    tags$li("Since the candy bars are different, order matters. 
+                          Therefore, we use a permutation."),
+                    tags$li("Since children can receive more than 1 candy bar, 
+                          there is replacement."),
+                    tags$li("\\(n^{r} = 20^{5}\\)")
+                  )
+                  
+                  title = strong("Permutation with Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
                   p("How many outfits could you make with the given wardrobe?"),
                   br(),
-                  uiOutput("clothesQuestion1ans")
+                  uiOutput("candyQ1")
                 ),
                 box(
                   title = strong("Permutation without Replacement"),
@@ -398,7 +322,7 @@ ui <- list(
                   p("How many outfits could you make with the given wardrobe, 
                   without rewearing any outfits?"),
                   br(),
-                  uiOutput("clothesQuestion2ans")
+                  uiOutput("candyQ2")
                 )
               ),
               fluidRow(
@@ -410,7 +334,7 @@ ui <- list(
                   width = 6,
                   p("How many different outfits could you make with the given wardrobe?"),
                   br(),
-                  uiOutput("clothesQuestion3ans")
+                  uiOutput("candyQ3")
                 ),
                 box(
                   title = strong("Combination without Replacement"),
@@ -421,7 +345,7 @@ ui <- list(
                   p("How many different outfits could you make with the given wardrobe, 
               without rewearing any outfits?"),
               br(),
-              uiOutput("clothesQuestion4ans")
+              uiOutput("candyQ4")
                 )
               ),
               fluidRow(
@@ -434,7 +358,7 @@ ui <- list(
                   p("Given that there is warm weather, 
                   how many different outfits could you make with the given wardrobe?"),
                   br(),
-                  uiOutput("clothesQuestion5ans")
+                  uiOutput("candyQ5")
                 ),
                 box(
                   title = strong("Conditional combination without Replacement"),
@@ -446,7 +370,7 @@ ui <- list(
                   how many different outfits could you make with the given wardrobe, 
                   without rewearing any outfits?"),
                   br(),
-                  uiOutput("clothesQuestion6ans")
+                  uiOutput("candyQ6")
                 )
               )
             ),
@@ -458,21 +382,21 @@ ui <- list(
               h3("Questions with Answer Explanations"), 
               fluidRow(
                 box(
-                  title = strong("Permutation with Replacement"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 6,
-                  p("Distribute 5 different candy bars to 20 children. 
-                  We are willing to give some children more than 1 candy bar. 
-                  How many ways can we distribute the candy bars?"),
-                  tags$ul( 
-                    tags$li("Since the candy bars are different, order matters. 
-                          Therefore, we use a permutation."),
-                    tags$li("Since children can receive more than 1 candy bar, 
-                          there is replacement."),
-                    tags$li("\\(n^{r} = 20^{5}\\)")
-                  )
+                  # title = strong("Permutation with Replacement"),
+                  # status = "primary",
+                  # collapsible = TRUE,
+                  # collapsed = FALSE,
+                  # width = 6,
+                  # p("Distribute 5 different candy bars to 20 children. 
+                  # We are willing to give some children more than 1 candy bar. 
+                  # How many ways can we distribute the candy bars?"),
+                  # tags$ul( 
+                  #   tags$li("Since the candy bars are different, order matters. 
+                  #         Therefore, we use a permutation."),
+                  #   tags$li("Since children can receive more than 1 candy bar, 
+                  #         there is replacement."),
+                  #   tags$li("\\(n^{r} = 20^{5}\\)")
+                  # )
                 ),
                 box(
                   title = strong("Permutation without Replacement"),
@@ -859,7 +783,7 @@ server <- function(input, output, session) {
   
   ## Random Number Generator for Wardrobe ----
   observeEvent(
-    eventExpr = input$newWardrobe,
+    eventExpr = input$newCandies,
     handlerExpr = {
       # Why not use randCounts <- sample(x = 2:7, size = 10, replace = TRUE)
       randomNumber1 <- sample(2:7, 1)
@@ -886,7 +810,7 @@ server <- function(input, output, session) {
       output$psu_adidas_num <- renderText(randomNumber10)
       
       # What's happening here? Is there an easier way to do what you're tying to do?
-      output$clothesQuestion1ans <- renderUI({
+      output$candyQ1 <- renderUI({
         withMathJax(
           sprintf(
             fmt = "\\(n^{r} = %d * %d * %d * %d * %d * %d * %d * %d * %d * %d = %d\\)",
@@ -904,7 +828,7 @@ server <- function(input, output, session) {
           )
         )
       })
-      output$clothesQuestion2ans <- renderUI({
+      output$candyQ2 <- renderUI({
         withMathJax(
           sprintf(
             fmt = "\\(_{n}P_{r} = %d * %d * %d * %d * %d * %d * %d * %d * %d * %d = %d\\)",
@@ -922,18 +846,18 @@ server <- function(input, output, session) {
           )
         )
       })
-      output$clothesQuestion3ans <- renderUI({
+      output$candyQ3 <- renderUI({
         withMathJax()
       })
-      output$clothesQuestion4ans <- renderUI({
+      output$candyQ4 <- renderUI({
         withMathJax()
         (randomNumber1+randomNumber4)
       })
-      output$clothesQuestion5ans <- renderUI({
+      output$candyQ5 <- renderUI({
         withMathJax()
         (randomNumber1+randomNumber5)
       })
-      output$clothesQuestion6ans <- renderUI({
+      output$candyQ6 <- renderUI({
         withMathJax()
         (randomNumber1+randomNumber6)
       })
