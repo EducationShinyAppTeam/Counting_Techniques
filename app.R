@@ -253,9 +253,9 @@ ui <- list(
               ###### Candy bar PNGs + bttn ---- 
               fluidRow(
                 column(
-                  width = 3,
+                  width = 2,
                   align="center",
-                  offset = 0,
+                  offset = 2,
                   tags$img(
                     src = "yellowCandy.png",
                     alt = "Yellow chocolate bar",
@@ -263,7 +263,7 @@ ui <- list(
                   )
                 ),
                 column(
-                  width = 3,
+                  width = 2,
                   align="center",
                   offset = 0,
                   tags$img(
@@ -273,7 +273,7 @@ ui <- list(
                   )
                 ),               
                 column(
-                  width = 3,
+                  width = 2,
                   align="center",
                   offset = 0,
                   tags$img(
@@ -283,7 +283,7 @@ ui <- list(
                   )
                 ),
                 column(
-                  width = 3,
+                  width = 2,
                   align="center",
                   offset = 0,
                   tags$img(
@@ -295,17 +295,23 @@ ui <- list(
               ),
               br(),
               fluidRow(
-                p(withMathJax(sprintf(
-                  fmt = "You are the tacher of a class of %d students. 
-                    You reward your students with candy bars. Use the 
-                    examples below to see the different ways of giving out the candy bars.",
-                  classNum
-                ))),
-                bsButton(
-                  inputId = "newClass",
-                  label = "New class",
-                  size = "large",
-                  style = "default"
+                column(
+                  width = 10,
+                  offset = 0,
+                  uiOutput("prompt")
+                ),
+                column(
+                  width = 2,
+                  offset = 0,
+                  div(
+                    style = "text-align: center;",
+                    bsButton(
+                      inputId = "newClass",
+                      label = "New class",
+                      size = "large",
+                      style = "default"
+                    )
+                  )
                 )
               ),
               br(),
@@ -323,10 +329,7 @@ ui <- list(
                     You are willing to give some students more than 1 candy bar. 
                     How many ways can you distribute the candy bars?"),
                   tags$ul( 
-                    tags$li(withMathJax(sprintf(
-                      fmt = "\\(n^{r} = %d ^4\\)",
-                      classNum
-                    ))),
+                    tags$li(uiOutput("candyA1")),
                     permutation(),
                     replacement()
                   )
@@ -341,11 +344,7 @@ ui <- list(
                     You do not want to give any student more than 1 candy bar. 
                     How many ways can you distribute the candy bars?"),
                   tags$ul(
-                    tags$li(withMathJax(sprintf(
-                      fmt = "\\(_{n}P_{r} = \\dfrac{n!}{(n-r)!} = \\dfrac{(%d)!}{(%d)!}\\)",
-                      classNum,
-                      (classNum-4)
-                    ))),
+                    tags$li(uiOutput("candyA2")),
                     permutation(),
                     noReplace()
                   )
@@ -362,11 +361,7 @@ ui <- list(
                     You are willing to give some students more than 1 candy bar. 
                     How many ways can you distribute the candy bars?"),
                   tags$ul(
-                    tags$li(withMathJax(sprintf(
-                      fmt = "\\(\\binom{n+r-1}{r} = \\dfrac{(n+r-1)!}{r!(n-1)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
-                      (classNum+4-1),
-                      (classNum-1)
-                    ))),
+                    tags$li(uiOutput("candyA3")),
                     combination(),
                     replacement()
                   )
@@ -381,11 +376,7 @@ ui <- list(
                     You do not want to give any student more than 1 candy bar. 
                     How many ways can you distribute the candy bars?"),
                   tags$ul(
-                    tags$li(withMathJax(sprintf(
-                      fmt = "\\(\\binom{n}{r} = \\dfrac{n!}{r!(n-r)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
-                      classNum,
-                      (classNum-4)
-                    ))),
+                    tags$li(uiOutput("candyA4")),
                     combination(),
                     noReplace()
                   )
@@ -711,20 +702,57 @@ server <- function(input, output, session) {
         session = session,
         inputId = "pages",
         selected = "game")
-    }
-  )
+    })
   
   ## Candy Page -----
+  classNum <- reactiveVal(0)
+  
+  output$prompt <- renderUI({
+    "Click the new class button to begin"
+  })
   
   observeEvent(
     eventExpr = input$newClass,
     handlerExpr = {
-      classSeq <- seq(from = 20,
-                      to = 40, 
-                      by = 5)
-      classNum <- sample(classSeq, 1)
+      classNum(sample(18:36, 1))
+      
+      output$prompt <- renderUI({
+        withMathJax(paste(
+          "You are the teacher of a class of",
+          classNum(),
+          "students. You reward your students with candy bars. Use the examples 
+          below to see the different ways of giving out the candy bars."
+        ))
       })
-
+      output$candyA1 <- renderUI({
+        withMathJax(paste(sprintf(
+          fmt = "\\(n^{r} = %d ^4\\)",
+          classNum()
+        )))
+      })
+      output$candyA2 <- renderUI({
+        withMathJax(paste(sprintf(
+          fmt = "\\(_{n}P_{r} = \\dfrac{n!}{(n-r)!} = \\dfrac{(%d)!}{(%d)!}\\)",
+          classNum(),
+          (classNum()-4)
+        )))
+      })
+      output$candyA3 <- renderUI({
+        withMathJax(paste(sprintf(
+          fmt = "\\(\\binom{n+r-1}{r} = \\dfrac{(n+r-1)!}{r!(n-1)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
+          (classNum()+4-1),
+          (classNum()-1)
+        )))
+      })
+      output$candyA4 <- renderUI({
+        withMathJax(paste(sprintf(
+          fmt = "\\(\\binom{n}{r} = \\dfrac{n!}{r!(n-r)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
+          classNum(),
+          (classNum()-4)
+        )))
+      })
+    })
+  
   ## Poker Page ----
   scoreCount <- reactiveVal(0)
   
@@ -782,7 +810,6 @@ server <- function(input, output, session) {
         disabled = FALSE)
         })
     
-  
   observeEvent(
     eventExpr = input$showExpln,
     handlerExpr = {
