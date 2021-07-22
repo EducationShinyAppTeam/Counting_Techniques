@@ -295,18 +295,18 @@ ui <- list(
               ),
               br(),
               fluidRow(
-                  p(withMathJax(sprintf(
-                    fmt = "You are the tacher of a class of %d students. 
+                p(withMathJax(sprintf(
+                  fmt = "You are the tacher of a class of %d students. 
                     You reward your students with candy bars. Use the 
                     examples below to see the different ways of giving out the candy bars.",
-                    classNum
-                  ))),
-                  bsButton(
-                    inputId = "newClass",
-                    label = "New class",
-                    size = "large",
-                    style = "default"
-                  )
+                  classNum
+                ))),
+                bsButton(
+                  inputId = "newClass",
+                  label = "New class",
+                  size = "large",
+                  style = "default"
+                )
               ),
               br(),
               
@@ -391,9 +391,8 @@ ui <- list(
                   )
                 )
               )
-            )
-          ),
-          
+            ),
+
           ##### MCQ tab ----
           tabPanel(
             withMathJax(),
@@ -415,7 +414,7 @@ ui <- list(
                 ),
                 br(), 
                 uiOutput("hintDisplay"),
-                br(),
+                br()
               )
             ), 
             fluidRow(
@@ -453,7 +452,7 @@ ui <- list(
                   size = "large",
                   style = "danger",
                   disabled = FALSE
-                ), 
+                )
               ), 
               column(
                 width = 2, 
@@ -463,8 +462,7 @@ ui <- list(
                   size = "large",
                   style = "default",
                   disabled = FALSE
-                ), 
-                
+                )
               ),
               column(
                 width = 2, 
@@ -478,7 +476,7 @@ ui <- list(
                   size = "large",
                   style = "default",
                   disabled = TRUE
-                ),
+                )
               )
             ),
             fluidRow(
@@ -487,189 +485,187 @@ ui <- list(
                 br(), 
                 uiOutput("feedback")
               )
-              
             ), 
             uiOutput("math3"),
             uiOutput("math4")
+          )
           ),
-
-        br(), 
-        br(),
-        br(), 
+          br(), 
+          br(),
+          br(), 
+          div(
+            style = "text-align: center;",
+            bsButton(
+              inputId = "goExp",
+              label = "Game!",
+              size = "large",
+              icon = icon("gamepad"),
+              style = "default"
+            )
+          ) 
+        ),
         
-        div(
-          style = "text-align: center;",
-          bsButton(
-            inputId = "goExp",
-            label = "Game!",
-            size = "large",
-            icon = icon("gamepad"),
-            style = "default"
-          )
-        ) 
-      ),
-      #### Poker Page ---- 
-      tabItem(
-        tabName = "game",
-        withMathJax(),
-        h2("Poker Combinatorics"),
-        br(),
-        fluidRow(
-          column(
-            width = 2,
-            align = "center",
-            offset = 1,
-            uiOutput("card1")
+        #### Poker Page ---- 
+        tabItem(
+          tabName = "game",
+          withMathJax(),
+          h2("Poker Combinatorics"),
+          br(),
+          fluidRow(
+            column(
+              width = 2,
+              align = "center",
+              offset = 1,
+              uiOutput("card1")
+            ),
+            column(
+              width = 2,
+              align = "center",
+              offset = 0,
+              uiOutput("card2")
+            ),
+            column(
+              width = 2,
+              align = "center",
+              offset = 0,
+              uiOutput("card3")
+            ),
+            column(
+              width = 2,
+              ialign = "center",
+              offset = 0,
+              uiOutput("card4")
+            ),
+            column(
+              width = 2,
+              align = "center",
+              offset = 0,
+              uiOutput("card5")
+            )
           ),
-          column(
-            width = 2,
-            align = "center",
-            offset = 0,
-            uiOutput("card2")
-          ),
-          column(
-            width = 2,
-            align = "center",
-            offset = 0,
-            uiOutput("card3")
-          ),
-          column(
-            width = 2,
-            align = "center",
-            offset = 0,
-            uiOutput("card4")
-          ),
-          column(
-            width = 2,
-            align = "center",
-            offset = 0,
-            uiOutput("card5")
-          )
-        ),
-        fluidRow(
-          column(
-            width = 12,
-            align = "center",
-            offset = 0,
-            textOutput("caption"),
-            tags$head(tags$style("font-size: 8px;
+          fluidRow(
+            column(
+              width = 12,
+              align = "center",
+              offset = 0,
+              textOutput("caption"),
+              tags$head(tags$style("font-size: 8px;
                                    font-style: title case"
-            ))
-          )
-        ),
-        br(),
-        fluidRow(
-          column(
-            width = 6,
-            # offset = 1,
-            radioButtons(
-              inputId = "pokerAnswers",
-              label = "Click the 'New Hand' button to begin the poker questions.",
-              choices =  character(0),
-              selected = character(0)
-            ), 
-            fluidRow(
-              column(
-                width = 2,
-                offset = 0,
-                bsButton(
-                  inputId = "newHand",
-                  label = "New Hand",
-                  size = "large",
-                  style = "default",
-                  disabled = FALSE
-                )
-              ),
-              column(
-                width = 2,
-                offset = 1, 
-                bsButton(
-                  inputId = "submit",
-                  label = "Submit Answer",
-                  size = "large",
-                  style = "default",
-                  disabled = FALSE
+              ))
+            )
+          ),
+          br(),
+          fluidRow(
+            column(
+              width = 6,
+              # offset = 1,
+              radioButtons(
+                inputId = "pokerAnswers",
+                label = "Click the 'New Hand' button to begin the poker questions.",
+                choices =  character(0),
+                selected = character(0)
+              ), 
+              fluidRow(
+                column(
+                  width = 2,
+                  offset = 0,
+                  bsButton(
+                    inputId = "newHand",
+                    label = "New Hand",
+                    size = "large",
+                    style = "default",
+                    disabled = FALSE
+                  )
                 ),
-              ),
-              column(
-                width = 2,
-                offset = 2, 
-                uiOutput("scoreImg")
+                column(
+                  width = 2,
+                  offset = 1, 
+                  bsButton(
+                    inputId = "submit",
+                    label = "Submit Answer",
+                    size = "large",
+                    style = "default",
+                    disabled = FALSE
+                  )
+                ),
+                column(
+                  width = 2,
+                  offset = 2, 
+                  uiOutput("scoreImg")
+                )
               )
             ),
-            
-          ),
-          column(
-            width = 6,
-            offset = 0,
-            div(
-              style = "text-align: center",
-              textOutput("showScore"),
-              br(),
-              bsButton(
-                inputId = "showExpln",
-                label = "Answer Explanation", 
-                disabled = TRUE
+            column(
+              width = 6,
+              offset = 0,
+              div(
+                style = "text-align: center",
+                textOutput("showScore"),
+                br(),
+                bsButton(
+                  inputId = "showExpln",
+                  label = "Answer Explanation", 
+                  disabled = TRUE
+                ), 
               ), 
-            ), 
-            br(), 
-            uiOutput("showExplnDisplay")
-          )
-        ),
-        uiOutput("math1"),
-        uiOutput("math2")
-      ),
-      
-      ####  References Page ----
-      tabItem(
-        tabName = "references",
-        withMathJax(),
-        h2("References"),
-        p(
-          class = "hangingindent",
-          "Bailey, E. (2015). shinyBS: Twitter bootstrap components for shiny.
-            (v0.61). [R package]. Available from
-            https://CRAN.R-project.org/package=shinyBS"
-        ),
-        p(
-          class = "hangingindent",
-          "Carey, R. and Hatfield, N. (2020). boastUtils: BOAST Utilities. 
-            R package version 0.1.6.3. Available from 
-            https://github.com/EducationShinyAppTeam/boastUtils"
-        ),
-        p(
-          class = "hangingindent",
-          "Chang, W., Cheng, J., Allaire, J., Xie, Y., and McPherson, J. 
-            (2020). shiny: Web Application Framework for R. R package version 
-            1.5.0. Available from https://CRAN.R-project.org/package=shiny"
-        ),
-        p(
-          class = "hangingindent",
-          "Chang, W. and Borges Ribeiro, B. (2018). shinydashboard: 
-            Create Dashboards with 'Shiny'. R package version 0.7.1. Available 
-            from https://CRAN.R-project.org/package=shinydashboard"
-        ),
-        p(
-          class = "hangingindent",
-          "Murray, W. (2021). Probability Choices: Combinations & Permutations.",
-          tags$em("Educator"), 
-          "from https://www.educator.com/mathematics/probability/murray/choices_-combinations-+-permutations.php"
-        ),
-        p(
-          class = "hangingindent",
-          "Perrier, V., Meyer, F., and Granjon, D. (2020). shinyWidgets: 
-            Custom Inputs Widgets for Shiny. R package version 0.5.3. Available 
-            from https://CRAN.R-project.org/package=shinyWidgets"
+              br(), 
+              uiOutput("showExplnDisplay")
+            )
+          ),
+          uiOutput("math1"),
+          uiOutput("math2")
         ),
         
-        br(),
-        br(),
-        br(),
-        boastUtils::copyrightInfo()
+        ####  References Page ----
+        tabItem(
+          tabName = "references",
+          withMathJax(),
+          h2("References"),
+          p(
+            class = "hangingindent",
+            "Bailey, E. (2015). shinyBS: Twitter bootstrap components for shiny.
+            (v0.61). [R package]. Available from
+            https://CRAN.R-project.org/package=shinyBS"
+          ),
+          p(
+            class = "hangingindent",
+            "Carey, R. and Hatfield, N. (2020). boastUtils: BOAST Utilities. 
+            R package version 0.1.6.3. Available from 
+            https://github.com/EducationShinyAppTeam/boastUtils"
+          ),
+          p(
+            class = "hangingindent",
+            "Chang, W., Cheng, J., Allaire, J., Xie, Y., and McPherson, J. 
+            (2020). shiny: Web Application Framework for R. R package version 
+            1.5.0. Available from https://CRAN.R-project.org/package=shiny"
+          ),
+          p(
+            class = "hangingindent",
+            "Chang, W. and Borges Ribeiro, B. (2018). shinydashboard: 
+            Create Dashboards with 'Shiny'. R package version 0.7.1. Available 
+            from https://CRAN.R-project.org/package=shinydashboard"
+          ),
+          p(
+            class = "hangingindent",
+            "Murray, W. (2021). Probability Choices: Combinations & Permutations.",
+            tags$em("Educator"), 
+            "from https://www.educator.com/mathematics/probability/murray/choices_-combinations-+-permutations.php"
+          ),
+          p(
+            class = "hangingindent",
+            "Perrier, V., Meyer, F., and Granjon, D. (2020). shinyWidgets: 
+            Custom Inputs Widgets for Shiny. R package version 0.5.3. Available 
+            from https://CRAN.R-project.org/package=shinyWidgets"
+          ),
+          
+          br(),
+          br(),
+          br(),
+          boastUtils::copyrightInfo()
+        )
       )
     )
   )
-)
 )
 
 # Define server logic ----
