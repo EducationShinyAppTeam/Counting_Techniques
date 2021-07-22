@@ -16,17 +16,26 @@ cardBacks <- function(){
              contentType = "image/png", 
              alt = "Poker card backside"))
 }
-
-checker_shoes = img(src = "checker-shoes.jpg")
-psu_adidas = img(src = "psu-adidas.jpg")
-tshirt_solid = img(src = "tshirt-solid.jpg")
-tshirt_stripe = img(src = "tshirt-stripe.jpg")
-hoodie_solid = img(src = "hoodie-solid.jpg")
-hoodie_stripe = img(src = "hoodie-stripe.jpg")
-pants_solid = img(src = "pants-solid.jpg")
-pants_stripe = img(src = "pants-stripe.jpg")
-shorts_solid = img(src = "shorts-solid.jpg")
-shorts_stripe = img(src = "shorts-stripe.jpg")
+permutation <- function(){
+  return(tags$li(
+    "Since the candy bars are different, order matters. Therefore, we use a permutation."
+  ))
+}
+combination <- function(){
+  return(tags$li(
+    "Since the candy bars are identical, order does not matter. Therefore, we use a combination."
+  ))
+}
+replacement <- function(){
+  return(tags$li(
+    "Since children can receive more than 1 candy bar, there is replacement."
+  ))
+}
+noReplace <- function(){
+  return(tags$li(
+  "Since children cannot receive more than 1 candy bar, there is no replacement."
+  ))
+}
 
 # source("global.R")
 
@@ -236,56 +245,73 @@ ui <- list(
           h2("Explore the Concept"),
           tabsetPanel(
             
-            ##### Clothing Tab ----
+            ##### Candy Tab ----
             tabPanel(
               title = "Practice Combinations and Permutations",
               br(),
+              
+              ###### Candy bar PNGs + bttn ---- 
               fluidRow(
                 column(
-                  width = 2,
-                  align="center",
-                  offset = 4,
-                  tags$img(
-                    src = "whiteCandy.png",
-                    alt = "White chocolate bar",
-                    width = "100%"
-                  ),
-                  textOutput("whiteNum")
-                ),
-                column(
-                  width = 2,
+                  width = 3,
                   align="center",
                   offset = 0,
                   tags$img(
-                    src = "darkCandy.pnf",
-                    alt = "Dark chocolate bar",
+                    src = "yellowCandy.png",
+                    alt = "Yellow chocolate bar",
                     width = "100%"
-                  ),
-                  textOutput("darkNum")
+                  )
+                ),
+                column(
+                  width = 3,
+                  align="center",
+                  offset = 0,
+                  tags$img(
+                    src = "blackCandy.png",
+                    alt = "Black chocolate bar",
+                    width = "100%"
+                  )
+                ),               
+                column(
+                  width = 3,
+                  align="center",
+                  offset = 0,
+                  tags$img(
+                    src = "apricotCandy.png",
+                    alt = "Apricot chocolate bar",
+                    width = "100%"
+                  )
+                ),
+                column(
+                  width = 3,
+                  align="center",
+                  offset = 0,
+                  tags$img(
+                    src = "redCandy.png",
+                    alt = "Red chocolate bar",
+                    width = "100%"
+                  )
                 )
               ),
               br(),
               fluidRow(
-                div(
-                  style = "text-align: center",
+                  p(withMathJax(sprintf(
+                    fmt = "You are the tacher of a class of %d students. 
+                    You reward your students with candy bars. Use the 
+                    examples below to see the different ways of giving out the candy bars.",
+                    classNum
+                  ))),
                   bsButton(
-                    inputId = "newCandies",
-                    label = "New chocolate bars",
+                    inputId = "newClass",
+                    label = "New class",
                     size = "large",
                     style = "default"
                   )
-                )
               ),
               br(),
-              h4(tags$b("Practice Problems")),
-              p("If you are struggling solving the following combination and permutation 
-                problems about clothing, review similar problems about candy bars under 
-                the 'More Practice' tab. Each candy bar question contains a detailed answer."),
-              p(tags$b("Note: "), 
-                "Warm weather clothing includes t-shirts and shorts. 
-               Cold weather clothing includes hoodies and pants.
-               Shoes can be worn in any type of weather."),
-              br(),
+              
+              ###### Candy bar Qs ----
+              
               fluidRow(
                 box(
                   title = strong("Permutation with Replacement"),
@@ -293,25 +319,17 @@ ui <- list(
                   collapsible = TRUE,
                   collapsed = FALSE,
                   width = 6,
-                  p("Distribute 5 different candy bars to 20 children. 
-                  We are willing to give some children more than 1 candy bar. 
-                  How many ways can we distribute the candy bars?"),
+                  p("Distribute 4 different candy bars to the class. 
+                    You are willing to give some students more than 1 candy bar. 
+                    How many ways can you distribute the candy bars?"),
                   tags$ul( 
-                    tags$li("Since the candy bars are different, order matters. 
-                          Therefore, we use a permutation."),
-                    tags$li("Since children can receive more than 1 candy bar, 
-                          there is replacement."),
-                    tags$li("\\(n^{r} = 20^{5}\\)")
+                    tags$li(withMathJax(sprintf(
+                      fmt = "\\(n^{r} = %d ^4\\)",
+                      classNum
+                    ))),
+                    permutation(),
+                    replacement()
                   )
-                  
-                  title = strong("Permutation with Replacement"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 6,
-                  p("How many outfits could you make with the given wardrobe?"),
-                  br(),
-                  uiOutput("candyQ1")
                 ),
                 box(
                   title = strong("Permutation without Replacement"),
@@ -319,10 +337,18 @@ ui <- list(
                   collapsible = TRUE,
                   collapsed = FALSE,
                   width = 6,
-                  p("How many outfits could you make with the given wardrobe, 
-                  without rewearing any outfits?"),
-                  br(),
-                  uiOutput("candyQ2")
+                  p("Distribute 4 different candy bars to the class.
+                    You do not want to give any student more than 1 candy bar. 
+                    How many ways can you distribute the candy bars?"),
+                  tags$ul(
+                    tags$li(withMathJax(sprintf(
+                      fmt = "\\(_{n}P_{r} = \\dfrac{n!}{(n-r)!} = \\dfrac{(%d)!}{(%d)!}\\)",
+                      classNum,
+                      (classNum-4)
+                    ))),
+                    permutation(),
+                    noReplace()
+                  )
                 )
               ),
               fluidRow(
@@ -332,9 +358,18 @@ ui <- list(
                   collapsible = TRUE,
                   collapsed = FALSE,
                   width = 6,
-                  p("How many different outfits could you make with the given wardrobe?"),
-                  br(),
-                  uiOutput("candyQ3")
+                  p("Distribute 4 identical candy bars to the class. 
+                    You are willing to give some students more than 1 candy bar. 
+                    How many ways can you distribute the candy bars?"),
+                  tags$ul(
+                    tags$li(withMathJax(sprintf(
+                      fmt = "\\(\\binom{n+r-1}{r} = \\dfrac{(n+r-1)!}{r!(n-1)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
+                      (classNum+4-1),
+                      (classNum-1)
+                    ))),
+                    combination(),
+                    replacement()
+                  )
                 ),
                 box(
                   title = strong("Combination without Replacement"),
@@ -342,403 +377,305 @@ ui <- list(
                   collapsible = TRUE,
                   collapsed = FALSE,
                   width = 6,
-                  p("How many different outfits could you make with the given wardrobe, 
-              without rewearing any outfits?"),
-              br(),
-              uiOutput("candyQ4")
+                  p("Distribute 4 identical candy bars to the class. 
+                    You do not want to give any student more than 1 candy bar. 
+                    How many ways can you distribute the candy bars?"),
+                  tags$ul(
+                    tags$li(withMathJax(sprintf(
+                      fmt = "\\(\\binom{n}{r} = \\dfrac{n!}{r!(n-r)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
+                      classNum,
+                      (classNum-4)
+                    ))),
+                    combination(),
+                    noReplace()
+                  )
+                )
+              )
+            )
+          ),
+          
+          ##### MCQ tab ----
+          tabPanel(
+            withMathJax(),
+            title = "Multiple Choice", 
+            br(), 
+            h4("Question"),
+            uiOutput("context"), 
+            uiOutput("question"),
+            br(),
+            fluidRow(
+              column(
+                width = 12, 
+                bsButton(
+                  inputId = "hint",
+                  label = "Hint",
+                  icon = icon("question"),
+                  size = "large",
+                  disabled = FALSE
+                ),
+                br(), 
+                uiOutput("hintDisplay"),
+                br(),
+              )
+            ), 
+            fluidRow(
+              column(width = 12, 
+                     radioGroupButtons(
+                       inputId = "mc1",
+                       label = tags$b("Which expression addresses the question?"),
+                       status = "game",
+                       direction = "vertical",
+                       selected = character(0),
+                       checkIcon = list(
+                         yes = icon("check-square"),
+                         no = icon("square-o")
+                       ),
+                       
+                       choices = list(
+                         # "Pick the expression below that best addresses the question.",
+                         "\\(\\frac{1}{4}\\)",
+                         "\\(\\frac{2}{4}\\)",
+                         "\\(\\frac{3}{4}\\)",
+                         "\\(\\frac{4}{4}\\)"
+                       ),
+                       justified = FALSE,
+                       individual = FALSE, 
+                     ),  
+                     br(), 
+              )
+            ), 
+            fluidRow(
+              column(
+                width = 2, 
+                bsButton(
+                  "restart",
+                  "Restart",
+                  size = "large",
+                  style = "danger",
+                  disabled = FALSE
+                ), 
+              ), 
+              column(
+                width = 2, 
+                bsButton(
+                  inputId = "submit1",
+                  label = "Submit",
+                  size = "large",
+                  style = "default",
+                  disabled = FALSE
+                ), 
+                
+              ),
+              column(
+                width = 2, 
+                uiOutput("mark")
+              ), 
+              column(
+                width = 2, 
+                bsButton(
+                  inputId = "nextq",
+                  label = "Next Question",
+                  size = "large",
+                  style = "default",
+                  disabled = TRUE
+                ),
+              )
+            ),
+            fluidRow(
+              column(
+                width = 12, 
+                br(), 
+                uiOutput("feedback")
+              )
+              
+            ), 
+            uiOutput("math3"),
+            uiOutput("math4")
+          ),
+
+        br(), 
+        br(),
+        br(), 
+        
+        div(
+          style = "text-align: center;",
+          bsButton(
+            inputId = "goExp",
+            label = "Game!",
+            size = "large",
+            icon = icon("gamepad"),
+            style = "default"
+          )
+        ) 
+      ),
+      #### Poker Page ---- 
+      tabItem(
+        tabName = "game",
+        withMathJax(),
+        h2("Poker Combinatorics"),
+        br(),
+        fluidRow(
+          column(
+            width = 2,
+            align = "center",
+            offset = 1,
+            uiOutput("card1")
+          ),
+          column(
+            width = 2,
+            align = "center",
+            offset = 0,
+            uiOutput("card2")
+          ),
+          column(
+            width = 2,
+            align = "center",
+            offset = 0,
+            uiOutput("card3")
+          ),
+          column(
+            width = 2,
+            align = "center",
+            offset = 0,
+            uiOutput("card4")
+          ),
+          column(
+            width = 2,
+            align = "center",
+            offset = 0,
+            uiOutput("card5")
+          )
+        ),
+        fluidRow(
+          column(
+            width = 12,
+            align = "center",
+            offset = 0,
+            textOutput("caption"),
+            tags$head(tags$style("font-size: 8px;
+                                   font-style: title case"
+            ))
+          )
+        ),
+        br(),
+        fluidRow(
+          column(
+            width = 6,
+            # offset = 1,
+            radioButtons(
+              inputId = "pokerAnswers",
+              label = "Click the 'New Hand' button to begin the poker questions.",
+              choices =  character(0),
+              selected = character(0)
+            ), 
+            fluidRow(
+              column(
+                width = 2,
+                offset = 0,
+                bsButton(
+                  inputId = "newHand",
+                  label = "New Hand",
+                  size = "large",
+                  style = "default",
+                  disabled = FALSE
                 )
               ),
-              fluidRow(
-                box(
-                  title = strong("Conditional combination with Replacement"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 6,
-                  p("Given that there is warm weather, 
-                  how many different outfits could you make with the given wardrobe?"),
-                  br(),
-                  uiOutput("candyQ5")
+              column(
+                width = 2,
+                offset = 1, 
+                bsButton(
+                  inputId = "submit",
+                  label = "Submit Answer",
+                  size = "large",
+                  style = "default",
+                  disabled = FALSE
                 ),
-                box(
-                  title = strong("Conditional combination without Replacement"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 6,
-                  p("Given that there is warm weather, 
-                  how many different outfits could you make with the given wardrobe, 
-                  without rewearing any outfits?"),
-                  br(),
-                  uiOutput("candyQ6")
-                )
+              ),
+              column(
+                width = 2,
+                offset = 2, 
+                uiOutput("scoreImg")
               )
             ),
             
-            ##### Candy bars tab ----
-            tabPanel(
-              title = "More Practice", 
+          ),
+          column(
+            width = 6,
+            offset = 0,
+            div(
+              style = "text-align: center",
+              textOutput("showScore"),
               br(),
-              h3("Questions with Answer Explanations"), 
-              fluidRow(
-                box(
-                  # title = strong("Permutation with Replacement"),
-                  # status = "primary",
-                  # collapsible = TRUE,
-                  # collapsed = FALSE,
-                  # width = 6,
-                  # p("Distribute 5 different candy bars to 20 children. 
-                  # We are willing to give some children more than 1 candy bar. 
-                  # How many ways can we distribute the candy bars?"),
-                  # tags$ul( 
-                  #   tags$li("Since the candy bars are different, order matters. 
-                  #         Therefore, we use a permutation."),
-                  #   tags$li("Since children can receive more than 1 candy bar, 
-                  #         there is replacement."),
-                  #   tags$li("\\(n^{r} = 20^{5}\\)")
-                  # )
-                ),
-                box(
-                  title = strong("Permutation without Replacement"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 6,
-                  p("Distribute 5 different candy bars to 20 children. 
-                  We do not want to give any child more than 1 candy bar. 
-                  How many ways can we distribute the candy bars?"),
-                  tags$ul( 
-                    tags$li("Since the candy bars are different, order matters. 
-                          Therefore, we use a permutation."),
-                    tags$li("Since children cannot receive more than 1 candy bar, 
-                          there is no replacement."),
-                    tags$li("\\(_{n}P_{r} = _{20}P_{5} =\\dfrac{20!}{15!}\\)")
-                  )
-                )
-              ),
-              fluidRow(
-                box(
-                  title = strong("Combination with Replacement"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 6,
-                  p("Distribute 5 identical candy bars to 20 children. 
-                  We are willing to give some children more than 1 candy bar. 
-                  How many ways can we distribute the candy bars?"),
-                  tags$ul( 
-                    tags$li("Since the candy bars are identical, order does not 
-                          matter. Therefore, we use a combination."),
-                    tags$li("Since children can receive more than 1 candy bar, 
-                          there is replacement."),
-                    tags$li("\\(\\binom{n+r-1}{r} = \\binom(24}{5} = \\dfrac{24!}{5!(19)!}\\)")
-                  )
-                ),
-                box(
-                  title = strong("Combination without Replacement"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 6,
-                  p("Distribute 5 identical candy bars to 20 children. 
-                  We do not want to give any child more than 1 candy bar. 
-                  How many ways can we distribute the candy bars?"),
-                  tags$ul( 
-                    tags$li("Since the candy bars are identical, order does not 
-                          matter. Therefore, we use a combination."),
-                    tags$li("Since children cannot receive more than 1 candy bar, 
-                          there is no replacement."),
-                    tags$li("\\\\binom{n}{r} = \\binom{20}{5} = \\dfrac{20!}{5!(15)!}\\)")
-                  )
-                )
-              )
-            ),
-        
-            ##### MCQ tab ----
-            tabPanel(
-              withMathJax(),
-              title = "Multiple Choice", 
-              br(), 
-              h4("Question"),
-              uiOutput("context"), 
-              uiOutput("question"),
-              br(),
-              fluidRow(
-                column(
-                  width = 12, 
-                  bsButton(
-                    inputId = "hint",
-                    label = "Hint",
-                    icon = icon("question"),
-                    size = "large",
-                    disabled = FALSE
-                  ),
-                  br(), 
-                  uiOutput("hintDisplay"),
-                  br(),
-                )
+              bsButton(
+                inputId = "showExpln",
+                label = "Answer Explanation", 
+                disabled = TRUE
               ), 
-              fluidRow(
-                column(width = 12, 
-                       radioGroupButtons(
-                         inputId = "mc1",
-                         label = tags$b("Which expression addresses the question?"),
-                         status = "game",
-                         direction = "vertical",
-                         selected = character(0),
-                         checkIcon = list(
-                           yes = icon("check-square"),
-                           no = icon("square-o")
-                         ),
-                         
-                         choices = list(
-                           # "Pick the expression below that best addresses the question.",
-                           "\\(\\frac{1}{4}\\)",
-                           "\\(\\frac{2}{4}\\)",
-                           "\\(\\frac{3}{4}\\)",
-                           "\\(\\frac{4}{4}\\)"
-                         ),
-                         justified = FALSE,
-                         individual = FALSE, 
-                       ),  
-                       br(), 
-                )
-              ), 
-              fluidRow(
-                column(
-                  width = 2, 
-                  bsButton(
-                    "restart",
-                    "Restart",
-                    size = "large",
-                    style = "danger",
-                    disabled = FALSE
-                  ), 
-                ), 
-                column(
-                  width = 2, 
-                  bsButton(
-                    inputId = "submit1",
-                    label = "Submit",
-                    size = "large",
-                    style = "default",
-                    disabled = FALSE
-                  ), 
-                  
-                ),
-                column(
-                  width = 2, 
-                  uiOutput("mark")
-                ), 
-                column(
-                  width = 2, 
-                  bsButton(
-                    inputId = "nextq",
-                    label = "Next Question",
-                    size = "large",
-                    style = "default",
-                    disabled = TRUE
-                  ),
-                )
-              ),
-              fluidRow(
-                column(
-                  width = 12, 
-                  br(), 
-                  uiOutput("feedback")
-                )
-                
-              ), 
-              uiOutput("math3"),
-              uiOutput("math4")
-            )
-          ),
-          
-          br(), 
-          br(),
-          br(), 
-          
-          div(
-            style = "text-align: center;",
-            bsButton(
-              inputId = "goExp",
-              label = "Game!",
-              size = "large",
-              icon = icon("gamepad"),
-              style = "default"
-            )
-          ) 
-          
+            ), 
+            br(), 
+            uiOutput("showExplnDisplay")
+          )
         ),
-        #### Poker Page ---- 
-        tabItem(
-          tabName = "game",
-          withMathJax(),
-          h2("Poker Combinatorics"),
-          br(),
-          fluidRow(
-            column(
-              width = 2,
-              align = "center",
-              offset = 1,
-              uiOutput("card1")
-            ),
-            column(
-              width = 2,
-              align = "center",
-              offset = 0,
-              uiOutput("card2")
-            ),
-            column(
-              width = 2,
-              align = "center",
-              offset = 0,
-              uiOutput("card3")
-            ),
-            column(
-              width = 2,
-              align = "center",
-              offset = 0,
-              uiOutput("card4")
-            ),
-            column(
-              width = 2,
-              align = "center",
-              offset = 0,
-              uiOutput("card5")
-            )
-          ),
-          fluidRow(
-            column(
-              width = 12,
-              align = "center",
-              offset = 0,
-              textOutput("caption"),
-              tags$head(tags$style("font-size: 8px;
-                                   font-style: title case"
-                                   ))
-            )
-          ),
-          br(),
-          fluidRow(
-            column(
-              width = 6,
-              # offset = 1,
-              radioButtons(
-                inputId = "pokerAnswers",
-                label = "Click the 'New Hand' button to begin the poker questions.",
-                choices =  character(0),
-                selected = character(0)
-              ), 
-              fluidRow(
-                column(
-                  width = 2,
-                  offset = 0,
-                  bsButton(
-                    inputId = "newHand",
-                    label = "New Hand",
-                    size = "large",
-                    style = "default",
-                    disabled = FALSE
-                  )
-                ),
-                column(
-                  width = 2,
-                  offset = 1, 
-                  bsButton(
-                    inputId = "submit",
-                    label = "Submit Answer",
-                    size = "large",
-                    style = "default",
-                    disabled = FALSE
-                  ),
-                ),
-                column(
-                  width = 2,
-                  offset = 2, 
-                  uiOutput("scoreImg")
-                )
-              ),
-              
-            ),
-            column(
-              width = 6,
-              offset = 0,
-              div(
-                style = "text-align: center",
-                textOutput("showScore"),
-                br(),
-                bsButton(
-                  inputId = "showExpln",
-                  label = "Answer Explanation", 
-                  disabled = TRUE
-                ), 
-              ), 
-              br(), 
-              uiOutput("showExplnDisplay")
-            )
-          ),
-          uiOutput("math1"),
-          uiOutput("math2")
-        ),
-        
-        ####  References Page ----
-        tabItem(
-          tabName = "references",
-          withMathJax(),
-          h2("References"),
-          p(
-            class = "hangingindent",
-            "Bailey, E. (2015). shinyBS: Twitter bootstrap components for shiny.
+        uiOutput("math1"),
+        uiOutput("math2")
+      ),
+      
+      ####  References Page ----
+      tabItem(
+        tabName = "references",
+        withMathJax(),
+        h2("References"),
+        p(
+          class = "hangingindent",
+          "Bailey, E. (2015). shinyBS: Twitter bootstrap components for shiny.
             (v0.61). [R package]. Available from
             https://CRAN.R-project.org/package=shinyBS"
-          ),
-          p(
-            class = "hangingindent",
-            "Carey, R. and Hatfield, N. (2020). boastUtils: BOAST Utilities. 
+        ),
+        p(
+          class = "hangingindent",
+          "Carey, R. and Hatfield, N. (2020). boastUtils: BOAST Utilities. 
             R package version 0.1.6.3. Available from 
             https://github.com/EducationShinyAppTeam/boastUtils"
-          ),
-          p(
-            class = "hangingindent",
-            "Chang, W., Cheng, J., Allaire, J., Xie, Y., and McPherson, J. 
+        ),
+        p(
+          class = "hangingindent",
+          "Chang, W., Cheng, J., Allaire, J., Xie, Y., and McPherson, J. 
             (2020). shiny: Web Application Framework for R. R package version 
             1.5.0. Available from https://CRAN.R-project.org/package=shiny"
-          ),
-          p(
-            class = "hangingindent",
-            "Chang, W. and Borges Ribeiro, B. (2018). shinydashboard: 
+        ),
+        p(
+          class = "hangingindent",
+          "Chang, W. and Borges Ribeiro, B. (2018). shinydashboard: 
             Create Dashboards with 'Shiny'. R package version 0.7.1. Available 
             from https://CRAN.R-project.org/package=shinydashboard"
-          ),
-          p(
-            class = "hangingindent",
-            "Murray, W. (2021). Probability Choices: Combinations & Permutations.",
-            tags$em("Educator"), 
-            "from https://www.educator.com/mathematics/probability/murray/choices_-combinations-+-permutations.php"
-          ),
-          p(
-            class = "hangingindent",
-            "Perrier, V., Meyer, F., and Granjon, D. (2020). shinyWidgets: 
+        ),
+        p(
+          class = "hangingindent",
+          "Murray, W. (2021). Probability Choices: Combinations & Permutations.",
+          tags$em("Educator"), 
+          "from https://www.educator.com/mathematics/probability/murray/choices_-combinations-+-permutations.php"
+        ),
+        p(
+          class = "hangingindent",
+          "Perrier, V., Meyer, F., and Granjon, D. (2020). shinyWidgets: 
             Custom Inputs Widgets for Shiny. R package version 0.5.3. Available 
             from https://CRAN.R-project.org/package=shinyWidgets"
-          ),
-          
-          br(),
-          br(),
-          br(),
-          boastUtils::copyrightInfo()
-        )
+        ),
+        
+        br(),
+        br(),
+        br(),
+        boastUtils::copyrightInfo()
       )
     )
   )
+)
 )
 
 # Define server logic ----
 server <- function(input, output, session) {
   
-  ## Set up navigation buttons ----
-  ## Set up Info button ----
+  ## Set up navigation bttns ----
   observeEvent(
     eventExpr = input$info,
     handlerExpr = {
@@ -781,89 +718,17 @@ server <- function(input, output, session) {
     }
   )
   
-  ## Random Number Generator for Wardrobe ----
-  observeEvent(
-    eventExpr = input$newCandies,
-    handlerExpr = {
-      # Why not use randCounts <- sample(x = 2:7, size = 10, replace = TRUE)
-      randomNumber1 <- sample(2:7, 1)
-      randomNumber2 <- sample(2:7, 1)
-      randomNumber3 <- sample(2:7, 1)
-      randomNumber4 <- sample(2:7, 1)
-      randomNumber5 <- sample(2:7, 1)
-      randomNumber6 <- sample(2:7, 1)
-      randomNumber7 <- sample(2:7, 1)
-      randomNumber8 <- sample(2:7, 1)
-      randomNumber9 <- sample(2:7, 1)
-      randomNumber10 <- sample(2:7, 1)
-      
-      # output$clothing <- renderText(randCount[#])
-      output$tshirt_solid_num <- renderText(randomNumber1)
-      output$tshirt_stripe_num <- renderText(randomNumber2)
-      output$hoodie_solid_num <- renderText(randomNumber3)
-      output$hoodie_stripe_num <- renderText(randomNumber4)
-      output$pants_solid_num <- renderText(randomNumber5)
-      output$pants_stripe_num <- renderText(randomNumber6)
-      output$shorts_solid_num <- renderText(randomNumber7)
-      output$shorts_stripe_num <- renderText(randomNumber8)
-      output$checker_shoes_num <- renderText(randomNumber9)
-      output$psu_adidas_num <- renderText(randomNumber10)
-      
-      # What's happening here? Is there an easier way to do what you're tying to do?
-      output$candyQ1 <- renderUI({
-        withMathJax(
-          sprintf(
-            fmt = "\\(n^{r} = %d * %d * %d * %d * %d * %d * %d * %d * %d * %d = %d\\)",
-            randomNumber1,
-            randomNumber2,
-            randomNumber3,
-            randomNumber4,
-            randomNumber5,
-            randomNumber6,
-            randomNumber7,
-            randomNumber8,
-            randomNumber9,
-            randomNumber10,
-            (randomNumber1 * randomNumber2 * randomNumber3 * randomNumber4 * randomNumber5 *randomNumber6 * randomNumber7 * randomNumber8 * randomNumber9 * randomNumber10)
-          )
-        )
-      })
-      output$candyQ2 <- renderUI({
-        withMathJax(
-          sprintf(
-            fmt = "\\(_{n}P_{r} = %d * %d * %d * %d * %d * %d * %d * %d * %d * %d = %d\\)",
-            (randomNumber1 - 1),
-            (randomNumber2 - 1),
-            (randomNumber3 - 1),
-            (randomNumber4 - 1),
-            (randomNumber5 - 1),
-            (randomNumber6 - 1),
-            (randomNumber7 - 1),
-            (randomNumber8 - 1),
-            (randomNumber9 - 1),
-            (randomNumber10 - 1),
-            ((randomNumber1 - 1) * (randomNumber2 - 1) * (randomNumber3 - 1) * (randomNumber4 - 1) * (randomNumber5 - 1) *(randomNumber6 - 1) * (randomNumber7 - 1) * (randomNumber8 - 1) * (randomNumber9 - 1) * (randomNumber10 - 1))
-          )
-        )
-      })
-      output$candyQ3 <- renderUI({
-        withMathJax()
-      })
-      output$candyQ4 <- renderUI({
-        withMathJax()
-        (randomNumber1+randomNumber4)
-      })
-      output$candyQ5 <- renderUI({
-        withMathJax()
-        (randomNumber1+randomNumber5)
-      })
-      output$candyQ6 <- renderUI({
-        withMathJax()
-        (randomNumber1+randomNumber6)
-      })
-    }
-  )
+  ## Candy Page -----
   
+  observeEvent(
+    eventExpr = input$newClass,
+    handlerExpr = {
+      classSeq <- seq(from = 20,
+                      to = 40, 
+                      by = 5)
+      classNum <- sample(classSeq, 1)
+      })
+
   ## Poker Page ----
   scoreCount <- reactiveVal(0)
   
