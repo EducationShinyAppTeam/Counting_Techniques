@@ -28,12 +28,12 @@ combination <- function(){
 }
 replacement <- function(){
   return(tags$li(
-    "Since children can receive more than 1 candy bar, there is replacement."
+    "Since students can receive more than 1 candy bar, there is replacement."
   ))
 }
 noReplace <- function(){
   return(tags$li(
-  "Since children cannot receive more than 1 candy bar, there is no replacement."
+  "Since students cannot receive more than 1 candy bar, there is no replacement."
   ))
 }
 
