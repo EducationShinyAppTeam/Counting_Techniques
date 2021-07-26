@@ -85,15 +85,15 @@ ui <- list(
           withMathJax(),
           h1("Counting Techniques"), 
           p("This app is designed to teach and review combinatorics and 
-            its application in probability."),
+            counting principles."),
           h2("Instructions"),
           tags$ol(
             tags$li("Use the Prerequistes page to review the different counting 
                     principles and the keywords to be aware of when solving problems."),
             tags$li("Use the Explore page to practice combinatorics in 
                     clothing-related problems."),
-            tags$li("Use the Challenge page to practice applying combinatorics to 
-                    probability in poker-related problems.")
+            tags$li("Use the Challenge page to apply combinatorics in 
+                    poker-related problems.")
           ),
           div(
             style = "text-align: center;",
@@ -670,7 +670,7 @@ server <- function(input, output, session) {
         session = session,
         type = "info",
         title = "Information",
-        text = "Apply counting techniques to combinatorics and probability problems."
+        text = "Apply counting techniques to combinatorics problems."
       )
     }
   )
