@@ -9,7 +9,7 @@ library(data.table)
 
 # Load additional dependencies and setup functions
 
-pokerHands <- fread("www/pokerquestionbank.csv")
+pokerHands <- fread("pokerquestionbank.csv")
 cardBacks <- function(){
   return(img(src = "pokercard-back.png",
              width = "100%",
@@ -728,7 +728,7 @@ server <- function(input, output, session) {
         session = session,
         type = "info",
         title = "Information",
-        text = "Apply counting techniques to combinatorics problems."
+        text = "Apply counting techniques to solve problems."
       )
     }
   )
