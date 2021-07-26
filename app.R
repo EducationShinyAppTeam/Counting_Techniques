@@ -665,6 +665,7 @@ ui <- list(
                 bsButton(
                   inputId = "showExpln",
                   label = "Answer Explanation", 
+                  size = "large", 
                   disabled = TRUE
                 ), 
               ), 
@@ -886,6 +887,9 @@ server <- function(input, output, session) {
       output$math2 <- renderUI({withMathJax()})
       output$showExplnDisplay <- renderUI({
         return = NULL
+      })
+      output$scoreImg <- renderUI({
+        img(src = NULL, width = 50)
       })
       updateButton(
         session = session, 
