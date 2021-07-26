@@ -90,10 +90,13 @@ ui <- list(
           tags$ol(
             tags$li("Use the Prerequistes page to review the different counting 
                     principles and the keywords to be aware of when solving problems."),
-            tags$li("Use the Explore page to practice combinatorics in 
-                    clothing-related problems."),
-            tags$li("Use the Challenge page to apply combinatorics in 
-                    poker-related problems.")
+            tags$li("Use the Explore page to see the difference between the counting
+                    techniques mentioned. You can further test your knowledge
+                    in the Multiple Choice page."),
+            tags$li("Use the Challenge page to apply counting techniques in 
+                    poker-related problems."), 
+            tags$li("For poker, score three points for each question you get right and
+                    lose a point when you get one wrong. Win by getting 20 points!")
           ),
           div(
             style = "text-align: center;",
@@ -201,10 +204,9 @@ ui <- list(
                 tags$li("\\(n_{1}\\) of the \\(1^{st}\\) object."),
                 tags$li("\\(n_{2}\\) of the \\(2^{nd}\\) object."),
                 tags$li("\\(n_{k}\\) of the \\(k^{th}\\) object."),
-                tags$li("Then \\(_{n}P_{r}\\) or permutations of ", tags$em("n"), "objects
-                        taken", tags$em("n"), "at a time is "),
-                tags$li("\\(P=\\binom{n}{(n_{1})(n_{2})\\cdots(n_{k})}=\\dfrac{n!}
-                        {(n_{1})!(n_{2})!(n_{3})!\\cdots(n_{k})!}\\)")
+                tags$li("Where \\(\\sum_{i=1}^{k=n_i} = n\\) is 
+                      \\(\\binom{n}{(n_{1})(n_{2})\\cdots(n_{k})}=\\dfrac{n!}
+                        {(n_{1}!)(n_{2}!)(n_{3}!)\\cdots(n_{k}!)}\\)")
                 ### ask how to line up the equal signs for the n!/n
               )
             ),
@@ -220,8 +222,25 @@ ui <- list(
                 tags$li(("\\({n_{2}}\\)"), "outcomes of experiment two"), 
                 tags$li(("\\({n_{m}}\\)"), "outcomes of experiment m"), 
                 tags$li("Then the number of total outcomes from all experiments", 
-                        ("\\({E_{1},E_{2},E_{3}=}\\)")), 
+                        ("\\({E_{1},E_{2}...E_{m}=}\\)")), 
                 tags$li("\\({(n_{1})\\times(n_{2})\\times(n_{3})\\times\\cdots\\times(n_{m})= n!}\\)")
+              )
+            )
+          ),
+          fluidRow(
+            box(
+              title = strong("Using Set Theory"),
+              status = "primary",
+              collapsible = TRUE,
+              collapsed = FALSE,
+              width = 12,
+              p("Set theory operations are valuable for counting the number of
+                elements in a set. As examples, if \\((A)\\) = the number of elements
+                in the set A then"),
+              tags$ul( 
+                tags$li("\\((A U B) = (A) + (B) - (AB)\\)"),
+                tags$li("\\((A) = (AB_1) + (AB_2) + ...+ (AB_k)\\) if \\(B_1,...,B_k\\)
+                        are mutually exclusive and exhaustive."),
               )
             )
           ), 
@@ -253,43 +272,47 @@ ui <- list(
               ###### Candy bar PNGs + bttn ---- 
               fluidRow(
                 column(
-                  width = 2,
+                  width = 3,
                   align="center",
-                  offset = 2,
+                  offset = 0,
                   tags$img(
                     src = "greenBar.png",
                     alt = "Mint chocolate bar",
-                    width = "100%"
+                    width = "60%", 
+                    p("Mint chocolate bar")
                   )
                 ),
                 column(
-                  width = 2,
+                  width = 3,
                   align="center",
                   offset = 0,
                   tags$img(
                     src = "blueBar.png",
                     alt = "Blueberry chocolate bar",
-                    width = "100%"
+                    width = "60%", 
+                    p("Blueberry chocolate bar")
                   )
                 ),               
                 column(
-                  width = 2,
+                  width = 3,
                   align="center",
                   offset = 0,
                   tags$img(
                     src = "pinkBar.png",
                     alt = "Strawberry chocolate bar",
-                    width = "100%"
+                    width = "60%", 
+                    p("Strawberry chocolate bar")
                   )
                 ),
                 column(
-                  width = 2,
+                  width = 3,
                   align="center",
                   offset = 0,
                   tags$img(
                     src = "whiteBar.png",
                     alt = "White chocolate bar",
-                    width = "100%"
+                    width = "60%", 
+                    p("White chocolate bar")
                   )
                 )
               ),
@@ -325,7 +348,7 @@ ui <- list(
                   collapsible = TRUE,
                   collapsed = FALSE,
                   width = 6,
-                  p("Distribute 4 different candy bars to the class. 
+                  p("Distribute 4 different flavored candy bars to the class. 
                     You are willing to give some students more than 1 candy bar. 
                     How many ways can you distribute the candy bars?"),
                   tags$ul( 
@@ -340,7 +363,7 @@ ui <- list(
                   collapsible = TRUE,
                   collapsed = FALSE,
                   width = 6,
-                  p("Distribute 4 different candy bars to the class.
+                  p("Distribute 4 different flavored candy bars to the class.
                     You do not want to give any student more than 1 candy bar. 
                     How many ways can you distribute the candy bars?"),
                   tags$ul(
@@ -721,8 +744,9 @@ server <- function(input, output, session) {
         withMathJax(paste(
           "You are the teacher of a class of",
           classNum(),
-          "students. You reward your students with candy bars. Use the examples 
-          below to see the different ways of giving out the candy bars."
+          "students. You reward your students with candy bars of possibly different
+          flavors. Use the examples below to see the different ways of giving out
+          the candy bars."
         ))
       })
       output$candyA1 <- renderUI({
