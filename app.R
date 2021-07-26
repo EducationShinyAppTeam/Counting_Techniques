@@ -257,8 +257,8 @@ ui <- list(
                   align="center",
                   offset = 2,
                   tags$img(
-                    src = "yellowCandy.png",
-                    alt = "Yellow chocolate bar",
+                    src = "greenBar.png",
+                    alt = "Mint chocolate bar",
                     width = "100%"
                   )
                 ),
@@ -267,8 +267,8 @@ ui <- list(
                   align="center",
                   offset = 0,
                   tags$img(
-                    src = "blackCandy.png",
-                    alt = "Black chocolate bar",
+                    src = "blueBar.png",
+                    alt = "Blueberry chocolate bar",
                     width = "100%"
                   )
                 ),               
@@ -277,8 +277,8 @@ ui <- list(
                   align="center",
                   offset = 0,
                   tags$img(
-                    src = "apricotCandy.png",
-                    alt = "Apricot chocolate bar",
+                    src = "pinkBar.png",
+                    alt = "Strawberry chocolate bar",
                     width = "100%"
                   )
                 ),
@@ -287,8 +287,8 @@ ui <- list(
                   align="center",
                   offset = 0,
                   tags$img(
-                    src = "redCandy.png",
-                    alt = "Red chocolate bar",
+                    src = "whiteBar.png",
+                    alt = "White chocolate bar",
                     width = "100%"
                   )
                 )
@@ -296,12 +296,7 @@ ui <- list(
               br(),
               fluidRow(
                 column(
-                  width = 10,
-                  offset = 0,
-                  uiOutput("prompt")
-                ),
-                column(
-                  width = 2,
+                  width = 3,
                   offset = 0,
                   div(
                     style = "text-align: center;",
@@ -312,6 +307,11 @@ ui <- list(
                       style = "default"
                     )
                   )
+                ),  
+                column(
+                  width = 9,
+                  offset = 0,
+                  uiOutput("prompt")
                 )
               ),
               br(),
