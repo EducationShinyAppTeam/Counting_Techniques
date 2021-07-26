@@ -266,7 +266,7 @@ ui <- list(
             
             ##### Candy Tab ----
             tabPanel(
-              title = "Practice Combinations and Permutations",
+              title = "Worked Examples",
               br(),
               
               ###### Candy bar PNGs + bttn ---- 
@@ -402,6 +402,40 @@ ui <- list(
                     tags$li(uiOutput("candyA4")),
                     combination(),
                     noReplace()
+                  )
+                )
+              ) , 
+              fluidRow(
+                box(
+                  title = strong("Distinguishable Permutations"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("There are 20 candy bars consisting of all four flavors 
+                    available to pass out to the students. If each flavor is to 
+                    be rewarded to five students, how many ways can the candy bars
+                    be rewarded the students?"),
+                  tags$ul(
+                    tags$li("\\(\\dfrac{20!}{5!5!5!5!}\\)"),
+                    combination(),
+                    replacement()
+                  )
+                ),
+                box(
+                  title = strong("Multiplication Rule"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("You have 3 mint 4 blueberry, 4 strawberry, and 1 lemon candy
+                    bar. How many ways can you distribute 4 different flavored
+                    candy bars to one
+                    student?"),
+                  tags$ul(
+                    tags$li("\\(3\\cdot{4}\\cdot{4}\\cdot{1}\\)"),
+                    combination(),
+                    replacement()
                   )
                 )
               )
