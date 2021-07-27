@@ -819,6 +819,7 @@ server <- function(input, output, session) {
     paste("Your score is", scoreCount(), ".")
   })
   
+  
   handNum <- reactiveVal(0)
   
   observeEvent(
@@ -870,7 +871,39 @@ server <- function(input, output, session) {
         session = session, 
         inputId = "showExpln", 
         disabled = FALSE)
-        })
+      
+      ### Game Over Check
+      if (scoreCount() >= 20) {
+        sendSweetAlert(
+          session = session,
+          title = "You Win!",
+          type = "success",
+          text = "You have won the game! Congrats!"
+        )
+        scoreCount(0)
+        updateButton(
+          session = session,
+          inputId = "newHand",
+          disabled = FALSE
+        )
+      } else if (scoreCount()  <= -10) {
+        sendSweetAlert(
+          session = session,
+          title = "You lost.",
+          type = "error",
+          text = "You have lost the game. Please try again.",
+          closeOnClickOutside = FALSE
+        )
+        scoreCount(0)
+        updateButton(
+          session = session,
+          inputId = "newHand",
+          disabled = FALSE
+          
+        )
+      }
+  
+    })
     
   observeEvent(
     eventExpr = input$showExpln,
@@ -881,19 +914,7 @@ server <- function(input, output, session) {
         p(tags$b("Answer Explanation: "), withMathJax(pokerHands$ansExpln[handNum()]))
       })
     })
-  # observeEvent(
-  #   eventExpr = input$showExpln,
-  #   handlerExpr = {
-  #     sendSweetAlert(
-  #       session = session,
-  #       title = "Answer Explanation",
-  #       text = pokerHands$ansExpln[handNum()],
-  #       closeOnClickOutside = TRUE,
-  #       showCloseButton = TRUE
-  #     )
-  #     output$math1 <- renderUI({withMathJax()})
-  #     output$math2 <- renderUI({withMathJax()})
-  #   })
+ 
   
   output$card1 <- renderUI({
     if (handNum() == 0) {
@@ -950,6 +971,7 @@ server <- function(input, output, session) {
     }
   })
   
+
   ## Explore Page Practice ----
   withBusyIndicatorServer <- function(buttonId, expr) {
     # UX stuff: show the "busy" message, hide the other messages, disable the button
@@ -1316,6 +1338,7 @@ server <- function(input, output, session) {
         p(tags$b("Hint:"), questionBank[id, "Hint"])
       })
     })
+  
 }
 # Boast App Call ----
 boastUtils::boastApp(ui = ui, server = server)
