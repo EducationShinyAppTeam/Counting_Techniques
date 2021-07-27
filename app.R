@@ -855,6 +855,10 @@ server <- function(input, output, session) {
         session = session, 
         inputId = "showExpln", 
         disabled = TRUE)
+      updateButton(
+        session = session, 
+        inputId = "submit", 
+        disabled = FALSE)
       
     },
     ignoreNULL = TRUE,
@@ -877,6 +881,11 @@ server <- function(input, output, session) {
         session = session, 
         inputId = "showExpln", 
         disabled = FALSE)
+      updateButton(
+        session = session,
+        inputId = "submit",
+        disabled = TRUE
+      )
       
       ### Game Over Check
       if (scoreCount() >= 20) {
@@ -889,9 +898,15 @@ server <- function(input, output, session) {
         scoreCount(0)
         updateButton(
           session = session,
+          inputId = "submit",
+          disabled = TRUE
+        )
+        updateButton(
+          session = session,
           inputId = "newHand",
           disabled = FALSE
         )
+        
       } else if (scoreCount()  <= -10) {
         sendSweetAlert(
           session = session,
@@ -905,7 +920,11 @@ server <- function(input, output, session) {
           session = session,
           inputId = "newHand",
           disabled = FALSE
-          
+        )
+        updateButton(
+          session = session,
+          inputId = "submit",
+          disabled = TRUE
         )
       }
   
@@ -919,6 +938,19 @@ server <- function(input, output, session) {
       output$showExplnDisplay <- renderUI({
         p(tags$b("Answer Explanation: "), withMathJax(pokerHands$ansExpln[handNum()]))
       })
+      
+      updateButton(
+        session = session,
+        inputId = "sumbit",
+        disabled = TRUE
+      )
+      updateButton(
+        session = session,
+        inputId = "newHand",
+        disabled = FALSE
+        
+      )
+      
     })
  
   
