@@ -826,15 +826,21 @@ server <- function(input, output, session) {
     eventExpr = input$newHand,
     handlerExpr = {
       handNum(sample(x = 1:nrow(pokerHands), size = 1))
+      
       output$caption <- renderText(pokerHands$caption[handNum()],)
+      
+      ansChoices <- c(pokerHands$mathcodeCorrect[handNum()],
+        pokerHands$mathcodeAlt1[handNum()],
+        pokerHands$mathcodeAlt2[handNum()],
+        pokerHands$mathcodeAlt3[handNum()])
+      
+      randomAnsChoices <- sample(ansChoices, 4)
+      
       updateRadioButtons(
         session = session,
         inputId = "pokerAnswers",
         label = pokerHands$question[handNum()],
-        choices = c(pokerHands$mathcodeCorrect[handNum()],
-                    pokerHands$mathcodeAlt1[handNum()],
-                    pokerHands$mathcodeAlt2[handNum()],
-                    pokerHands$mathcodeAlt3[handNum()]),
+        choices = c(randomAnsChoices),
         selected = character(0)
       )
       output$math1 <- renderUI({withMathJax()})
