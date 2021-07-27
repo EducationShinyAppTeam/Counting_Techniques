@@ -4,9 +4,41 @@ library(shinydashboard)
 library(shinyBS)
 library(shinyWidgets)
 library(boastUtils)
+library(shinyjs)
+library(data.table)
 
 # Load additional dependencies and setup functions
+
+pokerHands <- fread("pokerquestionbank.csv")
+cardBacks <- function(){
+  return(img(src = "pokercard-back.png",
+             width = "100%",
+             contentType = "image/png", 
+             alt = "Poker card backside"))
+}
+permutation <- function(){
+  return(tags$li(
+    "Since the candy bars are different, order matters. Therefore, we use a permutation."
+  ))
+}
+combination <- function(){
+  return(tags$li(
+    "Since the candy bars are identical, order does not matter. Therefore, we use a combination."
+  ))
+}
+replacement <- function(){
+  return(tags$li(
+    "Since students can receive more than 1 candy bar, there is replacement."
+  ))
+}
+noReplace <- function(){
+  return(tags$li(
+  "Since students cannot receive more than 1 candy bar, there is no replacement."
+  ))
+}
+
 # source("global.R")
+
 
 # Define UI for App ----
 ui <- list(
@@ -47,36 +79,35 @@ ui <- list(
     ### Create the content ----
     dashboardBody(
       tabItems(
-        #### Set up the Overview Page ----
+        #### Overview Page ----
         tabItem(
           tabName = "overview",
           withMathJax(),
-          h1("Counting Techniques"), # This should be the full name.
-          p("This app is designed to teach and review combinatorics, permutations
-            , and other basic counting principles."),
+          h1("Counting Techniques"), 
+          p("This app is designed to teach and review combinatorics and 
+            counting principles."),
           h2("Instructions"),
           tags$ol(
-            tags$li("Review the Prerequistes tab to learn about the different
-                    counting techniques as well as how to use context and/or wording
-                    fromthe problem to solve it."),
-            tags$li("Use the Explore page to practice counting techniques through 
-                    clothing-related scenarios."),
-            tags$li("Use the Challenge page to further practice counting techniques
-                    through poker-style scenarios.")
+            tags$li("Use the Prerequistes page to review the different counting 
+                    principles and the keywords to be aware of when solving problems."),
+            tags$li("Use the Explore page to see the difference between the counting
+                    techniques mentioned. You can further test your knowledge
+                    in the Multiple Choice page."),
+            tags$li("Use the Challenge page to apply counting techniques in 
+                    poker-related problems."), 
+            tags$li("For poker, score three points for each question you get right and
+                    lose a point when you get one wrong. Win by getting 20 points!")
           ),
-          
-          ##### Go Button--location will depend on your goals ----
           div(
-            style = "text-align: center",
+            style = "text-align: center;",
             bsButton(
-              inputId = "go1",
-              label = "GO!",
+              inputId = "overviewToPrereq",
+              label = "Prerequisites!",
               size = "large",
               icon = icon("book"),
               style = "default"
             )
           ),
-          ##### Create two lines of space ----
           br(),
           br(),
           h2("Acknowledgements"),
@@ -92,7 +123,8 @@ ui <- list(
             div(class = "updated", "Last Update: 6/7/2021 by NJH.")
           )
         ),
-        #### Set up the Prerequisites Page ----
+        
+        #### Prerequisites Page ----
         tabItem(
           tabName = "prerequisites",
           withMathJax(),
@@ -103,43 +135,63 @@ ui <- list(
             tags$li("The difference between combinations, and the other counting 
                     techniques."),
             tags$li("Understand how different wording in a problem changes the
-                    way you solve a problem (ex.At most vs At least)")
+                    way you solve a problem (e.g., at most vs. at least)")
           ),
           br(), 
           h3("Counting Techniques"),
           fluidRow(
             box(
-              title = strong("Combinations"),
+              title = strong("Permutation with Replacement"),
               status = "primary",
               collapsible = TRUE,
               collapsed = FALSE,
               width = 6,
-              p("If there are:"),
-              tags$ul(
-                tags$li("\\({n}\\) objects to be taken \\({r}\\) at a time"), 
-                tags$li("Number of ", tags$em("unordered"), "subsets or Combinations is "), 
-                tags$li("\\(_{n}C_{r}=\\dfrac{n!}{r!(n-r)!}\\)")
+              p("Number of ways to pick r things from n possibilities:"),
+              tags$ul( 
+                tags$li("\\(n^{r}\\)"),
+                tags$li("Ordered subsets with replacement")
+                
               )
             ),
             box(
-              title = strong("Permutations"),
+              title = strong("Permutation without Replacement"),
               status = "primary",
               collapsible = TRUE,
               collapsed = FALSE,
               width = 6,
-              p("If there are:"),
+              p("Number of ways to pick r things from n possibilities:"),
               tags$ul( 
-                tags$li("\\({n}\\) choices for the \\(1^{st}\\) position"), 
-                tags$li("\\({n-1}\\) choices for the \\(2^{nd}\\) position"), 
-                tags$li("\\({n-2}\\) choices for the \\(3^{rd}\\) position"), 
-                tags$li("Then nPr or permutations of ", tags$em("n"), "objects
-                        that can be arranged in ", ("r"), "at a time or ordered 
-                        subsets is "), 
-                tags$li("\\(_{n}P_{r}=\\dfrac{n!}{(n-r)!}\\)")
+                tags$li("\\(_{n}P_{r}=\\dfrac{n!}{(n-r)!}\\)"),
+                tags$li("Ordered subsets without replacement")
               )
             )
           ),
-          
+          fluidRow(
+            box(
+              title = strong("Combination with Replacement"),
+              status = "primary",
+              collapsible = TRUE,
+              collapsed = FALSE,
+              width = 6,
+              p("Number of ways to pick r things from n possibilities:"),
+              tags$ul(
+                tags$li("\\(\\binom{n+r-1}{r} = \\dfrac{(n+r-1)!}{r!(n-1)!}\\)"),
+                tags$li("Unordered subsets with replacement")
+              )
+            ),
+            box(
+              title = strong("Combination without Replacement"),
+              status = "primary",
+              collapsible = TRUE,
+              collapsed = FALSE,
+              width = 6,
+              p("Number of ways to pick r things from n possibilities:"),
+              tags$ul(
+                tags$li("\\(\\binom{n}{r} = \\dfrac{n!}{r!(n-r)!}\\)"),
+                tags$li("Unordered subsets without replacement")
+              )
+            )
+          ),
           fluidRow(
             box(
               title = strong("Distinguishable Permutations"),
@@ -152,9 +204,9 @@ ui <- list(
                 tags$li("\\(n_{1}\\) of the \\(1^{st}\\) object."),
                 tags$li("\\(n_{2}\\) of the \\(2^{nd}\\) object."),
                 tags$li("\\(n_{k}\\) of the \\(k^{th}\\) object."),
-                tags$li("Then nPr or permutations of ", tags$em("n"), "objects
-                        taken", tags$em("n"), "at a time is "),
-                tags$li("\\(P=\\binom{n}{(n_{1})(n_{2})\\cdots(n_{k})}=\\dfrac{n!}{(n_{1})!(n_{2})!(n_{3})!\\cdots(n_{k})!}\\)")
+                tags$li("Where \\(\\sum_{i=1}^{k=n_i} = n\\) is 
+                      \\(\\binom{n}{(n_{1})(n_{2})\\cdots(n_{k})}=\\dfrac{n!}
+                        {(n_{1}!)(n_{2}!)(n_{3}!)\\cdots(n_{k}!)}\\)")
                 ### ask how to line up the equal signs for the n!/n
               )
             ),
@@ -170,329 +222,491 @@ ui <- list(
                 tags$li(("\\({n_{2}}\\)"), "outcomes of experiment two"), 
                 tags$li(("\\({n_{m}}\\)"), "outcomes of experiment m"), 
                 tags$li("Then the number of total outcomes from all experiments", 
-                        ("\\({E_{1},E_{2},E_{3}=}\\)")), 
+                        ("\\({E_{1},E_{2}...E_{m}=}\\)")), 
                 tags$li("\\({(n_{1})\\times(n_{2})\\times(n_{3})\\times\\cdots\\times(n_{m})= n!}\\)")
               )
             )
           ),
-          br(), 
-          h3("Binomial Probability: Exactly vs. At Most vs. At Least"), 
           fluidRow(
             box(
-              title = strong("Exactly"),
+              title = strong("Using Set Theory"),
               status = "primary",
               collapsible = TRUE,
               collapsed = FALSE,
-              width = 4,
-              p("The probability of obtaining exactly", tags$em("r"), "events 
-                in ", tags$em("n"), "trials = "), 
-              p("\\(P(X=r)=\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
-              p("where ", tags$em("p"), "is the probability of success"), 
-              br(), 
-              br()
-            ),
-            
-            box(
-              title = strong("At Most"),
-              status = "primary",
-              collapsible = TRUE,
-              collapsed = FALSE,
-              width = 4,
-              p("The probability of obtaining ", tags$strong("at most"), tags$em("r"), 
-                "from", tags$em("n"), "trials = "), 
-              p("\\(P(X\\le{r})=\\sum_{i=0}^r\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\)"), 
-              p("where ", tags$em("p"), "is the probability of success"), 
-              br(), 
-              br()
-            ),
-            
-            box(
-              title = strong("At Least"),
-              status = "primary",
-              collapsible = TRUE,
-              collapsed = FALSE,
-              width = 4,
-              p("The probability of obtaining ", tags$strong("at least"), tags$em("r"), 
-                "from", tags$em("n"), "trials = "),
-              p("\\(P(X\\ge{r})=\\sum_{i=r}^n\\binom{n}{r}\\cdot(p^{r})\\cdot(q^{n-r})\\) or"), 
-              p("\\(1-P(X\\le{r})\\)"),
-              p("where ", tags$em("p"), "is the probability of success")
+              width = 12,
+              p("Set theory operations are valuable for counting the number of
+                elements in a set. As examples, if \\((A)\\) = the number of elements
+                in the set A then"),
+              tags$ul( 
+                tags$li("\\((A U B) = (A) + (B) - (AB)\\)"),
+                tags$li("\\((A) = (AB_1) + (AB_2) + ...+ (AB_k)\\) if \\(B_1,...,B_k\\)
+                        are mutually exclusive and exhaustive."),
+              )
             )
           ), 
-          
-          br(), 
-          
+          br(),
           div(
-            style = "text-align: center",
+            style = "text-align: center;",
             bsButton(
-              inputId = "goPre",
-              label = "GO!",
+              inputId = "prereqToExplore",
+              label = "Explore!",
               size = "large",
               icon = icon("wpexplorer"),
               style = "default"
             )
           )
         ),
-        #### Note: you must have at least one of the following pages. You might
-        #### have more than one type and/or more than one of the same type. This
-        #### will be up to you and the goals for your app.
-        #### Set up an Explore Page
+        
+        ####Explore page ----
         tabItem(
           tabName = "explore",
           withMathJax(),
           h2("Explore the Concept"),
           tabsetPanel(
-            tabPanel(
-              title = "Exploring Counting Techniques",
-              br(),
-              fluidRow(
-                column(
-                  width = 2.4, 
-                  offset = 1, 
-                  
-                  tags$figure(
-                    align = "center", 
-                    tags$img(
-                      src = "3-heart.png", 
-                      width = 50, 
-                      alt = "3 of Hearts."
-                    ), 
-                    tags$figcaption("3 of Hearts")
-                  )
-                  
-                ), 
-                column(
-                  width = 2.4, 
-                  offset = 2, 
-                  
-                  
-                  tags$figure(
-                    align = "center", 
-                    tags$img(
-                      src = "3-heart.png", 
-                      width = 50, 
-                      alt = "3 of Hearts."
-                    ), 
-                    tags$figcaption("3 of Hearts")
-                  )
-                  
-                ), 
-                column(
-                  width = 2.4, 
-                  offset = 3, 
-                  
-                  
-                  tags$figure(
-                    align = "center", 
-                    tags$img(
-                      src = "3-heart.png", 
-                      width = 50, 
-                      alt = "3 of Hearts."
-                    ), 
-                    tags$figcaption("3 of Hearts")
-                  )
-                  
-                ), 
-                column(
-                  width = 2.4, 
-                  offset = 4, 
-                  
-                  tags$figure(
-                    align = "center", 
-                    tags$img(
-                      src = "3-heart.png", 
-                      width = 50, 
-                      alt = "3 of Hearts."
-                    ), 
-                    tags$figcaption("3 of Hearts")
-                    
-                  )
-                ), 
-                column(
-                  width = 2.4, 
-                  offset = 5, 
-                  tags$figure(
-                    align = "center", 
-                    tags$img(
-                      src = "3-heart.png", 
-                      width = 50, 
-                      alt = "3 of Hearts."
-                    ), 
-                    tags$figcaption("3 of Hearts")
-                    
-                  )
-                )
-                
-              ) 
-            ),
             
+            ##### Candy Tab ----
             tabPanel(
-              title = "Example Questions", 
+              title = "Worked Examples",
               br(),
-              h3("Example Problems"), 
+              
+              ###### Candy bar PNGs + bttn ---- 
               fluidRow(
-                box(
-                  title = strong("Combinations Example"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 12,
-                  p("There are five different types of cheese that one can  use 
-                  for a cheese platter. However they can only choose three to go 
-                  on the plate. How many ways can three cheeses be chosen from 
-                  the five types?"), 
-                  p("Answer: \\(_{5}C_{3}=\\dfrac{5!}{3!(5-3)!}=10\\)") 
-                ),
-                
-                box(
-                  title = strong("Permutations Example"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 12,
-                  p("Choosing from the 6 letters ABCDEF, how many ways can three 
-                  letters be arranged?"), 
-                  p("Answer: \\(_{6}P_{3}=\\dfrac{6!}{(6-3)!}=120\\)"), 
-                  p(tags$b("Note: "),"Notice we must use the formula for permutations
-                  and not combinations because ", tags$b("order matters"), "in 
-                  this situation. For permutations, the group \\(ABC\\) 
-                  is different from \\(CAB\\). If this was a combination
-                  quesion, \\(ABC\\) and \\(CAB\\) would be considered one combination.")
-                ), 
-                
-                box(
-                  title = strong("Distinguishable Permutations Example"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 12,
-                  p("How many ordered arrangements are there of the word 'Bookkeeper'?"), 
-                  p("Answer: \\(\\binom{10}{(1)(2)(2)(3)(1)(1)}=\\dfrac{10!}{(1!)(2!)(2!)(3!)(1!)(1!)}\\)"), #Calculate this answer
-                  tags$ul(
-                    tags$li("There is one letter \\(B\\)"), 
-                    tags$li("There are two letter \\(O's\\)"),
-                    tags$li("There are two letter \\(K's\\)"), 
-                    tags$li("There are three letters \\(E's\\)"), 
-                    tags$li("There is one letter \\(P\\)"), 
-                    tags$li("There is one letter \\(R\\)")
+                column(
+                  width = 3,
+                  align="center",
+                  offset = 0,
+                  tags$img(
+                    src = "greenBar.png",
+                    alt = "Mint chocolate bar",
+                    width = "60%", 
+                    p("Mint chocolate bar")
                   )
                 ),
-                
-                box(
-                  title = strong("Multiplication Principle Example"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 12,
-                  p("If there are 9 appetizers, 12 entrees, and 5 desserts, how many
-                  meals can you make?"),
-                  p("Answer:", tags$em(tags$strong("Number of Meals")),"\\(=(9)\\times(12)\\times(5)=540\\)")
-                  
-                  
+                column(
+                  width = 3,
+                  align="center",
+                  offset = 0,
+                  tags$img(
+                    src = "blueBar.png",
+                    alt = "Blueberry chocolate bar",
+                    width = "60%", 
+                    p("Blueberry chocolate bar")
+                  )
+                ),               
+                column(
+                  width = 3,
+                  align="center",
+                  offset = 0,
+                  tags$img(
+                    src = "pinkBar.png",
+                    alt = "Strawberry chocolate bar",
+                    width = "60%", 
+                    p("Strawberry chocolate bar")
+                  )
                 ),
-                
-                box(
-                  title = strong("Wording Context Change Example"),
-                  status = "primary",
-                  collapsible = TRUE,
-                  collapsed = FALSE,
-                  width = 12,
-                  p("The probability that a person has traveled out of the country 
-                  is 35%. Out of the 70 people chosen:"), 
-                  tags$ol(
-                    tags$li("What is the probability that", tags$strong("exactly"), 
-                            "21 people have traveled outside of the country?",
-                            tags$ul(
-                              tags$li("\\(P(X=21)=\\binom{70}{21}\\cdot(0.35^{21})
-                                  \\cdot(0.65^{70-21})=0.69845\\)")
-                            )),
-                    br(), 
-                    tags$li("What is the probability that", tags$strong("at most"), 
-                            "21 people have traveled outside of the country?",
-                            tags$ul(
-                              tags$li("\\(P(X\\le{21})=\\sum_{i=0}^{21}\\binom{70}{i}
-                                  \\cdot(0.35^{i})\\cdot(0.65^{70-i})=0.22787\\)")
-                            )),
-                    br(),
-                    tags$li("What is the probability that", tags$strong("at least"), 
-                            "21 people have traveled outside of the country?", 
-                            tags$ul(
-                              tags$li("\\(P(X\\ge{21})=\\sum_{i=21}^{70}\\binom{70}{i}
-                                  \\cdot(0.35^{i})\\cdot(0.65^{70-i})=0.84197\\)"), 
-                              #tags$li(tags$strong("OR")), 
-                              tags$li("\\(1-P(X\\le{21})=\\sum_{i=0}^{20}\\binom{70}{i}
-                                  \\cdot(0.35^{i})\\cdot(0.65^{70-i})=0.84197\\)")
-                              
-                            )),
+                column(
+                  width = 3,
+                  align="center",
+                  offset = 0,
+                  tags$img(
+                    src = "whiteBar.png",
+                    alt = "White chocolate bar",
+                    width = "60%", 
+                    p("White chocolate bar")
                   )
                 )
               ),
+              br(),
+              fluidRow(
+                column(
+                  width = 3,
+                  offset = 0,
+                  div(
+                    style = "text-align: center;",
+                    bsButton(
+                      inputId = "newClass",
+                      label = "New class",
+                      size = "large",
+                      style = "default"
+                    )
+                  )
+                ),  
+                column(
+                  width = 9,
+                  offset = 0,
+                  uiOutput("prompt")
+                )
+              ),
+              br(),
               
-            )
+              ###### Candy bar Qs ----
+              
+              fluidRow(
+                box(
+                  title = strong("Permutation with Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("Distribute 4 different flavored candy bars to the class. 
+                    You are willing to give some students more than 1 candy bar. 
+                    How many ways can you distribute the candy bars?"),
+                  tags$ul( 
+                    tags$li(uiOutput("candyA1")),
+                    permutation(),
+                    replacement()
+                  )
+                ),
+                box(
+                  title = strong("Permutation without Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("Distribute 4 different flavored candy bars to the class.
+                    You do not want to give any student more than 1 candy bar. 
+                    How many ways can you distribute the candy bars?"),
+                  tags$ul(
+                    tags$li(uiOutput("candyA2")),
+                    permutation(),
+                    noReplace()
+                  )
+                )
+              ),
+              fluidRow(
+                box(
+                  title = strong("Combination with Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("Distribute 4 identical candy bars to the class. 
+                    You are willing to give some students more than 1 candy bar. 
+                    How many ways can you distribute the candy bars?"),
+                  tags$ul(
+                    tags$li(uiOutput("candyA3")),
+                    combination(),
+                    replacement()
+                  )
+                ),
+                box(
+                  title = strong("Combination without Replacement"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("Distribute 4 identical candy bars to the class. 
+                    You do not want to give any student more than 1 candy bar. 
+                    How many ways can you distribute the candy bars?"),
+                  tags$ul(
+                    tags$li(uiOutput("candyA4")),
+                    combination(),
+                    noReplace()
+                  )
+                )
+              ) , 
+              fluidRow(
+                box(
+                  title = strong("Distinguishable Permutations"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("There are 20 candy bars consisting of all four flavors 
+                    available to pass out to the students. If each flavor is to 
+                    be rewarded to five students, how many ways can the candy bars
+                    be rewarded the students?"),
+                  tags$ul(
+                    tags$li("\\(\\dfrac{20!}{5!5!5!5!}\\)"),
+                    combination(),
+                    replacement()
+                  )
+                ),
+                box(
+                  title = strong("Multiplication Rule"),
+                  status = "primary",
+                  collapsible = TRUE,
+                  collapsed = FALSE,
+                  width = 6,
+                  p("You have 3 mint 4 blueberry, 4 strawberry, and 1 lemon candy
+                    bar. How many ways can you distribute 4 different flavored
+                    candy bars to one
+                    student?"),
+                  tags$ul(
+                    tags$li("\\(3\\cdot{4}\\cdot{4}\\cdot{1}\\)"),
+                    combination(),
+                    replacement()
+                  )
+                )
+              )
+            ),
+
+          ##### MCQ tab ----
+          tabPanel(
+            withMathJax(),
+            title = "Multiple Choice", 
+            br(), 
+            h4("Question"),
+            uiOutput("context"), 
+            uiOutput("question"),
+            br(),
+            fluidRow(
+              column(
+                width = 12, 
+                bsButton(
+                  inputId = "hint",
+                  label = "Hint",
+                  icon = icon("question"),
+                  size = "large",
+                  disabled = FALSE
+                ),
+                br(), 
+                uiOutput("hintDisplay"),
+                br()
+              )
+            ), 
+            fluidRow(
+              column(width = 12, 
+                     radioGroupButtons(
+                       inputId = "mc1",
+                       label = tags$b("Which expression addresses the question?"),
+                       status = "game",
+                       direction = "vertical",
+                       selected = character(0),
+                       checkIcon = list(
+                         yes = icon("check-square"),
+                         no = icon("square-o")
+                       ),
+                       
+                       choices = list(
+                         # "Pick the expression below that best addresses the question.",
+                         "\\(\\frac{1}{4}\\)",
+                         "\\(\\frac{2}{4}\\)",
+                         "\\(\\frac{3}{4}\\)",
+                         "\\(\\frac{4}{4}\\)"
+                       ),
+                       justified = FALSE,
+                       individual = FALSE, 
+                     ),  
+                     br(), 
+              )
+            ), 
+            fluidRow(
+              column(
+                width = 2, 
+                bsButton(
+                  "restart",
+                  "Restart",
+                  size = "large",
+                  style = "danger",
+                  disabled = FALSE
+                )
+              ), 
+              column(
+                width = 2, 
+                bsButton(
+                  inputId = "submit1",
+                  label = "Submit",
+                  size = "large",
+                  style = "default",
+                  disabled = FALSE
+                )
+              ),
+              column(
+                width = 2, 
+                uiOutput("mark")
+              ), 
+              column(
+                width = 2, 
+                bsButton(
+                  inputId = "nextq",
+                  label = "Next Question",
+                  size = "large",
+                  style = "default",
+                  disabled = TRUE
+                )
+              )
+            ),
+            fluidRow(
+              column(
+                width = 12, 
+                br(), 
+                uiOutput("feedback")
+              )
+            ), 
+            uiOutput("math3"),
+            uiOutput("math4")
+          )
           ),
+          br(), 
+          br(),
+          br(), 
           div(
-            style = "text-align: center",
+            style = "text-align: center;",
             bsButton(
               inputId = "goExp",
-              label = "GO!",
+              label = "Game!",
               size = "large",
               icon = icon("gamepad"),
               style = "default"
             )
-          )
+          ) 
         ),
         
-        #### Set up a Game Page ----
+        #### Poker Page ---- 
         tabItem(
           tabName = "game",
           withMathJax(),
-          h2("Practice/Test Yourself with [Type of Game]"),
-          p("On this type of page, you'll set up a game for the user to play.
-            Game types include Tic-Tac-Toe, Matching, and a version Hangman to
-            name a few. If you have ideas for new game type, please let us know.")
+          h2("Poker Combinatorics"),
+          br(),
+          fluidRow(
+            column(
+              width = 2,
+              align = "center",
+              offset = 1,
+              uiOutput("card1")
+            ),
+            column(
+              width = 2,
+              align = "center",
+              offset = 0,
+              uiOutput("card2")
+            ),
+            column(
+              width = 2,
+              align = "center",
+              offset = 0,
+              uiOutput("card3")
+            ),
+            column(
+              width = 2,
+              ialign = "center",
+              offset = 0,
+              uiOutput("card4")
+            ),
+            column(
+              width = 2,
+              align = "center",
+              offset = 0,
+              uiOutput("card5")
+            )
+          ),
+          fluidRow(
+            column(
+              width = 12,
+              align = "center",
+              offset = 0,
+              textOutput("caption"),
+              tags$head(tags$style("font-size: 8px;
+                                   font-style: title case"
+              ))
+            )
+          ),
+          br(),
+          fluidRow(
+            column(
+              width = 6,
+              # offset = 1,
+              radioButtons(
+                inputId = "pokerAnswers",
+                label = "Click the 'New Hand' button to begin the poker questions.",
+                choices =  character(0),
+                selected = character(0)
+              ), 
+              fluidRow(
+                column(
+                  width = 2,
+                  offset = 0,
+                  bsButton(
+                    inputId = "newHand",
+                    label = "New Hand",
+                    size = "large",
+                    style = "default",
+                    disabled = FALSE
+                  )
+                ),
+                column(
+                  width = 2,
+                  offset = 1, 
+                  bsButton(
+                    inputId = "submit",
+                    label = "Submit Answer",
+                    size = "large",
+                    style = "default",
+                    disabled = FALSE
+                  )
+                ),
+                column(
+                  width = 2,
+                  offset = 2, 
+                  uiOutput("scoreImg")
+                )
+              )
+            ),
+            column(
+              width = 6,
+              offset = 0,
+              div(
+                style = "text-align: center",
+                textOutput("showScore"),
+                br(),
+                bsButton(
+                  inputId = "showExpln",
+                  label = "Answer Explanation", 
+                  size = "large", 
+                  disabled = TRUE
+                ), 
+              ), 
+              br(), 
+              uiOutput("showExplnDisplay")
+            )
+          ),
+          uiOutput("math1"),
+          uiOutput("math2")
         ),
         
-        #### Set up the References Page ----
+        ####  References Page ----
         tabItem(
           tabName = "references",
           withMathJax(),
           h2("References"),
-          p("You'll need to fill in this page with all of the appropriate
-            references for your app."),
           p(
             class = "hangingindent",
             "Bailey, E. (2015). shinyBS: Twitter bootstrap components for shiny.
             (v0.61). [R package]. Available from
             https://CRAN.R-project.org/package=shinyBS"
           ),
-          
           p(
             class = "hangingindent",
             "Carey, R. and Hatfield, N. (2020). boastUtils: BOAST Utilities. 
             R package version 0.1.6.3. Available from 
             https://github.com/EducationShinyAppTeam/boastUtils"
           ),
-          
           p(
             class = "hangingindent",
             "Chang, W., Cheng, J., Allaire, J., Xie, Y., and McPherson, J. 
             (2020). shiny: Web Application Framework for R. R package version 
             1.5.0. Available from https://CRAN.R-project.org/package=shiny"
           ),
-          
           p(
             class = "hangingindent",
             "Chang, W. and Borges Ribeiro, B. (2018). shinydashboard: 
             Create Dashboards with 'Shiny'. R package version 0.7.1. Available 
             from https://CRAN.R-project.org/package=shinydashboard"
           ),
-          
+          p(
+            class = "hangingindent",
+            "Murray, W. (2021). Probability Choices: Combinations & Permutations.",
+            tags$em("Educator"), 
+            "from https://www.educator.com/mathematics/probability/murray/choices_-combinations-+-permutations.php"
+          ),
           p(
             class = "hangingindent",
             "Perrier, V., Meyer, F., and Granjon, D. (2020). shinyWidgets: 
             Custom Inputs Widgets for Shiny. R package version 0.5.3. Available 
             from https://CRAN.R-project.org/package=shinyWidgets"
           ),
+          
           br(),
           br(),
           br(),
@@ -505,7 +719,8 @@ ui <- list(
 
 # Define server logic ----
 server <- function(input, output, session) {
-  ## Set up Info button ----
+  
+  ## Set up navigation bttns ----
   observeEvent(
     eventExpr = input$info,
     handlerExpr = {
@@ -513,32 +728,623 @@ server <- function(input, output, session) {
         session = session,
         type = "info",
         title = "Information",
-        text = "This App Template will help you get started building your own app"
+        text = "Apply counting techniques to solve problems."
       )
     }
   )
   
-  observeEvent(input$go1,{
-    updateTabItems(
-      session = session,
-      inputId = "pages",
-      selected = "prerequisites")
+  observeEvent(
+    eventExpr = input$overviewToPrereq,
+    handlerExpr = {
+      updateTabItems(
+        session = session,
+        inputId = "pages",
+        selected = "prerequisites")
+    }
+  )
+  
+  observeEvent(
+    eventExpr = input$prereqToExplore,
+    handlerExpr = {
+      updateTabItems(
+        session = session,
+        inputId = "pages",
+        selected = "explore")
+    }
+  )
+  
+  observeEvent(
+    eventExpr = input$goExp,
+    handlerExpr = {
+      updateTabItems(
+        session = session,
+        inputId = "pages",
+        selected = "game")
+    })
+  
+  ## Candy Page -----
+  classNum <- reactiveVal(0)
+  
+  output$prompt <- renderUI({
+    "Click the new class button to begin"
   })
   
-  observeEvent(input$goPre,{
-    updateTabItems(
-      session = session,
-      inputId = "pages",
-      selected = "explore")
+  observeEvent(
+    eventExpr = input$newClass,
+    handlerExpr = {
+      classNum(sample(18:36, 1))
+      
+      output$prompt <- renderUI({
+        withMathJax(paste(
+          "You are the teacher of a class of",
+          classNum(),
+          "students. You reward your students with candy bars of possibly different
+          flavors. Use the examples below to see the different ways of giving out
+          the candy bars."
+        ))
+      })
+      output$candyA1 <- renderUI({
+        withMathJax(paste(sprintf(
+          fmt = "\\(n^{r} = %d ^4\\)",
+          classNum()
+        )))
+      })
+      output$candyA2 <- renderUI({
+        withMathJax(paste(sprintf(
+          fmt = "\\(_{n}P_{r} = \\dfrac{n!}{(n-r)!} = \\dfrac{(%d)!}{(%d)!}\\)",
+          classNum(),
+          (classNum()-4)
+        )))
+      })
+      output$candyA3 <- renderUI({
+        withMathJax(paste(sprintf(
+          fmt = "\\(\\binom{n+r-1}{r} = \\dfrac{(n+r-1)!}{r!(n-1)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
+          (classNum()+4-1),
+          (classNum()-1)
+        )))
+      })
+      output$candyA4 <- renderUI({
+        withMathJax(paste(sprintf(
+          fmt = "\\(\\binom{n}{r} = \\dfrac{n!}{r!(n-r)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
+          classNum(),
+          (classNum()-4)
+        )))
+      })
+    })
+  
+  ## Poker Page ----
+  scoreCount <- reactiveVal(0)
+  
+  output$showScore <- renderText({
+    paste("Your score is", scoreCount(), ".")
   })
   
-  observeEvent(input$goExp,{
-    updateTabItems(
-      session = session,
-      inputId = "pages",
-      selected = "game")
-  })
-}
+  
+  handNum <- reactiveVal(0)
+  
+  observeEvent(
+    eventExpr = input$newHand,
+    handlerExpr = {
+      handNum(sample(x = 1:nrow(pokerHands), size = 1))
+      
+      output$caption <- renderText(pokerHands$caption[handNum()],)
+      
+      ansChoices <- c(pokerHands$mathcodeCorrect[handNum()],
+        pokerHands$mathcodeAlt1[handNum()],
+        pokerHands$mathcodeAlt2[handNum()],
+        pokerHands$mathcodeAlt3[handNum()])
+      
+      randomAnsChoices <- sample(ansChoices, 4)
+      
+      updateRadioButtons(
+        session = session,
+        inputId = "pokerAnswers",
+        label = pokerHands$question[handNum()],
+        choices = c(randomAnsChoices),
+        selected = character(0)
+      )
+      output$math1 <- renderUI({withMathJax()})
+      output$math2 <- renderUI({withMathJax()})
+      output$showExplnDisplay <- renderUI({
+        return = NULL
+      })
+      output$scoreImg <- renderUI({
+        img(src = NULL, width = 50)
+      })
+      updateButton(
+        session = session, 
+        inputId = "showExpln", 
+        disabled = TRUE)
+      
+    },
+    ignoreNULL = TRUE,
+    ignoreInit = TRUE
+  )
+  
 
+  observeEvent(
+    eventExpr = input$submit,
+    handlerExpr = {
+      if (!is.null(input$pokerAnswers)) {
+        correct <- input$pokerAnswers == pokerHands$mathcodeCorrect[handNum()]
+        if (correct) {
+          scoreCount(scoreCount() + 3)
+          output$scoreImg <- renderIcon(icon = "correct", width = 50)
+      } else {
+        scoreCount(scoreCount() - 1)
+        output$scoreImg <- renderIcon(icon = "incorrect", width = 50)}}
+      updateButton(
+        session = session, 
+        inputId = "showExpln", 
+        disabled = FALSE)
+      
+      ### Game Over Check
+      if (scoreCount() >= 20) {
+        sendSweetAlert(
+          session = session,
+          title = "You Win!",
+          type = "success",
+          text = "You have won the game! Congrats!"
+        )
+        scoreCount(0)
+        updateButton(
+          session = session,
+          inputId = "newHand",
+          disabled = FALSE
+        )
+      } else if (scoreCount()  <= -10) {
+        sendSweetAlert(
+          session = session,
+          title = "You lost.",
+          type = "error",
+          text = "You have lost the game. Please try again.",
+          closeOnClickOutside = FALSE
+        )
+        scoreCount(0)
+        updateButton(
+          session = session,
+          inputId = "newHand",
+          disabled = FALSE
+          
+        )
+      }
+  
+    })
+    
+  observeEvent(
+    eventExpr = input$showExpln,
+    handlerExpr = {
+      output$math1 <- renderUI({withMathJax()})
+      output$math2 <- renderUI({withMathJax()})
+      output$showExplnDisplay <- renderUI({
+        p(tags$b("Answer Explanation: "), withMathJax(pokerHands$ansExpln[handNum()]))
+      })
+    })
+ 
+  
+  output$card1 <- renderUI({
+    if (handNum() == 0) {
+      cardBacks()
+    } else {
+      img(src = pokerHands$card1[handNum()],
+          width = "100%",
+          contentType = "image/png",
+          alt = pokerHands$text1[handNum()])
+    }
+  })
+  
+  output$card2 <- renderUI({
+    if (handNum() == 0) {
+      cardBacks()
+    } else {
+      img(src = pokerHands$card2[handNum()],
+          width = "100%",
+          contentType = "image/png",
+          alt = pokerHands$text2[handNum()])
+    }
+  })
+  
+  output$card3 <- renderUI({
+    if (handNum() == 0) {
+      cardBacks()
+    } else {
+      img(src = pokerHands$card3[handNum()],
+          width = "100%",
+          contentType = "image/png",
+          alt = pokerHands$text3[handNum()])
+    }
+  })
+  
+  output$card4 <- renderUI({
+    if (handNum() == 0) {
+      cardBacks()
+    } else {
+      img(src = pokerHands$card4[handNum()],
+          width = "100%",
+          contentType = "image/png",
+          alt = pokerHands$text4[handNum()])
+    }
+  })
+  
+  output$card5 <- renderUI({
+    if (handNum() == 0) {
+      cardBacks()
+    } else {
+      img(src = pokerHands$card5[handNum()],
+          width = "100%",
+          contentType = "image/png",
+          alt = pokerHands$text5[handNum()])
+    }
+  })
+  
+
+  ## Explore Page Practice ----
+  withBusyIndicatorServer <- function(buttonId, expr) {
+    # UX stuff: show the "busy" message, hide the other messages, disable the button
+    loadingEl <- sprintf("[data-for-btn=%s] .btn-loading-indicator", buttonId)
+    doneEl <- sprintf("[data-for-btn=%s] .btn-done-indicator", buttonId)
+    errEl <- sprintf("[data-for-btn=%s] .btn-err", buttonId)
+    shinyjs::disable(buttonId)
+    shinyjs::show(selector = loadingEl)
+    shinyjs::hide(selector = doneEl)
+    shinyjs::hide(selector = errEl)
+    on.exit({
+      shinyjs::enable(buttonId)
+      shinyjs::hide(selector = loadingEl)
+    })
+    
+    # Try to run the code when the button is clicked and show an error message if
+    # an error occurs or a success message if it completes
+    tryCatch({
+      value <- expr
+      shinyjs::show(selector = doneEl)
+      shinyjs::delay(2000, shinyjs::hide(selector = doneEl, anim = TRUE, animType = "fade",
+                                         time = 0.5))
+      value
+    }, error = function(err) { errorFunc(err, buttonId) })
+  }
+  
+  ##### Reading in Questions ----
+  questionBank <- read.csv("exploreQuestions.csv", stringsAsFactors = FALSE)
+  Qs_array <- c(1:nrow(questionBank))
+  
+  Qs <<- nrow(questionBank)
+  Qs_array <<- c(1:Qs)
+  id <- 1
+  
+  # Reset button
+  observeEvent(input$restart, {
+    withMathJax()
+    updateButton(
+      session = session, 
+      inputId = "submit1", 
+      disabled = FALSE)
+    updateButton(
+      session = session, 
+      inputId = "nextq", 
+      disabled = FALSE)
+    updateButton(
+      session = session, 
+      inputId = "restart", 
+      disabled = FALSE)
+    
+    
+    output$question <- renderUI({
+      withMathJax()
+      hint <<- withMathJax(questionBank[id, "Hint"])
+      return(paste(questionBank[id, "Scenario"], questionBank[id, "Question"]))
+    })
+    
+    output$hint <- renderUI({
+      withMathJax()
+      hint <<- withMathJax(questionBank[id, "Hint"])
+      return(questionBank[id, "Hint"])
+    })
+    
+    updateRadioGroupButtons(
+      session, "mc1",
+      choices = list(
+        questionBank[id, "A"],
+        questionBank[id, "B"],
+        questionBank[id, "C"],
+        questionBank[id, "D"] 
+      ),
+      selected = character(0),
+      checkIcon = list(
+        yes = icon("check-square"),
+        no = icon("square-o")
+      ),
+      status = "game"
+    )
+    output$math3 <- renderUI({
+      withMathJax()
+    })
+    output$math4 <- renderUI({
+      withMathJax()
+    })
+    output$mark <- renderUI({
+      img(src = NULL, width = 50)
+    })
+    
+  })
+  
+  # Print out a question
+  output$question <- renderUI({
+    withMathJax()
+    id <<- sample(Qs_array, 1, replace = FALSE, prob = NULL)
+    Qs_array <<- Qs_array[!Qs_array %in% id]
+    updateRadioGroupButtons(
+      session, "mc1",
+      selected = character(0),
+      choices = list(
+        questionBank[id, "A"],
+        questionBank[id, "B"],
+        questionBank[id, "C"],
+        questionBank[id, "D"]
+      ),
+      checkIcon = list(
+        yes = icon("check-square"),
+        no = icon("square-o")
+      ),
+      status = "game"
+    )
+    output$math3 <- renderUI({
+      withMathJax()
+    })
+    output$math4 <- renderUI({
+      withMathJax()
+    })
+    hint <<- withMathJax(questionBank[id, "Hint"])
+    return(withMathJax(paste(questionBank[id, "Scenario"], questionBank[id, "Question"])))
+  })
+  
+  ### NEXT QUESTION BUTTON###
+  observeEvent(input$nextq, {
+    withMathJax()
+    if (length(Qs_array) > 1) {
+      id <<- sample(Qs_array, 1, replace = FALSE, prob = NULL)
+      Qs_array <<- Qs_array[!Qs_array %in% id]
+      hint <<- questionBank["Hint"]
+      withBusyIndicatorServer("nextq", {
+        updateButton(session, "submit1", disabled = FALSE)
+        output$question <- renderUI({
+          return(paste(questionBank[id, "Scenario"], questionBank[id, "Question"]))
+        })
+        
+        updateRadioGroupButtons(
+          session, "mc1",
+          selected = character(0),
+          choices = list(
+            questionBank[id, "A"],
+            questionBank[id, "B"],
+            questionBank[id, "C"],
+            questionBank[id, "D"] 
+          ),
+          checkIcon = list(
+            yes = icon("check-square"),
+            no = icon("square-o")
+          ),
+          status = "game"
+        )
+        output$math3 <- renderUI({
+          withMathJax()
+        })
+        output$math4 <- renderUI({
+          withMathJax()
+        })
+        output$mark <- renderUI({
+          img(src = NULL, width = 50)
+        })
+      })
+      
+      ##HINT###
+      output$hintDisplay <- renderUI({
+        return(NULL)
+      })
+      output$feedback <- renderUI({
+        return(NULL)
+      })
+    }
+    else if (length(Qs_array) == 1) {
+      id <<- Qs_array[1]
+      Qs_array <<- Qs_array[!Qs_array %in% id]
+      hint <<- questionBank[id, "Hint"]
+      withBusyIndicatorServer("nextq", {
+        output$question <- renderUI({
+          return(paste(questionBank[id, "Scenario"], questionBank[id, "Question"]))
+        })
+        
+        updateButton(
+          session = session, 
+          inputId = "submit1", 
+          disabled = FALSE)
+        updateRadioGroupButtons(
+          session = session, 
+          inputId = "mc1",
+          selected = character(0),
+          choices = list(
+            questionBank[id, "A"],
+            questionBank[id, "B"],
+            questionBank[id, "C"],
+            questionBank[id, "D"] 
+          ),
+          checkIcon = list(
+            yes = icon("check-square"),
+            no = icon("square-o")
+          ),
+          status = "game"
+        )
+        output$math3 <- renderUI({
+          withMathJax()
+        })
+        output$math4 <- renderUI({
+          withMathJax()
+        })
+        output$mark <- renderUI({
+          img(src = NULL, width = 50)
+        })
+      })
+      
+      ##HINT###
+      output$hintDisplay <- renderUI({
+        return(NULL)
+      })
+      output$feedback <- renderUI({
+        return(NULL)
+      })
+    }
+    else {
+      updateButton(
+        session = session, 
+        inputId = "submit1", 
+        disabled = TRUE)
+      updateButton(
+        session = session, 
+        inputId = "nextq", 
+        disabled = TRUE)
+      updateButton(
+        session = session, 
+        inputId = "restart", 
+        disabled = FALSE)
+      sendSweetAlert(
+        session = session,
+        title = "Run out of question",
+        type = "error",
+        closeOnClickOutside = TRUE,
+        h4("Run out of question. Please click Restart to start over")
+      )
+      output$question <- renderUI({
+        return(NULL)
+      })
+      
+      output$hintDisplay <- renderUI({
+        return(NULL)
+      })
+      
+      output$feedback <- renderUI({
+        return(NULL)
+      })
+      updateRadioGroupButtons(
+        session, "mc1",
+        selected = character(0),
+        choices = list(
+          questionBank[id, "A"],
+          questionBank[id, "B"],
+          questionBank[id, "C"],
+          questionBank[id, "D"] 
+        ),
+        checkIcon = list(
+          yes = icon("check-square"),
+          no = icon("square-o")
+        ),
+        status = "game"
+      )
+      output$math3 <- renderUI({
+        withMathJax()
+      })
+      output$math4 <- renderUI({
+        withMathJax()
+      })
+    }
+  })
+  
+  ### SUBMIT BUTTON###
+  observeEvent(input$submit1, {
+    withMathJax()
+    letterAnswer <- questionBank[id, "Answer"]
+    cAnswer <- questionBank[id, letterAnswer]
+    mc1Length <- length(input$mc1)
+    print(mc1Length)
+    print(letterAnswer)
+    print(cAnswer)
+    if(length(input$mc1) == 0){
+        answer = "E"
+        updateButton(
+          session = session, 
+          inputId = "submit1", 
+          disabled = TRUE)
+        updateButton(
+          session = session, 
+          inputId = "nextq", 
+          disabled = FALSE)
+        updateButton(
+          session = session, 
+          inputId = "restart", 
+          disabled = FALSE)
+        
+        output$mark <- renderIcon(
+          icon = ifelse(
+            test = answer == cAnswer, 
+            yes = "correct", 
+            no = "incorrect"
+          )
+        )
+    }
+    else{
+      input$mc1 == input$mc1
+      updateButton(
+        session = session, 
+        inputId = "submit1", 
+        disabled = TRUE)
+      updateButton(
+        session = session, 
+        inputId = "nextq", 
+        disabled = FALSE)
+      updateButton(
+        session = session, 
+        inputId = "restart", 
+        disabled = FALSE)
+      
+      output$mark <- renderIcon(
+        icon = ifelse(
+          test = input$mc1 == cAnswer, 
+          yes = "correct", 
+          no = "incorrect"
+        )
+      )
+    }
+      
+    ### FEEDBACK###
+    output$feedback <- renderUI({
+      withMathJax()
+      letterAnswer <- questionBank[id, "Answer"]
+      cAnswer <- questionBank[id, letterAnswer]
+      if(length(input$mc1) == 0){
+        answer = "E"
+      }
+      else {
+        answer = input$mc1
+      }
+      if (answer == cAnswer) {
+        p("CORRECT!", br(), withMathJax(questionBank[id, "Feedback"]))
+      }
+      else if (answer == "E"){
+        p(strong("Answer:"), br(), questionBank[id, "Answer"], 
+        br(), strong("Explanation:"), br(),  withMathJax(questionBank[id, "Feedback"]))
+      }
+      else{
+        p(strong("Answer:"), br(), questionBank[id, "Answer"], 
+        br(), strong("Explanation:"), br(),  withMathJax(questionBank[id, "Feedback"]))
+      }
+    })
+  })
+  
+  ### PRINT HINTS###
+  observeEvent(
+    eventExpr = input$hint, 
+    handlerExpr = {
+      output$math3 <- renderUI({
+        withMathJax()
+      })
+      output$math4 <- renderUI({
+        withMathJax()
+      })
+      withMathJax()
+      output$hintDisplay <- renderUI({
+        p(tags$b("Hint:"), questionBank[id, "Hint"])
+      })
+    })
+  
+}
 # Boast App Call ----
 boastUtils::boastApp(ui = ui, server = server)
