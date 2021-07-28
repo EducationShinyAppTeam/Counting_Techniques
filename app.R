@@ -238,7 +238,7 @@ ui <- list(
                 elements in a set. As examples, if \\((A)\\) = the number of elements
                 in the set A then"),
               tags$ul( 
-                tags$li("\\((A\\cup{B}) = (A) + (B) - (AB)\\)"),
+                tags$li("\\((|A|\\cup{|B|}) = (|A|) + (|B|) - (|A\\cap{B}|)\\)"),
                 tags$li("\\((A) = (AB_1) + (AB_2) + ...+ (AB_k)\\) if \\(B_1,...,B_k\\)
                         are mutually exclusive and exhaustive."),
               )
