@@ -135,7 +135,7 @@ ui <- list(
             tags$li("The difference between combinations, and the other counting 
                     techniques."),
             tags$li("Understand how different wording in a problem changes the
-                    way you solve a problem (e.g., at most vs. at least)")
+                    way you solve a problem.")
           ),
           br(), 
           h3("Counting Techniques"),
@@ -238,7 +238,7 @@ ui <- list(
                 elements in a set. As examples, if \\((A)\\) = the number of elements
                 in the set A then"),
               tags$ul( 
-                tags$li("\\((A U B) = (A) + (B) - (AB)\\)"),
+                tags$li("\\((|A|\\cup{|B|}) = (|A|) + (|B|) - (|A\\cap{B}|)\\)"),
                 tags$li("\\((A) = (AB_1) + (AB_2) + ...+ (AB_k)\\) if \\(B_1,...,B_k\\)
                         are mutually exclusive and exhaustive."),
               )
@@ -417,9 +417,7 @@ ui <- list(
                     be rewarded to five students, how many ways can the candy bars
                     be rewarded the students?"),
                   tags$ul(
-                    tags$li("\\(\\dfrac{20!}{5!5!5!5!}\\)"),
-                    combination(),
-                    replacement()
+                    tags$li("\\(\\dfrac{20!}{5!5!5!5!}\\)"), 
                   )
                 ),
                 box(
@@ -434,8 +432,7 @@ ui <- list(
                     student?"),
                   tags$ul(
                     tags$li("\\(3\\cdot{4}\\cdot{4}\\cdot{1}\\)"),
-                    combination(),
-                    replacement()
+                    
                   )
                 )
               )
@@ -855,6 +852,10 @@ server <- function(input, output, session) {
         session = session, 
         inputId = "showExpln", 
         disabled = TRUE)
+      updateButton(
+        session = session, 
+        inputId = "submit", 
+        disabled = FALSE)
       
     },
     ignoreNULL = TRUE,
@@ -877,6 +878,11 @@ server <- function(input, output, session) {
         session = session, 
         inputId = "showExpln", 
         disabled = FALSE)
+      updateButton(
+        session = session,
+        inputId = "submit",
+        disabled = TRUE
+      )
       
       ### Game Over Check
       if (scoreCount() >= 20) {
@@ -889,9 +895,15 @@ server <- function(input, output, session) {
         scoreCount(0)
         updateButton(
           session = session,
+          inputId = "submit",
+          disabled = TRUE
+        )
+        updateButton(
+          session = session,
           inputId = "newHand",
           disabled = FALSE
         )
+        
       } else if (scoreCount()  <= -10) {
         sendSweetAlert(
           session = session,
@@ -905,7 +917,11 @@ server <- function(input, output, session) {
           session = session,
           inputId = "newHand",
           disabled = FALSE
-          
+        )
+        updateButton(
+          session = session,
+          inputId = "submit",
+          disabled = TRUE
         )
       }
   
@@ -919,6 +935,19 @@ server <- function(input, output, session) {
       output$showExplnDisplay <- renderUI({
         p(tags$b("Answer Explanation: "), withMathJax(pokerHands$ansExpln[handNum()]))
       })
+      
+      updateButton(
+        session = session,
+        inputId = "sumbit",
+        disabled = TRUE
+      )
+      updateButton(
+        session = session,
+        inputId = "newHand",
+        disabled = FALSE
+        
+      )
+      
     })
  
   
