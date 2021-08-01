@@ -9,7 +9,7 @@ library(data.table)
 
 # Load additional dependencies and setup functions
 
-pokerHands <- fread("pokerquestionbank.csv")
+pokerHands <- fread("www/pokerquestionbank.csv")
 cardBacks <- function(){
   return(img(src = "pokercard-back.png",
              width = "100%",
