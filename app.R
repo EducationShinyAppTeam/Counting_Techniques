@@ -884,7 +884,7 @@ server <- function(input, output, session) {
         disabled = TRUE
       )
       
-      ### Game Over Check
+      ### Game Over Checsk
       if (scoreCount() >= 20) {
         sendSweetAlert(
           session = session,
