@@ -9,7 +9,7 @@ library(data.table)
 
 # Load additional dependencies and setup functions
 
-pokerHands <- fread("pokerquestionbank.csv")
+pokerHands <- fread("www/pokerquestionbank.csv")
 cardBacks <- function(){
   return(img(src = "pokercard-back.png",
              width = "100%",
@@ -884,7 +884,7 @@ server <- function(input, output, session) {
         disabled = TRUE
       )
       
-      ### Game Over Check
+      ### Game Over Checsk
       if (scoreCount() >= 20) {
         sendSweetAlert(
           session = session,
