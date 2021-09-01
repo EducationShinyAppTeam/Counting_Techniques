@@ -98,9 +98,10 @@ ui <- list(
             tags$li("For poker, score three points for each question you get right and
                     lose a point when you get one wrong. Win by getting 20 points!")
           ),
+          br(), 
           div(
             style = "text-align: center;",
-            bsButton(
+            bsButton(s
               inputId = "overviewToPrereq",
               label = "Prerequisites!",
               size = "large",
@@ -108,7 +109,6 @@ ui <- list(
               style = "default"
             )
           ),
-          br(),
           br(),
           h2("Acknowledgements"),
           p(
@@ -205,8 +205,8 @@ ui <- list(
                 tags$li("\\(n_{2}\\) of the \\(2^{nd}\\) object."),
                 tags$li("\\(n_{k}\\) of the \\(k^{th}\\) object."),
                 tags$li("Where \\(\\sum_{i=1}^{k=n_i} = n\\) is 
-                      \\(\\binom{n}{(n_{1})(n_{2})\\cdots(n_{k})}=\\dfrac{n!}
-                        {(n_{1}!)(n_{2}!)(n_{3}!)\\cdots(n_{k}!)}\\)")
+                      \\(\\binom{n}{{n_{1}}{n_{2}}\\cdots{n_{k}}}=\\dfrac{n!}
+                        {{n_{1}!}{n_{2}!}{n_{3}!}\\cdots{n_{k}!}}\\)")
                 ### ask how to line up the equal signs for the n!/n
               )
             ),
@@ -223,7 +223,7 @@ ui <- list(
                 tags$li(("\\({n_{m}}\\)"), "outcomes of experiment m"), 
                 tags$li("Then the number of total outcomes from all experiments", 
                         ("\\({E_{1},E_{2}...E_{m}=}\\)")), 
-                tags$li("\\({(n_{1})\\times(n_{2})\\times(n_{3})\\times\\cdots\\times(n_{m})= n!}\\)")
+                tags$li("\\({{n_{1}}\\times{n_{2}}\\times{n_{3}}\\times\\cdots\\times{n_{m}}= n!}\\)")
               )
             )
           ),
