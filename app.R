@@ -101,7 +101,7 @@ ui <- list(
           br(), 
           div(
             style = "text-align: center;",
-            bsButton(s
+            bsButton(
               inputId = "overviewToPrereq",
               label = "Prerequisites!",
               size = "large",
