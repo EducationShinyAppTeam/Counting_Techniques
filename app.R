@@ -4,18 +4,31 @@ library(shinydashboard)
 library(shinyBS)
 library(shinyWidgets)
 library(boastUtils)
-library(shinyjs)
-library(data.table)
+# library(shinyjs) 
+## Fix: I don't believe that shinyjs is actively being used anywhere in the app
+# library(data.table)
+## Fix: The question banks you're loading are not large enough to require the use of
+## the data.table package and fread. Switch to read.csv
 
 # Load additional dependencies and setup functions
 
-pokerHands <- fread("www/pokerquestionbank.csv")
+## Fix: pokerquestionbank should be at the same level as app.R, not in www
+## Fix: Where's the read in for the explore questions? This should be here.
+pokerHands <- fread("www/pokerquestionbank.csv") ## Fix: use read.csv
 cardBacks <- function(){
-  return(img(src = "pokercard-back.png",
-             width = "100%",
-             contentType = "image/png", 
-             alt = "Poker card backside"))
+  return(
+    img(
+      src = "pokercard-back.png",
+      width = "100%",
+      contentType = "image/png", 
+      alt = "Poker card backside" # Fix: Use "A card dealt face down"
+      )
+  )
 }
+## Address: I would change the name to cardBack and switch this from a function to a
+## constant (static object)
+
+## Address: I don't understand what these four functions do? What is their purpose?
 permutation <- function(){
   return(tags$li(
     "Since the candy bars are different, order matters. Therefore, we use a permutation."
@@ -37,7 +50,7 @@ noReplace <- function(){
   ))
 }
 
-# source("global.R")
+# source("global.R") ## Fix: Delete unused code
 
 
 # Define UI for App ----
@@ -47,12 +60,12 @@ ui <- list(
     skin = "blue",
     ### Create the app header ----
     dashboardHeader(
-      title = "Counting Techniques", # You may use a shortened form of the title here
+      title = "Counting Techniques",
       titleWidth = 250,
       tags$li(class = "dropdown", actionLink("info", icon("info"))),
       tags$li(
         class = "dropdown",
-        boastUtils::surveyLink(name = "App_Template")
+        boastUtils::surveyLink(name = "App_Template") ## Fix: Update to Counting_Techniques
       ),
       tags$li(
         class = "dropdown",
@@ -65,6 +78,7 @@ ui <- list(
     dashboardSidebar(
       sidebarMenu(
         id = "pages",
+        # Fix: switch "dashboard" to "tachometer-alt"
         menuItem("Overview", tabName = "overview", icon = icon("dashboard")),
         menuItem("Prerequisites", tabName = "prerequisites", icon = icon("book")),
         menuItem("Explore", tabName = "explore", icon = icon("wpexplorer")),
@@ -88,6 +102,7 @@ ui <- list(
             counting principles."),
           h2("Instructions"),
           tags$ol(
+            ## Fix: Watch the long lines of code
             tags$li("Use the Prerequistes page to review the different counting 
                     principles and the keywords to be aware of when solving problems."),
             tags$li("Use the Explore page to see the difference between the counting
@@ -120,10 +135,10 @@ ui <- list(
             br(),
             br(),
             br(),
+            ## Fix: Switch to you, not me V :)
             div(class = "updated", "Last Update: 6/7/2021 by NJH.")
           )
         ),
-        
         #### Prerequisites Page ----
         tabItem(
           tabName = "prerequisites",
@@ -139,6 +154,10 @@ ui <- list(
           ),
           br(), 
           h3("Counting Techniques"),
+          ## Address: I'm unconvinced that lists are needed in several of these
+          ## boxes. The two where a list seems warranted are the Distinguishable
+          ## permutations and the Multiplication Principle.
+          ## Address: Both DP and MP need some better clarification
           fluidRow(
             box(
               title = strong("Permutation with Replacement"),
@@ -160,7 +179,8 @@ ui <- list(
               collapsed = FALSE,
               width = 6,
               p("Number of ways to pick r things from n possibilities:"),
-              tags$ul( 
+              tags$ul(
+                ## Fix: use {}_{n}
                 tags$li("\\(_{n}P_{r}=\\dfrac{n!}{(n-r)!}\\)"),
                 tags$li("Ordered subsets without replacement")
               )
@@ -234,6 +254,7 @@ ui <- list(
               collapsible = TRUE,
               collapsed = FALSE,
               width = 12,
+              ## Fix: "... if \\(|A|\\) represents the number of..."
               p("Set theory operations are valuable for counting the number of
                 elements in a set. As examples, if \\(|A|\\) = the number of elements
                 in the set A then"),
@@ -256,24 +277,23 @@ ui <- list(
             )
           )
         ),
-        
         ####Explore page ----
         tabItem(
           tabName = "explore",
           withMathJax(),
           h2("Explore the Concept"),
           tabsetPanel(
-            
+            ## Fix: add id = "exploreTabs"
+            ## Fix: add type = "tabs"
             ##### Candy Tab ----
             tabPanel(
               title = "Worked Examples",
               br(),
-              
               ###### Candy bar PNGs + bttn ---- 
               fluidRow(
                 column(
                   width = 3,
-                  align="center",
+                  align = "center",
                   offset = 0,
                   tags$img(
                     src = "greenBar.png",
@@ -284,7 +304,7 @@ ui <- list(
                 ),
                 column(
                   width = 3,
-                  align="center",
+                  align = "center",
                   offset = 0,
                   tags$img(
                     src = "blueBar.png",
@@ -295,7 +315,7 @@ ui <- list(
                 ),               
                 column(
                   width = 3,
-                  align="center",
+                  align = "center",
                   offset = 0,
                   tags$img(
                     src = "pinkBar.png",
@@ -306,7 +326,7 @@ ui <- list(
                 ),
                 column(
                   width = 3,
-                  align="center",
+                  align = "center",
                   offset = 0,
                   tags$img(
                     src = "whiteBar.png",
@@ -338,9 +358,12 @@ ui <- list(
                 )
               ),
               br(),
-              
               ###### Candy bar Qs ----
-              
+              ## Address: I would like us to rethink the starting layout
+              ## In particular, I would like for the questions to appear from the
+              ## start, but not the solutions. I want the students to think
+              ## through the problem and then revel the solution. Similar to 
+              ## what happens in the Survey Question Wording Bias app
               fluidRow(
                 box(
                   title = strong("Permutation with Replacement"),
@@ -437,7 +460,6 @@ ui <- list(
                 )
               )
             ),
-
           ##### MCQ tab ----
           tabPanel(
             withMathJax(),
@@ -458,34 +480,36 @@ ui <- list(
                   disabled = FALSE
                 ),
                 br(), 
+                ## Fix: I encountered a "ordern of 6 students"--carefully proof
+                ## read the question bank
                 uiOutput("hintDisplay"),
                 br()
               )
             ), 
             fluidRow(
-              column(width = 12, 
-                     radioGroupButtons(
-                       inputId = "mc1",
-                       label = tags$b("Which expression addresses the question?"),
-                       status = "game",
-                       direction = "vertical",
-                       selected = character(0),
-                       checkIcon = list(
-                         yes = icon("check-square"),
-                         no = icon("square-o")
-                       ),
-                       
-                       choices = list(
-                         # "Pick the expression below that best addresses the question.",
-                         "\\(\\frac{1}{4}\\)",
-                         "\\(\\frac{2}{4}\\)",
-                         "\\(\\frac{3}{4}\\)",
-                         "\\(\\frac{4}{4}\\)"
-                       ),
-                       justified = FALSE,
-                       individual = FALSE, 
-                     ),  
-                     br(), 
+              column(
+                width = 12, 
+                radioGroupButtons(
+                  inputId = "mc1",
+                  ## Fix: remove tags$b
+                  label = tags$b("Which expression addresses the question?"),
+                  status = "game",
+                  direction = "vertical",
+                  selected = character(0),
+                  checkIcon = list(
+                    yes = icon("check-square"),
+                    no = icon("square-o")
+                  ),
+                  choices = list(
+                    "\\(\\frac{1}{4}\\)",
+                    "\\(\\frac{2}{4}\\)",
+                    "\\(\\frac{3}{4}\\)",
+                    "\\(\\frac{4}{4}\\)"
+                  ),
+                  justified = FALSE,
+                  individual = FALSE, 
+                ),  
+                br(), 
               )
             ), 
             fluidRow(
@@ -531,6 +555,9 @@ ui <- list(
                 uiOutput("feedback")
               )
             ), 
+            ## Fix: you can remove these re-trigger pieces (from server too) and 
+            ## put in a single boastUtils::typesetMath call in the server.
+            ## You may need to update boastUtils first.
             uiOutput("math3"),
             uiOutput("math4")
           )
@@ -549,12 +576,14 @@ ui <- list(
             )
           ) 
         ),
-        
         #### Poker Page ---- 
         tabItem(
           tabName = "game",
           withMathJax(),
           h2("Poker Combinatorics"),
+          ## Fix: Put a sentence or two of instructions here. Use what's under
+          ## the cards as a start but expand out with what they are to do during
+          ## the game
           br(),
           fluidRow(
             column(
@@ -593,17 +622,26 @@ ui <- list(
               width = 12,
               align = "center",
               offset = 0,
+              ## Fix: the caption text isn't getting displayed
               textOutput("caption"),
+              ## Fix: Inline CSS is NOT allowed without prior authorization
+              ## The following line MUST be removed.
               tags$head(tags$style("font-size: 8px;
                                    font-style: title case"
               ))
             )
           ),
           br(),
+          ## Fix: I do not like the layout of the page after the cards. Use 3 rows
+          ## Row 1: New Hand button & Score message
+          ## Row 2: Question & Answer Explanation field
+          ## Row 3: Submit button, scoring mark, Answer Explanation Button
+          ## This layout should help keep buttons and icons from overlapping as current
           fluidRow(
             column(
               width = 6,
               # offset = 1,
+              ## Fix: use the same set up for these as on the MC Explore tab
               radioButtons(
                 inputId = "pokerAnswers",
                 label = "Click the 'New Hand' button to begin the poker questions.",
@@ -658,6 +696,7 @@ ui <- list(
               uiOutput("showExplnDisplay")
             )
           ),
+          ## Fix: See prior comment; you should only need to do that once
           uiOutput("math1"),
           uiOutput("math2")
         ),
@@ -717,6 +756,14 @@ ui <- list(
 # Define server logic ----
 server <- function(input, output, session) {
   
+  ## Fix: I'm getting output printed to the log while the app is running such as 
+  ## 1
+  ## "C"
+  ## "\\([\\binom{12}{3}+\\binom{12}{2}\\cdot2]\\cdot{4^3}\\)"
+  ## Track down the issue (I suspect print statements) and resolve. We need the
+  ## log to be as clean as possible so that if something breaks, the log centers
+  ## on that break
+  
   ## Set up navigation bttns ----
   observeEvent(
     eventExpr = input$info,
@@ -769,9 +816,14 @@ server <- function(input, output, session) {
   observeEvent(
     eventExpr = input$newClass,
     handlerExpr = {
+      ## Address: Any time I see sample(##:##) without an explanation comment,
+      ## I get worried that 1) something is hard coded making the app less flexible
+      ## and 2) there's vagueness that can break the app in the long run
       classNum(sample(18:36, 1))
       
       output$prompt <- renderUI({
+        ## Fix: You do not need all of the withMathJax calls throughout this
+        ## section; especially when you're just displaying a number
         withMathJax(paste(
           "You are the teacher of a class of",
           classNum(),
@@ -790,21 +842,21 @@ server <- function(input, output, session) {
         withMathJax(paste(sprintf(
           fmt = "\\(_{n}P_{r} = \\dfrac{n!}{(n-r)!} = \\dfrac{(%d)!}{(%d)!}\\)",
           classNum(),
-          (classNum()-4)
+          (classNum() - 4)
         )))
       })
       output$candyA3 <- renderUI({
         withMathJax(paste(sprintf(
           fmt = "\\(\\binom{n+r-1}{r} = \\dfrac{(n+r-1)!}{r!(n-1)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
-          (classNum()+4-1),
-          (classNum()-1)
+          (classNum() + 4 - 1),
+          (classNum() - 1)
         )))
       })
       output$candyA4 <- renderUI({
         withMathJax(paste(sprintf(
           fmt = "\\(\\binom{n}{r} = \\dfrac{n!}{r!(n-r)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
           classNum(),
-          (classNum()-4)
+          (classNum() - 4)
         )))
       })
     })
@@ -824,6 +876,8 @@ server <- function(input, output, session) {
     handlerExpr = {
       handNum(sample(x = 1:nrow(pokerHands), size = 1))
       
+      ## Fix: As mentioned above, this isn't getting displayed.
+      ## Why is there a comma after the ]?
       output$caption <- renderText(pokerHands$caption[handNum()],)
       
       ansChoices <- c(pokerHands$mathcodeCorrect[handNum()],
@@ -842,9 +896,11 @@ server <- function(input, output, session) {
       )
       output$math1 <- renderUI({withMathJax()})
       output$math2 <- renderUI({withMathJax()})
+      ## Fix: Use renderUI({NULL})
       output$showExplnDisplay <- renderUI({
         return = NULL
       })
+      ## Fix: Use renderIcon() 
       output$scoreImg <- renderUI({
         img(src = NULL, width = 50)
       })
@@ -884,7 +940,7 @@ server <- function(input, output, session) {
         disabled = TRUE
       )
       
-      ### Game Over Checsk
+      ### Game Over Checks
       if (scoreCount() >= 20) {
         sendSweetAlert(
           session = session,
@@ -905,6 +961,8 @@ server <- function(input, output, session) {
         )
         
       } else if (scoreCount()  <= -10) {
+        ## Address: I didn't know that there was a lower bound. This would be
+        ## good to share with the player
         sendSweetAlert(
           session = session,
           title = "You lost.",
@@ -930,6 +988,7 @@ server <- function(input, output, session) {
   observeEvent(
     eventExpr = input$showExpln,
     handlerExpr = {
+      ## Fix: see prior comment
       output$math1 <- renderUI({withMathJax()})
       output$math2 <- renderUI({withMathJax()})
       output$showExplnDisplay <- renderUI({
@@ -945,7 +1004,6 @@ server <- function(input, output, session) {
         session = session,
         inputId = "newHand",
         disabled = FALSE
-        
       )
       
     })
@@ -955,10 +1013,12 @@ server <- function(input, output, session) {
     if (handNum() == 0) {
       cardBacks()
     } else {
-      img(src = pokerHands$card1[handNum()],
-          width = "100%",
-          contentType = "image/png",
-          alt = pokerHands$text1[handNum()])
+      img(
+        src = pokerHands$card1[handNum()],
+        width = "100%",
+        contentType = "image/png",
+        alt = pokerHands$text1[handNum()]
+      )
     }
   })
   
@@ -966,10 +1026,12 @@ server <- function(input, output, session) {
     if (handNum() == 0) {
       cardBacks()
     } else {
-      img(src = pokerHands$card2[handNum()],
-          width = "100%",
-          contentType = "image/png",
-          alt = pokerHands$text2[handNum()])
+      img(
+        src = pokerHands$card2[handNum()],
+        width = "100%",
+        contentType = "image/png",
+        alt = pokerHands$text2[handNum()]
+      )
     }
   })
   
@@ -977,10 +1039,12 @@ server <- function(input, output, session) {
     if (handNum() == 0) {
       cardBacks()
     } else {
-      img(src = pokerHands$card3[handNum()],
-          width = "100%",
-          contentType = "image/png",
-          alt = pokerHands$text3[handNum()])
+      img(
+        src = pokerHands$card3[handNum()],
+        width = "100%",
+        contentType = "image/png",
+        alt = pokerHands$text3[handNum()]
+      )
     }
   })
   
@@ -988,10 +1052,12 @@ server <- function(input, output, session) {
     if (handNum() == 0) {
       cardBacks()
     } else {
-      img(src = pokerHands$card4[handNum()],
-          width = "100%",
-          contentType = "image/png",
-          alt = pokerHands$text4[handNum()])
+      img(
+        src = pokerHands$card4[handNum()],
+        width = "100%",
+        contentType = "image/png",
+        alt = pokerHands$text4[handNum()]
+      )
     }
   })
   
@@ -999,14 +1065,17 @@ server <- function(input, output, session) {
     if (handNum() == 0) {
       cardBacks()
     } else {
-      img(src = pokerHands$card5[handNum()],
-          width = "100%",
-          contentType = "image/png",
-          alt = pokerHands$text5[handNum()])
+      img(
+        src = pokerHands$card5[handNum()],
+        width = "100%",
+        contentType = "image/png",
+        alt = pokerHands$text5[handNum()]
+      )
     }
   })
   
-
+  ## Fix: Ummm, what is this for? I don't believe that there is anything in the
+  ## app that needs the withBusyIndicator. Get rid of this. VVVV
   ## Explore Page Practice ----
   withBusyIndicatorServer <- function(buttonId, expr) {
     # UX stuff: show the "busy" message, hide the other messages, disable the button
@@ -1033,10 +1102,17 @@ server <- function(input, output, session) {
     }, error = function(err) { errorFunc(err, buttonId) })
   }
   
+  ## Fix: Get rid of ^^^^^
+  
+  ## Fix: Reading in a question bank should occur just after loading libraries
+  ## and before creating the UI. This optimizes resource sharing
   ##### Reading in Questions ----
   questionBank <- read.csv("exploreQuestions.csv", stringsAsFactors = FALSE)
+  ## Fix: we don't use snake_case in this project; we use camelCase
   Qs_array <- c(1:nrow(questionBank))
   
+  ## Address: the <<- operator can be dangerous to use. [Strongly] Consider 
+  ## using a reactive value instead
   Qs <<- nrow(questionBank)
   Qs_array <<- c(1:Qs)
   id <- 1
@@ -1060,6 +1136,7 @@ server <- function(input, output, session) {
     
     output$question <- renderUI({
       withMathJax()
+      ## Address: see prior comment about <<-
       hint <<- withMathJax(questionBank[id, "Hint"])
       return(paste(questionBank[id, "Scenario"], questionBank[id, "Question"]))
     })
@@ -1085,12 +1162,14 @@ server <- function(input, output, session) {
       ),
       status = "game"
     )
+    ## Address: see prior comment about boastUtils::typesetMath
     output$math3 <- renderUI({
       withMathJax()
     })
     output$math4 <- renderUI({
       withMathJax()
     })
+    ## Fix: use renderIcon()
     output$mark <- renderUI({
       img(src = NULL, width = 50)
     })
@@ -1134,6 +1213,7 @@ server <- function(input, output, session) {
       id <<- sample(Qs_array, 1, replace = FALSE, prob = NULL)
       Qs_array <<- Qs_array[!Qs_array %in% id]
       hint <<- questionBank["Hint"]
+      ## Fix: You do not need withBusyIndicatorServer at all in this app
       withBusyIndicatorServer("nextq", {
         updateButton(session, "submit1", disabled = FALSE)
         output$question <- renderUI({
@@ -1167,6 +1247,7 @@ server <- function(input, output, session) {
       })
       
       ##HINT###
+      ## Fix: simplify to renderUI({NULL})
       output$hintDisplay <- renderUI({
         return(NULL)
       })
@@ -1278,7 +1359,11 @@ server <- function(input, output, session) {
   })
   
   ### SUBMIT BUTTON###
+  ## Fix: Please be explicit with argument names like you were earlier
+  ## i.e., eventExpr = input$submit, etc.
   observeEvent(input$submit1, {
+    ## Address, if you use boastUtils::typesetMath, I don't believe you will
+    ## need this withMathJax call; test to be sure
     withMathJax()
     letterAnswer <- questionBank[id, "Answer"]
     cAnswer <- questionBank[id, letterAnswer]
