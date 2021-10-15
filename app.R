@@ -6,15 +6,15 @@ library(shinyWidgets)
 library(boastUtils)
 # library(shinyjs) 
 ## Fix: I don't believe that shinyjs is actively being used anywhere in the app
-# library(data.table)
+library(data.table)
 ## Fix: The question banks you're loading are not large enough to require the use of
 ## the data.table package and fread. Switch to read.csv
 
 # Load additional dependencies and setup functions
+#Load explore and poker question banks
+questionBank <- read.csv("exploreQuestions.csv", stringsAsFactors = FALSE)
 
-## Fix: pokerquestionbank should be at the same level as app.R, not in www
-## Fix: Where's the read in for the explore questions? This should be here.
-pokerHands <- fread("www/pokerquestionbank.csv") ## Fix: use read.csv
+pokerHands <- read.csv("pokerquestionbank.csv") ## Fix: use read.csv
 cardBacks <- function(){
   return(
     img(
@@ -22,21 +22,25 @@ cardBacks <- function(){
       width = "100%",
       contentType = "image/png", 
       alt = "Poker card backside" # Fix: Use "A card dealt face down"
-      )
+    )
   )
 }
 ## Address: I would change the name to cardBack and switch this from a function to a
 ## constant (static object)
 
-## Address: I don't understand what these four functions do? What is their purpose?
+## These functions are the bullet points for the worked examples in the  
+## prerequsites page. They give descriptions for the different types of counting
+## techniques. 
 permutation <- function(){
   return(tags$li(
-    "Since the candy bars are different, order matters. Therefore, we use a permutation."
+    "Since the candy bars are different, order matters. Therefore, we use a
+    permutation."
   ))
 }
 combination <- function(){
   return(tags$li(
-    "Since the candy bars are identical, order does not matter. Therefore, we use a combination."
+    "Since the candy bars are identical, order does not matter. Therefore, we
+    use a combination."
   ))
 }
 replacement <- function(){
@@ -46,12 +50,10 @@ replacement <- function(){
 }
 noReplace <- function(){
   return(tags$li(
-  "Since students cannot receive more than 1 candy bar, there is no replacement."
+    "Since students cannot receive more than 1 candy bar, there is no
+    replacement."
   ))
 }
-
-# source("global.R") ## Fix: Delete unused code
-
 
 # Define UI for App ----
 ui <- list(
@@ -102,16 +104,17 @@ ui <- list(
             counting principles."),
           h2("Instructions"),
           tags$ol(
-            ## Fix: Watch the long lines of code
             tags$li("Use the Prerequistes page to review the different counting 
-                    principles and the keywords to be aware of when solving problems."),
-            tags$li("Use the Explore page to see the difference between the counting
-                    techniques mentioned. You can further test your knowledge
-                    in the Multiple Choice page."),
+                    principles and the keywords to be aware of when solving
+                    problems."),
+            tags$li("Use the Explore page to see the difference between the
+                    counting techniques mentioned. You can further test your
+                    knowledge in the Multiple Choice page."),
             tags$li("Use the Challenge page to apply counting techniques in 
                     poker-related problems."), 
-            tags$li("For poker, score three points for each question you get right and
-                    lose a point when you get one wrong. Win by getting 20 points!")
+            tags$li("For poker, score three points for each question you get
+                    right and lose a point when you get one wrong. Win by
+                    getting 20 points!")
           ),
           br(), 
           div(
@@ -127,11 +130,11 @@ ui <- list(
           br(),
           h2("Acknowledgements"),
           p(
-            "This version of the app was developed and coded by Kellien Peritz and 
-            Shravani Samala.",
+            "This version of the app was developed and coded by Kellien Peritz
+            and Shravani Samala.",
             br(),
-            "We would like to extend a special thanks to Dr. Dennis Pearl for providing 
-            the question bank.",
+            "We would like to extend a special thanks to Dr. Dennis Pearl for
+            providing the question bank.",
             br(),
             br(),
             br(),
@@ -180,8 +183,7 @@ ui <- list(
               width = 6,
               p("Number of ways to pick r things from n possibilities:"),
               tags$ul(
-                ## Fix: use {}_{n}
-                tags$li("\\(_{n}P_{r}=\\dfrac{n!}{(n-r)!}\\)"),
+                tags$li("\\({}_{n}P_{r}=\\dfrac{n!}{(n-r)!}\\)"),
                 tags$li("Ordered subsets without replacement")
               )
             )
@@ -227,7 +229,6 @@ ui <- list(
                 tags$li("Where \\(\\sum_{i=1}^{k=n_i} = n\\) is 
                       \\(\\binom{n}{{n_{1}}{n_{2}}\\cdots{n_{k}}}=\\dfrac{n!}
                         {{n_{1}!}{n_{2}!}{n_{3}!}\\cdots{n_{k}!}}\\)")
-                ### ask how to line up the equal signs for the n!/n
               )
             ),
             box(
@@ -243,7 +244,8 @@ ui <- list(
                 tags$li(("\\({n_{m}}\\)"), "outcomes of experiment m"), 
                 tags$li("Then the number of total outcomes from all experiments", 
                         ("\\({E_{1},E_{2}...E_{m}=}\\)")), 
-                tags$li("\\({{n_{1}}\\times{n_{2}}\\times{n_{3}}\\times\\cdots\\times{n_{m}}= n!}\\)")
+                tags$li("\\({{n_{1}}\\times{n_{2}}\\times{n_{3}}\\times\\cdots
+                        \\times{n_{m}}= n!}\\)")
               )
             )
           ),
@@ -254,14 +256,14 @@ ui <- list(
               collapsible = TRUE,
               collapsed = FALSE,
               width = 12,
-              ## Fix: "... if \\(|A|\\) represents the number of..."
               p("Set theory operations are valuable for counting the number of
-                elements in a set. As examples, if \\(|A|\\) = the number of elements
-                in the set A then"),
+                elements in a set. As examples, if \\(|A|\\) represents the
+                number of elements in the set A then"),
               tags$ul( 
                 tags$li("\\(|A|\\cup{|B|} = |A| + |B| - |A\\cap{B}|\\)"),
-                tags$li("\\(|A| = |AB_1| + |AB_2| + ...+ |AB_k|\\) if \\(B_1,...,B_k\\)
-                        are mutually exclusive and exhaustive."),
+                tags$li("\\(|A| = |AB_1| + |AB_2| + ...+ |AB_k|\\) if 
+                        \\(B_1,...,B_k\\) are mutually exclusive and
+                        exhaustive."),
               )
             )
           ), 
@@ -283,8 +285,9 @@ ui <- list(
           withMathJax(),
           h2("Explore the Concept"),
           tabsetPanel(
-            ## Fix: add id = "exploreTabs"
-            ## Fix: add type = "tabs"
+            id = "exploreTabs", 
+            type = "tabs", 
+  
             ##### Candy Tab ----
             tabPanel(
               title = "Worked Examples",
@@ -455,112 +458,110 @@ ui <- list(
                     student?"),
                   tags$ul(
                     tags$li("\\(3\\cdot{4}\\cdot{4}\\cdot{1}\\)"),
-
+                    
                   )
                 )
               )
             ),
-          ##### MCQ tab ----
-          tabPanel(
-            withMathJax(),
-            title = "Multiple Choice", 
-            br(), 
-            h4("Question"),
-            uiOutput("context"), 
-            uiOutput("question"),
-            br(),
-            fluidRow(
-              column(
-                width = 12, 
-                bsButton(
-                  inputId = "hint",
-                  label = "Hint",
-                  icon = icon("question"),
-                  size = "large",
-                  disabled = FALSE
-                ),
-                br(), 
-                ## Fix: I encountered a "ordern of 6 students"--carefully proof
-                ## read the question bank
-                uiOutput("hintDisplay"),
-                br()
-              )
-            ), 
-            fluidRow(
-              column(
-                width = 12, 
-                radioGroupButtons(
-                  inputId = "mc1",
-                  ## Fix: remove tags$b
-                  label = tags$b("Which expression addresses the question?"),
-                  status = "game",
-                  direction = "vertical",
-                  selected = character(0),
-                  checkIcon = list(
-                    yes = icon("check-square"),
-                    no = icon("square-o")
+            ##### MCQ tab ----
+            tabPanel(
+              withMathJax(),
+              title = "Multiple Choice", 
+              br(), 
+              h4("Question"),
+              uiOutput("context"), 
+              uiOutput("question"),
+              br(),
+              fluidRow(
+                column(
+                  width = 12, 
+                  bsButton(
+                    inputId = "hint",
+                    label = "Hint",
+                    icon = icon("question"),
+                    size = "large",
+                    disabled = FALSE
                   ),
-                  choices = list(
-                    "\\(\\frac{1}{4}\\)",
-                    "\\(\\frac{2}{4}\\)",
-                    "\\(\\frac{3}{4}\\)",
-                    "\\(\\frac{4}{4}\\)"
-                  ),
-                  justified = FALSE,
-                  individual = FALSE, 
-                ),  
-                br(), 
-              )
-            ), 
-            fluidRow(
-              column(
-                width = 2, 
-                bsButton(
-                  "restart",
-                  "Restart",
-                  size = "large",
-                  style = "danger",
-                  disabled = FALSE
+                  br(), 
+                  
+                  uiOutput("hintDisplay"),
+                  br()
                 )
               ), 
-              column(
-                width = 2, 
-                bsButton(
-                  inputId = "submit1",
-                  label = "Submit",
-                  size = "large",
-                  style = "default",
-                  disabled = FALSE
+              fluidRow(
+                column(
+                  width = 12, 
+                  radioGroupButtons(
+                    inputId = "mc1",
+                    label = "Which expression addresses the question?",
+                    status = "game",
+                    direction = "vertical",
+                    selected = character(0),
+                    checkIcon = list(
+                      yes = icon("check-square"),
+                      no = icon("square-o")
+                    ),
+                    choices = list(
+                      "\\(\\frac{1}{4}\\)",
+                      "\\(\\frac{2}{4}\\)",
+                      "\\(\\frac{3}{4}\\)",
+                      "\\(\\frac{4}{4}\\)"
+                    ),
+                    justified = FALSE,
+                    individual = FALSE, 
+                  ),  
+                  br(), 
+                )
+              ), 
+              fluidRow(
+                column(
+                  width = 2, 
+                  bsButton(
+                    "restart",
+                    "Restart",
+                    size = "large",
+                    style = "danger",
+                    disabled = FALSE
+                  )
+                ), 
+                column(
+                  width = 2, 
+                  bsButton(
+                    inputId = "submit1",
+                    label = "Submit",
+                    size = "large",
+                    style = "default",
+                    disabled = FALSE
+                  )
+                ),
+                column(
+                  width = 2, 
+                  uiOutput("mark")
+                ), 
+                column(
+                  width = 2, 
+                  bsButton(
+                    inputId = "nextq",
+                    label = "Next Question",
+                    size = "large",
+                    style = "default",
+                    disabled = TRUE
+                  )
                 )
               ),
-              column(
-                width = 2, 
-                uiOutput("mark")
-              ), 
-              column(
-                width = 2, 
-                bsButton(
-                  inputId = "nextq",
-                  label = "Next Question",
-                  size = "large",
-                  style = "default",
-                  disabled = TRUE
+              fluidRow(
+                column(
+                  width = 12, 
+                  br(), 
+                  uiOutput("feedback")
                 )
-              )
-            ),
-            fluidRow(
-              column(
-                width = 12, 
-                br(), 
-                uiOutput("feedback")
-              )
-            ), 
-            ## Fix: you can remove these re-trigger pieces (from server too) and 
-            ## put in a single boastUtils::typesetMath call in the server.
-            ## You may need to update boastUtils first.
-            uiOutput("math3"),
-            uiOutput("math4")
-          )
+              ), 
+              ## Fix: you can remove these re-trigger pieces (from server too) and 
+              ## put in a single boastUtils::typesetMath call in the server.
+              ## You may need to update boastUtils first.
+              uiOutput("math3"),
+              uiOutput("math4")
+            )
           ),
           br(), 
           br(),
@@ -581,9 +582,12 @@ ui <- list(
           tabName = "game",
           withMathJax(),
           h2("Poker Combinatorics"),
-          ## Fix: Put a sentence or two of instructions here. Use what's under
-          ## the cards as a start but expand out with what they are to do during
-          ## the game
+          p("Use the counting techniques you learned and reviewed in the explore
+            page to answer the following poker-style questions. Answering a
+            question correctly earns you three points while answering a question
+            incorrectly loses you 1 point. Accumulate 20 points to win the game. 
+            However, if you score -10 points, you lose the game and can replay!"), 
+          
           br(),
           fluidRow(
             column(
@@ -755,14 +759,7 @@ ui <- list(
 
 # Define server logic ----
 server <- function(input, output, session) {
-  
-  ## Fix: I'm getting output printed to the log while the app is running such as 
-  ## 1
-  ## "C"
-  ## "\\([\\binom{12}{3}+\\binom{12}{2}\\cdot2]\\cdot{4^3}\\)"
-  ## Track down the issue (I suspect print statements) and resolve. We need the
-  ## log to be as clean as possible so that if something breaks, the log centers
-  ## on that break
+  boastUtils::typesetMath
   
   ## Set up navigation bttns ----
   observeEvent(
@@ -877,13 +874,12 @@ server <- function(input, output, session) {
       handNum(sample(x = 1:nrow(pokerHands), size = 1))
       
       ## Fix: As mentioned above, this isn't getting displayed.
-      ## Why is there a comma after the ]?
-      output$caption <- renderText(pokerHands$caption[handNum()],)
+      output$caption <- renderText(pokerHands$caption[handNum()])
       
       ansChoices <- c(pokerHands$mathcodeCorrect[handNum()],
-        pokerHands$mathcodeAlt1[handNum()],
-        pokerHands$mathcodeAlt2[handNum()],
-        pokerHands$mathcodeAlt3[handNum()])
+                      pokerHands$mathcodeAlt1[handNum()],
+                      pokerHands$mathcodeAlt2[handNum()],
+                      pokerHands$mathcodeAlt3[handNum()])
       
       randomAnsChoices <- sample(ansChoices, 4)
       
@@ -918,7 +914,7 @@ server <- function(input, output, session) {
     ignoreInit = TRUE
   )
   
-
+  
   observeEvent(
     eventExpr = input$submit,
     handlerExpr = {
@@ -927,9 +923,9 @@ server <- function(input, output, session) {
         if (correct) {
           scoreCount(scoreCount() + 3)
           output$scoreImg <- renderIcon(icon = "correct", width = 50)
-      } else {
-        scoreCount(scoreCount() - 1)
-        output$scoreImg <- renderIcon(icon = "incorrect", width = 50)}}
+        } else {
+          scoreCount(scoreCount() - 1)
+          output$scoreImg <- renderIcon(icon = "incorrect", width = 50)}}
       updateButton(
         session = session, 
         inputId = "showExpln", 
@@ -982,9 +978,9 @@ server <- function(input, output, session) {
           disabled = TRUE
         )
       }
-  
+      
     })
-    
+  
   observeEvent(
     eventExpr = input$showExpln,
     handlerExpr = {
@@ -1007,7 +1003,7 @@ server <- function(input, output, session) {
       )
       
     })
- 
+  
   
   output$card1 <- renderUI({
     if (handNum() == 0) {
@@ -1104,10 +1100,7 @@ server <- function(input, output, session) {
   
   ## Fix: Get rid of ^^^^^
   
-  ## Fix: Reading in a question bank should occur just after loading libraries
-  ## and before creating the UI. This optimizes resource sharing
-  ##### Reading in Questions ----
-  questionBank <- read.csv("exploreQuestions.csv", stringsAsFactors = FALSE)
+ 
   ## Fix: we don't use snake_case in this project; we use camelCase
   Qs_array <- c(1:nrow(questionBank))
   
@@ -1368,31 +1361,29 @@ server <- function(input, output, session) {
     letterAnswer <- questionBank[id, "Answer"]
     cAnswer <- questionBank[id, letterAnswer]
     mc1Length <- length(input$mc1)
-    print(mc1Length)
-    print(letterAnswer)
-    print(cAnswer)
+    
     if(length(input$mc1) == 0){
-        answer = "E"
-        updateButton(
-          session = session, 
-          inputId = "submit1", 
-          disabled = TRUE)
-        updateButton(
-          session = session, 
-          inputId = "nextq", 
-          disabled = FALSE)
-        updateButton(
-          session = session, 
-          inputId = "restart", 
-          disabled = FALSE)
-        
-        output$mark <- renderIcon(
-          icon = ifelse(
-            test = answer == cAnswer, 
-            yes = "correct", 
-            no = "incorrect"
-          )
+      answer = "E"
+      updateButton(
+        session = session, 
+        inputId = "submit1", 
+        disabled = TRUE)
+      updateButton(
+        session = session, 
+        inputId = "nextq", 
+        disabled = FALSE)
+      updateButton(
+        session = session, 
+        inputId = "restart", 
+        disabled = FALSE)
+      
+      output$mark <- renderIcon(
+        icon = ifelse(
+          test = answer == cAnswer, 
+          yes = "correct", 
+          no = "incorrect"
         )
+      )
     }
     else{
       input$mc1 == input$mc1
@@ -1417,7 +1408,7 @@ server <- function(input, output, session) {
         )
       )
     }
-      
+    
     ### FEEDBACK###
     output$feedback <- renderUI({
       withMathJax()
@@ -1434,11 +1425,11 @@ server <- function(input, output, session) {
       }
       else if (answer == "E"){
         p(strong("Answer:"), br(), questionBank[id, "Answer"], 
-        br(), strong("Explanation:"), br(),  withMathJax(questionBank[id, "Feedback"]))
+          br(), strong("Explanation:"), br(),  withMathJax(questionBank[id, "Feedback"]))
       }
       else{
         p(strong("Answer:"), br(), questionBank[id, "Answer"], 
-        br(), strong("Explanation:"), br(),  withMathJax(questionBank[id, "Feedback"]))
+          br(), strong("Explanation:"), br(),  withMathJax(questionBank[id, "Feedback"]))
       }
     })
   })
