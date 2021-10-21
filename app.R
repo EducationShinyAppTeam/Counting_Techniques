@@ -4,26 +4,21 @@ library(shinydashboard)
 library(shinyBS)
 library(shinyWidgets)
 library(boastUtils)
-# library(shinyjs) 
-## Fix: I don't believe that shinyjs is actively being used anywhere in the app
 
-# Load additional dependencies and setup functions
 #Load explore and poker question banks
 questionBank <- read.csv("exploreQuestions.csv", stringsAsFactors = FALSE)
 
-pokerHands <- read.csv("pokerquestionbank.csv") ## Fix: use read.csv
+pokerHands <- read.csv("pokerquestionbank.csv") 
 cardBacks <- function(){
   return(
     img(
       src = "pokercard-back.png",
       width = "100%",
       contentType = "image/png", 
-      alt = "Poker card backside" # Fix: Use "A card dealt face down"
+      alt = "A card dealt face down" 
     )
   )
 }
-## Address: I would change the name to cardBack and switch this from a function to a
-## constant (static object)
 
 ## These functions are the bullet points for the worked examples in the  
 ## prerequsites page. They give descriptions for the different types of counting
@@ -64,7 +59,7 @@ ui <- list(
       tags$li(class = "dropdown", actionLink("info", icon("info"))),
       tags$li(
         class = "dropdown",
-        boastUtils::surveyLink(name = "App_Template") ## Fix: Update to Counting_Techniques
+        boastUtils::surveyLink(name = "Counting_Techniques") 
       ),
       tags$li(
         class = "dropdown",
@@ -134,8 +129,7 @@ ui <- list(
             br(),
             br(),
             br(),
-            ## Fix: Switch to you, not me V :)
-            div(class = "updated", "Last Update: 6/7/2021 by NJH.")
+            div(class = "updated", "Last Update: 10/21/2021 by SJS")
           )
         ),
         #### Prerequisites Page ----
@@ -153,9 +147,6 @@ ui <- list(
           ),
           br(), 
           h3("Counting Techniques"),
-          ## Address: I'm unconvinced that lists are needed in several of these
-          ## boxes. The two where a list seems warranted are the Distinguishable
-          ## permutations and the Multiplication Principle.
     
           fluidRow(
             box(
@@ -403,6 +394,17 @@ ui <- list(
                     You are willing to give some students more than 1 candy bar. 
                     How many ways can you distribute the candy bars?"),
                   tags$ul( 
+                    div(
+                      style = "text-align: center;",
+                      bsButton(
+                        inputId = "showAnswerA1", 
+                        label = "Show Answer!", 
+                        size = "large", 
+                        disabled = TRUE, 
+                        style = "default"
+                      )
+                    ), 
+                    br(), 
                     tags$li(uiOutput("candyA1")),
                     permutation(),
                     replacement()
@@ -417,12 +419,26 @@ ui <- list(
                   p("Distribute 4 different flavored candy bars to the class.
                     You do not want to give any student more than 1 candy bar. 
                     How many ways can you distribute the candy bars?"),
+                  
                   tags$ul(
+                    div(
+                      style = "text-align: center;",
+                      bsButton(
+                        inputId = "showAnswerA2", 
+                        label = "Show Answer!", 
+                        size = "large", 
+                        disabled = TRUE, 
+                        style = "default"
+                      )
+                    ), 
+                    br(), 
                     tags$li(uiOutput("candyA2")),
                     permutation(),
                     noReplace()
-                  )
+                  ), 
+                    
                 )
+              
               ),
               fluidRow(
                 box(
@@ -435,6 +451,17 @@ ui <- list(
                     You are willing to give some students more than 1 candy bar. 
                     How many ways can you distribute the candy bars?"),
                   tags$ul(
+                    div(
+                      style = "text-align: center;",
+                      bsButton(
+                        inputId = "showAnswerA3", 
+                        label = "Show Answer!", 
+                        size = "large", 
+                        disabled = TRUE, 
+                        style = "default"
+                      )
+                    ), 
+                    br(), 
                     tags$li(uiOutput("candyA3")),
                     combination(),
                     replacement()
@@ -450,6 +477,17 @@ ui <- list(
                     You do not want to give any student more than 1 candy bar. 
                     How many ways can you distribute the candy bars?"),
                   tags$ul(
+                    div(
+                      style = "text-align: center;",
+                      bsButton(
+                        inputId = "showAnswerA4", 
+                        label = "Show Answer!", 
+                        size = "large", 
+                        disabled = TRUE, 
+                        style = "default"
+                      )
+                    ), 
+                    br(), 
                     tags$li(uiOutput("candyA4")),
                     combination(),
                     noReplace()
@@ -468,7 +506,17 @@ ui <- list(
                     be rewarded to five students, how many ways can the candy bars
                     be rewarded the students?"),
                   tags$ul(
-                    tags$li("\\(\\dfrac{20!}{5!5!5!5!}\\)"), 
+                    div(
+                      style = "text-align: center;",
+                      bsButton(
+                        inputId = "showAnswerA5", 
+                        label = "Show Answer!", 
+                        size = "large", 
+                        disabled = TRUE, 
+                        style = "default"
+                      )
+                    ), 
+                    tags$li(uiOutput("candyA5")), 
                   )
                 ),
                 box(
@@ -482,7 +530,17 @@ ui <- list(
                     candy bars to one
                     student?"),
                   tags$ul(
-                    tags$li("\\(3\\cdot{4}\\cdot{4}\\cdot{1}\\)"),
+                    div(
+                      style = "text-align: center;",
+                      bsButton(
+                        inputId = "showAnswerA6", 
+                        label = "Show Answer!", 
+                        size = "large", 
+                        disabled = TRUE, 
+                        style = "default"
+                      )
+                    ), 
+                    tags$li(uiOutput("candyA6")),
                     
                   )
                 )
@@ -581,9 +639,6 @@ ui <- list(
                   uiOutput("feedback")
                 )
               ), 
-              ## Fix: you can remove these re-trigger pieces (from server too) and 
-              ## put in a single boastUtils::typesetMath call in the server.
-              ## You may need to update boastUtils first.
               uiOutput("math3"),
               uiOutput("math4")
             )
@@ -653,20 +708,11 @@ ui <- list(
               offset = 0,
               ## Fix: the caption text isn't getting displayed
               textOutput("caption"),
-              ## Fix: Inline CSS is NOT allowed without prior authorization
-              ## The following line MUST be removed.
-              tags$head(tags$style("font-size: 8px;
-                                   font-style: title case"
-              ))
             )
           ),
           br(),
           br(), 
-          ## Fix: I do not like the layout of the page after the cards. Use 3 rows
-          ## Row 1: New Hand button & Score message
-          ## Row 2: Question & Answer Explanation field
-          ## Row 3: Submit button, scoring mark, Answer Explanation Button
-          ## This layout should help keep buttons and icons from overlapping as current
+
           fluidRow(
             column(
               width = 2,
@@ -856,8 +902,6 @@ server <- function(input, output, session) {
       classNum(sample(18:36, 1))
       
       output$prompt <- renderUI({
-        ## Fix: You do not need all of the withMathJax calls throughout this
-        ## section; especially when you're just displaying a number
         withMathJax(paste(
           "You are the teacher of a class of",
           classNum(),
@@ -866,12 +910,93 @@ server <- function(input, output, session) {
           the candy bars."
         ))
       })
+      
+      updateButton(
+        session = session, 
+        inputId = "showAnswerA1", 
+        disabled = FALSE
+      )
+      updateButton(
+        session = session, 
+        inputId = "showAnswerA2", 
+        disabled = FALSE
+      )
+      updateButton(
+        session = session, 
+        inputId = "showAnswerA3", 
+        disabled = FALSE
+      )
+      updateButton(
+        session = session, 
+        inputId = "showAnswerA4", 
+        disabled = FALSE
+      )
+      updateButton(
+        session = session, 
+        inputId = "showAnswerA5", 
+        disabled = FALSE
+      )
+      updateButton(
+        session = session, 
+        inputId = "showAnswerA6", 
+        disabled = FALSE
+      )
+      output$candyA1 <- renderUI({NULL})
+      output$candyA2 <- renderUI({NULL})
+      output$candyA3 <- renderUI({NULL})
+      output$candyA4 <- renderUI({NULL})
+      
+      
+      # output$candyA1 <- renderUI({
+      #   withMathJax(paste(sprintf(
+      #     fmt = "\\(n^{r} = %d ^4\\)",
+      #     classNum()
+      #   )))
+      # })
+      
+      # output$candyA2 <- renderUI({
+      #   withMathJax(paste(sprintf(
+      #     fmt = "\\(_{n}P_{r} = \\dfrac{n!}{(n-r)!} = \\dfrac{(%d)!}{(%d)!}\\)",
+      #     classNum(),
+      #     (classNum() - 4)
+      #   )))
+      # })
+      
+      # output$candyA3 <- renderUI({
+      #   withMathJax(paste(sprintf(
+      #     fmt = "\\(\\binom{n+r-1}{r} = \\dfrac{(n+r-1)!}{r!(n-1)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
+      #     (classNum() + 4 - 1),
+      #     (classNum() - 1)
+      #   )))
+      # })
+      
+      # output$candyA4 <- renderUI({
+      #   withMathJax(paste(sprintf(
+      #     fmt = "\\(\\binom{n}{r} = \\dfrac{n!}{r!(n-r)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
+      #     classNum(),
+      #     (classNum() - 4)
+      #   )))
+      # })
+      
+    
+  })
+  
+  #### Set up buttons for candy page ----
+  observeEvent(
+    eventExpr = input$showAnswerA1, 
+    handlerExpr = {
       output$candyA1 <- renderUI({
         withMathJax(paste(sprintf(
           fmt = "\\(n^{r} = %d ^4\\)",
           classNum()
         )))
       })
+    }
+  )
+  
+  observeEvent(
+    eventExpr = input$showAnswerA2, 
+    handlerExpr = {
       output$candyA2 <- renderUI({
         withMathJax(paste(sprintf(
           fmt = "\\(_{n}P_{r} = \\dfrac{n!}{(n-r)!} = \\dfrac{(%d)!}{(%d)!}\\)",
@@ -879,6 +1004,12 @@ server <- function(input, output, session) {
           (classNum() - 4)
         )))
       })
+    }
+  )
+  
+  observeEvent(
+    eventExpr = input$showAnswerA3, 
+    handlerExpr = {
       output$candyA3 <- renderUI({
         withMathJax(paste(sprintf(
           fmt = "\\(\\binom{n+r-1}{r} = \\dfrac{(n+r-1)!}{r!(n-1)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
@@ -886,6 +1017,12 @@ server <- function(input, output, session) {
           (classNum() - 1)
         )))
       })
+    }
+  )
+  
+  observeEvent(
+    eventExpr = input$showAnswerA4, 
+    handlerExpr = {
       output$candyA4 <- renderUI({
         withMathJax(paste(sprintf(
           fmt = "\\(\\binom{n}{r} = \\dfrac{n!}{r!(n-r)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
@@ -893,8 +1030,34 @@ server <- function(input, output, session) {
           (classNum() - 4)
         )))
       })
-    })
+    }
+  )
   
+  observeEvent(
+    eventExpr = input$showAnswerA5, 
+    handlerExpr = {
+      output$candyA5 <- renderUI({
+        withMathJax(paste(sprintf(
+          fmt = "\\(\\dfrac{20!}{5!5!5!5!}\\)",
+          classNum(),
+          (classNum() - 4)
+        )))
+      })
+    }
+  )
+  
+  observeEvent(
+    eventExpr = input$showAnswerA6, 
+    handlerExpr = {
+      output$candyA6 <- renderUI({
+        withMathJax(paste(sprintf(
+          fmt = "\\(3\\cdot{4}\\cdot{4}\\cdot{1}\\)",
+          classNum(),
+          (classNum() - 4)
+        )))
+      })
+    }
+  )
   ## Poker Page ----
   scoreCount <- reactiveVal(0)
   
@@ -929,10 +1092,8 @@ server <- function(input, output, session) {
       )
       output$math1 <- renderUI({withMathJax()})
       output$math2 <- renderUI({withMathJax()})
-      ## Fix: Use renderUI({NULL})
-      output$showExplnDisplay <- renderUI({
-        return = NULL
-      })
+      output$showExplnDisplay <- renderUI({NULL})
+      
       ## Fix: Use renderIcon() 
       output$scoreImg <- renderUI({
         img(src = NULL, width = 50)
@@ -944,6 +1105,10 @@ server <- function(input, output, session) {
       updateButton(
         session = session, 
         inputId = "submit", 
+        disabled = FALSE)
+      updateButton(
+        session = session, 
+        inputId = "showAnswerA2", 
         disabled = FALSE)
       
     },
@@ -1019,7 +1184,6 @@ server <- function(input, output, session) {
   observeEvent(
     eventExpr = input$showExpln,
     handlerExpr = {
-      ## Fix: see prior comment
       output$math1 <- renderUI({withMathJax()})
       output$math2 <- renderUI({withMathJax()})
       output$showExplnDisplay <- renderUI({
@@ -1105,36 +1269,7 @@ server <- function(input, output, session) {
     }
   })
   
-  # ## Fix: Ummm, what is this for? I don't believe that there is anything in the
-  # ## app that needs the withBusyIndicator. Get rid of this. VVVV
   ## Explore Page Practice ----
-  # withBusyIndicatorServer <- function(buttonId, expr) {
-  #   # UX stuff: show the "busy" message, hide the other messages, disable the button
-  #   loadingEl <- sprintf("[data-for-btn=%s] .btn-loading-indicator", buttonId)
-  #   doneEl <- sprintf("[data-for-btn=%s] .btn-done-indicator", buttonId)
-  #   errEl <- sprintf("[data-for-btn=%s] .btn-err", buttonId)
-  #   shinyjs::disable(buttonId)
-  #   shinyjs::show(selector = loadingEl)
-  #   shinyjs::hide(selector = doneEl)
-  #   shinyjs::hide(selector = errEl)
-  #   on.exit({
-  #     shinyjs::enable(buttonId)
-  #     shinyjs::hide(selector = loadingEl)
-  #   })
-  #   
-  #   # Try to run the code when the button is clicked and show an error message if
-  #   # an error occurs or a success message if it completes
-  #   tryCatch({
-  #     value <- expr
-  #     shinyjs::show(selector = doneEl)
-  #     shinyjs::delay(2000, shinyjs::hide(selector = doneEl, anim = TRUE, animType = "fade",
-  #                                        time = 0.5))
-  #     value
-  #   }, error = function(err) { errorFunc(err, buttonId) })
-  # }
-  # 
-  # ## Fix: Get rid of ^^^^^
-  
   qsArray <- c(1:nrow(questionBank))
   
   qs <- nrow(questionBank)
@@ -1172,7 +1307,8 @@ server <- function(input, output, session) {
     })
     
     updateRadioGroupButtons(
-      session, "mc1",
+      session = session, 
+      inputId = "mc1",
       choices = list(
         questionBank[id, "A"],
         questionBank[id, "B"],
@@ -1186,7 +1322,6 @@ server <- function(input, output, session) {
       ),
       status = "game"
     )
-    ## Address: see prior comment about boastUtils::typesetMath
     output$math3 <- renderUI({
       withMathJax()
     })
@@ -1206,7 +1341,8 @@ server <- function(input, output, session) {
     id <- sample(qsArray, 1, replace = FALSE, prob = NULL)
     qsArray <- qsArray[!qsArray %in% id]
     updateRadioGroupButtons(
-      session, "mc1",
+      session = session,  
+      inputId = "mc1",
       selected = character(0),
       choices = list(
         questionBank[id, "A"],
@@ -1237,15 +1373,17 @@ server <- function(input, output, session) {
       id <- sample(qsArray, 1, replace = FALSE, prob = NULL)
       qsArray <- qsArray[!qsArray %in% id]
       hint <- questionBank["Hint"]
-      ## Fix: You do not need withBusyIndicatorServer at all in this app
-      # withBusyIndicatorServer("nextq", {
-        updateButton(session, "submit1", disabled = FALSE)
+        updateButton(
+          session = session, 
+          inputId = "submit1", 
+          disabled = FALSE)
         output$question <- renderUI({
           return(paste(questionBank[id, "Scenario"], questionBank[id, "Question"]))
         })
         
         updateRadioGroupButtons(
-          session, "mc1",
+          session = session, 
+          inputId = "mc1",
           selected = character(0),
           choices = list(
             questionBank[id, "A"],
@@ -1268,22 +1406,15 @@ server <- function(input, output, session) {
         output$mark <- renderUI({
           img(src = NULL, width = 50)
         })
-      #}) #With busy indictor ones 
-      
+
       ##HINT###
-      ## Fix: simplify to renderUI({NULL})
-      output$hintDisplay <- renderUI({
-        return(NULL)
-      })
-      output$feedback <- renderUI({
-        return(NULL)
-      })
+      output$hintDisplay <- renderUI({NULL})
+      output$feedback <- renderUI({NULL})
     }
     else if (length(qsArray) == 1) {
       id <- qsArray[1]
       qsArray <- qsArray[!qsArray %in% id]
       hint <- questionBank[id, "Hint"]
-      # withBusyIndicatorServer("nextq", {
         output$question <- renderUI({
           return(paste(questionBank[id, "Scenario"], questionBank[id, "Question"]))
         })
@@ -1317,15 +1448,10 @@ server <- function(input, output, session) {
         output$mark <- renderUI({
           img(src = NULL, width = 50)
         })
-      #}) #With busy 
-      
+
       ##HINT###
-      output$hintDisplay <- renderUI({
-        return(NULL)
-      })
-      output$feedback <- renderUI({
-        return(NULL)
-      })
+      output$hintDisplay <- renderUI({NULL})
+      output$feedback <- renderUI({NULL})
     }
     else {
       updateButton(
@@ -1347,19 +1473,12 @@ server <- function(input, output, session) {
         closeOnClickOutside = TRUE,
         h4("Run out of question. Please click Restart to start over")
       )
-      output$question <- renderUI({
-        return(NULL)
-      })
-      
-      output$hintDisplay <- renderUI({
-        return(NULL)
-      })
-      
-      output$feedback <- renderUI({
-        return(NULL)
-      })
+      output$question <- renderUI({NULL})
+      output$hintDisplay <- renderUI({NULL})
+      output$feedback <- renderUI({NULL})
       updateRadioGroupButtons(
-        session, "mc1",
+        session = session, 
+        inputId = "mc1",
         selected = character(0),
         choices = list(
           questionBank[id, "A"],
@@ -1383,13 +1502,9 @@ server <- function(input, output, session) {
   })
   
   ### SUBMIT BUTTON###
-  ## Fix: Please be explicit with argument names like you were earlier
-  ## i.e., eventExpr = input$submit, etc.
   observeEvent(
     eventExpr = input$submit1, 
     handlerExpr = {
-    ## Address, if you use boastUtils::typesetMath, I don't believe you will
-    ## need this withMathJax call; test to be sure
     withMathJax()
     letterAnswer <- questionBank[id, "Answer"]
     cAnswer <- questionBank[id, letterAnswer]
