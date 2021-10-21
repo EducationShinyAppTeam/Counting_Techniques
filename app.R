@@ -516,6 +516,7 @@ ui <- list(
                         style = "default"
                       )
                     ), 
+                    br(), 
                     tags$li(uiOutput("candyA5")), 
                   )
                 ),
@@ -540,6 +541,7 @@ ui <- list(
                         style = "default"
                       )
                     ), 
+                    br(), 
                     tags$li(uiOutput("candyA6")),
                     
                   )
@@ -945,40 +947,6 @@ server <- function(input, output, session) {
       output$candyA2 <- renderUI({NULL})
       output$candyA3 <- renderUI({NULL})
       output$candyA4 <- renderUI({NULL})
-      
-      
-      # output$candyA1 <- renderUI({
-      #   withMathJax(paste(sprintf(
-      #     fmt = "\\(n^{r} = %d ^4\\)",
-      #     classNum()
-      #   )))
-      # })
-      
-      # output$candyA2 <- renderUI({
-      #   withMathJax(paste(sprintf(
-      #     fmt = "\\(_{n}P_{r} = \\dfrac{n!}{(n-r)!} = \\dfrac{(%d)!}{(%d)!}\\)",
-      #     classNum(),
-      #     (classNum() - 4)
-      #   )))
-      # })
-      
-      # output$candyA3 <- renderUI({
-      #   withMathJax(paste(sprintf(
-      #     fmt = "\\(\\binom{n+r-1}{r} = \\dfrac{(n+r-1)!}{r!(n-1)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
-      #     (classNum() + 4 - 1),
-      #     (classNum() - 1)
-      #   )))
-      # })
-      
-      # output$candyA4 <- renderUI({
-      #   withMathJax(paste(sprintf(
-      #     fmt = "\\(\\binom{n}{r} = \\dfrac{n!}{r!(n-r)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
-      #     classNum(),
-      #     (classNum() - 4)
-      #   )))
-      # })
-      
-    
   })
   
   #### Set up buttons for candy page ----
