@@ -6,9 +6,6 @@ library(shinyWidgets)
 library(boastUtils)
 # library(shinyjs) 
 ## Fix: I don't believe that shinyjs is actively being used anywhere in the app
-library(data.table)
-## Fix: The question banks you're loading are not large enough to require the use of
-## the data.table package and fread. Switch to read.csv
 
 # Load additional dependencies and setup functions
 #Load explore and poker question banks
@@ -80,8 +77,7 @@ ui <- list(
     dashboardSidebar(
       sidebarMenu(
         id = "pages",
-        # Fix: switch "dashboard" to "tachometer-alt"
-        menuItem("Overview", tabName = "overview", icon = icon("dashboard")),
+        menuItem("Overview", tabName = "overview", icon = icon("tachometer-alt")),
         menuItem("Prerequisites", tabName = "prerequisites", icon = icon("book")),
         menuItem("Explore", tabName = "explore", icon = icon("wpexplorer")),
         menuItem("Game", tabName = "game", icon = icon("gamepad")),
@@ -160,7 +156,7 @@ ui <- list(
           ## Address: I'm unconvinced that lists are needed in several of these
           ## boxes. The two where a list seems warranted are the Distinguishable
           ## permutations and the Multiplication Principle.
-          ## Address: Both DP and MP need some better clarification
+    
           fluidRow(
             box(
               title = strong("Permutation with Replacement"),
@@ -168,7 +164,8 @@ ui <- list(
               collapsible = TRUE,
               collapsed = FALSE,
               width = 6,
-              p("Number of ways to pick r things from n possibilities:"),
+              p("Number of ways to pick \\(r\\) things from \\(n\\)
+                possibilities:"),
               tags$ul( 
                 tags$li("\\(n^{r}\\)"),
                 tags$li("Ordered subsets with replacement")
@@ -181,7 +178,8 @@ ui <- list(
               collapsible = TRUE,
               collapsed = FALSE,
               width = 6,
-              p("Number of ways to pick r things from n possibilities:"),
+              p("Number of ways to pick \\(r\\) things from \\(n\\)
+                possibilities:"),
               tags$ul(
                 tags$li("\\({}_{n}P_{r}=\\dfrac{n!}{(n-r)!}\\)"),
                 tags$li("Ordered subsets without replacement")
@@ -195,7 +193,8 @@ ui <- list(
               collapsible = TRUE,
               collapsed = FALSE,
               width = 6,
-              p("Number of ways to pick r things from n possibilities:"),
+              p("Number of ways to pick \\(r\\) things from \\(n\\)
+                possibilities:"),
               tags$ul(
                 tags$li("\\(\\binom{n+r-1}{r} = \\dfrac{(n+r-1)!}{r!(n-1)!}\\)"),
                 tags$li("Unordered subsets with replacement")
@@ -207,7 +206,8 @@ ui <- list(
               collapsible = TRUE,
               collapsed = FALSE,
               width = 6,
-              p("Number of ways to pick r things from n possibilities:"),
+              p("Number of ways to pick \\(r\\) things from \\(n\\) 
+                possibilities:"),
               tags$ul(
                 tags$li("\\(\\binom{n}{r} = \\dfrac{n!}{r!(n-r)!}\\)"),
                 tags$li("Unordered subsets without replacement")
@@ -221,14 +221,25 @@ ui <- list(
               collapsible = TRUE,
               collapsed = FALSE,
               width = 6,
-              p("Number of distinguishable permutations of ", tags$em("n"), "objects:"),
+              p("Number of distinguishable permutations of \\(n\\) objects:"),
               tags$ul( 
                 tags$li("\\(n_{1}\\) of the \\(1^{st}\\) object."),
                 tags$li("\\(n_{2}\\) of the \\(2^{nd}\\) object."),
                 tags$li("\\(n_{k}\\) of the \\(k^{th}\\) object."),
                 tags$li("Where \\(\\sum_{i=1}^{k=n_i} = n\\) is 
                       \\(\\binom{n}{{n_{1}}{n_{2}}\\cdots{n_{k}}}=\\dfrac{n!}
-                        {{n_{1}!}{n_{2}!}{n_{3}!}\\cdots{n_{k}!}}\\)")
+                        {{n_{1}!}{n_{2}!}{n_{3}!}\\cdots{n_{k}!}}\\)"), 
+                tags$li("Example: How many ordered arrangements are there of the
+                        letters in MISSISSIPPI?", 
+                  tags$ul(
+                      tags$li("There is one letter M, 4 letter I's, 4 letter S's
+                              and 2 letter P's. The letters such as I, S, and P, 
+                              we cannot distinguish between. Therefore, the
+                              number of ordered arrangements for the word 
+                              MISSISSIPPI is \\(\\dfrac{11!}{1!4!4!2!}\\)"
+                      ) 
+                  ))
+              
               )
             ),
             box(
@@ -245,7 +256,18 @@ ui <- list(
                 tags$li("Then the number of total outcomes from all experiments", 
                         ("\\({E_{1},E_{2}...E_{m}=}\\)")), 
                 tags$li("\\({{n_{1}}\\times{n_{2}}\\times{n_{3}}\\times\\cdots
-                        \\times{n_{m}}= n!}\\)")
+                        \\times{n_{m}}= n!}\\)"), 
+                tags$li("Example: if each license plate needs three letters 
+                        and four numbers, how many possible license plates
+                        can be stamped? (\\(ABC 1234\\) is one example)",
+                  tags$ul(
+                        tags$li("The first three spots can each be filled by 
+                                three letters. The last four spots can be filled
+                                by the numbers 0-9, which gives us 10 possible
+                                numbers. Therefore, the possible number of 
+                                lisence plates are: \\({26}\\times{26}\\times{26}
+                                \\times{10}\\times{10}\\times{10}\\times{10}\\)")))
+                        
               )
             )
           ),
@@ -284,6 +306,9 @@ ui <- list(
           tabName = "explore",
           withMathJax(),
           h2("Explore the Concept"),
+          p("Use worked example tab to see how a problem's wording corresponds 
+            to using the counting techniques equations. Then, test your
+            knowledge in the multiple choice tab!"), 
           tabsetPanel(
             id = "exploreTabs", 
             type = "tabs", 
@@ -499,7 +524,7 @@ ui <- list(
                     selected = character(0),
                     checkIcon = list(
                       yes = icon("check-square"),
-                      no = icon("square-o")
+                      no = icon("square")
                     ),
                     choices = list(
                       "\\(\\frac{1}{4}\\)",
@@ -636,6 +661,7 @@ ui <- list(
             )
           ),
           br(),
+          br(), 
           ## Fix: I do not like the layout of the page after the cards. Use 3 rows
           ## Row 1: New Hand button & Score message
           ## Row 2: Question & Answer Explanation field
@@ -643,64 +669,76 @@ ui <- list(
           ## This layout should help keep buttons and icons from overlapping as current
           fluidRow(
             column(
-              width = 6,
-              # offset = 1,
-              ## Fix: use the same set up for these as on the MC Explore tab
+              width = 2,
+              offset = 0,
+              bsButton(
+                inputId = "newHand",
+                label = "New Hand",
+                size = "large",
+                style = "default",
+                disabled = FALSE
+              ), 
+            ), 
+            column(
+              width = 6
+            ), 
+            column(
+              width = 4,
+              #offset = 8,
+              div(
+                style = "text-align: center",
+                textOutput("showScore"),
+              ), 
+            ),
+          ), 
+          br(), 
+          fluidRow(
+            column(
+              width = 8, 
               radioButtons(
                 inputId = "pokerAnswers",
                 label = "Click the 'New Hand' button to begin the poker questions.",
                 choices =  character(0),
                 selected = character(0)
               ), 
-              fluidRow(
-                column(
-                  width = 2,
-                  offset = 0,
-                  bsButton(
-                    inputId = "newHand",
-                    label = "New Hand",
-                    size = "large",
-                    style = "default",
-                    disabled = FALSE
-                  )
-                ),
-                column(
-                  width = 2,
-                  offset = 1, 
-                  bsButton(
-                    inputId = "submit",
-                    label = "Submit Answer",
-                    size = "large",
-                    style = "default",
-                    disabled = FALSE
-                  )
-                ),
-                column(
-                  width = 2,
-                  offset = 2, 
-                  uiOutput("scoreImg")
-                )
+            ), 
+            column(
+              width = 4, 
+              uiOutput("showExplnDisplay")
+            )
+          ), 
+          br(), 
+          fluidRow(
+            column(
+              width = 2,
+              offset = 0,
+              bsButton(
+                inputId = "submit",
+                label = "Submit Answer",
+                size = "large",
+                style = "default",
+                disabled = TRUE
               )
             ),
             column(
-              width = 6,
+              width = 2,
               offset = 0,
-              div(
-                style = "text-align: center",
-                textOutput("showScore"),
-                br(),
-                bsButton(
-                  inputId = "showExpln",
-                  label = "Answer Explanation", 
-                  size = "large", 
-                  disabled = TRUE
-                ), 
-              ), 
-              br(), 
-              uiOutput("showExplnDisplay")
+              uiOutput("scoreImg")
+            ), 
+            column(
+              width = 5
+            ), 
+            column(
+              width = 3,
+              bsButton(
+                inputId = "showExpln",
+                label = "Answer Explanation",
+                size = "large",
+                disabled = TRUE
+              )
             )
-          ),
-          ## Fix: See prior comment; you should only need to do that once
+          ), 
+          
           uiOutput("math1"),
           uiOutput("math2")
         ),
@@ -759,7 +797,7 @@ ui <- list(
 
 # Define server logic ----
 server <- function(input, output, session) {
-  boastUtils::typesetMath
+  boastUtils::typesetMath(session = session)
   
   ## Set up navigation bttns ----
   observeEvent(
@@ -813,9 +851,8 @@ server <- function(input, output, session) {
   observeEvent(
     eventExpr = input$newClass,
     handlerExpr = {
-      ## Address: Any time I see sample(##:##) without an explanation comment,
-      ## I get worried that 1) something is hard coded making the app less flexible
-      ## and 2) there's vagueness that can break the app in the long run
+      ##Choose a number between 18 and 36 to be the class size for the candy bar
+      ##part of the explore page 
       classNum(sample(18:36, 1))
       
       output$prompt <- renderUI({
@@ -957,8 +994,6 @@ server <- function(input, output, session) {
         )
         
       } else if (scoreCount()  <= -10) {
-        ## Address: I didn't know that there was a lower bound. This would be
-        ## good to share with the player
         sendSweetAlert(
           session = session,
           title = "You lost.",
@@ -1070,44 +1105,40 @@ server <- function(input, output, session) {
     }
   })
   
-  ## Fix: Ummm, what is this for? I don't believe that there is anything in the
-  ## app that needs the withBusyIndicator. Get rid of this. VVVV
+  # ## Fix: Ummm, what is this for? I don't believe that there is anything in the
+  # ## app that needs the withBusyIndicator. Get rid of this. VVVV
   ## Explore Page Practice ----
-  withBusyIndicatorServer <- function(buttonId, expr) {
-    # UX stuff: show the "busy" message, hide the other messages, disable the button
-    loadingEl <- sprintf("[data-for-btn=%s] .btn-loading-indicator", buttonId)
-    doneEl <- sprintf("[data-for-btn=%s] .btn-done-indicator", buttonId)
-    errEl <- sprintf("[data-for-btn=%s] .btn-err", buttonId)
-    shinyjs::disable(buttonId)
-    shinyjs::show(selector = loadingEl)
-    shinyjs::hide(selector = doneEl)
-    shinyjs::hide(selector = errEl)
-    on.exit({
-      shinyjs::enable(buttonId)
-      shinyjs::hide(selector = loadingEl)
-    })
-    
-    # Try to run the code when the button is clicked and show an error message if
-    # an error occurs or a success message if it completes
-    tryCatch({
-      value <- expr
-      shinyjs::show(selector = doneEl)
-      shinyjs::delay(2000, shinyjs::hide(selector = doneEl, anim = TRUE, animType = "fade",
-                                         time = 0.5))
-      value
-    }, error = function(err) { errorFunc(err, buttonId) })
-  }
+  # withBusyIndicatorServer <- function(buttonId, expr) {
+  #   # UX stuff: show the "busy" message, hide the other messages, disable the button
+  #   loadingEl <- sprintf("[data-for-btn=%s] .btn-loading-indicator", buttonId)
+  #   doneEl <- sprintf("[data-for-btn=%s] .btn-done-indicator", buttonId)
+  #   errEl <- sprintf("[data-for-btn=%s] .btn-err", buttonId)
+  #   shinyjs::disable(buttonId)
+  #   shinyjs::show(selector = loadingEl)
+  #   shinyjs::hide(selector = doneEl)
+  #   shinyjs::hide(selector = errEl)
+  #   on.exit({
+  #     shinyjs::enable(buttonId)
+  #     shinyjs::hide(selector = loadingEl)
+  #   })
+  #   
+  #   # Try to run the code when the button is clicked and show an error message if
+  #   # an error occurs or a success message if it completes
+  #   tryCatch({
+  #     value <- expr
+  #     shinyjs::show(selector = doneEl)
+  #     shinyjs::delay(2000, shinyjs::hide(selector = doneEl, anim = TRUE, animType = "fade",
+  #                                        time = 0.5))
+  #     value
+  #   }, error = function(err) { errorFunc(err, buttonId) })
+  # }
+  # 
+  # ## Fix: Get rid of ^^^^^
   
-  ## Fix: Get rid of ^^^^^
+  qsArray <- c(1:nrow(questionBank))
   
- 
-  ## Fix: we don't use snake_case in this project; we use camelCase
-  Qs_array <- c(1:nrow(questionBank))
-  
-  ## Address: the <<- operator can be dangerous to use. [Strongly] Consider 
-  ## using a reactive value instead
-  Qs <<- nrow(questionBank)
-  Qs_array <<- c(1:Qs)
+  qs <- nrow(questionBank)
+  qsArray <- c(1:qs)
   id <- 1
   
   # Reset button
@@ -1130,7 +1161,7 @@ server <- function(input, output, session) {
     output$question <- renderUI({
       withMathJax()
       ## Address: see prior comment about <<-
-      hint <<- withMathJax(questionBank[id, "Hint"])
+      hint <- withMathJax(questionBank[id, "Hint"])
       return(paste(questionBank[id, "Scenario"], questionBank[id, "Question"]))
     })
     
@@ -1151,7 +1182,7 @@ server <- function(input, output, session) {
       selected = character(0),
       checkIcon = list(
         yes = icon("check-square"),
-        no = icon("square-o")
+        no = icon("square")
       ),
       status = "game"
     )
@@ -1172,8 +1203,8 @@ server <- function(input, output, session) {
   # Print out a question
   output$question <- renderUI({
     withMathJax()
-    id <<- sample(Qs_array, 1, replace = FALSE, prob = NULL)
-    Qs_array <<- Qs_array[!Qs_array %in% id]
+    id <- sample(qsArray, 1, replace = FALSE, prob = NULL)
+    qsArray <- qsArray[!qsArray %in% id]
     updateRadioGroupButtons(
       session, "mc1",
       selected = character(0),
@@ -1185,7 +1216,7 @@ server <- function(input, output, session) {
       ),
       checkIcon = list(
         yes = icon("check-square"),
-        no = icon("square-o")
+        no = icon("square")
       ),
       status = "game"
     )
@@ -1195,19 +1226,19 @@ server <- function(input, output, session) {
     output$math4 <- renderUI({
       withMathJax()
     })
-    hint <<- withMathJax(questionBank[id, "Hint"])
+    hint <- withMathJax(questionBank[id, "Hint"])
     return(withMathJax(paste(questionBank[id, "Scenario"], questionBank[id, "Question"])))
   })
   
   ### NEXT QUESTION BUTTON###
   observeEvent(input$nextq, {
     withMathJax()
-    if (length(Qs_array) > 1) {
-      id <<- sample(Qs_array, 1, replace = FALSE, prob = NULL)
-      Qs_array <<- Qs_array[!Qs_array %in% id]
-      hint <<- questionBank["Hint"]
+    if (length(qsArray) > 1) {
+      id <- sample(qsArray, 1, replace = FALSE, prob = NULL)
+      qsArray <- qsArray[!qsArray %in% id]
+      hint <- questionBank["Hint"]
       ## Fix: You do not need withBusyIndicatorServer at all in this app
-      withBusyIndicatorServer("nextq", {
+      # withBusyIndicatorServer("nextq", {
         updateButton(session, "submit1", disabled = FALSE)
         output$question <- renderUI({
           return(paste(questionBank[id, "Scenario"], questionBank[id, "Question"]))
@@ -1224,7 +1255,7 @@ server <- function(input, output, session) {
           ),
           checkIcon = list(
             yes = icon("check-square"),
-            no = icon("square-o")
+            no = icon("square")
           ),
           status = "game"
         )
@@ -1237,7 +1268,7 @@ server <- function(input, output, session) {
         output$mark <- renderUI({
           img(src = NULL, width = 50)
         })
-      })
+      #}) #With busy indictor ones 
       
       ##HINT###
       ## Fix: simplify to renderUI({NULL})
@@ -1248,11 +1279,11 @@ server <- function(input, output, session) {
         return(NULL)
       })
     }
-    else if (length(Qs_array) == 1) {
-      id <<- Qs_array[1]
-      Qs_array <<- Qs_array[!Qs_array %in% id]
-      hint <<- questionBank[id, "Hint"]
-      withBusyIndicatorServer("nextq", {
+    else if (length(qsArray) == 1) {
+      id <- qsArray[1]
+      qsArray <- qsArray[!qsArray %in% id]
+      hint <- questionBank[id, "Hint"]
+      # withBusyIndicatorServer("nextq", {
         output$question <- renderUI({
           return(paste(questionBank[id, "Scenario"], questionBank[id, "Question"]))
         })
@@ -1273,7 +1304,7 @@ server <- function(input, output, session) {
           ),
           checkIcon = list(
             yes = icon("check-square"),
-            no = icon("square-o")
+            no = icon("square")
           ),
           status = "game"
         )
@@ -1286,7 +1317,7 @@ server <- function(input, output, session) {
         output$mark <- renderUI({
           img(src = NULL, width = 50)
         })
-      })
+      #}) #With busy 
       
       ##HINT###
       output$hintDisplay <- renderUI({
@@ -1338,7 +1369,7 @@ server <- function(input, output, session) {
         ),
         checkIcon = list(
           yes = icon("check-square"),
-          no = icon("square-o")
+          no = icon("square")
         ),
         status = "game"
       )
@@ -1354,7 +1385,9 @@ server <- function(input, output, session) {
   ### SUBMIT BUTTON###
   ## Fix: Please be explicit with argument names like you were earlier
   ## i.e., eventExpr = input$submit, etc.
-  observeEvent(input$submit1, {
+  observeEvent(
+    eventExpr = input$submit1, 
+    handlerExpr = {
     ## Address, if you use boastUtils::typesetMath, I don't believe you will
     ## need this withMathJax call; test to be sure
     withMathJax()
