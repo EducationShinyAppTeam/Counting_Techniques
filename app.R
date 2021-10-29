@@ -223,14 +223,14 @@ ui <- list(
                 tags$li("Example: How many ordered arrangements are there of the
                         letters in MISSISSIPPI?", 
                   tags$ul(
-                      tags$li("There is one letter M, 4 letter I's, 4 letter S's
-                              and 2 letter P's. The letters such as I, S, and P, 
-                              we cannot distinguish between. Therefore, the
-                              number of ordered arrangements for the word 
-                              MISSISSIPPI is \\(\\dfrac{11!}{1!4!4!2!}\\)"
-                      ) 
-                  ))
-              
+                    tags$li("There is one letter M, 4 letter I's, 4 letter S's
+                            and 2 letter P's. The letters such as I, S, and P, 
+                            we cannot distinguish between. Therefore, the
+                            number of ordered arrangements for the word 
+                            MISSISSIPPI is \\(\\dfrac{11!}{1!4!4!2!}\\)"
+                    ) 
+                  )
+                )
               )
             ),
             box(
@@ -252,13 +252,15 @@ ui <- list(
                         and four numbers, how many possible license plates
                         can be stamped? (\\(ABC 1234\\) is one example)",
                   tags$ul(
-                        tags$li("The first three spots can each be filled by 
-                                three letters. The last four spots can be filled
-                                by the numbers 0-9, which gives us 10 possible
-                                numbers. Therefore, the possible number of 
-                                lisence plates are: \\({26}\\times{26}\\times{26}
-                                \\times{10}\\times{10}\\times{10}\\times{10}\\)")))
-                        
+                    tags$li("The first three spots can each be filled by 
+                            three letters. The last four spots can be filled
+                            by the numbers 0-9, which gives us 10 possible
+                            numbers. Therefore, the possible number of 
+                            lisence plates are: \\({26}\\times{26}\\times{26}
+                            \\times{10}\\times{10}\\times{10}\\times{10}\\)"
+                    )
+                  )
+                )       
               )
             )
           ),
@@ -378,11 +380,6 @@ ui <- list(
               ),
               br(),
               ###### Candy bar Qs ----
-              ## Address: I would like us to rethink the starting layout
-              ## In particular, I would like for the questions to appear from the
-              ## start, but not the solutions. I want the students to think
-              ## through the problem and then revel the solution. Similar to 
-              ## what happens in the Survey Question Wording Bias app
               fluidRow(
                 box(
                   title = strong("Permutation with Replacement"),
@@ -393,6 +390,7 @@ ui <- list(
                   p("Distribute 4 different flavored candy bars to the class. 
                     You are willing to give some students more than 1 candy bar. 
                     How many ways can you distribute the candy bars?"),
+                  p("Press button to reveal answer!"),
                   tags$ul( 
                     div(
                       style = "text-align: center;",
@@ -405,7 +403,7 @@ ui <- list(
                       )
                     ), 
                     br(), 
-                    tags$li(uiOutput("candyA1")),
+                    uiOutput("candyA1"),
                     permutation(),
                     replacement()
                   )
@@ -419,7 +417,7 @@ ui <- list(
                   p("Distribute 4 different flavored candy bars to the class.
                     You do not want to give any student more than 1 candy bar. 
                     How many ways can you distribute the candy bars?"),
-                  
+                  p("Press button to reveal answer!"),
                   tags$ul(
                     div(
                       style = "text-align: center;",
@@ -432,13 +430,11 @@ ui <- list(
                       )
                     ), 
                     br(), 
-                    tags$li(uiOutput("candyA2")),
+                    uiOutput("candyA2"),
                     permutation(),
                     noReplace()
                   ), 
-                    
                 )
-              
               ),
               fluidRow(
                 box(
@@ -450,6 +446,7 @@ ui <- list(
                   p("Distribute 4 identical candy bars to the class. 
                     You are willing to give some students more than 1 candy bar. 
                     How many ways can you distribute the candy bars?"),
+                  p("Press button to reveal answer!"),
                   tags$ul(
                     div(
                       style = "text-align: center;",
@@ -462,7 +459,7 @@ ui <- list(
                       )
                     ), 
                     br(), 
-                    tags$li(uiOutput("candyA3")),
+                    uiOutput("candyA3"),
                     combination(),
                     replacement()
                   )
@@ -476,6 +473,7 @@ ui <- list(
                   p("Distribute 4 identical candy bars to the class. 
                     You do not want to give any student more than 1 candy bar. 
                     How many ways can you distribute the candy bars?"),
+                  p("Press button to reveal answer!"),
                   tags$ul(
                     div(
                       style = "text-align: center;",
@@ -488,7 +486,7 @@ ui <- list(
                       )
                     ), 
                     br(), 
-                    tags$li(uiOutput("candyA4")),
+                    uiOutput("candyA4"),
                     combination(),
                     noReplace()
                   )
@@ -505,6 +503,7 @@ ui <- list(
                     available to pass out to the students. If each flavor is to 
                     be rewarded to five students, how many ways can the candy bars
                     be rewarded the students?"),
+                  p("Press button to reveal answer!"),
                   tags$ul(
                     div(
                       style = "text-align: center;",
@@ -517,7 +516,7 @@ ui <- list(
                       )
                     ), 
                     br(), 
-                    tags$li(uiOutput("candyA5")), 
+                    uiOutput("candyA5"), 
                   )
                 ),
                 box(
@@ -530,6 +529,7 @@ ui <- list(
                     bar. How many ways can you distribute 4 different flavored
                     candy bars to one
                     student?"),
+                  p("Press button to reveal answer!"),
                   tags$ul(
                     div(
                       style = "text-align: center;",
@@ -542,7 +542,7 @@ ui <- list(
                       )
                     ), 
                     br(), 
-                    tags$li(uiOutput("candyA6")),
+                    uiOutput("candyA6"),
                     
                   )
                 )
@@ -954,10 +954,10 @@ server <- function(input, output, session) {
     eventExpr = input$showAnswerA1, 
     handlerExpr = {
       output$candyA1 <- renderUI({
-        withMathJax(paste(sprintf(
+        withMathJax(tags$li(paste(sprintf(
           fmt = "\\(n^{r} = %d ^4\\)",
           classNum()
-        )))
+        ))))
       })
     }
   )
@@ -966,11 +966,11 @@ server <- function(input, output, session) {
     eventExpr = input$showAnswerA2, 
     handlerExpr = {
       output$candyA2 <- renderUI({
-        withMathJax(paste(sprintf(
+        withMathJax(tags$li(paste(sprintf(
           fmt = "\\(_{n}P_{r} = \\dfrac{n!}{(n-r)!} = \\dfrac{(%d)!}{(%d)!}\\)",
           classNum(),
           (classNum() - 4)
-        )))
+        ))))
       })
     }
   )
@@ -979,11 +979,11 @@ server <- function(input, output, session) {
     eventExpr = input$showAnswerA3, 
     handlerExpr = {
       output$candyA3 <- renderUI({
-        withMathJax(paste(sprintf(
+        withMathJax(tags$li(paste(sprintf(
           fmt = "\\(\\binom{n+r-1}{r} = \\dfrac{(n+r-1)!}{r!(n-1)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
           (classNum() + 4 - 1),
           (classNum() - 1)
-        )))
+        ))))
       })
     }
   )
@@ -992,11 +992,11 @@ server <- function(input, output, session) {
     eventExpr = input$showAnswerA4, 
     handlerExpr = {
       output$candyA4 <- renderUI({
-        withMathJax(paste(sprintf(
+        withMathJax(tags$li(paste(sprintf(
           fmt = "\\(\\binom{n}{r} = \\dfrac{n!}{r!(n-r)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
           classNum(),
           (classNum() - 4)
-        )))
+        ))))
       })
     }
   )
@@ -1005,11 +1005,11 @@ server <- function(input, output, session) {
     eventExpr = input$showAnswerA5, 
     handlerExpr = {
       output$candyA5 <- renderUI({
-        withMathJax(paste(sprintf(
+        withMathJax(tags$li(paste(sprintf(
           fmt = "\\(\\dfrac{20!}{5!5!5!5!}\\)",
           classNum(),
           (classNum() - 4)
-        )))
+        ))))
       })
     }
   )
@@ -1018,11 +1018,11 @@ server <- function(input, output, session) {
     eventExpr = input$showAnswerA6, 
     handlerExpr = {
       output$candyA6 <- renderUI({
-        withMathJax(paste(sprintf(
+        withMathJax(tags$li(paste(sprintf(
           fmt = "\\(3\\cdot{4}\\cdot{4}\\cdot{1}\\)",
           classNum(),
           (classNum() - 4)
-        )))
+        ))))
       })
     }
   )
@@ -1063,6 +1063,7 @@ server <- function(input, output, session) {
       output$showExplnDisplay <- renderUI({NULL})
       
       ## Fix: Use renderIcon() 
+      output$scoreImg <- renderIcon()
       output$scoreImg <- renderUI({
         img(src = NULL, width = 50)
       })
@@ -1263,7 +1264,6 @@ server <- function(input, output, session) {
     
     output$question <- renderUI({
       withMathJax()
-      ## Address: see prior comment about <<-
       hint <- withMathJax(questionBank[id, "Hint"])
       return(paste(questionBank[id, "Scenario"], questionBank[id, "Question"]))
     })
