@@ -403,7 +403,7 @@ ui <- list(
                       )
                     ), 
                     br(), 
-                    uiOutput("candyA1"),
+                    uiOutput("candyA1", class = "answertext"),
                     permutation(),
                     replacement()
                   )
@@ -430,7 +430,7 @@ ui <- list(
                       )
                     ), 
                     br(), 
-                    uiOutput("candyA2"),
+                    uiOutput("candyA2", class = "answertext"),
                     permutation(),
                     noReplace()
                   ), 
@@ -459,7 +459,7 @@ ui <- list(
                       )
                     ), 
                     br(), 
-                    uiOutput("candyA3"),
+                    uiOutput("candyA3", class = "answertext"),
                     combination(),
                     replacement()
                   )
@@ -486,7 +486,7 @@ ui <- list(
                       )
                     ), 
                     br(), 
-                    uiOutput("candyA4"),
+                    uiOutput("candyA4", class = "answertext"),
                     combination(),
                     noReplace()
                   )
@@ -516,7 +516,7 @@ ui <- list(
                       )
                     ), 
                     br(), 
-                    uiOutput("candyA5"), 
+                    uiOutput("candyA5", class = "answertext"), 
                   )
                 ),
                 box(
@@ -542,7 +542,7 @@ ui <- list(
                       )
                     ), 
                     br(), 
-                    uiOutput("candyA6"),
+                    uiOutput("candyA6", class = "answertext"),
                     
                   )
                 )
