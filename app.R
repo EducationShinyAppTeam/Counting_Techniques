@@ -23,6 +23,8 @@ cardBacks <- function(){
 ## These functions are the bullet points for the worked examples in the  
 ## prerequsites page. They give descriptions for the different types of counting
 ## techniques. 
+
+## UPDATE: Let's shift these to constants rather than functions.
 permutation <- function(){
   return(tags$li(
     "Since the candy bars are different, order matters. Therefore, we use a
@@ -128,6 +130,10 @@ ui <- list(
             providing the question bank.",
             br(),
             br(),
+            "Cite this app as:",
+            br(),
+            boastUtils::citeApp(),
+            br(),
             br(),
             div(class = "updated", "Last Update: 10/21/2021 by SJS")
           )
@@ -139,6 +145,8 @@ ui <- list(
           h2("Prerequisites"),
           p("In order to get the most out of this app, please review the
             following:"),
+          ## UPDATE: think about the wording used here
+          ## UPDATE: the usage of bullets needs to be examined
           tags$ul(
             tags$li("The difference between combinations, and the other counting 
                     techniques."),
@@ -147,7 +155,6 @@ ui <- list(
           ),
           br(), 
           h3("Counting Techniques"),
-    
           fluidRow(
             box(
               title = strong("Permutation with Replacement"),
@@ -299,13 +306,14 @@ ui <- list(
           tabName = "explore",
           withMathJax(),
           h2("Explore the Concept"),
-          p("Use worked example tab to see how a problem's wording corresponds 
+          ## UPDATE: Potentially change wording of Prereq page and the following
+          p("Use Worked Example tab to see how a problem's wording corresponds 
             to using the counting techniques equations. Then, test your
-            knowledge in the multiple choice tab!"), 
+            knowledge in the Multiple Choice tab!"),
+          ## Update: new name, more descriptive name for the multiple choice tab
           tabsetPanel(
             id = "exploreTabs", 
             type = "tabs", 
-  
             ##### Candy Tab ----
             tabPanel(
               title = "Worked Examples",
@@ -376,6 +384,7 @@ ui <- list(
                   width = 9,
                   offset = 0,
                   uiOutput("prompt")
+                  ## Update: more descriptive name
                 )
               ),
               br(),
@@ -893,6 +902,13 @@ server <- function(input, output, session) {
   classNum <- reactiveVal(0)
   
   output$prompt <- renderUI({
+    validate(
+      need(
+        expr = input$newClass > 0,
+        message = "Click the New class button to begin."
+      ),
+      errorClass = "leftParagraphError"
+    )
     "Click the new class button to begin"
   })
   
