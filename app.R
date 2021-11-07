@@ -23,8 +23,6 @@ cardBacks <- function(){
 ## These functions are the bullet points for the worked examples in the  
 ## prerequsites page. They give descriptions for the different types of counting
 ## techniques. 
-
-## UPDATE: Let's shift these to constants rather than functions.
 permutation <- function(){
   return(tags$li(
     "Since the candy bars are different, order matters. Therefore, we use a
@@ -130,10 +128,6 @@ ui <- list(
             providing the question bank.",
             br(),
             br(),
-            "Cite this app as:",
-            br(),
-            boastUtils::citeApp(),
-            br(),
             br(),
             div(class = "updated", "Last Update: 10/21/2021 by SJS")
           )
@@ -145,8 +139,6 @@ ui <- list(
           h2("Prerequisites"),
           p("In order to get the most out of this app, please review the
             following:"),
-          ## UPDATE: think about the wording used here
-          ## UPDATE: the usage of bullets needs to be examined
           tags$ul(
             tags$li("The difference between combinations, and the other counting 
                     techniques."),
@@ -155,6 +147,7 @@ ui <- list(
           ),
           br(), 
           h3("Counting Techniques"),
+    
           fluidRow(
             box(
               title = strong("Permutation with Replacement"),
@@ -306,14 +299,13 @@ ui <- list(
           tabName = "explore",
           withMathJax(),
           h2("Explore the Concept"),
-          ## UPDATE: Potentially change wording of Prereq page and the following
-          p("Use Worked Example tab to see how a problem's wording corresponds 
+          p("Use worked example tab to see how a problem's wording corresponds 
             to using the counting techniques equations. Then, test your
-            knowledge in the Multiple Choice tab!"),
-          ## Update: new name, more descriptive name for the multiple choice tab
+            knowledge in the multiple choice tab!"), 
           tabsetPanel(
             id = "exploreTabs", 
             type = "tabs", 
+  
             ##### Candy Tab ----
             tabPanel(
               title = "Worked Examples",
@@ -384,7 +376,6 @@ ui <- list(
                   width = 9,
                   offset = 0,
                   uiOutput("prompt")
-                  ## Update: more descriptive name
                 )
               ),
               br(),
@@ -752,11 +743,18 @@ ui <- list(
           fluidRow(
             column(
               width = 8, 
-              radioButtons(
+              radioGroupButtons(
                 inputId = "pokerAnswers",
                 label = "Click the 'New Hand' button to begin the poker questions.",
-                choices =  character(0),
-                selected = character(0)
+                choices = list(
+                  
+                ),
+                selected = character(0), 
+                checkIcon = list(
+                  yes = icon("check-square"),
+                  no = icon("square")
+                ),
+                status = "game" 
               ), 
             ), 
             column(
@@ -902,13 +900,6 @@ server <- function(input, output, session) {
   classNum <- reactiveVal(0)
   
   output$prompt <- renderUI({
-    validate(
-      need(
-        expr = input$newClass > 0,
-        message = "Click the New class button to begin."
-      ),
-      errorClass = "leftParagraphError"
-    )
     "Click the new class button to begin"
   })
   
@@ -1066,13 +1057,27 @@ server <- function(input, output, session) {
                       pokerHands$mathcodeAlt3[handNum()])
       
       randomAnsChoices <- sample(ansChoices, 4)
+      randomAnsChoices <- list(c(randomAnsChoices))
+      print(randomAnsChoices)
       
-      updateRadioButtons(
+      updateRadioGroupButtons(
         session = session,
         inputId = "pokerAnswers",
         label = pokerHands$question[handNum()],
-        choices = c(randomAnsChoices),
-        selected = character(0)
+        choices = 
+        #c(randomAnsChoices), 
+        list(
+          randomAnsChoices[1],
+          randomAnsChoices[2],
+          randomAnsChoices[3],
+          randomAnsChoices[4]
+        ),
+        selected = character(0), 
+        checkIcon = list(
+          yes = icon("check-square"),
+          no = icon("square")
+        ),
+        status = "game"
       )
       output$math1 <- renderUI({withMathJax()})
       output$math2 <- renderUI({withMathJax()})
