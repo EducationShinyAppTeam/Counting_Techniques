@@ -703,12 +703,12 @@ ui <- list(
               uiOutput("card5")
             )
           ),
+          br(), 
           fluidRow(
             column(
               width = 12,
               align = "center",
               offset = 0,
-              ## Fix: the caption text isn't getting displayed
               textOutput("caption"),
             )
           ),
@@ -746,15 +746,14 @@ ui <- list(
               radioGroupButtons(
                 inputId = "pokerAnswers",
                 label = "Click the 'New Hand' button to begin the poker questions.",
-                choices = list(
-                  
-                ),
+                choices = list(),
                 selected = character(0), 
+                direction = "vertical", 
                 checkIcon = list(
                   yes = icon("check-square"),
                   no = icon("square")
                 ),
-                status = "game" 
+                status = "game", 
               ), 
             ), 
             column(
@@ -1047,31 +1046,21 @@ server <- function(input, output, session) {
     eventExpr = input$newHand,
     handlerExpr = {
       handNum(sample(x = 1:nrow(pokerHands), size = 1))
-      
-      ## Fix: As mentioned above, this isn't getting displayed.
-      output$caption <- renderText(pokerHands$caption[handNum()])
-      
+      output$caption <- renderText({
+        paste("Hand Number: ", handNum())
+      })
       ansChoices <- c(pokerHands$mathcodeCorrect[handNum()],
                       pokerHands$mathcodeAlt1[handNum()],
                       pokerHands$mathcodeAlt2[handNum()],
                       pokerHands$mathcodeAlt3[handNum()])
       
       randomAnsChoices <- sample(ansChoices, 4)
-      randomAnsChoices <- list(c(randomAnsChoices))
-      print(randomAnsChoices)
       
       updateRadioGroupButtons(
         session = session,
         inputId = "pokerAnswers",
         label = pokerHands$question[handNum()],
-        choices = 
-        #c(randomAnsChoices), 
-        list(
-          randomAnsChoices[1],
-          randomAnsChoices[2],
-          randomAnsChoices[3],
-          randomAnsChoices[4]
-        ),
+        choices = randomAnsChoices, 
         selected = character(0), 
         checkIcon = list(
           yes = icon("check-square"),
