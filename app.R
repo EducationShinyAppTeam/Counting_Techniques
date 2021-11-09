@@ -129,7 +129,7 @@ ui <- list(
             br(),
             br(),
             br(),
-            div(class = "updated", "Last Update: 10/21/2021 by SJS")
+            div(class = "updated", "Last Update: 11/08/2021 by SJS")
           )
         ),
         #### Prerequisites Page ----
@@ -147,7 +147,7 @@ ui <- list(
           ),
           br(), 
           h3("Counting Techniques"),
-    
+          
           fluidRow(
             box(
               title = strong("Permutation with Replacement"),
@@ -222,14 +222,14 @@ ui <- list(
                         {{n_{1}!}{n_{2}!}{n_{3}!}\\cdots{n_{k}!}}\\)"), 
                 tags$li("Example: How many ordered arrangements are there of the
                         letters in MISSISSIPPI?", 
-                  tags$ul(
-                    tags$li("There is one letter M, 4 letter I's, 4 letter S's
+                        tags$ul(
+                          tags$li("There is one letter M, 4 letter I's, 4 letter S's
                             and 2 letter P's. The letters such as I, S, and P, 
                             we cannot distinguish between. Therefore, the
                             number of ordered arrangements for the word 
                             MISSISSIPPI is \\(\\dfrac{11!}{1!4!4!2!}\\)"
-                    ) 
-                  )
+                          ) 
+                        )
                 )
               )
             ),
@@ -251,15 +251,15 @@ ui <- list(
                 tags$li("Example: if each license plate needs three letters 
                         and four numbers, how many possible license plates
                         can be stamped? (\\(ABC 1234\\) is one example)",
-                  tags$ul(
-                    tags$li("The first three spots can each be filled by 
+                        tags$ul(
+                          tags$li("The first three spots can each be filled by 
                             three letters. The last four spots can be filled
                             by the numbers 0-9, which gives us 10 possible
                             numbers. Therefore, the possible number of 
                             lisence plates are: \\({26}\\times{26}\\times{26}
                             \\times{10}\\times{10}\\times{10}\\times{10}\\)"
-                    )
-                  )
+                          )
+                        )
                 )       
               )
             )
@@ -305,7 +305,7 @@ ui <- list(
           tabsetPanel(
             id = "exploreTabs", 
             type = "tabs", 
-  
+            
             ##### Candy Tab ----
             tabPanel(
               title = "Worked Examples",
@@ -714,7 +714,7 @@ ui <- list(
           ),
           br(),
           br(), 
-
+          
           fluidRow(
             column(
               width = 2,
@@ -953,7 +953,7 @@ server <- function(input, output, session) {
       output$candyA2 <- renderUI({NULL})
       output$candyA3 <- renderUI({NULL})
       output$candyA4 <- renderUI({NULL})
-  })
+    })
   
   #### Set up buttons for candy page ----
   observeEvent(
@@ -1253,11 +1253,15 @@ server <- function(input, output, session) {
   
   qs <- nrow(questionBank)
   qsArray <- c(1:qs)
-  id <- 1
+  exploreQID <- reactiveVal(1)
   
   # Reset button
-  observeEvent(input$restart, {
+  observeEvent(
+    eventExpr = input$restart, 
+    handlerExpr = {
     withMathJax()
+      exploreQID(sample(qsArray, 1, replace = FALSE))
+      qsArray <- qsArray[!qsArray %in% exploreQID()]
     updateButton(
       session = session, 
       inputId = "submit1", 
@@ -1274,24 +1278,24 @@ server <- function(input, output, session) {
     
     output$question <- renderUI({
       withMathJax()
-      hint <- withMathJax(questionBank[id, "Hint"])
-      return(paste(questionBank[id, "Scenario"], questionBank[id, "Question"]))
+      hint <- withMathJax(questionBank[exploreQID(), "Hint"])
+      return(paste(questionBank[exploreQID(), "Scenario"], questionBank[exploreQID(), "Question"]))
     })
     
     output$hint <- renderUI({
       withMathJax()
-      hint <<- withMathJax(questionBank[id, "Hint"])
-      return(questionBank[id, "Hint"])
+      hint <<- withMathJax(questionBank[exploreQID(), "Hint"])
+      return(questionBank[exploreQID(), "Hint"])
     })
     
     updateRadioGroupButtons(
       session = session, 
       inputId = "mc1",
       choices = list(
-        questionBank[id, "A"],
-        questionBank[id, "B"],
-        questionBank[id, "C"],
-        questionBank[id, "D"] 
+        questionBank[exploreQID(), "A"],
+        questionBank[exploreQID(), "B"],
+        questionBank[exploreQID(), "C"],
+        questionBank[exploreQID(), "D"] 
       ),
       selected = character(0),
       checkIcon = list(
@@ -1307,26 +1311,27 @@ server <- function(input, output, session) {
       withMathJax()
     })
     ## Fix: use renderIcon()
-    output$mark <- renderUI({
-      img(src = NULL, width = 50)
-    })
+    output$mark <- renderIcon()
+    
+    output$hintDisplay <- renderUI({NULL})
+    output$feedback <- renderUI({NULL})
     
   })
   
   # Print out a question
   output$question <- renderUI({
     withMathJax()
-    id <- sample(qsArray, 1, replace = FALSE, prob = NULL)
-    qsArray <- qsArray[!qsArray %in% id]
+    exploreQID(sample(qsArray, 1, replace = FALSE))
+    qsArray <- qsArray[!qsArray %in% exploreQID()]
     updateRadioGroupButtons(
       session = session,  
       inputId = "mc1",
       selected = character(0),
       choices = list(
-        questionBank[id, "A"],
-        questionBank[id, "B"],
-        questionBank[id, "C"],
-        questionBank[id, "D"]
+        questionBank[exploreQID(), "A"],
+        questionBank[exploreQID(), "B"],
+        questionBank[exploreQID(), "C"],
+        questionBank[exploreQID(), "D"]
       ),
       checkIcon = list(
         yes = icon("check-square"),
@@ -1340,93 +1345,95 @@ server <- function(input, output, session) {
     output$math4 <- renderUI({
       withMathJax()
     })
-    hint <- withMathJax(questionBank[id, "Hint"])
-    return(withMathJax(paste(questionBank[id, "Scenario"], questionBank[id, "Question"])))
+    hint <- withMathJax(questionBank[exploreQID(), "Hint"])
+    return(withMathJax(paste(questionBank[exploreQID(), "Scenario"], questionBank[exploreQID(), "Question"])))
   })
   
   ### NEXT QUESTION BUTTON###
-  observeEvent(input$nextq, {
+  observeEvent(
+    eventExpr = input$nextq, 
+    handlerExpr = {
     withMathJax()
     if (length(qsArray) > 1) {
-      id <- sample(qsArray, 1, replace = FALSE, prob = NULL)
-      qsArray <- qsArray[!qsArray %in% id]
+      exploreQID(sample(qsArray, 1, replace = FALSE))
+      qsArray <- qsArray[!qsArray %in% exploreQID()]
       hint <- questionBank["Hint"]
-        updateButton(
-          session = session, 
-          inputId = "submit1", 
-          disabled = FALSE)
-        output$question <- renderUI({
-          return(paste(questionBank[id, "Scenario"], questionBank[id, "Question"]))
-        })
-        
-        updateRadioGroupButtons(
-          session = session, 
-          inputId = "mc1",
-          selected = character(0),
-          choices = list(
-            questionBank[id, "A"],
-            questionBank[id, "B"],
-            questionBank[id, "C"],
-            questionBank[id, "D"] 
-          ),
-          checkIcon = list(
-            yes = icon("check-square"),
-            no = icon("square")
-          ),
-          status = "game"
-        )
-        output$math3 <- renderUI({
-          withMathJax()
-        })
-        output$math4 <- renderUI({
-          withMathJax()
-        })
-        output$mark <- renderUI({
-          img(src = NULL, width = 50)
-        })
-
+      updateButton(
+        session = session, 
+        inputId = "submit1", 
+        disabled = FALSE)
+      output$question <- renderUI({
+        return(paste(questionBank[exploreQID(), "Scenario"], questionBank[exploreQID(), "Question"]))
+      })
+      
+      updateRadioGroupButtons(
+        session = session, 
+        inputId = "mc1",
+        selected = character(0),
+        choices = list(
+          questionBank[exploreQID(), "A"],
+          questionBank[exploreQID(), "B"],
+          questionBank[exploreQID(), "C"],
+          questionBank[exploreQID(), "D"] 
+        ),
+        checkIcon = list(
+          yes = icon("check-square"),
+          no = icon("square")
+        ),
+        status = "game"
+      )
+      output$math3 <- renderUI({
+        withMathJax()
+      })
+      output$math4 <- renderUI({
+        withMathJax()
+      })
+      output$mark <- renderUI({
+        img(src = NULL, width = 50)
+      })
+      
       ##HINT###
       output$hintDisplay <- renderUI({NULL})
       output$feedback <- renderUI({NULL})
     }
     else if (length(qsArray) == 1) {
-      id <- qsArray[1]
-      qsArray <- qsArray[!qsArray %in% id]
-      hint <- questionBank[id, "Hint"]
-        output$question <- renderUI({
-          return(paste(questionBank[id, "Scenario"], questionBank[id, "Question"]))
-        })
-        
-        updateButton(
-          session = session, 
-          inputId = "submit1", 
-          disabled = FALSE)
-        updateRadioGroupButtons(
-          session = session, 
-          inputId = "mc1",
-          selected = character(0),
-          choices = list(
-            questionBank[id, "A"],
-            questionBank[id, "B"],
-            questionBank[id, "C"],
-            questionBank[id, "D"] 
-          ),
-          checkIcon = list(
-            yes = icon("check-square"),
-            no = icon("square")
-          ),
-          status = "game"
-        )
-        output$math3 <- renderUI({
-          withMathJax()
-        })
-        output$math4 <- renderUI({
-          withMathJax()
-        })
-        output$mark <- renderUI({
-          img(src = NULL, width = 50)
-        })
-
+      exploreQID() <- qsArray[1]
+      qsArray <- qsArray[!qsArray %in% exploreQID()]
+      hint <- questionBank[exploreQID(), "Hint"]
+      output$question <- renderUI({
+        return(paste(questionBank[exploreQID(), "Scenario"], questionBank[exploreQID(), "Question"]))
+      })
+      
+      updateButton(
+        session = session, 
+        inputId = "submit1", 
+        disabled = FALSE)
+      updateRadioGroupButtons(
+        session = session, 
+        inputId = "mc1",
+        selected = character(0),
+        choices = list(
+          questionBank[exploreQID(), "A"],
+          questionBank[exploreQID(), "B"],
+          questionBank[exploreQID(), "C"],
+          questionBank[exploreQID(), "D"] 
+        ),
+        checkIcon = list(
+          yes = icon("check-square"),
+          no = icon("square")
+        ),
+        status = "game"
+      )
+      output$math3 <- renderUI({
+        withMathJax()
+      })
+      output$math4 <- renderUI({
+        withMathJax()
+      })
+      output$mark <- renderUI({
+        img(src = NULL, width = 50)
+      })
+      
       ##HINT###
       output$hintDisplay <- renderUI({NULL})
       output$feedback <- renderUI({NULL})
@@ -1459,10 +1466,10 @@ server <- function(input, output, session) {
         inputId = "mc1",
         selected = character(0),
         choices = list(
-          questionBank[id, "A"],
-          questionBank[id, "B"],
-          questionBank[id, "C"],
-          questionBank[id, "D"] 
+          questionBank[exploreQID(), "A"],
+          questionBank[exploreQID(), "B"],
+          questionBank[exploreQID(), "C"],
+          questionBank[exploreQID(), "D"] 
         ),
         checkIcon = list(
           yes = icon("check-square"),
@@ -1483,82 +1490,82 @@ server <- function(input, output, session) {
   observeEvent(
     eventExpr = input$submit1, 
     handlerExpr = {
-    withMathJax()
-    letterAnswer <- questionBank[id, "Answer"]
-    cAnswer <- questionBank[id, letterAnswer]
-    mc1Length <- length(input$mc1)
-    
-    if(length(input$mc1) == 0){
-      answer = "E"
-      updateButton(
-        session = session, 
-        inputId = "submit1", 
-        disabled = TRUE)
-      updateButton(
-        session = session, 
-        inputId = "nextq", 
-        disabled = FALSE)
-      updateButton(
-        session = session, 
-        inputId = "restart", 
-        disabled = FALSE)
-      
-      output$mark <- renderIcon(
-        icon = ifelse(
-          test = answer == cAnswer, 
-          yes = "correct", 
-          no = "incorrect"
-        )
-      )
-    }
-    else{
-      input$mc1 == input$mc1
-      updateButton(
-        session = session, 
-        inputId = "submit1", 
-        disabled = TRUE)
-      updateButton(
-        session = session, 
-        inputId = "nextq", 
-        disabled = FALSE)
-      updateButton(
-        session = session, 
-        inputId = "restart", 
-        disabled = FALSE)
-      
-      output$mark <- renderIcon(
-        icon = ifelse(
-          test = input$mc1 == cAnswer, 
-          yes = "correct", 
-          no = "incorrect"
-        )
-      )
-    }
-    
-    ### FEEDBACK###
-    output$feedback <- renderUI({
       withMathJax()
-      letterAnswer <- questionBank[id, "Answer"]
-      cAnswer <- questionBank[id, letterAnswer]
+      letterAnswer <- questionBank[exploreQID(), "Answer"]
+      cAnswer <- questionBank[exploreQID(), letterAnswer]
+      mc1Length <- length(input$mc1)
+      
       if(length(input$mc1) == 0){
         answer = "E"
-      }
-      else {
-        answer = input$mc1
-      }
-      if (answer == cAnswer) {
-        p("CORRECT!", br(), withMathJax(questionBank[id, "Feedback"]))
-      }
-      else if (answer == "E"){
-        p(strong("Answer:"), br(), questionBank[id, "Answer"], 
-          br(), strong("Explanation:"), br(),  withMathJax(questionBank[id, "Feedback"]))
+        updateButton(
+          session = session, 
+          inputId = "submit1", 
+          disabled = TRUE)
+        updateButton(
+          session = session, 
+          inputId = "nextq", 
+          disabled = FALSE)
+        updateButton(
+          session = session, 
+          inputId = "restart", 
+          disabled = FALSE)
+        
+        output$mark <- renderIcon(
+          icon = ifelse(
+            test = answer == cAnswer, 
+            yes = "correct", 
+            no = "incorrect"
+          )
+        )
       }
       else{
-        p(strong("Answer:"), br(), questionBank[id, "Answer"], 
-          br(), strong("Explanation:"), br(),  withMathJax(questionBank[id, "Feedback"]))
+        input$mc1 == input$mc1
+        updateButton(
+          session = session, 
+          inputId = "submit1", 
+          disabled = TRUE)
+        updateButton(
+          session = session, 
+          inputId = "nextq", 
+          disabled = FALSE)
+        updateButton(
+          session = session, 
+          inputId = "restart", 
+          disabled = FALSE)
+        
+        output$mark <- renderIcon(
+          icon = ifelse(
+            test = input$mc1 == cAnswer, 
+            yes = "correct", 
+            no = "incorrect"
+          )
+        )
       }
+      
+      ### FEEDBACK###
+      output$feedback <- renderUI({
+        withMathJax()
+        letterAnswer <- questionBank[exploreQID(), "Answer"]
+        cAnswer <- questionBank[exploreQID(), letterAnswer]
+        if(length(input$mc1) == 0){
+          answer = "E"
+        }
+        else {
+          answer = input$mc1
+        }
+        if (answer == cAnswer) {
+          p("CORRECT!", br(), withMathJax(questionBank[exploreQID(), "Feedback"]))
+        }
+        else if (answer == "E"){
+          p(strong("Answer:"), br(), questionBank[exploreQID(), "Answer"], 
+            br(), strong("Explanation:"), br(),  withMathJax(questionBank[exploreQID(), "Feedback"]))
+        }
+        else{
+          p(strong("Answer:"), br(), questionBank[exploreQID(), "Answer"], 
+            br(), strong("Explanation:"), br(),  withMathJax(questionBank[exploreQID(), "Feedback"]))
+        }
+      })
     })
-  })
   
   ### PRINT HINTS###
   observeEvent(
@@ -1572,10 +1579,9 @@ server <- function(input, output, session) {
       })
       withMathJax()
       output$hintDisplay <- renderUI({
-        p(tags$b("Hint:"), questionBank[id, "Hint"])
+        p(tags$b("Hint:"), questionBank[exploreQID(), "Hint"])
       })
     })
-  
 }
 # Boast App Call ----
 boastUtils::boastApp(ui = ui, server = server)
