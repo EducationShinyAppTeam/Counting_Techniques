@@ -4,6 +4,7 @@ library(shinydashboard)
 library(shinyBS)
 library(shinyWidgets)
 library(boastUtils)
+library(fontawesome)
 
 #Load explore and poker question banks
 questionBank <- read.csv("exploreQuestions.csv", stringsAsFactors = FALSE)
@@ -23,6 +24,8 @@ cardBacks <- function(){
 ## These functions are the bullet points for the worked examples in the  
 ## prerequsites page. They give descriptions for the different types of counting
 ## techniques. 
+## UPDATE: Let's change these to constants
+### Ex: permutation <- "Since the candy bars are different..."
 permutation <- function(){
   return(tags$li(
     "Since the candy bars are different, order matters. Therefore, we use a
@@ -137,6 +140,9 @@ ui <- list(
           tabName = "prerequisites",
           withMathJax(),
           h2("Prerequisites"),
+          ### UPDATE: Come back to this page after getting potentially new wording
+          ### from Dennis
+          ### UPDATE: The following seems like unfinished thoughts
           p("In order to get the most out of this app, please review the
             following:"),
           tags$ul(
@@ -147,7 +153,7 @@ ui <- list(
           ),
           br(), 
           h3("Counting Techniques"),
-          
+          ### UPDATE: I would like to see some more exposition within each technique
           fluidRow(
             box(
               title = strong("Permutation with Replacement"),
@@ -299,17 +305,19 @@ ui <- list(
           tabName = "explore",
           withMathJax(),
           h2("Explore the Concept"),
-          p("Use worked example tab to see how a problem's wording corresponds 
-            to using the counting techniques equations. Then, test your
-            knowledge in the multiple choice tab!"), 
+          p("Use Worked Examples tab to see how a problem's wording connects to 
+            different counting techniques. Then, test your knowledge on the
+            Multiple Choice tab."), 
           tabsetPanel(
             id = "exploreTabs", 
             type = "tabs", 
-            
             ##### Candy Tab ----
             tabPanel(
               title = "Worked Examples",
               br(),
+              ### UPDATE: We need some leader text here to establish what is
+              ### happening on this tab and to give a bit more direction to the 
+              ### user.
               ###### Candy bar PNGs + bttn ---- 
               fluidRow(
                 column(
@@ -362,24 +370,25 @@ ui <- list(
                 column(
                   width = 3,
                   offset = 0,
-                  div(
-                    style = "text-align: center;",
-                    bsButton(
-                      inputId = "newClass",
-                      label = "New class",
-                      size = "large",
-                      style = "default"
-                    )
+                  align = "center",
+                  bsButton(
+                    inputId = "newClass",
+                    label = "New class",
+                    size = "large",
+                    style = "default"
                   )
                 ),  
                 column(
                   width = 9,
                   offset = 0,
+                  ### UPDATE: Let's use the validate command--done below
                   uiOutput("prompt")
                 )
               ),
               br(),
               ###### Candy bar Qs ----
+              ### UPDATE: suppose that we re-organize the text as I did in the
+              ### first example
               fluidRow(
                 box(
                   title = strong("Permutation with Replacement"),
@@ -387,13 +396,20 @@ ui <- list(
                   collapsible = TRUE,
                   collapsed = FALSE,
                   width = 6,
-                  p("Distribute 4 different flavored candy bars to the class. 
-                    You are willing to give some students more than 1 candy bar. 
-                    How many ways can you distribute the candy bars?"),
+                  p("You want to give out 4 differently flavored candy bars to
+                    the class and you're willing to give some students more than
+                    one candy bar. How many different ways can you distribute the
+                    candy bars?"),
+                  p("Key elements:"),
+                  tags$ul(
+                    permutation(),
+                    replacement()
+                  ),
                   p("Press button to reveal answer!"),
-                  tags$ul( 
-                    div(
-                      style = "text-align: center;",
+                  fluidRow(
+                    column(
+                      width = 6,
+                      align = "center",
                       bsButton(
                         inputId = "showAnswerA1", 
                         label = "Show Answer!", 
@@ -401,11 +417,11 @@ ui <- list(
                         disabled = TRUE, 
                         style = "default"
                       )
-                    ), 
-                    br(), 
-                    uiOutput("candyA1", class = "answertext"),
-                    permutation(),
-                    replacement()
+                    ),
+                    column(
+                      width = 6,
+                      uiOutput("candyA1", class = "largerFont answertext")
+                    )
                   )
                 ),
                 box(
@@ -568,7 +584,6 @@ ui <- list(
                     disabled = FALSE
                   ),
                   br(), 
-                  
                   uiOutput("hintDisplay"),
                   br()
                 )
@@ -584,7 +599,7 @@ ui <- list(
                     selected = character(0),
                     checkIcon = list(
                       yes = icon("check-square"),
-                      no = icon("square")
+                      no = fontawesome::fa(name = "far fa-square")
                     ),
                     choices = list(
                       "\\(\\frac{1}{4}\\)",
@@ -669,7 +684,6 @@ ui <- list(
             question correctly earns you three points while answering a question
             incorrectly loses you 1 point. Accumulate 20 points to win the game. 
             However, if you score -10 points, you lose the game and can replay!"), 
-          
           br(),
           fluidRow(
             column(
@@ -714,7 +728,6 @@ ui <- list(
           ),
           br(),
           br(), 
-          
           fluidRow(
             column(
               width = 2,
@@ -728,13 +741,10 @@ ui <- list(
               ), 
             ), 
             column(
-              width = 6
-            ), 
-            column(
               width = 4,
-              #offset = 8,
+              offset = 6,
               div(
-                style = "text-align: center",
+                style = "text-align: center;",
                 textOutput("showScore"),
               ), 
             ),
@@ -751,7 +761,7 @@ ui <- list(
                 direction = "vertical", 
                 checkIcon = list(
                   yes = icon("check-square"),
-                  no = icon("square")
+                  no = fontawesome::fa(name = "far fa-square")
                 ),
                 status = "game", 
               ), 
@@ -764,7 +774,7 @@ ui <- list(
           br(), 
           fluidRow(
             column(
-              width = 2,
+              width = 3,
               offset = 0,
               bsButton(
                 inputId = "submit",
@@ -780,10 +790,8 @@ ui <- list(
               uiOutput("scoreImg")
             ), 
             column(
-              width = 5
-            ), 
-            column(
-              width = 3,
+              width = 4,
+              offset = 3,
               bsButton(
                 inputId = "showExpln",
                 label = "Answer Explanation",
@@ -792,7 +800,6 @@ ui <- list(
               )
             )
           ), 
-          
           uiOutput("math1"),
           uiOutput("math2")
         ),
@@ -838,7 +845,6 @@ ui <- list(
             Custom Inputs Widgets for Shiny. R package version 0.5.3. Available 
             from https://CRAN.R-project.org/package=shinyWidgets"
           ),
-          
           br(),
           br(),
           br(),
@@ -899,7 +905,14 @@ server <- function(input, output, session) {
   classNum <- reactiveVal(0)
   
   output$prompt <- renderUI({
-    "Click the new class button to begin"
+    ### UPDATE: using validate
+    validate(
+      need(
+        expr = input$newClass != 0,
+        message = "Click the New class button to begin."
+      ),
+      errorClass = "leftParagraphError"
+    )
   })
   
   observeEvent(
@@ -960,10 +973,10 @@ server <- function(input, output, session) {
     eventExpr = input$showAnswerA1, 
     handlerExpr = {
       output$candyA1 <- renderUI({
-        withMathJax(tags$li(paste(sprintf(
+        withMathJax(paste(sprintf(
           fmt = "\\(n^{r} = %d ^4\\)",
           classNum()
-        ))))
+        )))
       })
     }
   )
@@ -1064,7 +1077,7 @@ server <- function(input, output, session) {
         selected = character(0), 
         checkIcon = list(
           yes = icon("check-square"),
-          no = icon("square")
+          no = fontawesome::fa(name = "far fa-square")
         ),
         status = "game"
       )
@@ -1166,7 +1179,7 @@ server <- function(input, output, session) {
       output$math1 <- renderUI({withMathJax()})
       output$math2 <- renderUI({withMathJax()})
       output$showExplnDisplay <- renderUI({
-        p(tags$b("Answer Explanation: "), withMathJax(pokerHands$ansExpln[handNum()]))
+        p(tags$strong("Answer Explanation: "), withMathJax(pokerHands$ansExpln[handNum()]))
       })
       
       updateButton(
@@ -1300,7 +1313,7 @@ server <- function(input, output, session) {
       selected = character(0),
       checkIcon = list(
         yes = icon("check-square"),
-        no = icon("square")
+        no = fontawesome::fa(name = "far fa-square")
       ),
       status = "game"
     )
@@ -1335,7 +1348,7 @@ server <- function(input, output, session) {
       ),
       checkIcon = list(
         yes = icon("check-square"),
-        no = icon("square")
+        no = fontawesome::fa(name = "far fa-square")
       ),
       status = "game"
     )
@@ -1378,7 +1391,7 @@ server <- function(input, output, session) {
         ),
         checkIcon = list(
           yes = icon("check-square"),
-          no = icon("square")
+          no = fontawesome::fa(name = "far fa-square")
         ),
         status = "game"
       )
@@ -1420,7 +1433,7 @@ server <- function(input, output, session) {
         ),
         checkIcon = list(
           yes = icon("check-square"),
-          no = icon("square")
+          no = fontawesome::fa(name = "far fa-square")
         ),
         status = "game"
       )
@@ -1473,7 +1486,7 @@ server <- function(input, output, session) {
         ),
         checkIcon = list(
           yes = icon("check-square"),
-          no = icon("square")
+          no = fontawesome::fa(name = "far fa-square")
         ),
         status = "game"
       )
@@ -1579,7 +1592,7 @@ server <- function(input, output, session) {
       })
       withMathJax()
       output$hintDisplay <- renderUI({
-        p(tags$b("Hint:"), questionBank[exploreQID(), "Hint"])
+        p(tags$strong("Hint:"), questionBank[exploreQID(), "Hint"])
       })
     })
 }
