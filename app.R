@@ -98,15 +98,15 @@ ui <- list(
             counting principles."),
           h2("Instructions"),
           tags$ol(
-            tags$li("Use the Prerequistes page to review the different counting 
+            tags$li("Use the Prerequisites page to review the different counting 
                     principles and the keywords to be aware of when solving
                     problems."),
-            tags$li("Use the Explore page to see the difference between the
+            tags$li("Use the Explore page to see examples of the use of the
                     counting techniques mentioned. You can further test your
                     knowledge in the Multiple Choice page."),
-            tags$li("Use the Challenge page to apply counting techniques in 
+            tags$li("The game page challenges you to apply counting techniques in 
                     poker-related problems."), 
-            tags$li("For poker, score three points for each question you get
+            tags$li("In the poker game, score three points for each question you get
                     right and lose a point when you get one wrong. Win by
                     getting 20 points!")
           ),
@@ -146,10 +146,10 @@ ui <- list(
           p("In order to get the most out of this app, please review the
             following:"),
           tags$ul(
-            tags$li("The difference between combinations, and the other counting 
-                    techniques."),
-            tags$li("Understand how different wording in a problem changes the
-                    way you solve a problem.")
+            tags$li("The difference between combinations, permutations, and the
+                    other counting situations."),
+            tags$li("Understand how conditional situations affect the counting
+                    rules to be applied.")
           ),
           br(), 
           h3("Counting Techniques"),
@@ -203,6 +203,7 @@ ui <- list(
               collapsible = TRUE,
               collapsed = FALSE,
               width = 6,
+              p("Also known as binomial coefficients in the binomial theorem"),
               p("Number of ways to pick \\(r\\) things from \\(n\\) 
                 possibilities:"),
               tags$ul(
@@ -218,6 +219,8 @@ ui <- list(
               collapsible = TRUE,
               collapsed = FALSE,
               width = 6,
+              p("Also known as multinomial coefficients in the multinomial
+                theorem"), 
               p("Number of distinguishable permutations of \\(n\\) objects:"),
               tags$ul( 
                 tags$li("\\(n_{1}\\) of the \\(1^{st}\\) object."),
@@ -257,15 +260,16 @@ ui <- list(
                 tags$li("Example: if each license plate needs three letters 
                         and four numbers, how many possible license plates
                         can be stamped? (\\(ABC 1234\\) is one example)",
-                        tags$ul(
-                          tags$li("The first three spots can each be filled by 
-                            three letters. The last four spots can be filled
-                            by the numbers 0-9, which gives us 10 possible
-                            numbers. Therefore, the possible number of 
-                            lisence plates are: \\({26}\\times{26}\\times{26}
-                            \\times{10}\\times{10}\\times{10}\\times{10}\\)"
-                          )
-                        )
+                  tags$ul(
+                    tags$li("The first three spots can each be filled by
+                      one of the twenty-six possible letters. The last
+                      four spots can be filled by the numbers 0-9, which
+                      gives us 10 possible numbers. Therefore, the possible
+                      number of lisence plates are: \\({26}\\times{26}
+                      \\times{26}\\times{10}\\times{10}\\times{10}
+                      \\times{10}\\)"
+                    )
+                  )
                 )       
               )
             )
@@ -304,10 +308,10 @@ ui <- list(
         tabItem(
           tabName = "explore",
           withMathJax(),
-          h2("Explore the Concept"),
-          p("Use Worked Examples tab to see how a problem's wording connects to 
-            different counting techniques. Then, test your knowledge on the
-            Multiple Choice tab."), 
+          h2("Explore the Concepts"),
+          p("“Use the Worked Example tab to see how a problem corresponds to
+            particular counting technique situations. Then, test your knowledge
+            on the Multiple Choice tab."), 
           tabsetPanel(
             id = "exploreTabs", 
             type = "tabs", 
