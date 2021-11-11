@@ -24,31 +24,19 @@ cardBacks <- function(){
 ## These functions are the bullet points for the worked examples in the  
 ## prerequsites page. They give descriptions for the different types of counting
 ## techniques. 
-## UPDATE: Let's change these to constants
-### Ex: permutation <- "Since the candy bars are different..."
-permutation <- function(){
-  return(tags$li(
-    "Since the candy bars are different, order matters. Therefore, we use a
-    permutation."
-  ))
-}
-combination <- function(){
-  return(tags$li(
-    "Since the candy bars are identical, order does not matter. Therefore, we
-    use a combination."
-  ))
-}
-replacement <- function(){
-  return(tags$li(
-    "Since students can receive more than 1 candy bar, there is replacement."
-  ))
-}
-noReplace <- function(){
-  return(tags$li(
-    "Since students cannot receive more than 1 candy bar, there is no
-    replacement."
-  ))
-}
+
+permutation <- "Since the candy bars are different, order matters. Therefore,
+                we use a permutation."
+
+combination <- "Since the candy bars are identical, order does not matter.
+                Therefore, we use a combination."
+
+replacement <- "Since students can receive more than 1 candy bar, there is
+                replacement."
+
+noReplace <- "Since students cannot receive more than 1 candy bar, there is no
+              replacement."
+
 
 # Define UI for App ----
 ui <- list(
@@ -106,8 +94,8 @@ ui <- list(
                     knowledge in the Multiple Choice page."),
             tags$li("The game page challenges you to apply counting techniques in 
                     poker-related problems."), 
-            tags$li("In the poker game, score three points for each question you get
-                    right and lose a point when you get one wrong. Win by
+            tags$li("In the poker game, score three points for each question you
+                    get right and lose a point when you get one wrong. Win by
                     getting 20 points!")
           ),
           br(), 
@@ -231,14 +219,14 @@ ui <- list(
                         {{n_{1}!}{n_{2}!}{n_{3}!}\\cdots{n_{k}!}}\\)"), 
                 tags$li("Example: How many ordered arrangements are there of the
                         letters in MISSISSIPPI?", 
-                        tags$ul(
-                          tags$li("There is one letter M, 4 letter I's, 4 letter S's
-                            and 2 letter P's. The letters such as I, S, and P, 
-                            we cannot distinguish between. Therefore, the
-                            number of ordered arrangements for the word 
-                            MISSISSIPPI is \\(\\dfrac{11!}{1!4!4!2!}\\)"
-                          ) 
-                        )
+                  tags$ul(
+                    tags$li("There is one letter M, 4 letter I's, 4 letter S's
+                      and 2 letter P's. The letters such as I, S, and P, 
+                      we cannot distinguish between. Therefore, the
+                      number of ordered arrangements for the word 
+                      MISSISSIPPI is \\(\\dfrac{11!}{1!4!4!2!}\\)"
+                    ) 
+                  )
                 )
               )
             ),
@@ -309,7 +297,7 @@ ui <- list(
           tabName = "explore",
           withMathJax(),
           h2("Explore the Concepts"),
-          p("“Use the Worked Example tab to see how a problem corresponds to
+          p("Use the Worked Example tab to see how a problem corresponds to
             particular counting technique situations. Then, test your knowledge
             on the Multiple Choice tab."), 
           tabsetPanel(
@@ -319,6 +307,9 @@ ui <- list(
             tabPanel(
               title = "Worked Examples",
               br(),
+              p("Press the 'New Class' button to determine the size of the class.
+                Take some time to look at the key elements provided to see how
+                to plug numbers into the different equations"), 
               ### UPDATE: We need some leader text here to establish what is
               ### happening on this tab and to give a bit more direction to the 
               ### user.
@@ -390,9 +381,8 @@ ui <- list(
                 )
               ),
               br(),
+              
               ###### Candy bar Qs ----
-              ### UPDATE: suppose that we re-organize the text as I did in the
-              ### first example
               fluidRow(
                 box(
                   title = strong("Permutation with Replacement"),
@@ -404,12 +394,13 @@ ui <- list(
                     the class and you're willing to give some students more than
                     one candy bar. How many different ways can you distribute the
                     candy bars?"),
+                  br(), 
                   p("Key elements:"),
                   tags$ul(
-                    permutation(),
-                    replacement()
+                    tags$li(permutation),
+                    tags$li(replacement)
                   ),
-                  p("Press button to reveal answer!"),
+                  br(), 
                   fluidRow(
                     column(
                       width = 6,
@@ -437,23 +428,30 @@ ui <- list(
                   p("Distribute 4 different flavored candy bars to the class.
                     You do not want to give any student more than 1 candy bar. 
                     How many ways can you distribute the candy bars?"),
-                  p("Press button to reveal answer!"),
+                  br(), 
+                  p("Key Elements:"), 
                   tags$ul(
-                    div(
-                      style = "text-align: center;",
+                    tags$li(permutation),
+                    tags$li(noReplace)
+                  ), 
+                  br(), 
+                  fluidRow(
+                    column(
+                      width = 6, 
+                      align = "center",
                       bsButton(
                         inputId = "showAnswerA2", 
                         label = "Show Answer!", 
                         size = "large", 
                         disabled = TRUE, 
                         style = "default"
-                      )
+                      ), 
                     ), 
-                    br(), 
-                    uiOutput("candyA2", class = "answertext"),
-                    permutation(),
-                    noReplace()
-                  ), 
+                    column(
+                      width = 6, 
+                      uiOutput("candyA2", class = "largerFont answertext")
+                    )
+                  )
                 )
               ),
               fluidRow(
@@ -466,9 +464,16 @@ ui <- list(
                   p("Distribute 4 identical candy bars to the class. 
                     You are willing to give some students more than 1 candy bar. 
                     How many ways can you distribute the candy bars?"),
-                  p("Press button to reveal answer!"),
+                  br(), 
+                  p("Key Elements:"), 
                   tags$ul(
-                    div(
+                    tags$li(combination),
+                    tags$li(replacement)
+                  ), 
+                  br(), 
+                  fluidRow(
+                    column(
+                      width = 6, 
                       style = "text-align: center;",
                       bsButton(
                         inputId = "showAnswerA3", 
@@ -478,11 +483,11 @@ ui <- list(
                         style = "default"
                       )
                     ), 
-                    br(), 
-                    uiOutput("candyA3", class = "answertext"),
-                    combination(),
-                    replacement()
-                  )
+                    column(
+                      width = 6, 
+                      uiOutput("candyA3", class = "largerFont answertext")
+                    )
+                  ), 
                 ),
                 box(
                   title = strong("Combination without Replacement"),
@@ -493,9 +498,16 @@ ui <- list(
                   p("Distribute 4 identical candy bars to the class. 
                     You do not want to give any student more than 1 candy bar. 
                     How many ways can you distribute the candy bars?"),
-                  p("Press button to reveal answer!"),
+                  br(), 
+                  p("Key Elements:"), 
                   tags$ul(
-                    div(
+                    tags$li(combination),
+                    tags$li(noReplace)
+                  ), 
+                  br(), 
+                  fluidRow(
+                    column(
+                      width = 6, 
                       style = "text-align: center;",
                       bsButton(
                         inputId = "showAnswerA4", 
@@ -505,10 +517,10 @@ ui <- list(
                         style = "default"
                       )
                     ), 
-                    br(), 
-                    uiOutput("candyA4", class = "answertext"),
-                    combination(),
-                    noReplace()
+                    column(
+                      width = 6, 
+                      uiOutput("candyA4", class = "largerFont answertext")
+                    )
                   )
                 )
               ) , 
@@ -523,9 +535,10 @@ ui <- list(
                     available to pass out to the students. If each flavor is to 
                     be rewarded to five students, how many ways can the candy bars
                     be rewarded the students?"),
-                  p("Press button to reveal answer!"),
-                  tags$ul(
-                    div(
+                  br(), 
+                  fluidRow(
+                    column(
+                      width = 6, 
                       style = "text-align: center;",
                       bsButton(
                         inputId = "showAnswerA5", 
@@ -535,8 +548,10 @@ ui <- list(
                         style = "default"
                       )
                     ), 
-                    br(), 
-                    uiOutput("candyA5", class = "answertext"), 
+                    column( 
+                      width = 6,
+                      uiOutput("candyA5", class = "largerFont answertext"), 
+                    )
                   )
                 ),
                 box(
@@ -549,9 +564,10 @@ ui <- list(
                     bar. How many ways can you distribute 4 different flavored
                     candy bars to one
                     student?"),
-                  p("Press button to reveal answer!"),
-                  tags$ul(
-                    div(
+                  br(), 
+                  fluidRow(
+                    column(
+                      width = 6, 
                       style = "text-align: center;",
                       bsButton(
                         inputId = "showAnswerA6", 
@@ -560,10 +576,11 @@ ui <- list(
                         disabled = TRUE, 
                         style = "default"
                       )
-                    ), 
-                    br(), 
-                    uiOutput("candyA6", class = "answertext"),
-                    
+                    ),
+                    column(
+                      width = 6, 
+                      uiOutput("candyA6", class = "largerFont answertext")
+                    )
                   )
                 )
               )
@@ -841,7 +858,8 @@ ui <- list(
             class = "hangingindent",
             "Murray, W. (2021). Probability Choices: Combinations & Permutations.",
             tags$em("Educator"), 
-            "from https://www.educator.com/mathematics/probability/murray/choices_-combinations-+-permutations.php"
+            "from https://www.educator.com/mathematics/probability/murray/choices_
+            -combinations-+-permutations.php"
           ),
           p(
             class = "hangingindent",
@@ -989,11 +1007,11 @@ server <- function(input, output, session) {
     eventExpr = input$showAnswerA2, 
     handlerExpr = {
       output$candyA2 <- renderUI({
-        withMathJax(tags$li(paste(sprintf(
+        withMathJax(paste(sprintf(
           fmt = "\\(_{n}P_{r} = \\dfrac{n!}{(n-r)!} = \\dfrac{(%d)!}{(%d)!}\\)",
           classNum(),
           (classNum() - 4)
-        ))))
+        )))
       })
     }
   )
@@ -1002,11 +1020,11 @@ server <- function(input, output, session) {
     eventExpr = input$showAnswerA3, 
     handlerExpr = {
       output$candyA3 <- renderUI({
-        withMathJax(tags$li(paste(sprintf(
+        withMathJax(paste(sprintf(
           fmt = "\\(\\binom{n+r-1}{r} = \\dfrac{(n+r-1)!}{r!(n-1)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
           (classNum() + 4 - 1),
           (classNum() - 1)
-        ))))
+        )))
       })
     }
   )
@@ -1015,11 +1033,11 @@ server <- function(input, output, session) {
     eventExpr = input$showAnswerA4, 
     handlerExpr = {
       output$candyA4 <- renderUI({
-        withMathJax(tags$li(paste(sprintf(
+        withMathJax(paste(sprintf(
           fmt = "\\(\\binom{n}{r} = \\dfrac{n!}{r!(n-r)!} = \\dfrac{(%d)!}{4!(%d)!}\\)",
           classNum(),
           (classNum() - 4)
-        ))))
+        )))
       })
     }
   )
@@ -1028,11 +1046,11 @@ server <- function(input, output, session) {
     eventExpr = input$showAnswerA5, 
     handlerExpr = {
       output$candyA5 <- renderUI({
-        withMathJax(tags$li(paste(sprintf(
+        withMathJax(paste(sprintf(
           fmt = "\\(\\dfrac{20!}{5!5!5!5!}\\)",
           classNum(),
           (classNum() - 4)
-        ))))
+        )))
       })
     }
   )
@@ -1041,11 +1059,11 @@ server <- function(input, output, session) {
     eventExpr = input$showAnswerA6, 
     handlerExpr = {
       output$candyA6 <- renderUI({
-        withMathJax(tags$li(paste(sprintf(
+        withMathJax(paste(sprintf(
           fmt = "\\(3\\cdot{4}\\cdot{4}\\cdot{1}\\)",
           classNum(),
           (classNum() - 4)
-        ))))
+        )))
       })
     }
   )
