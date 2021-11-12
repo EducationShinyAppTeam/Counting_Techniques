@@ -403,8 +403,7 @@ ui <- list(
                   br(), 
                   fluidRow(
                     column(
-                      width = 6,
-                      align = "center",
+                      width = 4,
                       bsButton(
                         inputId = "showAnswerA1", 
                         label = "Show Answer!", 
@@ -414,8 +413,8 @@ ui <- list(
                       )
                     ),
                     column(
-                      width = 6,
-                      uiOutput("candyA1", class = "largerFont answertext")
+                      width = 8,
+                      uiOutput("candyA1", class = "largerFont answertext", style = "display:left-align")
                     )
                   )
                 ),
@@ -437,8 +436,7 @@ ui <- list(
                   br(), 
                   fluidRow(
                     column(
-                      width = 6, 
-                      align = "center",
+                      width = 4, 
                       bsButton(
                         inputId = "showAnswerA2", 
                         label = "Show Answer!", 
@@ -448,7 +446,7 @@ ui <- list(
                       ), 
                     ), 
                     column(
-                      width = 6, 
+                      width = 8, 
                       uiOutput("candyA2", class = "largerFont answertext")
                     )
                   )
@@ -473,8 +471,7 @@ ui <- list(
                   br(), 
                   fluidRow(
                     column(
-                      width = 6, 
-                      style = "text-align: center;",
+                      width = 4, 
                       bsButton(
                         inputId = "showAnswerA3", 
                         label = "Show Answer!", 
@@ -484,7 +481,7 @@ ui <- list(
                       )
                     ), 
                     column(
-                      width = 6, 
+                      width = 8, 
                       uiOutput("candyA3", class = "largerFont answertext")
                     )
                   ), 
@@ -507,8 +504,7 @@ ui <- list(
                   br(), 
                   fluidRow(
                     column(
-                      width = 6, 
-                      style = "text-align: center;",
+                      width = 4, 
                       bsButton(
                         inputId = "showAnswerA4", 
                         label = "Show Answer!", 
@@ -518,7 +514,7 @@ ui <- list(
                       )
                     ), 
                     column(
-                      width = 6, 
+                      width = 8, 
                       uiOutput("candyA4", class = "largerFont answertext")
                     )
                   )
@@ -538,8 +534,7 @@ ui <- list(
                   br(), 
                   fluidRow(
                     column(
-                      width = 6, 
-                      style = "text-align: center;",
+                      width = 4, 
                       bsButton(
                         inputId = "showAnswerA5", 
                         label = "Show Answer!", 
@@ -549,7 +544,7 @@ ui <- list(
                       )
                     ), 
                     column( 
-                      width = 6,
+                      width = 8,
                       uiOutput("candyA5", class = "largerFont answertext"), 
                     )
                   )
@@ -567,8 +562,7 @@ ui <- list(
                   br(), 
                   fluidRow(
                     column(
-                      width = 6, 
-                      style = "text-align: center;",
+                      width = 4, 
                       bsButton(
                         inputId = "showAnswerA6", 
                         label = "Show Answer!", 
@@ -578,7 +572,7 @@ ui <- list(
                       )
                     ),
                     column(
-                      width = 6, 
+                      width = 8, 
                       uiOutput("candyA6", class = "largerFont answertext")
                     )
                   )
@@ -1046,11 +1040,7 @@ server <- function(input, output, session) {
     eventExpr = input$showAnswerA5, 
     handlerExpr = {
       output$candyA5 <- renderUI({
-        withMathJax(paste(sprintf(
-          fmt = "\\(\\dfrac{20!}{5!5!5!5!}\\)",
-          classNum(),
-          (classNum() - 4)
-        )))
+        withMathJax("\\(\\dfrac{20!}{5!5!5!5!}\\)")
       })
     }
   )
@@ -1059,11 +1049,7 @@ server <- function(input, output, session) {
     eventExpr = input$showAnswerA6, 
     handlerExpr = {
       output$candyA6 <- renderUI({
-        withMathJax(paste(sprintf(
-          fmt = "\\(3\\cdot{4}\\cdot{4}\\cdot{1}\\)",
-          classNum(),
-          (classNum() - 4)
-        )))
+        withMathJax("\\(3\\cdot{4}\\cdot{4}\\cdot{1}\\)")
       })
     }
   )
