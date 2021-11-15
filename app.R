@@ -6,7 +6,7 @@ library(shinyWidgets)
 library(boastUtils)
 library(fontawesome)
 
-#Load explore and poker question banks
+# Load question banks ----
 questionBank <- read.csv("exploreQuestions.csv", stringsAsFactors = FALSE)
 
 pokerHands <- read.csv("pokerquestionbank.csv") 
@@ -21,10 +21,8 @@ cardBacks <- function(){
   )
 }
 
-## These functions are the bullet points for the worked examples in the  
-## prerequsites page. They give descriptions for the different types of counting
-## techniques. 
-
+# Define constants ----
+## These constants are used as quick, reoccurring phrases on the prereq's page   
 permutation <- "Since the candy bars are different, order matters. Therefore,
                 we use a permutation."
 
@@ -36,7 +34,6 @@ replacement <- "Since students can receive more than 1 candy bar, there is
 
 noReplace <- "Since students cannot receive more than 1 candy bar, there is no
               replacement."
-
 
 # Define UI for App ----
 ui <- list(
@@ -113,14 +110,16 @@ ui <- list(
           h2("Acknowledgements"),
           p(
             "This version of the app was developed and coded by Kellien Peritz
-            and Shravani Samala.",
-            br(),
-            "We would like to extend a special thanks to Dr. Dennis Pearl for
+            and Shravani Samala. We would like to extend a special thanks to Dr. Dennis Pearl for
             providing the question bank.",
             br(),
             br(),
+            "Cite this app as:",
             br(),
-            div(class = "updated", "Last Update: 11/08/2021 by SJS")
+            boastUtils::citeApp(),
+            br(),
+            br(),
+            div(class = "updated", "Last Update: 11/13/2021 by SJS")
           )
         ),
         #### Prerequisites Page ----
@@ -128,8 +127,6 @@ ui <- list(
           tabName = "prerequisites",
           withMathJax(),
           h2("Prerequisites"),
-          ### UPDATE: Come back to this page after getting potentially new wording
-          ### from Dennis
           ### UPDATE: The following seems like unfinished thoughts
           p("In order to get the most out of this app, please review the
             following:"),
@@ -297,7 +294,7 @@ ui <- list(
           tabName = "explore",
           withMathJax(),
           h2("Explore the Concepts"),
-          p("Use the Worked Example tab to see how a problem corresponds to
+          p("Use the Worked Examples tab to see how a problem corresponds to
             particular counting technique situations. Then, test your knowledge
             on the Multiple Choice tab."), 
           tabsetPanel(
@@ -307,12 +304,11 @@ ui <- list(
             tabPanel(
               title = "Worked Examples",
               br(),
-              p("Press the 'New Class' button to determine the size of the class.
-                Take some time to look at the key elements provided to see how
-                to plug numbers into the different equations"), 
-              ### UPDATE: We need some leader text here to establish what is
-              ### happening on this tab and to give a bit more direction to the 
-              ### user.
+              p("You are playing the role of a teacher who has brought chocolate
+                bars to share with your class. Press the 'New Class' button to 
+                reveal how large your class is. Then examine each of the different
+                situations and key features of them to help you answer each
+                question given your current class size."), 
               ###### Candy bar PNGs + bttn ---- 
               fluidRow(
                 column(

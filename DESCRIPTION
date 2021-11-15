@@ -1,10 +1,12 @@
 Title: Counting Techniques
 ShortName: Counting Techniques
-Date: 2021-07-13
+Date: 2021-11-13
 Lifecycle: experimental
 Authors@R: c(
     person(given = "Shravani", family = "Samala", email = "sjs7049@psu.edu", role = c("aut", "cre")),
-    person(given = "Kellien", family = "Peritz", email = "kqp5476@psu.edu", role = c("aut", "cre"))
+    person(given = "Kellien", family = "Peritz", email = "kqp5476@psu.edu", role = c("aut", "cre")),
+    person(given = "Dennis", family = "Pearl", role = c("aut")),
+    person(given = "Neil", family = "Hatfield", role = c("aut"))
   )
 Chapter: Probability
 Description: This app is focused on the common counting techniques.
@@ -13,8 +15,8 @@ LearningObjectives: c(
     "The student will learn to understand Concept B as description y."
   )
 DisplayMode: Normal
-URL: https://psu-eberly.shinyapps.io/Sample_App
-BugReports: https://github.com/EducationShinyAppTeam/Sample_App/issues
+URL: https://psu-eberly.shinyapps.io/Counting_Techniques
+BugReports: https://github.com/EducationShinyAppTeam/Counting_Techniques/issues
 License: CC-BY-NC-SA-4.0
 Tags: simulation
 Type: Shiny
