@@ -1,4 +1,4 @@
-# APP_TITLE
+# Counting Techniques
 
 ![experimental](https://img.shields.io/badge/lifecycle-experimental-orange)
 ![year](https://img.shields.io/badge/year-2021-lightgrey)
@@ -6,4 +6,4 @@
 
 ![App Screenshot](/docs/screenshot.png)
 
-APP_DESCRIPTION
+This app is designed to teach and review combinatorics and counting principles.
