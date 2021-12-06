@@ -110,8 +110,8 @@ ui <- list(
           h2("Acknowledgements"),
           p(
             "This version of the app was developed and coded by Kellien Peritz
-            and Shravani Samala. We would like to extend a special thanks to Dr. Dennis Pearl for
-            providing the question bank.",
+            and Shravani Samala. We would like to extend a special thanks to Dr.
+            Dennis Pearl for providing the question bank.",
             br(),
             br(),
             "Cite this app as:",

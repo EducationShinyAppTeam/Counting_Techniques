@@ -18,5 +18,5 @@ DisplayMode: Normal
 URL: https://psu-eberly.shinyapps.io/Counting_Techniques
 BugReports: https://github.com/EducationShinyAppTeam/Counting_Techniques/issues
 License: CC-BY-NC-SA-4.0
-Tags: simulation
+Tags: game
 Type: Shiny
